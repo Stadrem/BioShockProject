@@ -10,6 +10,14 @@ public class GameManager : MonoBehaviour
     //다른 곳에서 활용할 변수등등
     public int HP;
 
+    public GameObject player;
+
+    Animator anim;
+
+    public float shakeAmount = 0.07f;
+
+    bool shake;
+
     private void Awake()
     {
         //instance 값이 null이면
@@ -27,12 +35,44 @@ public class GameManager : MonoBehaviour
             //의도치 않은 중복 적용일 태니 이 게임 오브젝트 파괴.
             Destroy(gameObject);
         }
+
+        if (GameObject.Find("Player") == null)
+        {
+            Debug.LogError("Player GameObject not found!");
+            // 추가적인 예외 처리 코드
+        }
+        else
+        {
+            player = GameObject.Find("Player");
+        }
+
+        anim = player.GetComponentInChildren<Animator>();
+    }
+
+    private void Update()
+    {
+        if (shake == true)
+        {
+            Camera.main.transform.position += Random.insideUnitSphere * shakeAmount;
+        }
     }
 
     //여러번, 고정적으로 사용할 함수 생성
-    public void UpdateScore(int addScore)
+    void Damaged(int num)
     {
-        //처리할 내용들
-        
+        HP -= num;
+
+        anim.SetTrigger("IsDamaged");
+
+        StartCoroutine(ShakeTime());
+    }
+
+    IEnumerator ShakeTime()
+    {
+        shake = true;
+
+        yield return new WaitForSeconds(0.1f);
+
+        shake = false;
     }
 }
