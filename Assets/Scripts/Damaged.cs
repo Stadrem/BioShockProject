@@ -8,6 +8,7 @@ public class Damaged : MonoBehaviour
     //resis는 마법 저항력입니다. 0.5f로 설정하면 마법으로 인한 경직이 반감됩니다. 0으로 설정하면 경직되지 않습니다.
     public int HP = 10;
     public float resis = 1.0f;
+    public float speed = 5.0f;
 
     //Enemy 상태 관리 가져오기
     EnemyState enemyState;
@@ -31,7 +32,7 @@ public class Damaged : MonoBehaviour
         switch (type)
         {
             case "Shock":
-                StunDamageStep(damage);
+                StunDamageStep(damage, 1.0f);
                 break;
 
             case "Fire":
@@ -39,7 +40,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Ice":
-                StunDamageStep(damage);
+                StunDamageStep(damage, 3.0f);
                 break;
 
             default:
@@ -48,17 +49,22 @@ public class Damaged : MonoBehaviour
         }
     }
 
-    void StunDamageStep(int damage)
+    //기절 시간이 포함된 데미지 스텝
+    void StunDamageStep(int damage, float time)
     {
         HP -= damage;
+
         enemyState.ChangeState(EnemyState.State.Stun);
-        anim.SetTrigger("IsStun");
+
+        StartCoroutine(StunTime(time));
     }
 
+    //으앙 쥬금
     void Die()
     {
         enemyState.ChangeState(EnemyState.State.Die);
-        anim.SetTrigger("IsDie");
+
+        anim.SetBool("Die", true);
     }
 
     //damage는 깍을 피, j는 피해 입힐 횟수
@@ -76,5 +82,15 @@ public class Damaged : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    //스턴 시간 코루틴
+    IEnumerator StunTime(float time)
+    {
+        anim.SetBool("IsStun", true);
+
+        yield return new WaitForSeconds(2.0f);
+
+        anim.SetBool("IsStun", false);
     }
 }

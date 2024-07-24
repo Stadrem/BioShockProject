@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyState : MonoBehaviour
 {
-    public float speed = 25.0f;
+    //public float speed = 10.0f;
 
     Rigidbody rb;
 
-    Vector3 dir;
+    //Vector3 dir;
 
     bool ChaseOn = false;
+
+    NavMeshAgent na;
 
     public enum State
     {
@@ -31,6 +34,7 @@ public class EnemyState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        na = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트를 가져옴
         rb = GetComponent<Rigidbody>();
     }
 
@@ -46,7 +50,7 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Chase:
-                transform.LookAt(GameManager.instance.player.transform);
+                //transform.LookAt(GameManager.instance.player.transform);
                 ChaseOn = true;
                 break;
 
@@ -76,12 +80,11 @@ public class EnemyState : MonoBehaviour
 
     void ChaseState()
     {
-        dir = GameManager.instance.player.transform.position - transform.position;
+        //dir = GameManager.instance.player.transform.position - transform.position;
 
-        dir.Normalize();
+        //dir.Normalize();
 
-        //transform.position += dir * speed * Time.deltaTime;
-
-        rb.velocity = dir * speed;
+        na.SetDestination(GameManager.instance.player.transform.position);
+        //rb.velocity = dir * speed;
     }
 }
