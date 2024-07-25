@@ -18,8 +18,8 @@ public class ObjRotate : MonoBehaviour
     float rotSpeed = 200;
 
     //회전 가능 여부 ==하나는 카메라에 집어넣고 하나는 플레이어에 넣을것. RotX는 플레이어에, RotY는 메인카메라에 
-    public bool useVertical = false;
-    public bool useHorizontal = false;
+    public bool useRotX;
+    public bool useRotY;
 
     //region 레퍼런스 타입과 value 타입의 경우 반환되었을 때 멤버변수 접근허용/ 비허용 
     //void TestFunc()
@@ -39,22 +39,25 @@ public class ObjRotate : MonoBehaviour
         float my = Input.GetAxis("Mouse Y");
         //2. 마우스의 움직임값을 누적시키자
 
-        if (useHorizontal == true)
+        if (useRotY)
         {
-            rotX += mx * Time.deltaTime * rotSpeed;
+            rotY += mx  * rotSpeed * Time.deltaTime;
         }
 
 
-        if (useVertical == true)
+        if (useRotX)
         {
-            rotY += my * Time.deltaTime * rotSpeed;
+            rotX += my  * rotSpeed * Time.deltaTime;
         }
 
 
-        rotY += my * Time.deltaTime * rotSpeed;
+        //rotY += my * Time.deltaTime * rotSpeed;
+
         //rotX의 값을 -80 80도로 제한
+        rotX = Mathf.Clamp(rotX, -80, 80);
+
         //3. 누적된 값을 물체의 회전값으로 셋팅하자. localEulerAngles(0~360값 세팅)
-        transform.localEulerAngles = new Vector3(-rotY, rotX, 0);
+        transform.localEulerAngles = new Vector3(-rotX, rotY, 0);
     }
 }
 
