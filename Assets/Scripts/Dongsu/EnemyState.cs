@@ -14,10 +14,11 @@ public class EnemyState : MonoBehaviour
     bool ChaseOn = false;
 
     NavMeshAgent na;
-    float tempSpeed = 0;
 
     //Animator 가져오기
     Animator anim;
+
+    public Rigidbody[] ragdollRigidbodies;
 
 
     public enum State
@@ -34,8 +35,8 @@ public class EnemyState : MonoBehaviour
 
     public GameObject AttackRange;
     public GameObject ChaseRange;
-
     public State currentState;
+    private State previousState;
 
     // Start is called before the first frame update
     void Start()
@@ -43,19 +44,37 @@ public class EnemyState : MonoBehaviour
         na = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트를 가져옴
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        currentState = State.Idle;
+        previousState = currentState;
+
+        // 레그돌의 리지드바디를 비활성화
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 상태가 변경되었는지 확인
+        if (currentState != previousState)
+        {
+            OnStateChanged();
+            previousState = currentState;
+        }
+        if (ChaseOn == true)
+        {
+            ChaseState();
+        }
+    }
+
+    void OnStateChanged()
+    {
         switch (currentState)
         {
             case State.Idle:
                 IdleState();
-                break;
-
-            case State.Patroll:
-                PatrollState();
                 break;
 
             case State.Chase:
@@ -71,6 +90,7 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Damaged:
+                print("데미지");
                 DamagedState();
                 break;
 
@@ -83,12 +103,8 @@ public class EnemyState : MonoBehaviour
                 break;
         }
 
-        if (ChaseOn == true)
-        {
-            ChaseState();
-        }
     }
-    
+
     public void ChangeState(State newState)
     {
         currentState = newState;
@@ -96,11 +112,7 @@ public class EnemyState : MonoBehaviour
 
     void IdleState()
     {
-        //anim.SetTrigger("IsIdle");
-    }
-    void PatrollState()
-    {
-        anim.SetTrigger("IsWalk");
+        anim.SetTrigger("IsIdle");
     }
 
     void StunState()
@@ -115,27 +127,42 @@ public class EnemyState : MonoBehaviour
 
     void FreezeState()
     {
-        tempSpeed = na.speed;
-        na.speed = 0;
+        na.isStopped = true;
         anim.speed = 0;
         StartCoroutine(FreezeTime(freezeTime));
     }
 
     void ChaseState()
     {
+        anim.SetBool("IsAttack", false);
+        anim.SetBool("IsWalk", true);
+        na.isStopped = false;
         na.SetDestination(GameManager.instance.player.transform.position);
     }
 
     void AttackState()
     {
         ChaseOn = false;
-        anim.SetTrigger("IsAttack");
+        anim.SetBool("IsAttack", true);
+        anim.SetBool("IsWalk", false);
     }
 
     void DieState()
     {
         na.enabled = false;
-        anim.SetBool("IsDie", true);
+        // 애니메이터 비활성화
+        anim.enabled = false;
+
+        // 레그돌의 리지드바디 활성화
+        foreach (Rigidbody rb in ragdollRigidbodies)
+        {
+            rb.isKinematic = false;
+        }
+
+        AttackRange.SetActive(false);
+        ChaseRange.SetActive(false);
+
+        this.enabled = false;
     }
 
     //스턴 시간 코루틴
@@ -154,7 +181,6 @@ public class EnemyState : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         anim.speed = 1;
-
-        na.speed = tempSpeed;
+        na.isStopped = false;
     }
 }

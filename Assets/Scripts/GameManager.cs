@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     //다른 곳에서 활용할 변수등등
-    public int HP;
+    public int HP = 10;
 
     public GameObject player;
 
@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public float shakeAmount = 0.07f;
 
     bool shake;
+
+    private Transform cameraTransform;
+    private Vector3 originalCameraLocalPosition;
 
     private void Awake()
     {
@@ -46,6 +49,8 @@ public class GameManager : MonoBehaviour
             player = GameObject.Find("Player");
         }
 
+        cameraTransform = Camera.main.transform.parent;
+        originalCameraLocalPosition = Camera.main.transform.localPosition;
         anim = player.GetComponentInChildren<Animator>();
     }
 
@@ -53,16 +58,16 @@ public class GameManager : MonoBehaviour
     {
         if (shake == true)
         {
-            Camera.main.transform.position += Random.insideUnitSphere * shakeAmount;
+            Camera.main.transform.localPosition = originalCameraLocalPosition + Random.insideUnitSphere * shakeAmount;
         }
     }
 
     //여러번, 고정적으로 사용할 함수 생성
-    void Damaged(int num)
+    public void Damaged(int num)
     {
         HP -= num;
 
-        anim.SetTrigger("IsDamaged");
+        //anim.SetTrigger("IsDamaged");
 
         StartCoroutine(ShakeTime());
     }
@@ -74,5 +79,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         shake = false;
+        Camera.main.transform.localPosition = originalCameraLocalPosition;
     }
 }

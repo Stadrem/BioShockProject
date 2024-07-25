@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class ChaseRange : MonoBehaviour
 {
-    public EnemyState enemyState;
+    EnemyState enemyState;
     GameObject enemy;
 
     public int chaseRange = 20;
+
+    RaycastHit hitInfo;
+
+    bool chaseCheck = false;
+
+    GameObject target;
 
     // Start is called before the first frame update
     void Start()
@@ -23,29 +30,37 @@ public class ChaseRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        RaycastHit hitInfo;
         print("입장");
-        if (Physics.Raycast(enemy.transform.position, other.transform.position, out hitInfo, chaseRange))
+        if (other.gameObject.CompareTag("Player"))
         {
-            print("레이발사");
-            if (hitInfo.transform.gameObject.CompareTag("Player"))
-            {
-                print("인식완료");
-                enemyState.ChangeState(EnemyState.State.Chase);
-            }
-            else
-            {
-                print("인식불가");
-            }
+            target = other.gameObject;
+            print("레이");
+            StartCoroutine(RetryRay());
         }
     }
-    /*
-    private void OnTriggerExit(Collider other)
+
+    private IEnumerator RetryRay()
     {
-        if (other.gameObject == GameManager.instance.player)
+        print("코루틴");
+        while (chaseCheck == false)
         {
-            enemyState.ChangeState(EnemyState.State.Idle);
+            print("반복문");
+            if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange))
+            {
+                if (hitInfo.transform.gameObject.CompareTag("Player"))
+                {
+                    print("인식완료");
+
+                    enemyState.ChangeState(EnemyState.State.Chase);
+
+                    chaseCheck = true;
+                }
+                else
+                {
+                    print("인식불가");
+                }
+            }
+            yield return new WaitForSeconds(2f);
         }
     }
-    */
 }

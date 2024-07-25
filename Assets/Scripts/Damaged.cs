@@ -19,6 +19,14 @@ public class Damaged : MonoBehaviour
         enemyState = GetComponent<EnemyState>();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Damage(1, "Debug");
+        }
+    }
+
     //받은 마법 종류에 따라서 다른 데미지와 행동을 구현합니다.
     public void Damage(int damage, string type)
     {
@@ -29,7 +37,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Fire":
-                DamageStep(damage, 5);
+                StartCoroutine(DamageStep(damage, 5, type));
                 break;
 
             case "Ice":
@@ -37,7 +45,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             default:
-                DamageStep(damage, 1);
+                StartCoroutine(DamageStep(damage, 1, type));
                 break;
         }
     }
@@ -59,15 +67,19 @@ public class Damaged : MonoBehaviour
     }
 
     //damage는 깍을 피, j는 피해 입힐 횟수
-    IEnumerator DamageStep(int damage, int j)
+    IEnumerator DamageStep(int damage, int j, string type)
     {
-        enemyState.ChangeState(EnemyState.State.Chase);
+        enemyState.ChangeState(EnemyState.State.Damaged);
 
         for (int i = 0; i < j; i++)
         {
-            if(enemyState.currentState == EnemyState.State.Freeze)
+            if(enemyState.currentState == EnemyState.State.Freeze && type == "Melee")
             {
                 HP -= damage * 2;
+            }
+            else
+            {
+                HP -= damage;
             }
             
             if (HP <= 0)
