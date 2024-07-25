@@ -21,14 +21,14 @@ public class ChaseRange : MonoBehaviour
     {
         if(other.gameObject == GameManager.instance.player)
         {
-            enemyState.ChangeState(EnemyState.State.Chase);
+            enemyState.ChangeState("Chase");
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == GameManager.instance.player)
         {
-            enemyState.ChangeState(EnemyState.State.Idle);
+            enemyState.ChangeState("Idle");
         }
     }
 }

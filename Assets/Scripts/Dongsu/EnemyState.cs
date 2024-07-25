@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,6 +23,7 @@ public class EnemyState : MonoBehaviour
         Chase,
         Attack,
         Stun,
+        Freeze,
         Damaged,
         Die
     }
@@ -73,9 +75,9 @@ public class EnemyState : MonoBehaviour
         }
     }
     
-    public void ChangeState(State newState)
+    public void ChangeState(string newState)
     {
-        currentState = newState;
+        currentState = (State)Enum.Parse(typeof(State), newState);
     }
 
     void ChaseState()

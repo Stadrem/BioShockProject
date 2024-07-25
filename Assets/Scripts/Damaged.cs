@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Enemy을 위한 종합 데미지 처리 시스템입니다.
+//Enemy을 위한 종합 데미지 처리 시스템입니다. Enemy의 Animator가 부착된 GameObject에 붙여주세요.
 public class Damaged : MonoBehaviour
 {
     //resis는 마법 저항력입니다. 0.5f로 설정하면 마법으로 인한 경직이 반감됩니다. 0으로 설정하면 경직되지 않습니다.
@@ -27,6 +27,7 @@ public class Damaged : MonoBehaviour
         anim = enemy.GetComponentInChildren<Animator>();
     }
 
+    //받은 마법 종류에 따라서 다른 데미지와 행동을 구현합니다.
     public void Damage(int damage, string type)
     {
         switch (type)
@@ -36,17 +37,27 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Fire":
-                DamageStep(damage, 5);
+                DamageStep(damage, 5, type);
                 break;
 
             case "Ice":
-                StunDamageStep(damage, 3.0f);
+                FreezeDamageStep(damage, 3.0f);
                 break;
 
             default:
-                DamageStep(damage, 1);
+                DamageStep(damage, 1, type);
                 break;
         }
+    }
+
+    //아래부터 enemyState에 상태 변화값을 던져줍니다. enemyState에 ChangeState 함수를 만들어서 컨트롤하세요.
+
+    //기절 시간이 포함된 데미지 스텝
+    void FreezeDamageStep(int damage, float time)
+    {
+        enemyState.ChangeState("Freeze");
+
+        StartCoroutine(StunTime(time));
     }
 
     //기절 시간이 포함된 데미지 스텝
@@ -54,7 +65,7 @@ public class Damaged : MonoBehaviour
     {
         HP -= damage;
 
-        enemyState.ChangeState(EnemyState.State.Stun);
+        enemyState.ChangeState("Stun");
 
         StartCoroutine(StunTime(time));
     }
@@ -62,17 +73,23 @@ public class Damaged : MonoBehaviour
     //으앙 쥬금
     void Die()
     {
-        enemyState.ChangeState(EnemyState.State.Die);
+        enemyState.ChangeState("Die");
 
         anim.SetBool("Die", true);
     }
 
     //damage는 깍을 피, j는 피해 입힐 횟수
-    IEnumerator DamageStep(int damage, int j)
+    IEnumerator DamageStep(int damage, int j, string type)
     {
+        enemyState.ChangeState("Damaged");
+
         for (int i = 0; i < j; i++)
         {
-            HP -= damage;
+            if(type == "Melee")
+            {
+                HP -= damage * 2;
+            }
+            
 
             if (HP <= 0)
             {
@@ -89,8 +106,18 @@ public class Damaged : MonoBehaviour
     {
         anim.SetBool("IsStun", true);
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(time);
 
         anim.SetBool("IsStun", false);
+    }
+
+    //프리즈 시간 코루틴
+    IEnumerator FreezeTime(float time)
+    {
+        anim.speed = 0;
+
+        yield return new WaitForSeconds(time);
+
+        anim.speed = 1;
     }
 }
