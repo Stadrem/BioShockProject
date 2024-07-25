@@ -6,15 +6,19 @@ using UnityEngine.AI;
 
 public class EnemyState : MonoBehaviour
 {
-    //public float speed = 10.0f;
+    public float shockStunTime = 2.0f;
+    public float freezeTime = 6.0f;
 
     Rigidbody rb;
-
-    //Vector3 dir;
 
     bool ChaseOn = false;
 
     NavMeshAgent na;
+    float tempSpeed = 0;
+
+    //Animator 가져오기
+    Animator anim;
+
 
     public enum State
     {
@@ -38,6 +42,7 @@ public class EnemyState : MonoBehaviour
     {
         na = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트를 가져옴
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -46,26 +51,35 @@ public class EnemyState : MonoBehaviour
         switch (currentState)
         {
             case State.Idle:
+                IdleState();
                 break;
 
             case State.Patroll:
+                PatrollState();
                 break;
 
             case State.Chase:
-                //transform.LookAt(GameManager.instance.player.transform);
                 ChaseOn = true;
                 break;
 
             case State.Attack:
+                AttackState();
                 break;
 
             case State.Stun:
+                StunState();
                 break;
 
             case State.Damaged:
+                DamagedState();
+                break;
+
+            case State.Freeze:
+                FreezeState();
                 break;
 
             case State.Die:
+                DieState();
                 break;
         }
 
@@ -75,18 +89,72 @@ public class EnemyState : MonoBehaviour
         }
     }
     
-    public void ChangeState(string newState)
+    public void ChangeState(State newState)
     {
-        currentState = (State)Enum.Parse(typeof(State), newState);
+        currentState = newState;
+    }
+
+    void IdleState()
+    {
+        //anim.SetTrigger("IsIdle");
+    }
+    void PatrollState()
+    {
+        anim.SetTrigger("IsWalk");
+    }
+
+    void StunState()
+    {
+        StartCoroutine(StunTime(shockStunTime));
+    }
+
+    void DamagedState()
+    {
+        anim.SetBool("IsDamaged", true);
+    }
+
+    void FreezeState()
+    {
+        tempSpeed = na.speed;
+        na.speed = 0;
+        anim.speed = 0;
+        StartCoroutine(FreezeTime(freezeTime));
     }
 
     void ChaseState()
     {
-        //dir = GameManager.instance.player.transform.position - transform.position;
-
-        //dir.Normalize();
-
         na.SetDestination(GameManager.instance.player.transform.position);
-        //rb.velocity = dir * speed;
+    }
+
+    void AttackState()
+    {
+        ChaseOn = false;
+        anim.SetTrigger("IsAttack");
+    }
+
+    void DieState()
+    {
+        na.enabled = false;
+        anim.SetBool("IsDie", true);
+    }
+
+    //스턴 시간 코루틴
+    IEnumerator StunTime(float time)
+    {
+        anim.SetBool("IsStun", true);
+
+        yield return new WaitForSeconds(time);
+
+        anim.SetBool("IsStun", false);
+    }
+
+    //프리즈 시간 코루틴
+    IEnumerator FreezeTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        anim.speed = 1;
+
+        na.speed = tempSpeed;
     }
 }

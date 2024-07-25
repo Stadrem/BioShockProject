@@ -21,14 +21,14 @@ public class AttackRange : MonoBehaviour
     {
         if (other.gameObject == GameManager.instance.player)
         {
-            enemyState.ChangeState("Attack");
+            enemyState.ChangeState(EnemyState.State.Attack);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == GameManager.instance.player)
         {
-            enemyState.ChangeState("Chase");
+            enemyState.ChangeState(EnemyState.State.Chase);
         }
     }
 }
