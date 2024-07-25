@@ -9,6 +9,8 @@ public class PlayerFire : MonoBehaviour
     // Start is called before the first frame update
     public GameObject bulletImpactFactory;
 
+    //Raycast를 이용한 총알 발사에 검출되는 Layer설정 
+    public LayerMask layerMask;
     void Start()
     {
         
@@ -24,7 +26,8 @@ public class PlayerFire : MonoBehaviour
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             //Ray를 발사해서 어딘가에 부딪혔다면(Physics라는 걸로 발사가능)
             RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo)) //float으로 만들었을때 최대로 들어갈 수 있는 변수 == MaxValue
+                                                                              //if (Physics.Raycast(ray, out hitInfo, float.MaxValue, layerMask))
             {
                 //총알 파편 효과를 생성하자.
                 GameObject bulletImpact = Instantiate(bulletImpactFactory);
@@ -36,6 +39,8 @@ public class PlayerFire : MonoBehaviour
                 //Vector3 outDirection = Vector3.Reflect(ray.direction, hitInfo.normal);
                // bulletImpact.transfrom.foward = outDirection;
 
+                //2초 뒤에 생성효과 파괴 
+                Destroy(bulletImpact, 2);
 
                 //부딪힌 오브젝트의 이름과 부딪힌 위치를 출력해보자.
                 print(hitInfo.transform.name + "," + hitInfo.point);
