@@ -8,7 +8,7 @@ public class RangedWeapon : MonoBehaviour
     public Transform firePoint; // 총알 발사 위치
     public float bulletSpeed = 10f; // 총알 속도
     public float attackRange = 100f; // 공격 범위
-    public int damage = 25; // 공격 데미지
+    public int damage = 35; // 공격 데미지
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class RangedWeapon : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // 마우스 우클릭
+        if (Input.GetButtonDown("Fire1")) // 마우스 우클릭
         {
             Shoot();
         }
