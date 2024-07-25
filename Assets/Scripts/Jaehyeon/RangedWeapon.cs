@@ -10,6 +10,10 @@ public class RangedWeapon : MonoBehaviour
     public float attackRange = 100f; // 공격 범위
     public int damage = 25; // 공격 데미지
 
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(1)) // 마우스 우클릭
