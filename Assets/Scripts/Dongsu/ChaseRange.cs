@@ -47,6 +47,7 @@ public class ChaseRange : MonoBehaviour
             print("반복문");
             if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange))
             {
+                print("Ray 발사");
                 if (hitInfo.transform.gameObject.CompareTag("Player"))
                 {
                     print("인식완료");
@@ -61,6 +62,11 @@ public class ChaseRange : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(2f);
+
+            if(chaseCheck == true)
+            {
+                break;
+            }
         }
     }
 }
