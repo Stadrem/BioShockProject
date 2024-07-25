@@ -25,9 +25,9 @@ public class RangedWeapon : MonoBehaviour
     void Shoot()
     {
         // 총알 프리팹을 생성하고 발사
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.velocity = firePoint.forward * bulletSpeed;
+        //GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        //Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        //rb.velocity = firePoint.forward * bulletSpeed;
 
         // Raycast를 이용해 적 감지 및 데미지 적용
         Ray ray = new Ray(firePoint.position, firePoint.forward);
