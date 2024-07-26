@@ -693,7 +693,7 @@ MonoBehaviour:
   attackRanage: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 119
   attackPoint: {fileID: 653906625820663188}
 --- !u!1 &750791487044589427 stripped
 GameObject:

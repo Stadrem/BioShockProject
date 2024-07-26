@@ -25,6 +25,8 @@ public class EnemyState : MonoBehaviour
 
     bool firstHit = true;
 
+    bool dying = false;
+
     public GameObject AttackRange;
     public GameObject ChaseRange;
     public State currentState;
@@ -147,9 +149,11 @@ public class EnemyState : MonoBehaviour
         {
             anim.SetBool("IsAttack", false);
             anim.SetBool("IsWalk", true);
-            na.isStopped = false;
 
-            na.SetDestination(GameManager.instance.player.transform.position);
+            if (na.isActiveAndEnabled)
+            {
+                na.SetDestination(GameManager.instance.player.transform.position);
+            }
 
             float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
 
@@ -184,6 +188,8 @@ public class EnemyState : MonoBehaviour
 
         ChaseRange.SetActive(false);
 
+        //na.isStopped = true;
+        na.ResetPath();
         na.enabled = false;
 
         // 애니메이터 비활성화
@@ -203,15 +209,11 @@ public class EnemyState : MonoBehaviour
     //프리즈 시간 코루틴
     IEnumerator FreezeTime(float time)
     {
-        na.isStopped = true;
-
         anim.speed = 0;
 
         yield return new WaitForSeconds(time);
 
         anim.speed = 1;
-
-        na.isStopped = false;
     }
 
     void AlertNearbyEnemies()
