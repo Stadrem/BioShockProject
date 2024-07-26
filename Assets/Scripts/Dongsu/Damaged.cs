@@ -9,8 +9,7 @@ public class Damaged : MonoBehaviour
     public int HP = 10;
     public float resis = 1.0f;
     public float speed = 5.0f;
-    public float alertRadius = 10.0f;
-    bool firstHit = true;
+    
 
     //Enemy 상태 관리 가져오기
     EnemyState enemyState;
@@ -81,32 +80,9 @@ public class Damaged : MonoBehaviour
                 enemyState.ChangeState(EnemyState.State.Die);
                 yield break;
             }
-
-            if(firstHit == true)
-            {
-                firstHit = false;
-                AlertNearbyEnemies();
-            }
             yield return new WaitForSeconds(0.5f);
         }
     }
 
-    void AlertNearbyEnemies()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRadius);
-        foreach (var hitCollider in hitColliders)
-        {
-            if(hitCollider.CompareTag("Enemy"))
-            {
-                print("경보!!!");
-                EnemyState enemy = hitCollider.GetComponent<EnemyState>();
-                Damaged hitCheck = hitCollider.GetComponent<Damaged>();
-                if (enemy != null && enemy != this)
-                {
-                    hitCheck.firstHit = false;
-                    enemy.ChangeState(EnemyState.State.Chase);
-                }
-            }
-        }
-    }
+    
 }

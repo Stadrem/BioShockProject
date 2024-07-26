@@ -12,9 +12,9 @@ public class ChaseRange : MonoBehaviour
 
     RaycastHit hitInfo;
 
-    bool chaseCheck = false;
-
     GameObject target;
+
+    public LayerMask layerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +32,8 @@ public class ChaseRange : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            print("플레이어인식");
+
             target = other.gameObject;
 
             StartCoroutine(RetryRay());
@@ -40,27 +42,17 @@ public class ChaseRange : MonoBehaviour
 
     private IEnumerator RetryRay()
     {
-        while (chaseCheck == false)
+        while (true)
         {
-            if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange))
+            if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange, layerMask))
             {
                 print("Ray 발사");
                 if (hitInfo.transform.gameObject.CompareTag("Player"))
                 {
                     enemyState.ChangeState(EnemyState.State.Chase);
-
-                    chaseCheck = true;
-                }
-                else
-                {
                 }
             }
-            yield return new WaitForSeconds(2f);
-
-            if(chaseCheck == true)
-            {
-                break;
-            }
+            yield return new WaitForSeconds(3.0f);
         }
     }
 }

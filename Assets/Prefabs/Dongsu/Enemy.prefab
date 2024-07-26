@@ -78,6 +78,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseRange: 20
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 119
 --- !u!1 &653906625820663188
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,10 +159,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3
-  m_Acceleration: 70
+  m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 1000
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -182,7 +185,6 @@ MonoBehaviour:
   HP: 10
   resis: 1
   speed: 5
-  alertRadius: 10
 --- !u!114 &3727890826426414383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockStunTime: 2
   freezeTime: 6
+  reAttackDistance: 3
   ragdollRigidbodies:
   - {fileID: 98131812658340937}
   - {fileID: 901002323593227583}
@@ -212,6 +215,7 @@ MonoBehaviour:
   AttackRange: {fileID: 3263172304490014429}
   ChaseRange: {fileID: 522351869282769516}
   currentState: 0
+  alertRadius: 10
 --- !u!136 &8278061990845104306
 CapsuleCollider:
   m_ObjectHideFlags: 0

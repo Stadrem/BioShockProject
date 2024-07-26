@@ -8,7 +8,7 @@ public class AnimEvent : MonoBehaviour
 {
     EnemyState enemyState;
 
-    public float attackRanage = 5.0f;
+    public float attackRanage = 7.0f;
 
     public LayerMask layerMask;
 
@@ -28,28 +28,51 @@ public class AnimEvent : MonoBehaviour
     void IsMeleeAttack()
     {
         float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
+
         if (distance > enemyState.reAttackDistance)
         {
             enemyState.ChangeState(EnemyState.State.Chase);
         }
 
-        Ray ray = new Ray(attackPoint.transform.position, attackPoint.transform.forward);
+        //Ray ray = new Ray(attackPoint.transform.position, attackPoint.transform.forward);
 
-        RaycastHit hitInfo;
+        //RaycastHit hitInfo;
 
-        if (Physics.SphereCast(ray, 0.1f, out hitInfo, attackRanage, layerMask))
+        Collider[] hitColliders = Physics.OverlapSphere(attackPoint.transform.position, 2f, layerMask);
+
+        foreach (var hitCollider in hitColliders)
         {
-            Debug.DrawRay(attackPoint.transform.position, attackPoint.transform.forward, Color.green);
-            if (hitInfo.transform.gameObject.CompareTag("Player"))
+            if (hitCollider.CompareTag("Player"))
             {
+                print("때림!");
                 GameManager.instance.Damaged(1);
+                break;
+            }
+            else
+            {
+                enemyState.ChangeState(EnemyState.State.Chase);
+                print("없는데요?");
             }
         }
-        else
+        /*
+        if (Physics.SphereCast(ray, 2f, out hitInfo, attackRanage, layerMask))
         {
-            enemyState.ChangeState(EnemyState.State.Chase);
-        }
+            print(hitInfo.transform.name);
+            Debug.DrawRay(attackPoint.transform.position, attackPoint.transform.forward, Color.green, 2);
+
+            if (hitInfo.transform.gameObject.CompareTag("Player"))
+            {
+                print("때림!");
+                GameManager.instance.Damaged(1);
+            }
+            else
+            {
+                enemyState.ChangeState(EnemyState.State.Chase);
+                print("없는데요?");
+            }
         
+        }
+        */
     }
 
     void IsDamaged()

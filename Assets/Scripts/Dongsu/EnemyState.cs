@@ -10,7 +10,7 @@ public class EnemyState : MonoBehaviour
 {
     public float shockStunTime = 2.0f;
     public float freezeTime = 6.0f;
-    public float reAttackDistance = 3.0f;
+    public float reAttackDistance = 4.5f;
 
     Rigidbody rb;
 
@@ -23,6 +23,13 @@ public class EnemyState : MonoBehaviour
 
     public Rigidbody[] ragdollRigidbodies;
 
+    bool firstHit = true;
+
+    public GameObject AttackRange;
+    public GameObject ChaseRange;
+    public State currentState;
+    private State previousState;
+    public float alertRadius = 10.0f;
 
     public enum State
     {
@@ -35,11 +42,6 @@ public class EnemyState : MonoBehaviour
         Damaged,
         Die
     }
-
-    public GameObject AttackRange;
-    public GameObject ChaseRange;
-    public State currentState;
-    private State previousState;
 
     // Start is called before the first frame update
     void Start()
@@ -131,24 +133,32 @@ public class EnemyState : MonoBehaviour
 
     void FreezeState()
     {
-        na.isStopped = true;
-        anim.speed = 0;
         StartCoroutine(FreezeTime(freezeTime));
     }
 
     void ChaseState()
     {
-        anim.SetBool("IsAttack", false);
-        anim.SetBool("IsWalk", true);
-        na.isStopped = false;
-
-        na.SetDestination(GameManager.instance.player.transform.position);
-
-        float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
-
-        if (distance <= reAttackDistance)
+        if(firstHit == true)
         {
-            ChangeState(EnemyState.State.Attack);
+            anim.SetTrigger("IsFirstDetect");
+            StartCoroutine(Scream());
+        }
+        else
+        {
+            anim.SetBool("IsAttack", false);
+            anim.SetBool("IsWalk", true);
+            na.isStopped = false;
+
+            na.SetDestination(GameManager.instance.player.transform.position);
+
+            float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
+
+            AlertNearbyEnemies();
+
+            if (distance <= reAttackDistance)
+            {
+                ChangeState(EnemyState.State.Attack);
+            }
         }
     }
 
@@ -169,9 +179,13 @@ public class EnemyState : MonoBehaviour
         }
 
         this.enabled = false;
+
         AttackRange.SetActive(false);
+
         ChaseRange.SetActive(false);
+
         na.enabled = false;
+
         // 애니메이터 비활성화
         anim.enabled = false;
     }
@@ -189,9 +203,49 @@ public class EnemyState : MonoBehaviour
     //프리즈 시간 코루틴
     IEnumerator FreezeTime(float time)
     {
+        na.isStopped = true;
+
+        anim.speed = 0;
+
         yield return new WaitForSeconds(time);
 
         anim.speed = 1;
+
         na.isStopped = false;
+    }
+
+    void AlertNearbyEnemies()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Enemy"))
+            {
+                EnemyState enemy = hitCollider.GetComponent<EnemyState>();
+
+                if (enemy != null && enemy != this && enemy.firstHit == true)
+                {
+                    enemy.ChangeState(EnemyState.State.Chase);
+                }
+            }
+        }
+    }
+
+    IEnumerator Scream()
+    {
+        //플레이어 방향 바라보기
+        Vector3 lookPos = GameManager.instance.player.transform.position - transform.position;
+
+        lookPos.y = 0; // Y축 회전을 방지
+
+        Quaternion rotation = Quaternion.LookRotation(lookPos);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 10);
+
+        yield return new WaitForSeconds(1);
+
+        firstHit = false;
+
+        ChaseState();
     }
 }
