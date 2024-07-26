@@ -6,6 +6,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
 {
     public GameObject[] weapons; // 무기 배열 (오른손)
     public GameObject magic; // 마법 (왼손)
+    public GameObject rightArm;
     public Transform rightHand; // 오른손 위치
     public Transform leftHand; // 왼손 위치
 
@@ -85,9 +86,10 @@ public class WeaponMagicSwitcher : MonoBehaviour
         if (isMagicActive)
         {
             magic.SetActive(true);
+            rightArm.SetActive(false);
             magic.transform.SetParent(leftHand);
-            magic.transform.localPosition = Vector3.zero;
-            magic.transform.localRotation = Quaternion.identity;
+            //magic.transform.localPosition = Vector3.zero;
+            //magic.transform.localRotation = Quaternion.identity;
 
             for (int i = 0; i < weapons.Length; i++)
             {
@@ -97,6 +99,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
         else
         {
             magic.SetActive(false);
+            rightArm.SetActive(true);
             SelectWeapon();
         }
     }
