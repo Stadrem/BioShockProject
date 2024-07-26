@@ -28,6 +28,7 @@ public class RangedWeapon : WeaponBase
             print(hitInfo.transform.name);
             if (hitInfo.collider.CompareTag("Enemy"))
             {
+                print("????");
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
                 damaged.Damage(weaponState.damage, "Shot");
             }
