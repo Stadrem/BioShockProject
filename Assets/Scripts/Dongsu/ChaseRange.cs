@@ -30,34 +30,28 @@ public class ChaseRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("입장");
         if (other.gameObject.CompareTag("Player"))
         {
             target = other.gameObject;
-            print("레이");
+
             StartCoroutine(RetryRay());
         }
     }
 
     private IEnumerator RetryRay()
     {
-        print("코루틴");
         while (chaseCheck == false)
         {
-            print("반복문");
             if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange))
             {
                 if (hitInfo.transform.gameObject.CompareTag("Player"))
                 {
-                    print("인식완료");
-
                     enemyState.ChangeState(EnemyState.State.Chase);
 
                     chaseCheck = true;
                 }
                 else
                 {
-                    print("인식불가");
                 }
             }
             yield return new WaitForSeconds(2f);
