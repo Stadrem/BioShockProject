@@ -8,6 +8,7 @@ using UnityEngine.AI;
 
 public class EnemyState : MonoBehaviour
 {
+    public string enemyName;
     public float shockStunTime = 2.0f;
     public float freezeTime = 6.0f;
     public float reAttackDistance = 4.5f;
@@ -25,7 +26,7 @@ public class EnemyState : MonoBehaviour
 
     bool firstHit = true;
 
-    bool dying = false;
+    //bool dying = false;
 
     public GameObject AttackRange;
     public GameObject ChaseRange;

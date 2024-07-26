@@ -121,9 +121,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8220651588259639477}
-  - component: {fileID: 3912056709781346275}
   - component: {fileID: 6989782450021172311}
   - component: {fileID: 3727890826426414383}
+  - component: {fileID: 3912056709781346275}
   - component: {fileID: 8278061990845104306}
   m_Layer: 7
   m_Name: Enemy
@@ -148,28 +148,6 @@ Transform:
   - {fileID: 208538876833148562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &3912056709781346275
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118095277992545208}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3
-  m_Acceleration: 4
-  avoidancePriority: 50
-  m_AngularSpeed: 1000
-  m_StoppingDistance: 1
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 3
 --- !u!114 &6989782450021172311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887026230419d6142bbc3421f7ff92e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyName: Splicer
   shockStunTime: 2
   freezeTime: 6
   reAttackDistance: 3
@@ -216,6 +195,28 @@ MonoBehaviour:
   ChaseRange: {fileID: 522351869282769516}
   currentState: 0
   alertRadius: 10
+--- !u!195 &3912056709781346275
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118095277992545208}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 4
+  avoidancePriority: 50
+  m_AngularSpeed: 1000
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 3
 --- !u!136 &8278061990845104306
 CapsuleCollider:
   m_ObjectHideFlags: 0

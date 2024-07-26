@@ -22,10 +22,6 @@ public class Damaged : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Damage(2, "fmfkfk");
-        }
     }
 
     //받은 마법 종류에 따라서 다른 데미지와 행동을 구현합니다.
