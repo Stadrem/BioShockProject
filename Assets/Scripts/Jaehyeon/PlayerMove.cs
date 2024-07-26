@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,33 +6,38 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
 
-    //¿òÁ÷ÀÌ´Â ½ºÇÇµå
+    //ì›€ì§ì´ëŠ” ìŠ¤í”¼ë“œ
     public float speed = 5;
 
-    //Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯
+    //ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬
     CharacterController cc;
 
-    //¾Æ·¡ 3°¡Áö(Áß·Â, ¼öÁ÷¼Ó·Â, Á¡ÇÁÆÄ¿ö) ÀÌ·¸°Ô ¼¼°¡Áö°¡ Àü¿ªº¯¼ö·Î ¼³Á¤µÇ¾î ÀÖ¾î¾ß, Á¡ÇÁµ¿ÀÛ ±âÃÊ ±¸Çö
-    //Áß·Â
+    //ì•„ë˜ 3ê°€ì§€(ì¤‘ë ¥, ìˆ˜ì§ì†ë ¥, ì í”„íŒŒì›Œ) ì´ë ‡ê²Œ ì„¸ê°€ì§€ê°€ ì „ì—­ë³€ìˆ˜ë¡œ ì„¤ì •ë˜ì–´ ìˆì–´ì•¼, ì í”„ë™ì‘ ê¸°ì´ˆ êµ¬í˜„
+    //ì¤‘ë ¥
     public float gravity = -20;
 
-    //¼öÁ÷¼Ó·Â(y¹æÇâ ¼Ó·Â) 
+    //ìˆ˜ì§ì†ë ¥(yë°©í–¥ ì†ë ¥) 
     public float yVelocity = 0;
 
-    //Á¡ÇÁÆÄ¿ö
+    //ì í”„íŒŒì›Œ
     public float jumpPower = 5;
 
-    //ÃÖ´ë Á¡ÇÁ È½¼ö
+    //ìµœëŒ€ ì í”„ íšŸìˆ˜
     public int jumpCount = 2;
 
-    //ÇöÀç Á¡ÇÁ È½¼ö
+    //í˜„ì¬ ì í”„ íšŸìˆ˜
     int jumpCurrCnt;
 
+    // ì•‰ê¸° ìƒíƒœì™€ ì†ë„
+    private bool isCrouching = false;
+    public float crouchSpeed = 2.5f;
+    public float crouchHeight = 1.0f;
+    public float standHeight = 2.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ °¡Á®¿À±â
+        //ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬ ê°€ì ¸ì˜¤ê¸°
         cc = GetComponent<CharacterController>();
 
     }
@@ -40,19 +45,35 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //1. »ç¿ëÀÚÀÇ ÀÔ·ÂÀ» ¹Ş¾Æ¾ßÇÔ(w, a, s, d)
-        float h = Input.GetAxis("Horizontal"); //a = -1, d = 1 ´­¸£Áö ¾ÊÀ¸¸é 0
-        float v = Input.GetAxis("Vertical"); //s = -1 w=1 ´­¸£Áö ¾ÊÀ¸¸é 0
+        //1. ì‚¬ìš©ìì˜ ì…ë ¥ì„ ë°›ì•„ì•¼í•¨(w, a, s, d)
+        float h = Input.GetAxis("Horizontal"); //a = -1, d = 1 ëˆŒë¥´ì§€ ì•Šìœ¼ë©´ 0
+        float v = Input.GetAxis("Vertical"); //s = -1 w=1 ëˆŒë¥´ì§€ ì•Šìœ¼ë©´ 0
 
-        //2. °ª¿¡ µû¶ó¼­ ¹æÇâÀ» ¸¸´Â´Ù. ex(1, 0, 0) * h == aÅ°¸¦ ´­·¶À»¶§ dÅ°¸¦ ´©¸£°Ô µÇ¸é (-1, 0, 0)ÀÌ µÇ±â¿¡ ¿ŞÂÊ
+        //2. ê°’ì— ë”°ë¼ì„œ ë°©í–¥ì„ ë§ŒëŠ”ë‹¤. ex(1, 0, 0) * h == aí‚¤ë¥¼ ëˆŒë €ì„ë•Œ dí‚¤ë¥¼ ëˆ„ë¥´ê²Œ ë˜ë©´ (-1, 0, 0)ì´ ë˜ê¸°ì— ì™¼ìª½
         Vector3 dirH = transform.right * h;
         Vector3 dirV = transform.forward * v;
         Vector3 dir = dirH + dirV;
 
         dir.Normalize();
 
+        // ì•‰ê¸° ì²˜ë¦¬
+        if (Input.GetKeyDown(KeyCode.C)) //Cí‚¤ë¥¼ ëˆŒë €ì„ë•Œ ì•‰ê¸°
+        {
+            isCrouching = !isCrouching;
+            if (isCrouching)
+            {
+                cc.height = crouchHeight;
+                speed = crouchSpeed;
+            }
+            else
+            {
+                cc.height = standHeight;
+                speed = 5;
+            }
+        }
 
-        //¸¸¾à¿¡ ¶¥¿¡ ÀÖ´Ù¸é yVelocity¸¦ 0À¸·Î ÃÊ±âÈ­ÇÏÀÚ //ÇÏÁö¸¸ ÀÌ·²°æ¿ì Á¡ÇÁ°¡ µÉ¶§¶û ¾ÈµÉ¶§°¡ ¹ß»ıÇÏ°Ô µÈ´Ù. ÀÌ¸¦ ÇØ°áÇÏ±â À§ÇØ ¾Æ·¡ ÄÚµå¸¦ »ç¿ëÇÑ´Ù. 
+
+        //ë§Œì•½ì— ë•…ì— ìˆë‹¤ë©´ yVelocityë¥¼ 0ìœ¼ë¡œ ì´ˆê¸°í™”í•˜ì //í•˜ì§€ë§Œ ì´ëŸ´ê²½ìš° ì í”„ê°€ ë ë•Œë‘ ì•ˆë ë•Œê°€ ë°œìƒí•˜ê²Œ ëœë‹¤. ì´ë¥¼ í•´ê²°í•˜ê¸° ìœ„í•´ ì•„ë˜ ì½”ë“œë¥¼ ì‚¬ìš©í•œë‹¤. 
         if (cc.isGrounded)
         {
             yVelocity = 0;
@@ -60,33 +81,33 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        // 4. ¸¸¾à¿¡ ½ºÆäÀÌ½º ¹Ù¸¦ ´©¸£¸é
+        // 4. ë§Œì•½ì— ìŠ¤í˜ì´ìŠ¤ ë°”ë¥¼ ëˆ„ë¥´ë©´
 
         if (Input.GetButtonDown("Jump")) // #2 if(input.GetKeyDown(Keycode.space));
         {
 
-            //¸¸¾à¿¡ Á¡ÇÁÇÒ ¼ö ÀÖ´Ù¸é, Á¡ÇÁ¸¦ ÇÏÀÚ Á¡ÇÁÈ½¼ö¸¦ ÇÏ³ª Áõ°¡½ÃÅ°ÀÚ.
+            //ë§Œì•½ì— ì í”„í•  ìˆ˜ ìˆë‹¤ë©´, ì í”„ë¥¼ í•˜ì ì í”„íšŸìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚¤ì.
             if (jumpCurrCnt < jumpCount)
             {
-                //yVelocity¸¦ jumpPower ÇÑ´Ù.
+                //yVelocityë¥¼ jumpPower í•œë‹¤.
                 yVelocity = jumpPower;
 
-                //Á¡ÇÁ ÇÏ³ª Áõ°¡
+                //ì í”„ í•˜ë‚˜ ì¦ê°€
                 jumpCurrCnt++;
 
 
             }
         }
 
-        //yVelocity °ªÀ» Á¡Á¡ ÁÙ¿©ÁØ´Ù. (Áß·Â¿¡ ÀÇÇØ¼­) //ÀÌ·¸°Ô µÈ °æ¿ì Áö¸é¿¡ ¿Ã¶ó°¡ÀÖ´Ù°¡ ¹Ù´Ú¿¡ ¶³¾îÁú¶§ È® ¶³¾îÁö°Ô µÈ´Ù. 
+        //yVelocity ê°’ì„ ì ì  ì¤„ì—¬ì¤€ë‹¤. (ì¤‘ë ¥ì— ì˜í•´ì„œ) //ì´ë ‡ê²Œ ëœ ê²½ìš° ì§€ë©´ì— ì˜¬ë¼ê°€ìˆë‹¤ê°€ ë°”ë‹¥ì— ë–¨ì–´ì§ˆë•Œ í™• ë–¨ì–´ì§€ê²Œ ëœë‹¤. 
         yVelocity += gravity * Time.deltaTime;
 
-        //dirÀÇ y°ª¿¡ yVelocity¸¦ ¼¼ÆÃÇÑ´Ù. 
+        //dirì˜ yê°’ì— yVelocityë¥¼ ì„¸íŒ…í•œë‹¤. 
         dir.y = yVelocity;
 
 
-        //3. ±× ¹æÇâÀ¸·Î °è¼Ó ÀÌµ¿ÇÏ°í ½Í´Ù. 
-        //ÀÌµ¿ °ø½Ä p = p0 + vt
+        //3. ê·¸ ë°©í–¥ìœ¼ë¡œ ê³„ì† ì´ë™í•˜ê³  ì‹¶ë‹¤. 
+        //ì´ë™ ê³µì‹ p = p0 + vt
         //transform.position = transform.position + dir * 5 * Time.deltaTime;
         cc.Move(dir * speed * Time.deltaTime);
 
