@@ -5,6 +5,7 @@ using UnityEngine;
 public class RangedWeapon : WeaponBase
 {
     public WeaponState weaponState; // 무기 상태
+    public LayerMask layerMask;
 
     public override void Use()
     {
@@ -22,8 +23,9 @@ public class RangedWeapon : WeaponBase
         // Raycast를 이용해 적 감지 및 데미지 적용
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, weaponState.attackRange))
+        if (Physics.Raycast(ray, out hitInfo, weaponState.attackRange, layerMask))
         {
+            print(hitInfo.transform.name);
             if (hitInfo.collider.CompareTag("Enemy"))
             {
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();

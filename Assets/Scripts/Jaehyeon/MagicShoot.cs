@@ -5,6 +5,7 @@ using UnityEngine;
 public class MagicShoot : MonoBehaviour
 {
     public WeaponState weaponState; // 마법 상태
+    public LayerMask layerMask;
 
     void Update()
     {
@@ -23,9 +24,9 @@ public class MagicShoot : MonoBehaviour
         }
 
         // Raycast를 이용해 적 감지 및 데미지 적용
-        Ray ray = new Ray(weaponState.firePoint.position, weaponState.firePoint.forward);
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, weaponState.attackRange))
+        if (Physics.Raycast(ray, out hitInfo, weaponState.attackRange, layerMask))
         {
             if (hitInfo.collider.CompareTag("Enemy"))
             {
