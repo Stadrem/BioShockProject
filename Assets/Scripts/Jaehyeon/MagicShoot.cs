@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedWeapon : WeaponBase
+public class MagicShoot : MonoBehaviour
 {
-    public WeaponState weaponState; // 무기 상태
+    public WeaponState weaponState; // 마법 상태
     public LayerMask layerMask;
 
-    public override void Use()
+    void Update()
     {
-        Shoot();
+        if (Input.GetButtonDown("Fire1") && gameObject.activeSelf) // 마우스 좌클릭
+        {
+            ShootMagic();
+        }
     }
 
-    void Shoot()
+    public void ShootMagic()
     {
         if (weaponState == null)
         {
@@ -25,12 +28,10 @@ public class RangedWeapon : WeaponBase
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, weaponState.attackRange, layerMask))
         {
-            print(hitInfo.transform.name);
             if (hitInfo.collider.CompareTag("Enemy"))
             {
-                print("????");
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
-                damaged.Damage(weaponState.damage, "Shot");
+                damaged.Damage(weaponState.damage, "Magic");
             }
             else if (hitInfo.collider.CompareTag("Boss"))
             {
@@ -38,11 +39,9 @@ public class RangedWeapon : WeaponBase
                 //bossDamaged.BossDamage(1);
             }
 
-            // 총알 파편 효과 생성
-            GameObject bulletImpact = Instantiate(weaponState.prefab);
-            bulletImpact.transform.position = hitInfo.point;
-            bulletImpact.transform.forward = hitInfo.normal;
-            Destroy(bulletImpact, 2); // 2초 뒤에 파괴
+            // 마법 충돌 효과 생성
+            GameObject magicImpact = Instantiate(weaponState.prefab, hitInfo.point, Quaternion.identity);
+            Destroy(magicImpact, 2); // 2초 뒤에 파괴
         }
     }
 }
