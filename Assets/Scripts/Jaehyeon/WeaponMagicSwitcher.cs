@@ -57,12 +57,14 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (isMagicActive)
             {
                 // 마법 사용
-                magic.GetComponent<MagicShoot>().ShootMagic();
+                //magic.GetComponent<MagicShoot>().ShootMagic();
+                weapons[selectedWeapon].GetComponent<TotalWeapon>().Shoot();
             }
             else
             {
                 // 무기 사용
-                weapons[selectedWeapon].GetComponent<WeaponBase>().Use();
+                //weapons[selectedWeapon].GetComponent<WeaponBase>().Use();
+                weapons[selectedWeapon].GetComponent<TotalWeapon>().Shoot();
             }
         }
     }
