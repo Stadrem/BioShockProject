@@ -767,6 +767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletImpactFactory: {fileID: 100002, guid: 54dd9cb5740188a488b8baebbf19207c, type: 3}
   layerMask:
+    serializedVersion: 2
     m_Bits: 0
 --- !u!114 &951404538
 MonoBehaviour:
@@ -1479,6 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e73ce7513e75d43bf4bd8c4431e8e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponState: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 247
@@ -1874,10 +1876,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e73ce7513e75d43bf4bd8c4431e8e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponState: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 247
-  effectPrefab: {fileID: 162584487599433031, guid: 39f852c28f9c3fd45a427c24f3564ba7,
+  effectPrefab: {fileID: 7957833072274404953, guid: 3355f6bfa6db8b24281b827de929694c,
     type: 3}
   attackRange: 100
   damage: 5
@@ -2001,10 +2004,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e73ce7513e75d43bf4bd8c4431e8e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponState: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 247
-  effectPrefab: {fileID: 7728366230342544413, guid: 212ef1a41838ce044a9ac54994866708,
+  effectPrefab: {fileID: 162584487599433031, guid: 39f852c28f9c3fd45a427c24f3564ba7,
     type: 3}
   attackRange: 5
   damage: 1
