@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeapon : WeaponBase
+public class MagicShoot : MonoBehaviour
 {
-    public WeaponState weaponState; // 무기 상태
+    public WeaponState weaponState; // 마법 상태
 
-    public override void Use()
+    void Update()
     {
-        Attack();
+        if (Input.GetButtonDown("Fire1") && gameObject.activeSelf) // 마우스 좌클릭
+        {
+            ShootMagic();
+        }
     }
 
-    void Attack()
+    public void ShootMagic()
     {
         if (weaponState == null)
         {
@@ -27,13 +30,17 @@ public class MeleeWeapon : WeaponBase
             if (hitInfo.collider.CompareTag("Enemy"))
             {
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
-                damaged.Damage(weaponState.damage, "Melee");
+                damaged.Damage(weaponState.damage, "Magic");
             }
             else if (hitInfo.collider.CompareTag("Boss"))
             {
                 //BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
                 //bossDamaged.BossDamage(1);
             }
+
+            // 마법 충돌 효과 생성
+            GameObject magicImpact = Instantiate(weaponState.prefab, hitInfo.point, Quaternion.identity);
+            Destroy(magicImpact, 2); // 2초 뒤에 파괴
         }
     }
 }
