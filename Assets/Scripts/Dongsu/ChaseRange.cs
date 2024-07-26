@@ -44,6 +44,7 @@ public class ChaseRange : MonoBehaviour
         {
             if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange))
             {
+                print("Ray 발사");
                 if (hitInfo.transform.gameObject.CompareTag("Player"))
                 {
                     enemyState.ChangeState(EnemyState.State.Chase);
@@ -55,6 +56,11 @@ public class ChaseRange : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(2f);
+
+            if(chaseCheck == true)
+            {
+                break;
+            }
         }
     }
 }

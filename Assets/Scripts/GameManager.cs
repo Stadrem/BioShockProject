@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
 
         //anim.SetTrigger("IsDamaged");
 
+        UiManager.instance.HPRefresh(HP);
+
         StartCoroutine(ShakeTime());
     }
 

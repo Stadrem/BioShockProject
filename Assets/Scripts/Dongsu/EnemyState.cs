@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +10,7 @@ public class EnemyState : MonoBehaviour
 {
     public float shockStunTime = 2.0f;
     public float freezeTime = 6.0f;
+    public float reAttackDistance = 3.0f;
 
     Rigidbody rb;
 
@@ -122,6 +125,7 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
+        na.velocity = Vector3.zero;
         anim.SetBool("IsDamaged", true);
     }
 
@@ -137,7 +141,15 @@ public class EnemyState : MonoBehaviour
         anim.SetBool("IsAttack", false);
         anim.SetBool("IsWalk", true);
         na.isStopped = false;
+
         na.SetDestination(GameManager.instance.player.transform.position);
+
+        float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
+
+        if (distance <= reAttackDistance)
+        {
+            ChangeState(EnemyState.State.Attack);
+        }
     }
 
     void AttackState()
@@ -145,24 +157,23 @@ public class EnemyState : MonoBehaviour
         ChaseOn = false;
         anim.SetBool("IsAttack", true);
         anim.SetBool("IsWalk", false);
+
     }
 
     void DieState()
     {
-        na.enabled = false;
-        // 애니메이터 비활성화
-        anim.enabled = false;
-
         // 레그돌의 리지드바디 활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = false;
         }
 
+        this.enabled = false;
         AttackRange.SetActive(false);
         ChaseRange.SetActive(false);
-
-        this.enabled = false;
+        na.enabled = false;
+        // 애니메이터 비활성화
+        anim.enabled = false;
     }
 
     //스턴 시간 코루틴

@@ -8,11 +8,13 @@ public class AnimEvent : MonoBehaviour
 {
     EnemyState enemyState;
 
-    public float attackRanage = 7.0f;
+    public float attackRanage = 5.0f;
 
     public LayerMask layerMask;
 
     public GameObject attackPoint;
+
+
 
     //Animator 가져오기
     Animator anim;
@@ -25,28 +27,35 @@ public class AnimEvent : MonoBehaviour
 
     void IsMeleeAttack()
     {
+        float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
+        if (distance > enemyState.reAttackDistance)
+        {
+            enemyState.ChangeState(EnemyState.State.Chase);
+        }
+
         Ray ray = new Ray(attackPoint.transform.position, attackPoint.transform.forward);
 
         RaycastHit hitInfo;
 
-        if (Physics.SphereCast(ray, 1.0f, out hitInfo, attackRanage, layerMask))
+        if (Physics.SphereCast(ray, 0.1f, out hitInfo, attackRanage, layerMask))
         {
+            Debug.DrawRay(attackPoint.transform.position, attackPoint.transform.forward, Color.green);
             if (hitInfo.transform.gameObject.CompareTag("Player"))
             {
-                print("인식완료");
-
                 GameManager.instance.Damaged(1);
             }
-            else
-            {
-                print("인식불가");
-            }
         }
+        else
+        {
+            enemyState.ChangeState(EnemyState.State.Chase);
+        }
+        
     }
 
     void IsDamaged()
     {
         enemyState.ChangeState(EnemyState.State.Chase);
+
         anim.SetBool("IsDamaged", false);
     }
 }
