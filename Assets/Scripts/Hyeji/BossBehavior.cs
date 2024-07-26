@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BossBehavior : MonoBehaviour
 {
     // 에너미 상태
-    enum EnemyState
+    public enum EnemyState
     {
         Idle,
         Move,
@@ -13,18 +14,8 @@ public class BossBehavior : MonoBehaviour
         Damaged,
         Die
     }
-
-    // 공격 패턴
-    enum AttackPattern
-    {
-        Melee,
-        Shot
-    }
-
-    // 공격 패턴
-    AttackPattern pattern;
     // 에너미 상태 변수
-    EnemyState state;
+    public EnemyState state;
     // 플레이어 발견 범위
     public float findDistance = 8f;
     // 플레이어 공격 가능 범위
@@ -42,16 +33,39 @@ public class BossBehavior : MonoBehaviour
     // 보스 공격력
     public int attackPower = 3;
     // 이동속도
-    public float moveSpeed = 5;
+    public float moveSpeed = 2;
 
     // 근접 공격 범위
     public float meleeAttackDistance = 2f;
     // 근접 공격력
     public int meleeAttackPower = 10;
-    // 원거리 공격 범위
-    public float shotAttackDistance = 10f;
-    // 원거리 공격력
+    // 중거리 공격 범위
+    public float shotAttackDistance = 7f;
+    // 중거리 공격력
     public int shotAttackPower = 5;
+    // 보스의 오른손
+    public Transform rightHand;
+    // 회전할것인가?
+    bool isRoatate = false;
+    // 회전속도
+    public float rotationSpeed = 2f;
+    // 회전 후 대기 시간
+    public float pauseDuration = 1f;
+    // 원래 회전각
+    private Quaternion originalRotation;
+    // 타겟 회전각
+    private Quaternion targetRotation;
+    // 플레이어가 가까운가?
+    bool isPlayerClose = false;
+
+    // 돌진 속도
+    public float chargeSpeed = 10f;
+    // 돌진 시작 거리
+    public float chargeRange = 15f;
+    // 돌진 여부
+    public bool isCharging = false;
+    // 캐릭터의 동작 여부
+    bool isMoving = false;
 
     void Start()
     {
@@ -61,6 +75,9 @@ public class BossBehavior : MonoBehaviour
         player = GameObject.Find("Player").transform;
         // Boss의 캐릭터 컨트롤러 컴포넌트 받아오기
         cc = GetComponent<CharacterController>();
+        // 초기 회전 상태 저장
+        originalRotation = rightHand.rotation;
+        targetRotation = Quaternion.Euler(-50, -47, 54) * originalRotation;
     }
 
     void Update()
@@ -90,7 +107,7 @@ public class BossBehavior : MonoBehaviour
             case EnemyState.Die:
                 Die();
                 break;
-        }
+        }       
     }
     // 대기 상태 함수
     void Idle()
@@ -106,7 +123,7 @@ public class BossBehavior : MonoBehaviour
 
     void Move()
     {
-        // 플레이어와의 거리가 공격 범위 밖이라면 플레이어를 향해 이동한다.
+        // 플레이어와 보스의 거리 구하기
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
         // 적이 플레이어와의 거리가 근접 공격 범위 이내에 있으면 공격 상태로 전환
@@ -118,38 +135,23 @@ public class BossBehavior : MonoBehaviour
             return;
         }
 
-        // 플레이어 방향으로 향한다.
+        // 플레이어와의 거리가 공격 범위 밖이라면 플레이어 방향으로 향한다.
         dir = player.transform.position - transform.position;
         dir.Normalize();
         dir.y = 0;
         // 캐릭터 컨트롤러를 이용하여 이동
         cc.Move(dir * moveSpeed * Time.deltaTime);
-
-        //if(attackDistance < dist)
-        //{
-        //    dir = player.transform.position - transform.position;
-        //    dir.Normalize();
-        //    // 캐릭터 컨트롤러를 이용해 이동한다.
-        //    cc.Move(dir * moveSpeed * Time.deltaTime);
-        //}
-        //// 플레이어와의 거리가 공격 범위 안이라면 공격한다.
-        //else
-        //{
-        //    state = EnemyState.Attack;
-        //    // 누적 시간을 공격 딜레이 시간만큼 미리 진행시켜 놓는다.
-        //    currTime = attackDelayTime;
-        //}
-        //// 제자리에서 플레이어 방향으로 드릴 내밀며 몸 회전 (정지상태)
-        //// 플레이어가 방향을 바꾸면 플레이어를 따라 몸을 회전시킴.
     }
 
+    // 공격 함수
     void Attack()
     {
         // 만약, 플레이어가 공격 범위 이내에 있다면 플레이어를 공격한다.
         float dist = Vector3.Distance(player.transform.position, transform.position);
+
         // 공격 패턴에 따른 공격 범위 및 처리
         // 근거리
-        if(dist < meleeAttackDistance && pattern == AttackPattern.Melee)
+        if(dist < meleeAttackDistance)
         {
             currTime += Time.deltaTime;
             if(currTime >= attackDelayTime)
@@ -158,13 +160,13 @@ public class BossBehavior : MonoBehaviour
                 currTime = 0;
             }
         }
-        // 원거리
-        else if(dist < shotAttackDistance && pattern == AttackPattern.Shot)
+        // 중거리
+        else if(dist < shotAttackDistance)
         {
             currTime += Time.deltaTime;
             if(currTime >= attackDelayTime)
             {
-                ShotAttack();
+                RandomShotAttack();
                 currTime = 0;
             }
         }
@@ -172,47 +174,84 @@ public class BossBehavior : MonoBehaviour
         {
             state = EnemyState.Move;
         }
-
-        //if (dist < attackDistance)
-        //{
-        //    // 일정 시간마다 플레이어를 공격한다.
-        //    currTime += Time.deltaTime;
-        //    if (currTime > attackDelayTime)
-        //    {
-        //        print("공격");
-        //        currTime = 0;
-        //    }
-        //}
-        //// 그렇지 않다면, 현재 상태를 Move로 전환한다(재추격)
-        //else
-        //{
-        //    // 플레이어 컴포넌트
-        //    state = EnemyState.Move;
-        //    currTime = 0;
-        //}
-    }
-    // 공격 패턴 함수
-    void UpdatePattern()
-    {
-        if(/* 조건 */true)
-        {
-            pattern = AttackPattern.Melee;
-        }
-        else
-        {
-            pattern = AttackPattern.Shot;
-        }
     }
     // 근접 공격
     void MeleeAttack()
     {
+        // 오른팔을 회전시킨다.
+        isRoatate = true;
+        rightHand.rotation = targetRotation;
+
+        // 플레이어와 멀어지면
+        if(isPlayerClose)
+        {
+            // 오른손을 원래 위치로 한다.
+            rightHand.rotation = originalRotation;
+        }
+
+        // 오른쪽 팔의 드릴을 이용하여 후려친다. 패턴은 위 대각선, 아래 대각선 2개로 랜덤하게 부여
         print("근접 공격");
     }
     
-    // 원거리 공격
-    void ShotAttack()
+    // 중거리 랜덤 공격
+    void RandomShotAttack()
     {
-        print("원거리 공격");
+        // 중거리 공격 2개중 랜덤하게 부여
+        int attackType = Random.Range(0, 2);
+
+        if(attackType == 0)
+        {
+            ShotAttackType1();
+        }
+        else
+        {
+            ShotAttackType2();
+        }
+    }
+
+    // 중거리 공격1 - 돌진 공격
+    void ShotAttackType1()
+    {
+        // 플레이어와의 거리 
+        float dist = Vector3.Distance(player.transform.position, transform.position);
+        // 플레이어와의 거리가 돌진 범위 보다 크다면
+        if (dist < chargeRange)
+        {
+            if (!isCharging)
+            {
+                print("돌진 공격");
+                StartCoroutine(ChargeTowardsPlayer());
+            }
+        }
+        // 돌진공격 , 전방위 공격 패턴 2개로 랜덤하게 부여
+
+    }
+
+    // 중거리 공격2 - 전방위 공격(땅내려치기)
+    void ShotAttackType2()
+    {
+        print("땅내려치기");
+    }
+
+    // 플레이어를 향해 돌진, 일정 시간이 지나면 이동 상태로 돌아간다.
+    private IEnumerator ChargeTowardsPlayer()
+    {
+        isCharging = true;
+        this.moveSpeed = chargeSpeed;
+
+        float chargeDutation = 1f;
+        float startTime = Time.time;
+
+        while(Time.time < startTime + chargeDutation)
+        {
+            print("돌진중");
+
+            yield return null;
+        }
+
+        this.moveSpeed = moveSpeed;
+        isCharging = false;
+        state = EnemyState.Move;
     }
 
     void Damaged()
