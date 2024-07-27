@@ -5,8 +5,9 @@ using UnityEngine;
 public class WeaponMagicSwitcher : MonoBehaviour
 {
     public GameObject[] weapons; // 무기 배열 (오른손)
-    public GameObject magic; // 마법 (왼손)
+    public GameObject[] magic; // 마법 (왼손)
     public GameObject rightArm;
+    public GameObject leftArm;
     public Transform rightHand; // 오른손 위치
     public Transform leftHand; // 왼손 위치
 
@@ -43,6 +44,30 @@ public class WeaponMagicSwitcher : MonoBehaviour
             {
                 SelectWeapon();
             }
+            else
+            {
+                // 마우스 휠로 마법 전환
+                int previousSelectedMagic = selectedmagic;
+
+                if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+                {
+                    selectedmagic = (selectedmagic + 1) % magic.Length;
+                }
+                if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+                {
+                    selectedmagic--;
+                    if (selectedmagic < 0)
+                    {
+                        selectedmagic = magic.Length - 1;
+                    }
+                }
+
+                if (previousSelectedMagic != selectedmagic)
+                {
+                    Selectmagic();
+                }
+            }
+
         }
 
         // 마우스 우클릭으로 무기와 마법 전환
@@ -58,8 +83,8 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (isMagicActive)
             {
                 // 마법 사용
-               // magic.GetComponent<MagicShoot>().ShootMagic();
-               magic.GetComponent<TotalWeapon>().Shoot();
+                // magic.GetComponent<MagicShoot>().ShootMagic();
+                magic[selectedmagic].GetComponent<TotalWeapon>().Shoot();
 
             }
             else
@@ -85,27 +110,27 @@ public class WeaponMagicSwitcher : MonoBehaviour
         }
     }
 
-/*    void Selectmagic()
+ void Selectmagic()
     {
         for (int i = 0; i < magic.Length; i++)
         {
-            magic[i].SetActive(i == selectedWeapon && !isMagicActive);
-            if (i == selectedWeapon && !isMagicActive)
+            magic[i].SetActive(i == selectedWeapon && isMagicActive);
+            if (i == selectedWeapon && isMagicActive)
             {
                 magic[i].transform.SetParent(leftHand);
                 magic[i].transform.localPosition = Vector3.zero;
                 magic[i].transform.localRotation = Quaternion.identity;
             }
         }
-    }*/
+    }
 
     void SelectWeaponOrMagic()
     {
         if (isMagicActive)
         {
-            magic.SetActive(true);
+            leftArm.SetActive(true);
             rightArm.SetActive(false);
-            magic.transform.SetParent(leftHand);
+            leftArm.transform.SetParent(leftHand);
             //magic.transform.localPosition = Vector3.zero;
             //magic.transform.localRotation = Quaternion.identity;
 
@@ -116,7 +141,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
         }
         else
         {
-            magic.SetActive(false);
+            leftArm.SetActive(false);
             rightArm.SetActive(true);
             SelectWeapon();
         }
