@@ -11,6 +11,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
     public Transform leftHand; // 왼손 위치
 
     private int selectedWeapon = 0;
+    private int selectedmagic = 0;
     private bool isMagicActive = false; // 현재 마법 모드인지 여부
 
     void Start()
@@ -57,8 +58,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (isMagicActive)
             {
                 // 마법 사용
-                //magic.GetComponent<MagicShoot>().ShootMagic();
-                weapons[selectedWeapon].GetComponent<TotalWeapon>().Shoot();
+               // magic.GetComponent<MagicShoot>().ShootMagic();
+               magic.GetComponent<TotalWeapon>().Shoot();
+
             }
             else
             {
@@ -82,6 +84,20 @@ public class WeaponMagicSwitcher : MonoBehaviour
             }
         }
     }
+
+/*    void Selectmagic()
+    {
+        for (int i = 0; i < magic.Length; i++)
+        {
+            magic[i].SetActive(i == selectedWeapon && !isMagicActive);
+            if (i == selectedWeapon && !isMagicActive)
+            {
+                magic[i].transform.SetParent(leftHand);
+                magic[i].transform.localPosition = Vector3.zero;
+                magic[i].transform.localRotation = Quaternion.identity;
+            }
+        }
+    }*/
 
     void SelectWeaponOrMagic()
     {
