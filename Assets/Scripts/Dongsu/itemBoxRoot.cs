@@ -12,9 +12,11 @@ public class ItemBoxRoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < Max; i++)
+        Max = UiManager.instance.maxItems;
+
+        for (int i = 0; i < Max; i++)
         {
-            if(itemList.Count == 3)
+            if (itemList.Count == 3)
             {
                 break;
             }
@@ -37,6 +39,10 @@ public class ItemBoxRoot : MonoBehaviour
 
     public void itemView()
     {
+        for (int h = 0; h < itemList.Count; h++)
+        {
+            UiManager.instance.imgList[h].gameObject.SetActive(true);
+        }
         for (int i = 0; i < itemList.Count; i++)
         {
             if (itemList != null)

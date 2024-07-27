@@ -22,6 +22,8 @@ public class UiManager : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public int maxItems = 3;
+
     void Awake()
     {
         //instance 값이 null이면
@@ -80,6 +82,10 @@ public class UiManager : MonoBehaviour
         }
         else
         {
+            for(int i =0; i < imgList.Count; i++)
+            {
+                imgList[i].gameObject.SetActive(false);
+            }
             RootUi.SetActive(false);
         }
     }
