@@ -16,6 +16,8 @@ public class ChaseRange : MonoBehaviour
 
     public LayerMask layerMask;
 
+    bool serching = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,8 @@ public class ChaseRange : MonoBehaviour
         {
             print("플레이어인식");
 
+            serching = true;
+
             target = other.gameObject;
 
             StartCoroutine(RetryRay());
@@ -42,7 +46,7 @@ public class ChaseRange : MonoBehaviour
 
     private IEnumerator RetryRay()
     {
-        while (true)
+        while (serching == true)
         {
             if (Physics.Raycast(enemy.transform.position, target.transform.position, out hitInfo, chaseRange, layerMask))
             {
@@ -53,6 +57,16 @@ public class ChaseRange : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(3.0f);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            enemyState.ChangeState(EnemyState.State.Idle);
+
+            serching = false;
         }
     }
 }

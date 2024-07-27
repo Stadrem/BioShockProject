@@ -33,6 +33,7 @@ public class EnemyState : MonoBehaviour
     public State currentState;
     private State previousState;
     public float alertRadius = 10.0f;
+    GameObject itemBox;
 
     public enum State
     {
@@ -49,6 +50,8 @@ public class EnemyState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        itemBox = GameObject.FindWithTag("itemBox");
+        itemBox.SetActive(false);
         na = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트를 가져옴
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
@@ -181,13 +184,14 @@ public class EnemyState : MonoBehaviour
             rb.isKinematic = false;
         }
 
+        itemBox.SetActive(true);
+
         this.enabled = false;
 
         AttackRange.SetActive(false);
 
         ChaseRange.SetActive(false);
 
-        //na.isStopped = true;
         na.ResetPath();
         na.enabled = false;
 

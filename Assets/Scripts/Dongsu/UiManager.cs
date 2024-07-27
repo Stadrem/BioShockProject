@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,20 +11,25 @@ public class UiManager : MonoBehaviour
 
     public int[] boxList = new int[2];
 
-    //1번 힐, 2번 마나, 3번 총알, 4번 달러 아이콘
+    //0번 힐, 1번 마나, 2번 총알, 3번 달러 아이콘
     public List<Sprite> spriteList = new List<Sprite>();
 
     //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
 
-    //1번 힐, 2번 마나, 3번 총알, 4번 달러
+    //0번 힐, 1번 마나, 2번 총알, 3번 달러
     public int[] keepItems = new int[] { 0, 0, 0, 0 };
 
     public Sprite originSprite;
 
-    Image HPGauge;
+    Image hpGauge;
 
-    public GameObject RootUi;
+    public GameObject rootUi;
+    public GameObject nameUi;
+    public GameObject searchUi;
+    public GameObject nameSpaceUi;
+    public Text healItem;
+    public Text manaItem;
     bool rootUiOn = false;
 
     int maxHP;
@@ -33,6 +39,8 @@ public class UiManager : MonoBehaviour
     public LayerMask layerMask;
 
     public int maxItems = 3;
+
+    float delayTime = 0;
 
     void Awake()
     {
@@ -57,9 +65,9 @@ public class UiManager : MonoBehaviour
     void Start()
     {
         GameObject temp = GameObject.Find("HPRed");
-        HPGauge = temp.GetComponent<Image>();
-        RootUi = GameObject.Find("RootUi");
-        RootUi.SetActive(false);
+        hpGauge = temp.GetComponent<Image>();
+        //RootUi = GameObject.Find("RootUi");
+        //RootUi.SetActive(false);
 
         maxHP = GameManager.instance.HP;
         currentHP = maxHP;
@@ -75,37 +83,62 @@ public class UiManager : MonoBehaviour
         // Ray가 충돌했는지 확인합니다.
         if (Physics.Raycast(ray, out hit, 3.0f, layerMask))
         {
+            //타겟 이름을 받아옴
+            nameUi.SetActive(true);
+            Text nameText = nameUi.GetComponent<Text>();
+            nameText.text = hit.transform.root.name;
+            
             // 충돌한 오브젝트가 itemBox 컴포넌트를 가지고 있는지 확인합니다.
             ItemBoxRoot itemBoxRoot = hit.collider.GetComponent<ItemBoxRoot>();
-            if (itemBoxRoot != null)
+
+            //박스가 비어있지 않다면
+            if (itemBoxRoot.itemList.Count > 0)
             {
-                // itemBox 컴포넌트를 실행합니다.
-                RootUi.SetActive(true);
-                rootUiOn = true;
+                searchUi.SetActive(true);
 
-                //아이템 박스 오픈
-                itemBoxRoot.itemView();
-
-                //아이템 획득
-                if (Input.GetButtonDown("Get") && rootUiOn == true)
+                if (Input.GetButtonDown("Get") && rootUiOn)
                 {
                     BoxListRefresh();
                     itemBoxRoot.GetItem();
                 }
+
+                if (Input.GetButtonDown("Get") && !rootUiOn)
+                {
+                    print("아이템 박스 오픈");
+                    nameUi.SetActive(false);
+                    searchUi.SetActive(false);
+                    nameSpaceUi.SetActive(false);
+
+                    // UI 표시
+                    rootUi.SetActive(true);
+                    rootUiOn = true;
+
+                    //아이템 박스 정보 가져오기
+                    itemBoxRoot.itemView();
+                }
             }
             else
             {
-                RootUi.SetActive(false);
+                nameSpaceUi.SetActive(true);
+                nameUi.SetActive(true);
+                searchUi.SetActive(false);
+                rootUi.SetActive(false);
                 rootUiOn = false;
             }
         }
         else
         {
-            for(int i =0; i < imgList.Count; i++)
+            //탐색 종료
+            nameUi.SetActive(false);
+            searchUi.SetActive(false);
+
+            for (int i = 0; i < imgList.Count; i++)
             {
                 imgList[i].gameObject.SetActive(false);
             }
-            RootUi.SetActive(false);
+
+            rootUi.SetActive(false);
+            nameSpaceUi.SetActive(true);
             rootUiOn = false;
         }
     }
@@ -113,14 +146,20 @@ public class UiManager : MonoBehaviour
     public void HPRefresh(int i)
     {
         currentHP = i;
-        HPGauge.fillAmount = currentHP * 0.1f;
+        hpGauge.fillAmount = currentHP * 0.1f;
     }
 
     void BoxListRefresh()
     {
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             imgList[i].sprite = originSprite;
         }
+    }
+
+    public void ItemRefresh()
+    {
+        healItem.text = keepItems[0].ToString();
+        manaItem.text = keepItems[1].ToString();
     }
 }
