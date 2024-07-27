@@ -9,12 +9,22 @@ public class UiManager : MonoBehaviour
     public static UiManager instance;
 
     public int[] boxList = new int[2];
+
+    //1번 힐, 2번 마나, 3번 총알, 4번 달러 아이콘
     public List<Sprite> spriteList = new List<Sprite>();
+
+    //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
+
+    //1번 힐, 2번 마나, 3번 총알, 4번 달러
+    public int[] keepItems = new int[] { 0, 0, 0, 0 };
+
+    public Sprite originSprite;
 
     Image HPGauge;
 
     public GameObject RootUi;
+    bool rootUiOn = false;
 
     int maxHP;
 
@@ -70,14 +80,23 @@ public class UiManager : MonoBehaviour
             if (itemBoxRoot != null)
             {
                 // itemBox 컴포넌트를 실행합니다.
-                
                 RootUi.SetActive(true);
+                rootUiOn = true;
 
+                //아이템 박스 오픈
                 itemBoxRoot.itemView();
+
+                //아이템 획득
+                if (Input.GetButtonDown("Get") && rootUiOn == true)
+                {
+                    BoxListRefresh();
+                    itemBoxRoot.GetItem();
+                }
             }
             else
             {
                 RootUi.SetActive(false);
+                rootUiOn = false;
             }
         }
         else
@@ -87,6 +106,7 @@ public class UiManager : MonoBehaviour
                 imgList[i].gameObject.SetActive(false);
             }
             RootUi.SetActive(false);
+            rootUiOn = false;
         }
     }
 
@@ -94,5 +114,13 @@ public class UiManager : MonoBehaviour
     {
         currentHP = i;
         HPGauge.fillAmount = currentHP * 0.1f;
+    }
+
+    void BoxListRefresh()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            imgList[i].sprite = originSprite;
+        }
     }
 }

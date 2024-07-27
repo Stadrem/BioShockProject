@@ -42,7 +42,9 @@ public class ItemBoxRoot : MonoBehaviour
         for (int h = 0; h < itemList.Count; h++)
         {
             UiManager.instance.imgList[h].gameObject.SetActive(true);
+            UiManager.instance.imgList[h].sprite = UiManager.instance.spriteList[itemList[h]];
         }
+        /*
         for (int i = 0; i < itemList.Count; i++)
         {
             if (itemList != null)
@@ -50,6 +52,28 @@ public class ItemBoxRoot : MonoBehaviour
                 if (UiManager.instance != null)
                 {
                     UiManager.instance.imgList[i].sprite = UiManager.instance.spriteList[itemList[i]];
+                }
+            }
+        }
+        */
+    }
+    public void GetItem()
+    {
+        if(itemList != null)
+        {
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                if (itemList[i] == null)
+                {
+                    itemView();
+                    break;
+                }
+                else
+                {
+                    UiManager.instance.keepItems[itemList[i]] += 1;
+                    itemList.RemoveAt(i);
+                    itemView();
+                    break;
                 }
             }
         }

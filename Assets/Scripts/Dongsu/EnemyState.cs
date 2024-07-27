@@ -158,8 +158,6 @@ public class EnemyState : MonoBehaviour
 
             float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
 
-            AlertNearbyEnemies();
-
             if (distance <= reAttackDistance)
             {
                 ChangeState(EnemyState.State.Attack);
@@ -239,7 +237,8 @@ public class EnemyState : MonoBehaviour
         //플레이어 방향 바라보기
         Vector3 lookPos = GameManager.instance.player.transform.position - transform.position;
 
-        lookPos.y = 0; // Y축 회전을 방지
+        // Y축 회전을 방지
+        lookPos.y = 0; 
 
         Quaternion rotation = Quaternion.LookRotation(lookPos);
 
@@ -248,6 +247,8 @@ public class EnemyState : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         firstHit = false;
+
+        AlertNearbyEnemies();
 
         ChaseState();
     }
