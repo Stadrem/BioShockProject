@@ -34,10 +34,6 @@ public class AnimEvent : MonoBehaviour
             enemyState.ChangeState(EnemyState.State.Chase);
         }
 
-        //Ray ray = new Ray(attackPoint.transform.position, attackPoint.transform.forward);
-
-        //RaycastHit hitInfo;
-
         Collider[] hitColliders = Physics.OverlapSphere(attackPoint.transform.position, 2f, layerMask);
 
         foreach (var hitCollider in hitColliders)
@@ -54,25 +50,6 @@ public class AnimEvent : MonoBehaviour
                 print("없는데요?");
             }
         }
-        /*
-        if (Physics.SphereCast(ray, 2f, out hitInfo, attackRanage, layerMask))
-        {
-            print(hitInfo.transform.name);
-            Debug.DrawRay(attackPoint.transform.position, attackPoint.transform.forward, Color.green, 2);
-
-            if (hitInfo.transform.gameObject.CompareTag("Player"))
-            {
-                print("때림!");
-                GameManager.instance.Damaged(1);
-            }
-            else
-            {
-                enemyState.ChangeState(EnemyState.State.Chase);
-                print("없는데요?");
-            }
-        
-        }
-        */
     }
 
     void IsDamaged()

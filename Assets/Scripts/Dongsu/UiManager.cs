@@ -30,9 +30,9 @@ public class UiManager : MonoBehaviour
     public GameObject nameSpaceUi;
     public Text healItem;
     public Text manaItem;
+    public Text alretText;
+    Animator alretAnim;
     bool rootUiOn = false;
-
-    int maxHP;
 
     float currentHP;
 
@@ -69,12 +69,21 @@ public class UiManager : MonoBehaviour
         //RootUi = GameObject.Find("RootUi");
         //RootUi.SetActive(false);
 
-        maxHP = GameManager.instance.HP;
-        currentHP = maxHP;
+        currentHP = GameManager.instance.HP;
+        alretAnim = alretText.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        ItemBox();
+        if(Input.GetButtonDown("Heal"))
+        {
+            UseHeal();
+        }
+    }
+
+    void ItemBox()
     {
         // 카메라의 정면 방향으로 Ray를 쏩니다.
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -87,7 +96,7 @@ public class UiManager : MonoBehaviour
             nameUi.SetActive(true);
             Text nameText = nameUi.GetComponent<Text>();
             nameText.text = hit.transform.root.name;
-            
+
             // 충돌한 오브젝트가 itemBox 컴포넌트를 가지고 있는지 확인합니다.
             ItemBoxRoot itemBoxRoot = hit.collider.GetComponent<ItemBoxRoot>();
 
@@ -146,7 +155,13 @@ public class UiManager : MonoBehaviour
     public void HPRefresh(int i)
     {
         currentHP = i;
+
         hpGauge.fillAmount = currentHP * 0.1f;
+
+        if(hpGauge.fillAmount >= 1)
+        {
+            hpGauge.fillAmount = 1;
+        }
     }
 
     void BoxListRefresh()
@@ -161,5 +176,19 @@ public class UiManager : MonoBehaviour
     {
         healItem.text = keepItems[0].ToString();
         manaItem.text = keepItems[1].ToString();
+    }
+
+    void UseHeal()
+    {
+        if(keepItems[0] > 0)
+        {
+            keepItems[0] -= 1;
+            ItemRefresh();
+            GameManager.instance.Damaged(-1000);
+        }
+        else
+        {
+            alretAnim.SetTrigger("Alret");
+        }
     }
 }

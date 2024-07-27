@@ -33,7 +33,7 @@ public class EnemyState : MonoBehaviour
     public State currentState;
     private State previousState;
     public float alertRadius = 10.0f;
-    GameObject itemBox;
+    public GameObject itemBox;
 
     public enum State
     {
@@ -50,7 +50,6 @@ public class EnemyState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        itemBox = GameObject.FindWithTag("itemBox");
         itemBox.SetActive(false);
         na = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트를 가져옴
         rb = GetComponent<Rigidbody>();
