@@ -49,7 +49,7 @@ public class UiManager : MonoBehaviour
 
     //탄창 관련
     public int bulletCurrent = 0;
-    public int bulletMax = 0;
+    //public int bulletMax = 0;
     public Text bulletCurrentText;
     public Text bulletMaxText;
 
@@ -188,9 +188,8 @@ public class UiManager : MonoBehaviour
     {
         healItem.text = keepItems[0].ToString();
         manaItem.text = keepItems[1].ToString();
-        bulletMax = keepItems[2];
         bulletCurrentText.text = bulletCurrent.ToString();
-        bulletMaxText.text = bulletMax.ToString();
+        bulletMaxText.text = keepItems[2].ToString();
     }
 
     void UseHeal()
@@ -206,4 +205,37 @@ public class UiManager : MonoBehaviour
             alretAnim.SetTrigger("Alret");
         }
     }
+
+    public bool BulletShoot()
+    {
+        if (bulletCurrent == 0)
+        {
+            Debug.Log("경고: 총알이 부족합니다!");
+            return false;
+        }
+        bulletCurrent -= 1;
+
+        bulletCurrentText.text = bulletCurrent.ToString();
+
+        return true;
+    }
+
+    /*
+    public void BulletReload(int magazine)
+    {
+        //보유중인 탄환으로 돌려보냄
+        keepItems[2] += bulletCurrent;
+        //장전된 탄환 초기화
+        bulletCurrent = 0;
+
+        //요청 탄환 수 만큼 보유량 제거
+        keepItems[2] -= magazine;
+        //장전
+        bulletCurrent = magazine;
+
+        //갱신
+        bulletCurrentText.text = bulletCurrent.ToString();
+        bulletMaxText.text = keepItems[2].ToString();
+    }
+    */
 }
