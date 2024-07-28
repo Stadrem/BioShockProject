@@ -27,10 +27,12 @@ public class WeaponMagicSwitcher : MonoBehaviour
         {
             int previousSelectedWeapon = selectedWeapon;
 
+            //마우스 휠 위로
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 selectedWeapon = (selectedWeapon + 1) % weapons.Length;
             }
+            //마우스 휠 아래로 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
                 selectedWeapon--;
@@ -43,31 +45,33 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (previousSelectedWeapon != selectedWeapon)
             {
                 SelectWeapon();
-            }
-            else
+            }          
+
+        }
+        else
+        {
+            // 마우스 휠로 마법 전환
+            int previousSelectedMagic = selectedmagic;
+
+            //마우스 휠 위로
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                // 마우스 휠로 마법 전환
-                int previousSelectedMagic = selectedmagic;
-
-                if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+                selectedmagic = (selectedmagic + 1) % magic.Length;
+            }
+            //마우스 휠 아래로 
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                selectedmagic--;
+                if (selectedmagic < 0)
                 {
-                    selectedmagic = (selectedmagic + 1) % magic.Length;
-                }
-                if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-                {
-                    selectedmagic--;
-                    if (selectedmagic < 0)
-                    {
-                        selectedmagic = magic.Length - 1;
-                    }
-                }
-
-                if (previousSelectedMagic != selectedmagic)
-                {
-                    Selectmagic();
+                    selectedmagic = magic.Length - 1;
                 }
             }
-
+            //선택된 마법인 변경될 경우 다른 마법 선택
+            if (previousSelectedMagic != selectedmagic)
+            {
+                Selectmagic();
+            }
         }
 
         // 마우스 우클릭으로 무기와 마법 전환
@@ -96,8 +100,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
         }
     }
 
+    //선택 무기 활성화
     void SelectWeapon()
-    {
+    {        
         for (int i = 0; i < weapons.Length; i++)
         {
             weapons[i].SetActive(i == selectedWeapon && !isMagicActive);
@@ -109,13 +114,13 @@ public class WeaponMagicSwitcher : MonoBehaviour
             }
         }
     }
-
+    //선택 마법 활성화
  void Selectmagic()
     {
         for (int i = 0; i < magic.Length; i++)
         {
-            magic[i].SetActive(i == selectedWeapon && isMagicActive);
-            if (i == selectedWeapon && isMagicActive)
+            magic[i].SetActive(i == selectedmagic && isMagicActive);
+            if (i == selectedmagic && isMagicActive)
             {
                 magic[i].transform.SetParent(leftHand);
                 magic[i].transform.localPosition = Vector3.zero;
@@ -123,7 +128,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
             }
         }
     }
-
+    //무기나 마법 상태에 따라 오른팔과 왼팔 설정
     void SelectWeaponOrMagic()
     {
         if (isMagicActive)
