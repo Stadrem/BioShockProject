@@ -32,13 +32,17 @@ public class TotalWeapon : MonoBehaviour
             return;
         }
 
+        // 만약 자동 발사 모드가 on 이라면
         if (AutoFire)
         {
+            // 마우스 좌클릭이 눌린 상태, 이전 발사 이후로 fireRate만큼의 시간이 지skaus
             if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate)
             {
+                // 탄창이 필요하지 않거나, 현재 탄약이 0보다 크다면 발사
                 if (!needMag || currentBullet > 0)
                 {
                     Shoot();
+                    // 마지막 발사 시간을 현재 시간으로 갱신
                     lastFireTime = Time.time;
                 }
                 else
