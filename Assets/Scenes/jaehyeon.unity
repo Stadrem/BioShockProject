@@ -257,6 +257,137 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1237190087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &584135946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 584135947}
+  - component: {fileID: 584135951}
+  - component: {fileID: 584135950}
+  - component: {fileID: 584135949}
+  - component: {fileID: 584135948}
+  m_Layer: 0
+  m_Name: MachineGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &584135947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584135946}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5387151, y: 1.2973745, z: 1.6263199}
+  m_LocalScale: {x: 0.5456189, y: 0.6716381, z: 0.95963377}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 863307588}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &584135948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584135946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e73ce7513e75d43bf4bd8c4431e8e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 247
+  effectPrefab: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473,
+    type: 3}
+  attackRange: 100
+  damage: 5
+  type: '?'
+  isAutomatic: 1
+  fireRate: 0.1
+  magazineSize: 30
+  currentAmmo: 0
+  reloadTime: 2
+--- !u!135 &584135949
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584135946}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &584135950
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584135946}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &584135951
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584135946}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &702899347
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +502,10 @@ Transform:
   m_LocalPosition: {x: 0.69978005, y: 0.39, z: 0.83799994}
   m_LocalScale: {x: 0.19264363, y: 0.29367006, z: 1.3921}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2138667937}
+  - {fileID: 2111930893}
+  - {fileID: 584135947}
   m_Father: {fileID: 951404533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &863307589
@@ -687,8 +821,6 @@ Transform:
   - {fileID: 702899348}
   - {fileID: 1452772751}
   - {fileID: 863307588}
-  - {fileID: 2138667937}
-  - {fileID: 2111930893}
   - {fileID: 931543222}
   - {fileID: 239508040}
   m_Father: {fileID: 0}
@@ -780,6 +912,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 2111930889}
   - {fileID: 2138667933}
+  - {fileID: 584135946}
   magic:
   - {fileID: 1237190086}
   - {fileID: 1060514253}
@@ -1048,11 +1181,16 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 247
-  effectPrefab: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473,
+  effectPrefab: {fileID: 7957833072274404953, guid: 3355f6bfa6db8b24281b827de929694c,
     type: 3}
   attackRange: 100
   damage: 5
   type: '?'
+  isAutomatic: 0
+  fireRate: 0.1
+  magazineSize: 30
+  currentAmmo: 0
+  reloadTime: 2
 --- !u!135 &1060514256
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1251,6 +1389,11 @@ MonoBehaviour:
   attackRange: 100
   damage: 5
   type: '?'
+  isAutomatic: 0
+  fireRate: 0.1
+  magazineSize: 30
+  currentAmmo: 0
+  reloadTime: 2
 --- !u!1 &1309826099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,12 +2230,12 @@ Transform:
   m_GameObject: {fileID: 2111930889}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.61, y: 0.72, z: 1.93}
-  m_LocalScale: {x: 0.39593002, y: 0.4932413, z: 0.97298}
+  m_LocalPosition: {x: -0.46604207, y: 1.1237102, z: 0.7844264}
+  m_LocalScale: {x: 2.0552459, y: 1.6795764, z: 0.69892967}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1730833830}
-  m_Father: {fileID: 951404533}
+  m_Father: {fileID: 863307588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2111930896
 MonoBehaviour:
@@ -2114,6 +2257,11 @@ MonoBehaviour:
   attackRange: 90
   damage: 5
   type: Shoot
+  isAutomatic: 1
+  fireRate: 0.1
+  magazineSize: 8
+  currentAmmo: 0
+  reloadTime: 2
 --- !u!1 &2138667933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,12 +2362,12 @@ Transform:
   m_GameObject: {fileID: 2138667933}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5886, y: 0.33000004, z: 1.56}
-  m_LocalScale: {x: 0.28426, y: 2.0369, z: 0.3565}
+  m_LocalPosition: {x: -0.5771282, y: -0.20431072, z: 0.51864094}
+  m_LocalScale: {x: 1.4755744, y: 6.936015, z: 0.25608793}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1731895610}
-  m_Father: {fileID: 951404533}
+  m_Father: {fileID: 863307588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2138667940
 MonoBehaviour:
@@ -2236,11 +2384,16 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 247
-  effectPrefab: {fileID: 7728366230342544413, guid: 212ef1a41838ce044a9ac54994866708,
+  effectPrefab: {fileID: 3153472991145048103, guid: 3407e378c048bb5438424b28c7740b48,
     type: 3}
   attackRange: 10
   damage: 2
   type: '?'
+  isAutomatic: 0
+  fireRate: 0.1
+  magazineSize: 30
+  currentAmmo: 0
+  reloadTime: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

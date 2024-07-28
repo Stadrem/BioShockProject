@@ -11,12 +11,64 @@ public class TotalWeapon : MonoBehaviour
     public int damage = 5; // 공격 데미지
     public string type = "?";
 
+    // 총기류 관련 변수
+    public bool isAutomatic = false; // 자동 발사 여부 (기관총 등)
+    public float fireRate = 0.1f; // 발사 간격 (자동 발사용)
+    public int magazineSize = 30; // 탄창 크기
+    public int currentAmmo; // 현재 탄약 수
+    public float reloadTime = 2f; // 재장전 시간
+
+    private float lastFireTime = 0f;
+    private bool isReloading = false;
+
+    void Start()
+    {
+        currentAmmo = magazineSize;
+    }
+    void Update()
+    {
+        if (isAutomatic)
+        {
+            if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate && !isReloading)
+            {
+                if (currentAmmo > 0)
+                {
+                    Shoot();
+                    lastFireTime = Time.time;
+                }
+                else
+                {
+                    StartCoroutine(Reload());
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Fire1") && !isReloading)
+            {
+                if (currentAmmo > 0)
+                {
+                    Shoot();
+                }
+                else
+                {
+                    StartCoroutine(Reload());
+                }
+            }
+        }
+    }
     public void Shoot()
     {
         if (effectPrefab == null)
         {
             Debug.LogError("WeaponState is not assigned in the inspector.");
             return;
+        }
+
+        // 총기류의 경우 탄약 감소
+        if (type == "gun" || type == "rifle")
+        {
+            currentAmmo--;
         }
 
         // Raycast를 이용해 적 감지 및 데미지 적용
@@ -43,5 +95,16 @@ public class TotalWeapon : MonoBehaviour
             bulletImpact.transform.forward = hitInfo.normal;
             Destroy(bulletImpact, 2); // 2초 뒤에 파괴
         }
+
+    }
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("Reloading...");
+
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = magazineSize;
+        isReloading = false;
     }
 }

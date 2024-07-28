@@ -143,11 +143,19 @@ public class WeaponMagicSwitcher : MonoBehaviour
             {
                 weapons[i].SetActive(false);
             }
+            Selectmagic();
         }
         else
         {
             leftArm.SetActive(false);
             rightArm.SetActive(true);
+
+            for (int i = 0; i < magic.Length; i++)
+            {
+                magic[i].SetActive(false);
+            }
+
+
             SelectWeapon();
         }
     }
