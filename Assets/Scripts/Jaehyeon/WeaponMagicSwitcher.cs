@@ -81,7 +81,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
             SelectWeaponOrMagic();
         }
 
-        // 마우스 좌클릭으로 무기 또는 마법 사용
+        /*// 마우스 좌클릭으로 무기 또는 마법 사용
         if (Input.GetButtonDown("Fire1")) // 좌클릭
         {
             if (isMagicActive)
@@ -95,9 +95,10 @@ public class WeaponMagicSwitcher : MonoBehaviour
             {
                 // 무기 사용
                 //weapons[selectedWeapon].GetComponent<WeaponBase>().Use();
+                Debug.Log(5);
                 weapons[selectedWeapon].GetComponent<TotalWeapon>().Shoot();
             }
-        }
+        }*/
     }
 
     //선택 무기 활성화

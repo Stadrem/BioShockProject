@@ -312,11 +312,11 @@ MonoBehaviour:
   attackRange: 100
   damage: 5
   type: '?'
-  isAutomatic: 1
+  AutoFire: 1
   fireRate: 0.1
   magazineSize: 30
-  currentAmmo: 0
-  reloadTime: 2
+  currentBullet: 30
+  needMag: 1
 --- !u!135 &584135949
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1186,11 +1186,11 @@ MonoBehaviour:
   attackRange: 100
   damage: 5
   type: '?'
-  isAutomatic: 0
+  AutoFire: 0
   fireRate: 0.1
   magazineSize: 30
-  currentAmmo: 0
-  reloadTime: 2
+  currentBullet: 0
+  needMag: 1
 --- !u!135 &1060514256
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1389,11 +1389,11 @@ MonoBehaviour:
   attackRange: 100
   damage: 5
   type: '?'
-  isAutomatic: 0
+  AutoFire: 0
   fireRate: 0.1
   magazineSize: 30
-  currentAmmo: 0
-  reloadTime: 2
+  currentBullet: 0
+  needMag: 1
 --- !u!1 &1309826099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,12 +2256,12 @@ MonoBehaviour:
     type: 3}
   attackRange: 90
   damage: 5
-  type: Shoot
-  isAutomatic: 1
+  type: '?'
+  AutoFire: 0
   fireRate: 0.1
   magazineSize: 8
-  currentAmmo: 0
-  reloadTime: 2
+  currentBullet: 0
+  needMag: 1
 --- !u!1 &2138667933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,11 +2389,11 @@ MonoBehaviour:
   attackRange: 10
   damage: 2
   type: '?'
-  isAutomatic: 0
+  AutoFire: 0
   fireRate: 0.1
   magazineSize: 30
-  currentAmmo: 0
-  reloadTime: 2
+  currentBullet: 0
+  needMag: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
