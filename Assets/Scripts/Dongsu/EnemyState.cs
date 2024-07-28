@@ -8,10 +8,13 @@ using UnityEngine.AI;
 
 public class EnemyState : MonoBehaviour
 {
+    public LayerMask layerMask;
+
     public string enemyName;
     public float shockStunTime = 2.0f;
     public float freezeTime = 6.0f;
     public float reAttackDistance = 4.5f;
+    public float baseSpeed = 4;
 
     Rigidbody rb;
 
@@ -56,6 +59,7 @@ public class EnemyState : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         currentState = State.Idle;
         previousState = currentState;
+        na.speed = baseSpeed;
 
         // 레그돌의 리지드바디를 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -150,6 +154,7 @@ public class EnemyState : MonoBehaviour
         }
         else
         {
+            na.speed = baseSpeed;
             anim.SetBool("IsAttack", false);
             anim.SetBool("IsWalk", true);
 
@@ -160,6 +165,7 @@ public class EnemyState : MonoBehaviour
 
             float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
 
+            //상대와 나의 거리가 reAttackDistance보다 작으면 공격
             if (distance <= reAttackDistance)
             {
                 ChangeState(EnemyState.State.Attack);
@@ -169,6 +175,7 @@ public class EnemyState : MonoBehaviour
 
     void AttackState()
     {
+        na.speed = 0;
         ChaseOn = false;
         anim.SetBool("IsAttack", true);
         anim.SetBool("IsWalk", false);
