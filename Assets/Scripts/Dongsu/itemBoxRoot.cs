@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ItemBoxRoot : MonoBehaviour
 {
+    //0번 힐, 1번 마나, 2번 총알, 3번 달러
     //아이템 박스에 들어갈 리스트
     public List<int> itemList = new List<int>();
 
@@ -68,7 +69,15 @@ public class ItemBoxRoot : MonoBehaviour
             }
             else
             {
-                UiManager.instance.keepItems[itemList[0]] += 1;
+                //총알이나 달러면 3~7개 획득
+                if (itemList[0] == 2 || itemList[0] == 3)
+                {
+                    UiManager.instance.keepItems[itemList[0]] += Random.Range(3,8);
+                }
+                else
+                {
+                    UiManager.instance.keepItems[itemList[0]] += 1;
+                }
                 itemList.RemoveAt(0);
                 itemView();
             }

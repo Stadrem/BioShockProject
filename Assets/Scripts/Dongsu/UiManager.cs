@@ -9,38 +9,49 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager instance;
 
+    //아이템 루팅
     public int[] boxList = new int[2];
-
-    //0번 힐, 1번 마나, 2번 총알, 3번 달러 아이콘
-    public List<Sprite> spriteList = new List<Sprite>();
 
     //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
 
+    //0번 힐, 1번 마나, 2번 총알, 3번 달러 아이콘
+    public List<Sprite> spriteList = new List<Sprite>();
+
     //0번 힐, 1번 마나, 2번 총알, 3번 달러
     public int[] keepItems = new int[] { 0, 0, 0, 0 };
 
-    public Sprite originSprite;
+    //계획된 아이템 갯수 - 1
+    public int maxItems = 3;
 
+    //HP 게이지 갱신
     Image hpGauge;
+    float currentHP;
 
+    //아이템 루팅 관련
     public GameObject rootUi;
     public GameObject nameUi;
     public GameObject searchUi;
     public GameObject nameSpaceUi;
-    public Text healItem;
-    public Text manaItem;
-    public Text alretText;
-    Animator alretAnim;
+    public Sprite originSprite;
     bool rootUiOn = false;
 
-    float currentHP;
+    //현재 아이템
+    public Text healItem;
+    public Text manaItem;
 
+    //경고창
+    public Text alretText;
+    Animator alretAnim;
+
+    //아이템 루팅 레이 판별
     public LayerMask layerMask;
 
-    public int maxItems = 3;
-
-    float delayTime = 0;
+    //탄창 관련
+    public int bulletCurrent = 0;
+    public int bulletMax = 0;
+    public Text bulletCurrentText;
+    public Text bulletMaxText;
 
     void Awake()
     {
@@ -81,6 +92,7 @@ public class UiManager : MonoBehaviour
         {
             UseHeal();
         }
+        ItemRefresh();
     }
 
     void ItemBox()
@@ -176,6 +188,9 @@ public class UiManager : MonoBehaviour
     {
         healItem.text = keepItems[0].ToString();
         manaItem.text = keepItems[1].ToString();
+        bulletMax = keepItems[2];
+        bulletCurrentText.text = bulletCurrent.ToString();
+        bulletMaxText.text = bulletMax.ToString();
     }
 
     void UseHeal()
