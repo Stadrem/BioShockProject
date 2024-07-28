@@ -67,6 +67,8 @@ public class BossBehavior : MonoBehaviour
     public bool isCharging = false;
     // 캐릭터의 동작 여부
     bool isMoving = false;
+    // 보스 데미지 스크립트 참조
+    private BossDamaged bossDamaged;
 
     void Start()
     {
@@ -74,11 +76,13 @@ public class BossBehavior : MonoBehaviour
         state = EnemyState.Idle;
         // Player의 Transform 컴포넌트 받아오기
         player = GameObject.Find("Player").transform;
-        // Boss의 캐릭터 컨트롤러 컴포넌트 받아오기
+        // 빅대디의 캐릭터 컨트롤러 컴포넌트 받아오기
         cc = GetComponent<CharacterController>();
         // 초기 회전 상태 저장
         originalRotation = rightHand.rotation;
         targetRotation = Quaternion.Euler(-50, -47, 54) * originalRotation;
+        // 보스 데미지 스크립트
+        bossDamaged = GetComponent<BossDamaged>();
     }
 
     void Update()
@@ -103,7 +107,7 @@ public class BossBehavior : MonoBehaviour
                 Attack();
                 break;
             case EnemyState.Damaged:
-                Damaged();
+                // Damaged 상태에서 특정 행동을 취할 수 있다.
                 break;
             case EnemyState.Die:
                 Die();
@@ -115,10 +119,31 @@ public class BossBehavior : MonoBehaviour
     public void ChangeState(EnemyState newState)
     {
         state = newState;
+
+        switch(state)
+        {
+            case EnemyState.Idle:
+                // 대기 상태 로직
+                break;
+            case EnemyState.Move:
+                // 이동 상태 로직
+                break;
+            case EnemyState.Attack:
+                // 공격 상태 로직
+                break;
+            case EnemyState.Damaged:
+                // 피해 상태 로직
+                break;
+            case EnemyState.Die:
+                // 2초 후에 오브젝트를 제거시킨다.
+                StartCoroutine(RemoveAfterDelay(2.0f));
+                // 죽음 상태 로직
+                break;
+        }
     }
 
     // 대기 상태 함수
-    void Idle()
+    public void Idle()
     {
         // 플레이어와의 거리가 인지범위 안에 들어오면, Move 상태로 전환한다.
         float dist = Vector3.Distance(player.transform.position, transform.position);
@@ -129,7 +154,7 @@ public class BossBehavior : MonoBehaviour
         }
     }
 
-    void Move()
+    public void Move()
     {
         // 플레이어와 보스의 거리 구하기
         float dist = Vector3.Distance(player.transform.position, transform.position);
@@ -152,7 +177,7 @@ public class BossBehavior : MonoBehaviour
     }
 
     // 공격 함수
-    void Attack()
+    public void Attack()
     {
         // 만약, 플레이어가 공격 범위 이내에 있다면 플레이어를 공격한다.
         float dist = Vector3.Distance(player.transform.position, transform.position);
@@ -184,7 +209,7 @@ public class BossBehavior : MonoBehaviour
         }
     }
     // 근접 공격
-    void MeleeAttack()
+    public void MeleeAttack()
     {
         // 오른팔을 회전시킨다.
         isRoatate = true;
@@ -202,7 +227,7 @@ public class BossBehavior : MonoBehaviour
     }
 
     // 중거리 랜덤 공격
-    void RandomShotAttack()
+    public void RandomShotAttack()
     {
         // 중거리 공격 2개중 랜덤하게 부여
         int attackType = Random.Range(0, 2);
@@ -218,7 +243,7 @@ public class BossBehavior : MonoBehaviour
     }
 
     // 중거리 공격1 - 돌진 공격
-    void ShotAttackType1()
+    public void ShotAttackType1()
     {
         // 플레이어와의 거리 
         float dist = Vector3.Distance(player.transform.position, transform.position);
@@ -234,7 +259,7 @@ public class BossBehavior : MonoBehaviour
     }
 
     // 중거리 공격2 - 전방위 공격(땅내려치기)
-    void ShotAttackType2()
+    public void ShotAttackType2()
     {
         print("땅내려치기");
     }
@@ -242,7 +267,9 @@ public class BossBehavior : MonoBehaviour
     // 플레이어를 향해 돌진, 일정 시간이 지나면 이동 상태로 돌아간다.
     private IEnumerator ChargeTowardsPlayer()
     {
+        // 돌진할것인가
         isCharging = true;
+        // 이동속도를 돌진속도로 변환
         this.moveSpeed = chargeSpeed;
 
         float chargeDutation = 1f;
@@ -260,12 +287,10 @@ public class BossBehavior : MonoBehaviour
         state = EnemyState.Move;
     }
 
-    public void Damaged()
+    public void Damaged(int damage, string type)
     {
-        if (state == EnemyState.Die)
-        {
-            return;
-        }
+        GetComponent<BossDamaged>().Damaged(damage, type);
+
         // 동결
         // 감전
         // 근거리 및 원거리 공격
@@ -275,5 +300,16 @@ public class BossBehavior : MonoBehaviour
     {   
         // 캐릭터 컨트롤러 비활성화
         GetComponent<CharacterController>().enabled = false;
+        // 애니메이션 트리거 추가
+        // if(animoator != null)
+        //{
+        //    Animator.SetTrigger("Die");
+        //}
+    }
+
+    private IEnumerator RemoveAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }
