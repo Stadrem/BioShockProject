@@ -1764,8 +1764,10 @@ MonoBehaviour:
   spriteList:
   - {fileID: 21300000, guid: 0687575ff862c474e96a3880357acdce, type: 3}
   - {fileID: 21300000, guid: 6a27e32e23708b74c93cb3bc8a99965e, type: 3}
-  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
   - {fileID: 21300000, guid: 95a1ffe6637ed704aa3a95a4da5bbbbd, type: 3}
+  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
+  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
+  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
   keepItems: 00000000000000000000000000000000
   maxItems: 3
   rootUi: {fileID: 2158061787757752198}
