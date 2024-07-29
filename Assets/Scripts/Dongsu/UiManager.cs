@@ -15,14 +15,14 @@ public class UiManager : MonoBehaviour
     //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
 
-    //0번 힐, 1번 마나, 2번 총알, 3번 달러 아이콘
+    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 
     public List<Sprite> spriteList = new List<Sprite>();
 
-    //0번 힐, 1번 마나, 2번 총알, 3번 달러
-    public int[] keepItems = new int[] { 0, 0, 0, 0 };
+    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 
+    public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0};
 
-    //계획된 아이템 갯수 - 1
-    public int maxItems = 3;
+    //계획된 아이템 갯수
+    public int maxItems = 6;
 
     //HP 게이지 갱신
     Image hpGauge;
@@ -54,7 +54,9 @@ public class UiManager : MonoBehaviour
     public Text bulletMaxText;
 
     int needMagazine;
-    int[] weaponeMagazine = new int[] { 0, 0, 0 };
+    //1번 권총탄, 2번 기관총, 3번 샷건, 0번 빈칸
+    int[] weaponeMagazine = new int[] {0, 0, 0, 0 };
+    int currentWeapone = 0;
 
     void Awake()
     {
@@ -75,14 +77,10 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         GameObject temp = GameObject.Find("HPRed");
         hpGauge = temp.GetComponent<Image>();
-        //RootUi = GameObject.Find("RootUi");
-        //RootUi.SetActive(false);
-
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
     }
@@ -190,9 +188,7 @@ public class UiManager : MonoBehaviour
     public void ItemRefresh()
     {
         healItem.text = keepItems[0].ToString();
-        manaItem.text = keepItems[1].ToString();
-        bulletCurrentText.text = bulletCurrent.ToString();
-        bulletMaxText.text = keepItems[2].ToString();
+        manaItem.text = keepItems[4].ToString();
     }
 
     void UseHeal()
@@ -211,14 +207,14 @@ public class UiManager : MonoBehaviour
 
     public bool BulletShoot()
     {
-        if (bulletCurrent == 0)
+        if (weaponeMagazine[currentWeapone] == 0)
         {
             Debug.Log("경고: 총알이 부족합니다!");
             return false;
         }
-        bulletCurrent -= 1;
+        weaponeMagazine[currentWeapone] -= 1;
 
-        bulletCurrentText.text = bulletCurrent.ToString();
+        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
 
         return true;
     }
@@ -226,33 +222,47 @@ public class UiManager : MonoBehaviour
 
     public void Reload(int weapone)
     {
-        if(weapone == 1)
+        currentWeapone = weapone;
+
+        if (weaponeMagazine[currentWeapone] == 0)
+        {
+            return;
+        }
+
+        if(currentWeapone == 1)
         {
             needMagazine = 8;
         }
-        else if(weapone == 2)
+        else if(currentWeapone == 2)
         {
             needMagazine = 30;
         }
-        else if (weapone == 3)
+        else if (currentWeapone == 3)
         {
             needMagazine = 4;
         }
 
         //보유중인 탄환을 임시 저장소에 돌려보냄
-        keepItems[2] += bulletCurrent;
+        keepItems[currentWeapone] += weaponeMagazine[currentWeapone];
 
         //장전된 탄환 초기화
-        bulletCurrent = 0;
+        weaponeMagazine[currentWeapone] = 0;
 
         //요청 탄환 수 만큼 보유량 제거
-        keepItems[2] -= needMagazine;
+        keepItems[currentWeapone] -= needMagazine;
 
         //장전
-        bulletCurrent = needMagazine;
+        weaponeMagazine[currentWeapone] = needMagazine;
 
         //갱신
-        bulletCurrentText.text = bulletCurrent.ToString();
-        bulletMaxText.text = keepItems[2].ToString();
+        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
+        bulletMaxText.text = keepItems[currentWeapone].ToString();
+    }
+
+    public void WeaponeChange(int weapone)
+    {
+        currentWeapone = weapone;
+        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
+        bulletMaxText.text = keepItems[currentWeapone].ToString();
     }
 }

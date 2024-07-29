@@ -30,7 +30,7 @@ public class ItemBoxRoot : MonoBehaviour
                 break;
             }
             //0~최대 아이템 index 사이에서 랜덤으로 값 생성
-            int j = Random.Range(0, Max + 1);
+            int j = Random.Range(0, Max);
 
             // 제외할 인덱스가 아니면 추가
             if (!excludedIndices.Contains(j))
@@ -69,10 +69,15 @@ public class ItemBoxRoot : MonoBehaviour
             }
             else
             {
-                //총알이나 달러면 3~7개 획득
-                if (itemList[0] == 2 || itemList[0] == 3)
+                //달러면 3~7개 획득
+                if (itemList[0] == 5)
                 {
                     UiManager.instance.keepItems[itemList[0]] += Random.Range(3,8);
+                }
+                //총알이면 3~10발
+                if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
+                {
+                    UiManager.instance.keepItems[itemList[0]] += Random.Range(3, 11);
                 }
                 else
                 {
