@@ -26,10 +26,6 @@ public class AnimEvent : MonoBehaviour
     {
         Vector3 tempPosition = GameManager.instance.player.transform.position;
 
-        Vector3 lookat = new Vector3(tempPosition.x, transform.position.y, tempPosition.z);
-
-        transform.parent.LookAt(lookat);
-
         float distance = Vector3.Distance(tempPosition, transform.position);
 
         //상대와 나의 거리가 reAttackDistance보다 크면, 추적
@@ -37,7 +33,6 @@ public class AnimEvent : MonoBehaviour
         {
             enemyState.ChangeState(EnemyState.State.Chase);
         }
-
 
         StartCoroutine(AttackDelay(tempPosition));
     }
@@ -51,8 +46,6 @@ public class AnimEvent : MonoBehaviour
 
     IEnumerator AttackDelay(Vector3 temp)
     {
-
-
         yield return new WaitForSeconds(0.4f);
 
         RaycastHit hit;
@@ -70,24 +63,12 @@ public class AnimEvent : MonoBehaviour
                 enemyState.ChangeState(EnemyState.State.Chase);
             }
         }
+    }
 
-        /*
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, temp - transform.position, attackRanage);
+    void IsTurn()
+    {
+        Vector3 lookat = new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z);
 
-        foreach (var hit in hits)
-        {
-            Debug.DrawRay(transform.position, hit.transform.position - transform.position, Color.green, 1.0f);
-            if (hit.transform.CompareTag("Player"))
-            {
-                print("때림!");
-                GameManager.instance.Damaged(1);
-                break;
-            }
-            else
-            {
-                enemyState.ChangeState(EnemyState.State.Chase);
-            }
-        }
-        */
+        transform.parent.LookAt(lookat);
     }
 }
