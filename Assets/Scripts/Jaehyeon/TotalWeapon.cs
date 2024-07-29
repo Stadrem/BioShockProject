@@ -15,12 +15,14 @@ public class TotalWeapon : MonoBehaviour
     public float fireRate = 0.1f; // 발사 간격 (자동 발사용)
     public int magazineSize = 30; // 탄창 크기
     public bool needMag = true; // 탄창이 필요한지 여부
+    
+
 
     private float lastFireTime = 0f;
 
     void Start()
     {
-        GameUIManager.instance.bulletCurrent = magazineSize;
+        UiManager.instance.bulletCurrent = UiManager.instance.bulletCurrent > 0 ? UiManager.instance.bulletCurrent : 0;
     }
 
     void Update()
@@ -38,7 +40,7 @@ public class TotalWeapon : MonoBehaviour
             if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate)
             {
                 // 탄창이 필요하지 않거나, 현재 탄약이 0보다 크다면 발사
-                if (!needMag || GameUIManager.instance.BulletShoot())
+                if (!needMag || UiManager.instance.BulletShoot())
                 {
                     Shoot();
                     // 마지막 발사 시간을 현재 시간으로 갱신
@@ -54,7 +56,7 @@ public class TotalWeapon : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                if (!needMag || GameUIManager.instance.BulletShoot())
+                if (!needMag || UiManager.instance.BulletShoot())
                 {
                     Shoot();
                 }
@@ -65,6 +67,8 @@ public class TotalWeapon : MonoBehaviour
             }
         }
     }
+
+
 
     public void Shoot()
     {
@@ -104,8 +108,8 @@ public class TotalWeapon : MonoBehaviour
         if (needMag)
         {
             Debug.Log("장전중...");
-            GameUIManager.instance.Reload(magazineSize);
-            Debug.Log("장전완료. 현재 총알: " + GameUIManager.instance.bulletCurrent);
+            UiManager.instance.Reload(magazineSize);
+            Debug.Log("장전완료. 현재 총알: " + UiManager.instance.bulletCurrent);
         }
     }
 }
