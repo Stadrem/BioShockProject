@@ -226,6 +226,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9c5b0971caede245afe5efe57ba31a6, type: 3}
+--- !u!1 &402695042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402695043}
+  - component: {fileID: 402695044}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &402695043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402695042}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &402695044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402695042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c7e06db9b5ec5469a79ebc84417f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletCurrent: 8
+  keepItems: 32000000
 --- !u!1 &426206915
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +361,6 @@ MonoBehaviour:
   AutoFire: 1
   fireRate: 0.1
   magazineSize: 30
-  currentBullet: 30
   needMag: 1
 --- !u!135 &584135949
 SphereCollider:
@@ -1189,7 +1234,6 @@ MonoBehaviour:
   AutoFire: 0
   fireRate: 0.1
   magazineSize: 30
-  currentBullet: 0
   needMag: 1
 --- !u!135 &1060514256
 SphereCollider:
@@ -1392,7 +1436,6 @@ MonoBehaviour:
   AutoFire: 0
   fireRate: 0.1
   magazineSize: 30
-  currentBullet: 0
   needMag: 1
 --- !u!1 &1309826099
 GameObject:
@@ -2260,7 +2303,6 @@ MonoBehaviour:
   AutoFire: 0
   fireRate: 0.1
   magazineSize: 8
-  currentBullet: 0
   needMag: 1
 --- !u!1 &2138667933
 GameObject:
@@ -2392,8 +2434,7 @@ MonoBehaviour:
   AutoFire: 0
   fireRate: 0.1
   magazineSize: 30
-  currentBullet: 0
-  needMag: 1
+  needMag: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2407,3 +2448,4 @@ SceneRoots:
   - {fileID: 340700293}
   - {fileID: 1017682789}
   - {fileID: 1914473395}
+  - {fileID: 402695043}
