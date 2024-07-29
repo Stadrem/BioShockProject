@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     //다른 곳에서 활용할 변수등등
     public int HP = 10;
+    int maxHP;
 
     public GameObject player;
 
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         cameraTransform = Camera.main.transform.parent;
         originalCameraLocalPosition = Camera.main.transform.localPosition;
         anim = player.GetComponentInChildren<Animator>();
+        maxHP = HP;
     }
 
     private void Update()
@@ -66,6 +68,11 @@ public class GameManager : MonoBehaviour
     public void Damaged(int num)
     {
         HP -= num;
+
+        if(HP > maxHP)
+        {
+            HP = maxHP;
+        }
 
         //anim.SetTrigger("IsDamaged");
 
