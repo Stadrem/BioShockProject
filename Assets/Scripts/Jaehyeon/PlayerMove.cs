@@ -20,10 +20,10 @@ public class PlayerMove : MonoBehaviour
     public float yVelocity = 0;
 
     //점프파워
-    public float jumpPower = 5;
+    public float jumpPower = 4;
 
     //최대 점프 횟수
-    public int jumpCount = 2;
+    public int jumpCount = 1;
 
     //현재 점프 횟수
     int jumpCurrCnt;

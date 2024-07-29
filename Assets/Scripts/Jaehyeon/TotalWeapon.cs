@@ -111,7 +111,7 @@ public class TotalWeapon : MonoBehaviour
         {
             Debug.Log("장전중...");
 
-            int currentWeapone = 0;
+            //int currentWeapone = 0;
 
             /*
             for(int i = 1; i < WeaponMagicSwitcher.weapons.Length; i++)
@@ -124,7 +124,6 @@ public class TotalWeapon : MonoBehaviour
             }
             */
 
-            
             UiManager.instance.Reload(weaponeIndex);
             Debug.Log("장전완료. 현재 총알: " + UiManager.instance.bulletCurrent);
         }
