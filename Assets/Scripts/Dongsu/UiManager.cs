@@ -188,7 +188,7 @@ public class UiManager : MonoBehaviour
     public void ItemRefresh()
     {
         healItem.text = keepItems[0].ToString();
-        //manaItem.text = keepItems[4].ToString();
+        manaItem.text = keepItems[4].ToString();
     }
 
     void UseHeal()
