@@ -1763,25 +1763,25 @@ MonoBehaviour:
   - {fileID: 5418163620053547449}
   spriteList:
   - {fileID: 21300000, guid: 0687575ff862c474e96a3880357acdce, type: 3}
+  - {fileID: 21300000, guid: 479339dcff63d144598387c61a8dd87d, type: 3}
+  - {fileID: 21300000, guid: 99d529f34cb7e8748b438aed8c47ca6f, type: 3}
+  - {fileID: 21300000, guid: cf6882dfb6a724d45947a9ebeaa68ab5, type: 3}
   - {fileID: 21300000, guid: 6a27e32e23708b74c93cb3bc8a99965e, type: 3}
   - {fileID: 21300000, guid: 95a1ffe6637ed704aa3a95a4da5bbbbd, type: 3}
-  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
-  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
-  - {fileID: 21300000, guid: e22d88ecec5609f44bf492f8fd40db5d, type: 3}
-  keepItems: 00000000000000000000000000000000
-  maxItems: 3
+  keepItems: 000000000000000000000000000000000000000000000000
+  maxItems: 6
   rootUi: {fileID: 2158061787757752198}
   nameUi: {fileID: 3402838729711140890}
   searchUi: {fileID: 7954365824767834358}
   nameSpaceUi: {fileID: 5938656962311525573}
   originSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  weaponeBulletIcon: {fileID: 4797896381879252982}
   healItem: {fileID: 2131804010977047123}
   manaItem: {fileID: 3238457406400287823}
   alretText: {fileID: 6088210662531861184}
   layerMask:
     serializedVersion: 2
     m_Bits: 512
-  bulletCurrent: 0
   bulletCurrentText: {fileID: 5524051477808558981}
   bulletMaxText: {fileID: 6649866553505169600}
 --- !u!1 &4575052223339040583

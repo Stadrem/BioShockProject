@@ -22,7 +22,7 @@ public class UiManager : MonoBehaviour
     public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0};
 
     //계획된 아이템 갯수
-    public int maxItems = 6;
+    public int maxItems = 7;
 
     //HP 게이지 갱신
     Image hpGauge;
@@ -34,6 +34,7 @@ public class UiManager : MonoBehaviour
     public GameObject searchUi;
     public GameObject nameSpaceUi;
     public Sprite originSprite;
+    public Image weaponeBulletIcon;
     bool rootUiOn = false;
 
     //현재 아이템
@@ -48,7 +49,7 @@ public class UiManager : MonoBehaviour
     public LayerMask layerMask;
 
     //탄창 관련
-    public int bulletCurrent = 0;
+    //public int bulletCurrent = 0;
     //public int bulletMax = 0;
     public Text bulletCurrentText;
     public Text bulletMaxText;
@@ -56,7 +57,7 @@ public class UiManager : MonoBehaviour
     int needMagazine;
     //1번 권총탄, 2번 기관총, 3번 샷건, 0번 빈칸
     int[] weaponeMagazine = new int[] {0, 0, 0, 0 };
-    int currentWeapone = 0;
+    int currentWeapone = 1;
 
     void Awake()
     {
@@ -92,8 +93,8 @@ public class UiManager : MonoBehaviour
         if(Input.GetButtonDown("Heal"))
         {
             UseHeal();
+            ItemRefresh();
         }
-        ItemRefresh();
     }
 
     void ItemBox()
@@ -122,6 +123,7 @@ public class UiManager : MonoBehaviour
                 {
                     BoxListRefresh();
                     itemBoxRoot.GetItem();
+                    ItemRefresh();
                 }
 
                 if (Input.GetButtonDown("Get") && !rootUiOn)
@@ -189,6 +191,8 @@ public class UiManager : MonoBehaviour
     {
         healItem.text = keepItems[0].ToString();
         manaItem.text = keepItems[4].ToString();
+        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
+        bulletMaxText.text = keepItems[currentWeapone].ToString();
     }
 
     void UseHeal()
