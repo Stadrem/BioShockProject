@@ -53,6 +53,9 @@ public class UiManager : MonoBehaviour
     public Text bulletCurrentText;
     public Text bulletMaxText;
 
+    int needMagazine;
+    int[] weaponeMagazine = new int[] { 0, 0, 0 };
+
     void Awake()
     {
         //instance 값이 null이면
@@ -220,22 +223,36 @@ public class UiManager : MonoBehaviour
         return true;
     }
 
-    /*
-    public void BulletReload(int magazine)
+
+    public void Reload(int weapone)
     {
-        //보유중인 탄환으로 돌려보냄
+        if(weapone == 1)
+        {
+            needMagazine = 8;
+        }
+        else if(weapone == 2)
+        {
+            needMagazine = 30;
+        }
+        else if (weapone == 3)
+        {
+            needMagazine = 4;
+        }
+
+        //보유중인 탄환을 임시 저장소에 돌려보냄
         keepItems[2] += bulletCurrent;
+
         //장전된 탄환 초기화
         bulletCurrent = 0;
 
         //요청 탄환 수 만큼 보유량 제거
-        keepItems[2] -= magazine;
+        keepItems[2] -= needMagazine;
+
         //장전
-        bulletCurrent = magazine;
+        bulletCurrent = needMagazine;
 
         //갱신
         bulletCurrentText.text = bulletCurrent.ToString();
         bulletMaxText.text = keepItems[2].ToString();
     }
-    */
 }
