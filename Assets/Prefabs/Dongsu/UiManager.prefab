@@ -320,7 +320,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 8, y: 0}
   m_SizeDelta: {x: 56.4, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4191457646406537412
@@ -1180,7 +1180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -8, y: 0}
   m_SizeDelta: {x: 56.399994, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7129216198405646206
@@ -1780,7 +1780,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   bulletCurrent: 0
-  bulletMax: 0
   bulletCurrentText: {fileID: 5524051477808558981}
   bulletMaxText: {fileID: 6649866553505169600}
 --- !u!1 &4575052223339040583
