@@ -228,7 +228,7 @@ public class UiManager : MonoBehaviour
     {
         currentWeapone = weapone;
 
-        if (weaponeMagazine[currentWeapone] == 0)
+        if (keepItems[currentWeapone] == 0)
         {
             return;
         }

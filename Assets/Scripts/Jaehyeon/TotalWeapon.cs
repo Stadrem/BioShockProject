@@ -24,7 +24,7 @@ public class TotalWeapon : MonoBehaviour
 
     void Start()
     {
-        UiManager.instance.bulletCurrent = UiManager.instance.bulletCurrent > 0 ? UiManager.instance.bulletCurrent : 0;
+       // UiManager.instance.bulletCurrent = UiManager.instance.bulletCurrent > 0 ? UiManager.instance.bulletCurrent : 0;
     }
 
     void Update()
@@ -125,7 +125,7 @@ public class TotalWeapon : MonoBehaviour
             */
 
             UiManager.instance.Reload(weaponeIndex);
-            Debug.Log("장전완료. 현재 총알: " + UiManager.instance.bulletCurrent);
+            //Debug.Log("장전완료. 현재 총알: " + UiManager.instance.bulletCurrent);
         }
     }
 }

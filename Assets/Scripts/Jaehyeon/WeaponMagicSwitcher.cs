@@ -109,6 +109,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
             weapons[i].SetActive(i == selectedWeapon && !isMagicActive);
             if (i == selectedWeapon && !isMagicActive)
             {
+                UiManager.instance.WeaponeChange(i);
                 weapons[i].transform.SetParent(rightHand);
                 weapons[i].transform.localPosition = Vector3.zero;
                 weapons[i].transform.localRotation = Quaternion.identity;
