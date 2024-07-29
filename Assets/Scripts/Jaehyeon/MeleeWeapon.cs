@@ -1,44 +1,41 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class MeleeWeapone : MonoBehaviour
+public class MeleeWeapon : WeaponBase
 {
-    public float attackRange = 2f; // °ø°İ ¹üÀ§
-    public int damage = 25; // °ø°İ µ¥¹ÌÁö
-    public Transform attackPoint; // °ø°İ ½ÃÀÛ ÁöÁ¡
+    public WeaponState weaponState; // ë¬´ê¸° ìƒíƒœ
+    public LayerMask layerMask;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Use()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // ¸¶¿ì½º ¿ìÅ¬¸¯À» °¨ÁöÇÏ¿© °ø°İ ½ÇÇà
-        if (Input.GetButtonDown("Fire1")) // ¸¶¿ì½º ÁÂÅ¬¸¯
-        {
-            Attack();
-        }
-       
+        Attack();
     }
 
     void Attack()
     {
-        // °ø°İ ¹üÀ§ ³»ÀÇ Ãæµ¹ °¨Áö
-        RaycastHit hit;
-        if (Physics.Raycast(attackPoint.position, attackPoint.forward, out hit, attackRange))
+        if (weaponState == null)
         {
-            Debug.Log("Hit " + hit.transform.name);
+            Debug.LogError("WeaponState is not assigned in the inspector.");
+            return;
+        }
 
-            // Àû¿¡°Ô µ¥¹ÌÁö¸¦ ÁÜ
-            EnemyHealth enemy = hit.transform.GetComponent<EnemyHealth>();
-            if (enemy != null)
+        // Raycastë¥¼ ì´ìš©í•´ ì  ê°ì§€ ë° ë°ë¯¸ì§€ ì ìš©
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, weaponState.attackRange, layerMask))
+        {
+            print(hitInfo.transform.name);
+            
+            if (hitInfo.collider.CompareTag("Enemy"))
             {
-                enemy.TakeDamage(damage);
+                Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
+                damaged.Damage(weaponState.damage, "Melee");
+            }
+            else if (hitInfo.collider.CompareTag("Boss"))
+            {
+                //BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
+                //bossDamaged.BossDamage(1);
             }
         }
     }

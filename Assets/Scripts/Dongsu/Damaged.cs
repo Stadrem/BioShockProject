@@ -8,7 +8,7 @@ public class Damaged : MonoBehaviour
     //resis는 마법 저항력입니다. 0.5f로 설정하면 마법으로 인한 경직이 반감됩니다. 0으로 설정하면 경직되지 않습니다.
     public int HP = 10;
     public float resis = 1.0f;
-    public float speed = 5.0f;
+    //public float speed = 5.0f;
     
 
     //Enemy 상태 관리 가져오기
@@ -18,6 +18,10 @@ public class Damaged : MonoBehaviour
     void Start()
     {
         enemyState = GetComponent<EnemyState>();
+    }
+
+    private void Update()
+    {
     }
 
     //받은 마법 종류에 따라서 다른 데미지와 행동을 구현합니다.
@@ -30,7 +34,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Fire":
-                StartCoroutine(DamageStep(damage, 5, type));
+                StartCoroutine(DamageStep(damage, 4, type));
                 break;
 
             case "Ice":

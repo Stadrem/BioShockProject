@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -10,11 +11,7 @@ public class AnimEvent : MonoBehaviour
 
     public float attackRanage = 7.0f;
 
-    public LayerMask layerMask;
-
     public GameObject attackPoint;
-
-
 
     //Animator 가져오기
     Animator anim;
@@ -25,54 +22,19 @@ public class AnimEvent : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void IsMeleeAttack()
+    void IsAttack()
     {
-        float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
+        Vector3 tempPosition = GameManager.instance.player.transform.position;
 
+        float distance = Vector3.Distance(tempPosition, transform.position);
+
+        //상대와 나의 거리가 reAttackDistance보다 크면, 추적
         if (distance > enemyState.reAttackDistance)
         {
             enemyState.ChangeState(EnemyState.State.Chase);
         }
 
-        //Ray ray = new Ray(attackPoint.transform.position, attackPoint.transform.forward);
-
-        //RaycastHit hitInfo;
-
-        Collider[] hitColliders = Physics.OverlapSphere(attackPoint.transform.position, 2f, layerMask);
-
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Player"))
-            {
-                print("때림!");
-                GameManager.instance.Damaged(1);
-                break;
-            }
-            else
-            {
-                enemyState.ChangeState(EnemyState.State.Chase);
-                print("없는데요?");
-            }
-        }
-        /*
-        if (Physics.SphereCast(ray, 2f, out hitInfo, attackRanage, layerMask))
-        {
-            print(hitInfo.transform.name);
-            Debug.DrawRay(attackPoint.transform.position, attackPoint.transform.forward, Color.green, 2);
-
-            if (hitInfo.transform.gameObject.CompareTag("Player"))
-            {
-                print("때림!");
-                GameManager.instance.Damaged(1);
-            }
-            else
-            {
-                enemyState.ChangeState(EnemyState.State.Chase);
-                print("없는데요?");
-            }
-        
-        }
-        */
+        StartCoroutine(AttackDelay(tempPosition));
     }
 
     void IsDamaged()
@@ -80,5 +42,33 @@ public class AnimEvent : MonoBehaviour
         enemyState.ChangeState(EnemyState.State.Chase);
 
         anim.SetBool("IsDamaged", false);
+    }
+
+    IEnumerator AttackDelay(Vector3 temp)
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        RaycastHit hit;
+
+        if(Physics.Raycast(transform.position, temp - transform.position, out hit, attackRanage, enemyState.layerMask))
+        {
+            Debug.DrawRay(transform.position, hit.transform.position - transform.position, Color.green, 1.0f);
+            if (hit.transform.CompareTag("Player"))
+            {
+                print("때림!");
+                GameManager.instance.Damaged(1);
+            }
+            else
+            {
+                enemyState.ChangeState(EnemyState.State.Chase);
+            }
+        }
+    }
+
+    void IsTurn()
+    {
+        Vector3 lookat = new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z);
+
+        transform.parent.LookAt(lookat);
     }
 }
