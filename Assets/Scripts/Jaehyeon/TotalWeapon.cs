@@ -15,6 +15,8 @@ public class TotalWeapon : MonoBehaviour
     public float fireRate = 0.1f; // 발사 간격 (자동 발사용)
     public int magazineSize = 30; // 탄창 크기
     public bool needMag = true; // 탄창이 필요한지 여부
+
+    public int weaponeIndex = 0;
     
 
 
@@ -108,7 +110,22 @@ public class TotalWeapon : MonoBehaviour
         if (needMag)
         {
             Debug.Log("장전중...");
-            UiManager.instance.Reload(magazineSize);
+
+            int currentWeapone = 0;
+
+            /*
+            for(int i = 1; i < WeaponMagicSwitcher.weapons.Length; i++)
+            {
+                if(WeaponMagicSwitcher.weapons[i].gameObject.activeSelf)
+                {
+                    currentWeapone = i;
+                    break;
+                }
+            }
+            */
+
+            
+            UiManager.instance.Reload(weaponeIndex);
             Debug.Log("장전완료. 현재 총알: " + UiManager.instance.bulletCurrent);
         }
     }
