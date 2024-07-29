@@ -34,7 +34,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Fire":
-                StartCoroutine(DamageStep(damage, 5, type));
+                StartCoroutine(DamageStep(damage, 4, type));
                 break;
 
             case "Ice":
