@@ -2124,34 +2124,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
         type: 3}
-      propertyPath: spriteList.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: 479339dcff63d144598387c61a8dd87d,
-        type: 3}
+      propertyPath: maxItems
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
         type: 3}
-      propertyPath: spriteList.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: 99d529f34cb7e8748b438aed8c47ca6f,
-        type: 3}
-    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
-        type: 3}
-      propertyPath: spriteList.Array.data[3]
-      value: 
-      objectReference: {fileID: 21300000, guid: cf6882dfb6a724d45947a9ebeaa68ab5,
-        type: 3}
-    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
-        type: 3}
-      propertyPath: spriteList.Array.data[4]
-      value: 
-      objectReference: {fileID: 21300000, guid: 6a27e32e23708b74c93cb3bc8a99965e,
-        type: 3}
-    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
-        type: 3}
-      propertyPath: spriteList.Array.data[5]
-      value: 
-      objectReference: {fileID: 21300000, guid: 95a1ffe6637ed704aa3a95a4da5bbbbd,
-        type: 3}
+      propertyPath: keepItems.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

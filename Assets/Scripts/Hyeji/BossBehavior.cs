@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class BossBehavior : MonoBehaviour
 {
-    // ¿¡³Ê¹Ì »óÅÂ
+    // ì—ë„ˆë¯¸ ìƒíƒœ
     public enum EnemyState
     {
         Idle,
@@ -14,80 +14,85 @@ public class BossBehavior : MonoBehaviour
         Damaged,
         Die
     }
-    // ¿¡³Ê¹Ì »óÅÂ º¯¼ö
+
+    // ì—ë„ˆë¯¸ ìƒíƒœ ë³€ìˆ˜
     public EnemyState state;
-    // ÇÃ·¹ÀÌ¾î ¹ß°ß ¹üÀ§
+    // í”Œë ˆì´ì–´ ë°œê²¬ ë²”ìœ„
     public float findDistance = 8f;
-    // ÇÃ·¹ÀÌ¾î °ø°İ °¡´É ¹üÀ§
+    // í”Œë ˆì´ì–´ ê³µê²© ê°€ëŠ¥ ë²”ìœ„
     public float attackDistance = 2f;
     // Player Transform
     Transform player;
-    // Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ ÄÄÆ÷³ÍÆ®
+    // ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬ ì»´í¬ë„ŒíŠ¸
     CharacterController cc;
-    // ÇöÀç ½Ã°£
+    // í˜„ì¬ ì‹œê°„
     float currTime = 0;
-    // °ø°İ µô·¹ÀÌ ½Ã°£
+    // ê³µê²© ë”œë ˆì´ ì‹œê°„
     float attackDelayTime = 2f;
-    // ÀÌµ¿ ¹æÇâ 
+    // ì´ë™ ë°©í–¥ 
     Vector3 dir;
-    // º¸½º °ø°İ·Â
+    // ë³´ìŠ¤ ê³µê²©ë ¥
     public int attackPower = 3;
-    // ÀÌµ¿¼Óµµ
+    // ì´ë™ì†ë„
     public float moveSpeed = 2;
 
-    // ±ÙÁ¢ °ø°İ ¹üÀ§
+    // ê·¼ì ‘ ê³µê²© ë²”ìœ„
     public float meleeAttackDistance = 2f;
-    // ±ÙÁ¢ °ø°İ·Â
+    // ê·¼ì ‘ ê³µê²©ë ¥
     public int meleeAttackPower = 10;
-    // Áß°Å¸® °ø°İ ¹üÀ§
+    // ì¤‘ê±°ë¦¬ ê³µê²© ë²”ìœ„
     public float shotAttackDistance = 7f;
-    // Áß°Å¸® °ø°İ·Â
+    // ì¤‘ê±°ë¦¬ ê³µê²©ë ¥
     public int shotAttackPower = 5;
-    // º¸½ºÀÇ ¿À¸¥¼Õ
+    // ë³´ìŠ¤ì˜ ì˜¤ë¥¸ì†
     public Transform rightHand;
-    // È¸ÀüÇÒ°ÍÀÎ°¡?
+    // íšŒì „í• ê²ƒì¸ê°€?
     bool isRoatate = false;
-    // È¸Àü¼Óµµ
+    // íšŒì „ì†ë„
     public float rotationSpeed = 2f;
-    // È¸Àü ÈÄ ´ë±â ½Ã°£
+    // íšŒì „ í›„ ëŒ€ê¸° ì‹œê°„
     public float pauseDuration = 1f;
-    // ¿ø·¡ È¸Àü°¢
+    // ì›ë˜ íšŒì „ê°
     private Quaternion originalRotation;
-    // Å¸°Ù È¸Àü°¢
+    // íƒ€ê²Ÿ íšŒì „ê°
     private Quaternion targetRotation;
-    // ÇÃ·¹ÀÌ¾î°¡ °¡±î¿î°¡?
+    // í”Œë ˆì´ì–´ê°€ ê°€ê¹Œìš´ê°€?
     bool isPlayerClose = false;
 
-    // µ¹Áø ¼Óµµ
+    // ëŒì§„ ì†ë„
     public float chargeSpeed = 10f;
-    // µ¹Áø ½ÃÀÛ °Å¸®
+    // ëŒì§„ ì‹œì‘ ê±°ë¦¬
     public float chargeRange = 15f;
-    // µ¹Áø ¿©ºÎ
+    // ëŒì§„ ì—¬ë¶€
     public bool isCharging = false;
-    // Ä³¸¯ÅÍÀÇ µ¿ÀÛ ¿©ºÎ
+    // ìºë¦­í„°ì˜ ë™ì‘ ì—¬ë¶€
     bool isMoving = false;
+    // ë³´ìŠ¤ ë°ë¯¸ì§€ ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
+    private BossDamaged bossDamaged;
 
     void Start()
     {
-        // ÃÖÃÊÀÇ º¸½º »óÅÂ´Â Idle
+        // ìµœì´ˆì˜ ë³´ìŠ¤ ìƒíƒœëŠ” Idle
         state = EnemyState.Idle;
-        // PlayerÀÇ Transform ÄÄÆ÷³ÍÆ® ¹Ş¾Æ¿À±â
+        // Playerì˜ Transform ì»´í¬ë„ŒíŠ¸ ë°›ì•„ì˜¤ê¸°
         player = GameObject.Find("Player").transform;
-        // BossÀÇ Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ ÄÄÆ÷³ÍÆ® ¹Ş¾Æ¿À±â
+        // ë¹…ëŒ€ë””ì˜ ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬ ì»´í¬ë„ŒíŠ¸ ë°›ì•„ì˜¤ê¸°
         cc = GetComponent<CharacterController>();
-        // ÃÊ±â È¸Àü »óÅÂ ÀúÀå
+        // ì´ˆê¸° íšŒì „ ìƒíƒœ ì €ì¥
         originalRotation = rightHand.rotation;
         targetRotation = Quaternion.Euler(-50, -47, 54) * originalRotation;
+        // ë³´ìŠ¤ ë°ë¯¸ì§€ ìŠ¤í¬ë¦½íŠ¸
+        bossDamaged = GetComponent<BossDamaged>();
     }
 
     void Update()
     {
-        // ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â ¹æÇâÀ¸·Î ¸öÀ» È¸Àü½ÃÅ²´Ù.
+        // í”Œë ˆì´ì–´ê°€ ìˆëŠ” ë°©í–¥ìœ¼ë¡œ ëª¸ì„ íšŒì „ì‹œí‚¨ë‹¤.
         Vector3 directionToPlayer = player.position - transform.position;
         directionToPlayer.y = 0;
         Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-        
-        // º¸°£À» ÀÌ¿ëÇÏ¿© ¼Óµµ Á¶Àı
+
+        // ë³´ê°„ì„ ì´ìš©í•˜ì—¬ ì†ë„ ì¡°ì ˆ
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 1f);
 
         switch (state)
@@ -102,69 +107,97 @@ public class BossBehavior : MonoBehaviour
                 Attack();
                 break;
             case EnemyState.Damaged:
-                Damaged();
+                // Damaged ìƒíƒœì—ì„œ íŠ¹ì • í–‰ë™ì„ ì·¨í•  ìˆ˜ ìˆë‹¤.
                 break;
             case EnemyState.Die:
                 Die();
                 break;
-        }       
+        }
     }
-    // ´ë±â »óÅÂ ÇÔ¼ö
-    void Idle()
+
+    // ìƒíƒœ ë³€ê²½ í•¨ìˆ˜
+    public void ChangeState(EnemyState newState)
     {
-        // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®°¡ ÀÎÁö¹üÀ§ ¾È¿¡ µé¾î¿À¸é, Move »óÅÂ·Î ÀüÈ¯ÇÑ´Ù.
-        float dist = Vector3.Distance(player.transform.position, transform.position);
-        if(findDistance > dist)
+        state = newState;
+
+        switch(state)
         {
-            // move »óÅÂ·Î º¯È¯
+            case EnemyState.Idle:
+                // ëŒ€ê¸° ìƒíƒœ ë¡œì§
+                break;
+            case EnemyState.Move:
+                // ì´ë™ ìƒíƒœ ë¡œì§
+                break;
+            case EnemyState.Attack:
+                // ê³µê²© ìƒíƒœ ë¡œì§
+                break;
+            case EnemyState.Damaged:
+                // í”¼í•´ ìƒíƒœ ë¡œì§
+                break;
+            case EnemyState.Die:
+                // 2ì´ˆ í›„ì— ì˜¤ë¸Œì íŠ¸ë¥¼ ì œê±°ì‹œí‚¨ë‹¤.
+                StartCoroutine(RemoveAfterDelay(2.0f));
+                // ì£½ìŒ ìƒíƒœ ë¡œì§
+                break;
+        }
+    }
+
+    // ëŒ€ê¸° ìƒíƒœ í•¨ìˆ˜
+    public void Idle()
+    {
+        // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ê°€ ì¸ì§€ë²”ìœ„ ì•ˆì— ë“¤ì–´ì˜¤ë©´, Move ìƒíƒœë¡œ ì „í™˜í•œë‹¤.
+        float dist = Vector3.Distance(player.transform.position, transform.position);
+        if (findDistance > dist)
+        {
+            // move ìƒíƒœë¡œ ë³€í™˜
             state = EnemyState.Move;
         }
     }
 
-    void Move()
+    public void Move()
     {
-        // ÇÃ·¹ÀÌ¾î¿Í º¸½ºÀÇ °Å¸® ±¸ÇÏ±â
+        // í”Œë ˆì´ì–´ì™€ ë³´ìŠ¤ì˜ ê±°ë¦¬ êµ¬í•˜ê¸°
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
-        // ÀûÀÌ ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®°¡ ±ÙÁ¢ °ø°İ ¹üÀ§ ÀÌ³»¿¡ ÀÖÀ¸¸é °ø°İ »óÅÂ·Î ÀüÈ¯
+        // ì ì´ í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ê°€ ê·¼ì ‘ ê³µê²© ë²”ìœ„ ì´ë‚´ì— ìˆìœ¼ë©´ ê³µê²© ìƒíƒœë¡œ ì „í™˜
         if (dist < meleeAttackDistance)
         {
             state = EnemyState.Attack;
-            // ÀÌµ¿ º¤ÅÍ¸¦ 0À¸·Î ¼³Á¤ÇÏ¿© ÀÌµ¿À» ¸ØÃá´Ù.
+            // ì´ë™ ë²¡í„°ë¥¼ 0ìœ¼ë¡œ ì„¤ì •í•˜ì—¬ ì´ë™ì„ ë©ˆì¶˜ë‹¤.
             cc.Move(Vector3.zero);
             return;
         }
 
-        // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®°¡ °ø°İ ¹üÀ§ ¹ÛÀÌ¶ó¸é ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î ÇâÇÑ´Ù.
+        // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ê°€ ê³µê²© ë²”ìœ„ ë°–ì´ë¼ë©´ í”Œë ˆì´ì–´ ë°©í–¥ìœ¼ë¡œ í–¥í•œë‹¤.
         dir = player.transform.position - transform.position;
         dir.Normalize();
         dir.y = 0;
-        // Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯¸¦ ÀÌ¿ëÇÏ¿© ÀÌµ¿
+        // ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬ë¥¼ ì´ìš©í•˜ì—¬ ì´ë™
         cc.Move(dir * moveSpeed * Time.deltaTime);
     }
 
-    // °ø°İ ÇÔ¼ö
-    void Attack()
+    // ê³µê²© í•¨ìˆ˜
+    public void Attack()
     {
-        // ¸¸¾à, ÇÃ·¹ÀÌ¾î°¡ °ø°İ ¹üÀ§ ÀÌ³»¿¡ ÀÖ´Ù¸é ÇÃ·¹ÀÌ¾î¸¦ °ø°İÇÑ´Ù.
+        // ë§Œì•½, í”Œë ˆì´ì–´ê°€ ê³µê²© ë²”ìœ„ ì´ë‚´ì— ìˆë‹¤ë©´ í”Œë ˆì´ì–´ë¥¼ ê³µê²©í•œë‹¤.
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
-        // °ø°İ ÆĞÅÏ¿¡ µû¸¥ °ø°İ ¹üÀ§ ¹× Ã³¸®
-        // ±Ù°Å¸®
-        if(dist < meleeAttackDistance)
+        // ê³µê²© íŒ¨í„´ì— ë”°ë¥¸ ê³µê²© ë²”ìœ„ ë° ì²˜ë¦¬
+        // ê·¼ê±°ë¦¬
+        if (dist < meleeAttackDistance)
         {
             currTime += Time.deltaTime;
-            if(currTime >= attackDelayTime)
+            if (currTime >= attackDelayTime)
             {
                 MeleeAttack();
                 currTime = 0;
             }
         }
-        // Áß°Å¸®
-        else if(dist < shotAttackDistance)
+        // ì¤‘ê±°ë¦¬
+        else if (dist < shotAttackDistance)
         {
             currTime += Time.deltaTime;
-            if(currTime >= attackDelayTime)
+            if (currTime >= attackDelayTime)
             {
                 RandomShotAttack();
                 currTime = 0;
@@ -175,31 +208,31 @@ public class BossBehavior : MonoBehaviour
             state = EnemyState.Move;
         }
     }
-    // ±ÙÁ¢ °ø°İ
-    void MeleeAttack()
+    // ê·¼ì ‘ ê³µê²©
+    public void MeleeAttack()
     {
-        // ¿À¸¥ÆÈÀ» È¸Àü½ÃÅ²´Ù.
+        // ì˜¤ë¥¸íŒ”ì„ íšŒì „ì‹œí‚¨ë‹¤.
         isRoatate = true;
         rightHand.rotation = targetRotation;
 
-        // ÇÃ·¹ÀÌ¾î¿Í ¸Ö¾îÁö¸é
-        if(isPlayerClose)
+        // í”Œë ˆì´ì–´ì™€ ë©€ì–´ì§€ë©´
+        if (isPlayerClose)
         {
-            // ¿À¸¥¼ÕÀ» ¿ø·¡ À§Ä¡·Î ÇÑ´Ù.
+            // ì˜¤ë¥¸ì†ì„ ì›ë˜ ìœ„ì¹˜ë¡œ í•œë‹¤.
             rightHand.rotation = originalRotation;
         }
 
-        // ¿À¸¥ÂÊ ÆÈÀÇ µå¸±À» ÀÌ¿ëÇÏ¿© ÈÄ·ÁÄ£´Ù. ÆĞÅÏÀº À§ ´ë°¢¼±, ¾Æ·¡ ´ë°¢¼± 2°³·Î ·£´ıÇÏ°Ô ºÎ¿©
-        print("±ÙÁ¢ °ø°İ");
+        // ì˜¤ë¥¸ìª½ íŒ”ì˜ ë“œë¦´ì„ ì´ìš©í•˜ì—¬ í›„ë ¤ì¹œë‹¤. íŒ¨í„´ì€ ìœ„ ëŒ€ê°ì„ , ì•„ë˜ ëŒ€ê°ì„  2ê°œë¡œ ëœë¤í•˜ê²Œ ë¶€ì—¬
+        print("ê·¼ì ‘ ê³µê²©");
     }
-    
-    // Áß°Å¸® ·£´ı °ø°İ
-    void RandomShotAttack()
+
+    // ì¤‘ê±°ë¦¬ ëœë¤ ê³µê²©
+    public void RandomShotAttack()
     {
-        // Áß°Å¸® °ø°İ 2°³Áß ·£´ıÇÏ°Ô ºÎ¿©
+        // ì¤‘ê±°ë¦¬ ê³µê²© 2ê°œì¤‘ ëœë¤í•˜ê²Œ ë¶€ì—¬
         int attackType = Random.Range(0, 2);
 
-        if(attackType == 0)
+        if (attackType == 0)
         {
             ShotAttackType1();
         }
@@ -209,42 +242,43 @@ public class BossBehavior : MonoBehaviour
         }
     }
 
-    // Áß°Å¸® °ø°İ1 - µ¹Áø °ø°İ
-    void ShotAttackType1()
+    // ì¤‘ê±°ë¦¬ ê³µê²©1 - ëŒì§„ ê³µê²©
+    public void ShotAttackType1()
     {
-        // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸® 
+        // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ 
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        // ÇÃ·¹ÀÌ¾î¿ÍÀÇ °Å¸®°¡ µ¹Áø ¹üÀ§ º¸´Ù Å©´Ù¸é
+        // í”Œë ˆì´ì–´ì™€ì˜ ê±°ë¦¬ê°€ ëŒì§„ ë²”ìœ„ ë³´ë‹¤ í¬ë‹¤ë©´
         if (dist < chargeRange)
         {
             if (!isCharging)
             {
-                print("µ¹Áø °ø°İ");
+                print("ëŒì§„ ê³µê²©");
                 StartCoroutine(ChargeTowardsPlayer());
             }
         }
-        // µ¹Áø°ø°İ , Àü¹æÀ§ °ø°İ ÆĞÅÏ 2°³·Î ·£´ıÇÏ°Ô ºÎ¿©
-
     }
 
-    // Áß°Å¸® °ø°İ2 - Àü¹æÀ§ °ø°İ(¶¥³»·ÁÄ¡±â)
-    void ShotAttackType2()
+    // ì¤‘ê±°ë¦¬ ê³µê²©2 - ì „ë°©ìœ„ ê³µê²©(ë•…ë‚´ë ¤ì¹˜ê¸°)
+    public void ShotAttackType2()
     {
-        print("¶¥³»·ÁÄ¡±â");
+        // ì¹´ë©”ë¼ ì‹œì•¼ íë ¤ì§
+        print("ë•…ë‚´ë ¤ì¹˜ê¸°");
     }
 
-    // ÇÃ·¹ÀÌ¾î¸¦ ÇâÇØ µ¹Áø, ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é ÀÌµ¿ »óÅÂ·Î µ¹¾Æ°£´Ù.
+    // í”Œë ˆì´ì–´ë¥¼ í–¥í•´ ëŒì§„, ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ë©´ ì´ë™ ìƒíƒœë¡œ ëŒì•„ê°„ë‹¤.
     private IEnumerator ChargeTowardsPlayer()
     {
+        // ëŒì§„í• ê²ƒì¸ê°€
         isCharging = true;
+        // ì´ë™ì†ë„ë¥¼ ëŒì§„ì†ë„ë¡œ ë³€í™˜
         this.moveSpeed = chargeSpeed;
 
         float chargeDutation = 1f;
         float startTime = Time.time;
 
-        while(Time.time < startTime + chargeDutation)
+        while (Time.time < startTime + chargeDutation)
         {
-            print("µ¹ÁøÁß");
+            print("ëŒì§„ì¤‘");
 
             yield return null;
         }
@@ -254,13 +288,29 @@ public class BossBehavior : MonoBehaviour
         state = EnemyState.Move;
     }
 
-    void Damaged()
+    public void Damaged(int damage, string type)
     {
+        GetComponent<BossDamaged>().Damaged(damage, type);
 
+        // ë™ê²°
+        // ê°ì „
+        // ê·¼ê±°ë¦¬ ë° ì›ê±°ë¦¬ ê³µê²©
     }
 
-    void Die()
-    {
+    public void Die()
+    {   
+        // ìºë¦­í„° ì»¨íŠ¸ë¡¤ëŸ¬ ë¹„í™œì„±í™”
+        GetComponent<CharacterController>().enabled = false;
+        // ì• ë‹ˆë©”ì´ì…˜ íŠ¸ë¦¬ê±° ì¶”ê°€
+        // if(animoator != null)
+        //{
+        //    Animator.SetTrigger("Die");
+        //}
+    }
 
+    private IEnumerator RemoveAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }
