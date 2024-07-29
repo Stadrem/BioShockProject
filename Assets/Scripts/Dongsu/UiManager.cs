@@ -228,7 +228,7 @@ public class UiManager : MonoBehaviour
     {
         currentWeapone = weapone;
 
-        if (weaponeMagazine[currentWeapone] == 0)
+        if (keepItems[currentWeapone] == 0)
         {
             return;
         }
@@ -265,6 +265,15 @@ public class UiManager : MonoBehaviour
 
     public void WeaponeChange(int weapone)
     {
+        
+        if(weapone == 1)
+        {
+            weaponeBulletIcon.sprite = spriteList[6];
+        }
+        else
+        {
+            weaponeBulletIcon.sprite = spriteList[weapone];
+        }
         currentWeapone = weapone;
         bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
         bulletMaxText.text = keepItems[currentWeapone].ToString();

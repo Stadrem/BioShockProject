@@ -1768,6 +1768,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cf6882dfb6a724d45947a9ebeaa68ab5, type: 3}
   - {fileID: 21300000, guid: 6a27e32e23708b74c93cb3bc8a99965e, type: 3}
   - {fileID: 21300000, guid: 95a1ffe6637ed704aa3a95a4da5bbbbd, type: 3}
+  - {fileID: 21300000, guid: 9ef2c4b439ee73f4e8d96be0ea5386ae, type: 3}
   keepItems: 000000000000000000000000000000000000000000000000
   maxItems: 6
   rootUi: {fileID: 2158061787757752198}
