@@ -261,6 +261,7 @@ public class BossBehavior : MonoBehaviour
     // 중거리 공격2 - 전방위 공격(땅내려치기)
     public void ShotAttackType2()
     {
+        // 카메라 시야 흐려짐
         print("땅내려치기");
     }
 
