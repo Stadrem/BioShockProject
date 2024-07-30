@@ -193,8 +193,8 @@ public class EnemyState : MonoBehaviour
 
         //ChaseOn = false;
 
-        anim.SetBool("IsAttack", true);
         anim.SetBool("IsWalk", false);
+        anim.SetBool("IsAttack", true);
     }
 
     void DieState()

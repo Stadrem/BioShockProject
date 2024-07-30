@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 22792650}
   - component: {fileID: 22792649}
   - component: {fileID: 22792648}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 83302247}
   - component: {fileID: 83302246}
   - component: {fileID: 83302245}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1275,7 +1275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347505278}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
