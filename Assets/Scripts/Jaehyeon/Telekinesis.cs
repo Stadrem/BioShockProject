@@ -62,8 +62,8 @@ public class Telekinesis : MonoBehaviour
 
     void SucThrowObject()
     {
-       Rigidbody rb =  grabbedObject.gameObject.AddComponent<Rigidbody>();
-        rb.velocity = transform.forward * 10f;
+       Rigidbody rb =  grabbedObject.gameObject.AddComponent<Rigidbody>();  
+        rb.velocity = transform.forward * telekinesisForce;
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
