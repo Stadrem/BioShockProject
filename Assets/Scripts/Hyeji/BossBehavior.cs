@@ -69,6 +69,16 @@ public class BossBehavior : MonoBehaviour
     // 보스 데미지 스크립트 참조
     private BossDamaged bossDamaged;
 
+    // 넉백 힘
+    public float knockbackDistance = 10f;
+    // 넉백 시간
+    public float knockbackTime = 0.2f;
+
+    private bool isKnockback = false;
+    private Vector3 knockbackDirection;
+    private float knockbackStartTime;
+    public float knockbackDuration = 0.2f;
+
     void Start()
     {
         // 최초의 보스 상태는 Idle
@@ -93,6 +103,20 @@ public class BossBehavior : MonoBehaviour
 
         // 보간을 이용하여 속도 조절
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 1f);
+
+        // 넉백 처리
+        if(isKnockback)
+        {
+            float knockbackProgress = (Time.time - knockbackStartTime) / knockbackDuration;
+            if(knockbackProgress < 1f)
+            {
+                player.position += knockbackDirection * (knockbackDistance * Time.deltaTime / knockbackDuration);
+            }
+            else
+            {
+                isKnockback = false;
+            }
+        }
 
         switch (state)
         {
@@ -192,6 +216,10 @@ public class BossBehavior : MonoBehaviour
             {
                 // 싱글톤으로 HP 관리
                 GameManager.instance.Damaged(attackPower);
+
+                // 플레이어에게 넉백 적용
+                ApplyKnockback(player.position - transform.position);
+
                 MeleeAttack();
                 currTime = 0;
             }
@@ -204,6 +232,10 @@ public class BossBehavior : MonoBehaviour
             {
                 // 싱글톤으로 HP 관리
                 GameManager.instance.Damaged(attackPower);
+
+                // 플레이어에게 넉백 적용
+                ApplyKnockback(player.position - transform.position);
+
                 RandomShotAttack();
                 currTime = 0;
             }
@@ -332,5 +364,15 @@ public class BossBehavior : MonoBehaviour
             // 플레이어에게 피해를 입힌다.
             GameManager.instance.Damaged(attackPower);
         }
+    }
+
+    // 넉백 효과 적용 메서드
+    private void ApplyKnockback(Vector3 direction)
+    {
+        direction.y = 0;
+
+        knockbackDirection = direction.normalized;
+        knockbackStartTime = Time.time;
+        isKnockback = true;
     }
 }

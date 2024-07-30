@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 14861629}
   - component: {fileID: 14861628}
   - component: {fileID: 14861627}
+  - component: {fileID: 14861630}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -199,12 +200,38 @@ Transform:
   m_GameObject: {fileID: 14861625}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.51, y: 1, z: -4.45}
+  m_LocalPosition: {x: 1.51, y: 1, z: -17.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &14861630
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14861625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &20324807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,8 +1595,8 @@ Transform:
   m_GameObject: {fileID: 1116761780}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.042, y: 0.334, z: 0.333}
-  m_LocalScale: {x: 0.55599535, y: 0.16293564, z: 0.5598}
+  m_LocalPosition: {x: 0.002, y: 0.3873, z: 0.33719}
+  m_LocalScale: {x: 0.6816155, y: 0.26948893, z: 0.5681858}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1184642962}
@@ -2481,6 +2508,9 @@ MonoBehaviour:
   chargeSpeed: 5
   chargeRange: 10
   isCharging: 0
+  knockbackDistance: 10
+  knockbackTime: 0.2
+  knockbackDuration: 0.2
 --- !u!4 &1752035451
 Transform:
   m_ObjectHideFlags: 0
