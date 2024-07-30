@@ -32,7 +32,7 @@ public class TestAttack : MonoBehaviour
             {
                 Debug.Log("Detected Enemy: " + enemy.name);
                 Damaged damaged = enemy.GetComponent<Damaged>();
-                damaged.Damage(1, "데미지타입");
+                damaged.Damage(1, "Shock");
             }
         }
     }

@@ -16,6 +16,9 @@ public class AnimEvent : MonoBehaviour
     //Animator 가져오기
     Animator anim;
 
+    //타겟 위치 임시 저장
+    Vector3 tempPosition;
+
     private void Start()
     {
         enemyState = GetComponentInParent<EnemyState>();
@@ -24,7 +27,7 @@ public class AnimEvent : MonoBehaviour
 
     void IsAttack()
     {
-        Vector3 tempPosition = GameManager.instance.player.transform.position;
+        //Vector3 tempPosition = GameManager.instance.player.transform.position;
 
         float distance = Vector3.Distance(tempPosition, transform.position);
 
@@ -34,7 +37,7 @@ public class AnimEvent : MonoBehaviour
             enemyState.ChangeState(EnemyState.State.Chase);
         }
 
-        StartCoroutine(AttackDelay(tempPosition));
+        StartCoroutine(AttackDelay());
     }
 
     void IsDamaged()
@@ -44,13 +47,13 @@ public class AnimEvent : MonoBehaviour
         anim.SetBool("IsDamaged", false);
     }
 
-    IEnumerator AttackDelay(Vector3 temp)
+    IEnumerator AttackDelay()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.01f);
 
         RaycastHit hit;
 
-        if(Physics.Raycast(transform.position, temp - transform.position, out hit, attackRanage, enemyState.layerMask))
+        if(Physics.Raycast(transform.position, tempPosition - transform.position, out hit, attackRanage, enemyState.layerMask))
         {
             Debug.DrawRay(transform.position, hit.transform.position - transform.position, Color.green, 1.0f);
             if (hit.transform.CompareTag("Player"))
@@ -67,7 +70,9 @@ public class AnimEvent : MonoBehaviour
 
     void IsTurn()
     {
-        Vector3 lookat = new Vector3(GameManager.instance.player.transform.position.x, transform.position.y, GameManager.instance.player.transform.position.z);
+        tempPosition = GameManager.instance.player.transform.position;
+
+        Vector3 lookat = new Vector3(tempPosition.x, transform.position.y, tempPosition.z);
 
         transform.parent.LookAt(lookat);
     }

@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 9
   enemyName: Splicer
   shockStunTime: 2
   freezeTime: 6

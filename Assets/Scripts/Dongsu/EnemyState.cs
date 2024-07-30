@@ -179,7 +179,6 @@ public class EnemyState : MonoBehaviour
         ChaseOn = false;
         anim.SetBool("IsAttack", true);
         anim.SetBool("IsWalk", false);
-
     }
 
     void DieState()
@@ -228,6 +227,7 @@ public class EnemyState : MonoBehaviour
     void AlertNearbyEnemies()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, alertRadius);
+
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Enemy"))

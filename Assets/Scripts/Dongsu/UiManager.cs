@@ -213,7 +213,7 @@ public class UiManager : MonoBehaviour
     {
         if (weaponeMagazine[currentWeapone] == 0)
         {
-            Debug.Log("경고: 총알이 부족합니다!");
+            alretAnim.SetTrigger("Alret");
             return false;
         }
         weaponeMagazine[currentWeapone] -= 1;
@@ -223,15 +223,9 @@ public class UiManager : MonoBehaviour
         return true;
     }
 
-
     public void Reload(int weapone)
     {
         currentWeapone = weapone;
-
-        if (keepItems[currentWeapone] == 0)
-        {
-            return;
-        }
 
         if(currentWeapone == 1)
         {
@@ -244,6 +238,22 @@ public class UiManager : MonoBehaviour
         else if (currentWeapone == 3)
         {
             needMagazine = 4;
+        }
+        else
+        {
+            return;
+        }
+
+        //갯수가 없으면 리턴걸어줘야함
+        if (keepItems[currentWeapone] == 0)
+        {
+            alretAnim.SetTrigger("Alret");
+            return;
+        }
+        //약간 부족하면 그냥 다 때려넣음
+        else if (keepItems[currentWeapone] < needMagazine)
+        {
+            needMagazine = keepItems[currentWeapone];
         }
 
         //보유중인 탄환을 임시 저장소에 돌려보냄
