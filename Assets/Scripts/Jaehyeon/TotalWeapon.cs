@@ -17,14 +17,15 @@ public class TotalWeapon : MonoBehaviour
     public bool needMag = true; // 탄창이 필요한지 여부
 
     public int weaponeIndex = 0;
-    
-
-
+   
     private float lastFireTime = 0f;
+
+
+
 
     void Start()
     {
-       // UiManager.instance.bulletCurrent = UiManager.instance.bulletCurrent > 0 ? UiManager.instance.bulletCurrent : 0;
+      
     }
 
     void Update()
@@ -68,6 +69,8 @@ public class TotalWeapon : MonoBehaviour
                 }
             }
         }
+
+       
     }
 
 

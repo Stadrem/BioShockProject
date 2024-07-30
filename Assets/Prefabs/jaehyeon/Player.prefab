@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3373961846018627943}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: MagicPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6879669486570621587}
   - component: {fileID: 941701966912234482}
   - component: {fileID: 183874820168115644}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,6 +163,8 @@ MonoBehaviour:
   magazineSize: 8
   needMag: 1
   weaponeIndex: 1
+  YeomleuckRange: 100
+  YeomleuckForce: 10
 --- !u!1 &3352017635971810300
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +177,7 @@ GameObject:
   - component: {fileID: 1985861349352668366}
   - component: {fileID: 9010264851610057630}
   - component: {fileID: 439533346955633857}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: RightArm (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +287,7 @@ GameObject:
   - component: {fileID: 4071990077291121355}
   - component: {fileID: 7930344831079909260}
   - component: {fileID: 5087464612062943254}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FireMagic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,6 +405,8 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
+  YeomleuckRange: 100
+  YeomleuckForce: 10
 --- !u!1 &4185431918632900644
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9033851001422567949}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GunFirepos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +451,7 @@ GameObject:
   - component: {fileID: 910611937624463161}
   - component: {fileID: 8671635777338370473}
   - component: {fileID: 306528262812606906}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,6 +570,8 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
+  YeomleuckRange: 100
+  YeomleuckForce: 10
 --- !u!1 &4772399458854677342
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +585,7 @@ GameObject:
   - component: {fileID: 2181913195877754077}
   - component: {fileID: 8269309505743773566}
   - component: {fileID: 7514797136037076214}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -697,6 +703,8 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 1
   weaponeIndex: 2
+  YeomleuckRange: 100
+  YeomleuckForce: 10
 --- !u!1 &5008436924061526386
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8525232529532179442}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +749,7 @@ GameObject:
   - component: {fileID: 6951342528049012357}
   - component: {fileID: 8832361593263292278}
   - component: {fileID: 2238887376324779045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: electronic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,6 +868,8 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
+  YeomleuckRange: 100
+  YeomleuckForce: 10
 --- !u!1 &7019342765622771261
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +883,7 @@ GameObject:
   - component: {fileID: 5354829765035015029}
   - component: {fileID: 1033386300838284322}
   - component: {fileID: 6505987343560713003}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1024,7 +1034,7 @@ GameObject:
   - component: {fileID: 3930360467102970087}
   - component: {fileID: 8090434625345174474}
   - component: {fileID: 3444817014452978116}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1111,7 +1121,7 @@ GameObject:
   - component: {fileID: 964846803689372329}
   - component: {fileID: 8923269531144203936}
   - component: {fileID: 9008039078461669611}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1284,7 +1294,7 @@ GameObject:
   - component: {fileID: 3472085875645326974}
   - component: {fileID: 5330397424481430164}
   - component: {fileID: 1091889133992489645}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4251059246349361491}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1419,7 +1429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8280159301764348693}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SpannerPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1454,7 +1464,7 @@ GameObject:
   - component: {fileID: 713421844291544192}
   - component: {fileID: 8501071301240325905}
   - component: {fileID: 7908987154595905717}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1574,3 +1584,5 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 1
   weaponeIndex: 3
+  YeomleuckRange: 100
+  YeomleuckForce: 10
