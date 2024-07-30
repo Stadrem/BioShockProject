@@ -42,7 +42,7 @@ public class AnimEvent : MonoBehaviour
 
     void IsDamaged()
     {
-        enemyState.ChangeState(EnemyState.State.Chase);
+        //enemyState.ChangeState(EnemyState.State.Chase);
 
         anim.SetBool("IsDamaged", false);
     }
@@ -66,6 +66,10 @@ public class AnimEvent : MonoBehaviour
                 enemyState.ChangeState(EnemyState.State.Chase);
             }
         }
+        else
+        {
+            enemyState.ChangeState(EnemyState.State.Chase);
+        }
     }
 
     void IsTurn()
@@ -75,5 +79,10 @@ public class AnimEvent : MonoBehaviour
         Vector3 lookat = new Vector3(tempPosition.x, transform.position.y, tempPosition.z);
 
         transform.parent.LookAt(lookat);
+    }
+
+    void IsStun()
+    {
+        enemyState.WaitStop();
     }
 }

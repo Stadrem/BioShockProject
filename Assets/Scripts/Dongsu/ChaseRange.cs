@@ -40,7 +40,10 @@ public class ChaseRange : MonoBehaviour
 
             target = other.gameObject;
 
-            StartCoroutine(RetryRay(other.gameObject));
+            if(serching == true)
+            {
+                StartCoroutine(RetryRay(other.gameObject));
+            }
         }
     }
 
@@ -59,6 +62,8 @@ public class ChaseRange : MonoBehaviour
                     print("추적 시작");
 
                     enemyState.ChangeState(EnemyState.State.Chase);
+
+                    serching = false;
                 }
             }
             else
@@ -69,6 +74,7 @@ public class ChaseRange : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -78,4 +84,5 @@ public class ChaseRange : MonoBehaviour
             serching = false;
         }
     }
+    */
 }

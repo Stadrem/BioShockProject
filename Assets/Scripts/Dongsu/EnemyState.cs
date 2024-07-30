@@ -11,14 +11,14 @@ public class EnemyState : MonoBehaviour
     public LayerMask layerMask;
 
     public string enemyName;
-    public float shockStunTime = 2.0f;
-    public float freezeTime = 6.0f;
+    float shockStunTime = 2.0f;
+    public float freezeTime = 5.0f;
     public float reAttackDistance = 4.5f;
     public float baseSpeed = 4;
 
     Rigidbody rb;
 
-    bool ChaseOn = false;
+    //bool ChaseOn = false;
 
     NavMeshAgent na;
 
@@ -71,16 +71,22 @@ public class EnemyState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 상태가 변경되었는지 확인
+        OnStateChanged();
+
         if (currentState != previousState)
         {
             OnStateChanged();
             previousState = currentState;
         }
+
+        /*
+        // 상태가 변경되었는지 확인
+        
         if (ChaseOn == true)
         {
             ChaseState();
         }
+        */
     }
 
     void OnStateChanged()
@@ -92,7 +98,8 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Chase:
-                ChaseOn = true;
+                ChaseState();
+                //ChaseOn = true;
                 break;
 
             case State.Attack:
@@ -131,17 +138,24 @@ public class EnemyState : MonoBehaviour
 
     void StunState()
     {
-        StartCoroutine(StunTime(shockStunTime));
+        WaitStop();
+
+        StartCoroutine(StunTime());
     }
 
     void DamagedState()
     {
-        na.velocity = Vector3.zero;
+        WaitStop();
+
         anim.SetBool("IsDamaged", true);
+
+        ChangeState(EnemyState.State.Chase);
     }
 
     void FreezeState()
     {
+        WaitStop();
+
         StartCoroutine(FreezeTime(freezeTime));
     }
 
@@ -175,8 +189,10 @@ public class EnemyState : MonoBehaviour
 
     void AttackState()
     {
-        na.speed = 0;
-        ChaseOn = false;
+        WaitStop();
+
+        //ChaseOn = false;
+
         anim.SetBool("IsAttack", true);
         anim.SetBool("IsWalk", false);
     }
@@ -189,29 +205,32 @@ public class EnemyState : MonoBehaviour
             rb.isKinematic = false;
         }
 
-        itemBox.SetActive(true);
+        //na.ResetPath();
 
-        this.enabled = false;
+        itemBox.SetActive(true);
 
         AttackRange.SetActive(false);
 
         ChaseRange.SetActive(false);
 
-        na.ResetPath();
         na.enabled = false;
 
         // 애니메이터 비활성화
         anim.enabled = false;
+
+        this.enabled = false;
     }
 
     //스턴 시간 코루틴
-    IEnumerator StunTime(float time)
+    IEnumerator StunTime()
     {
         anim.SetBool("IsStun", true);
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(shockStunTime);
 
         anim.SetBool("IsStun", false);
+
+        ChangeState(EnemyState.State.Chase);
     }
 
     //프리즈 시간 코루틴
@@ -222,6 +241,8 @@ public class EnemyState : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         anim.speed = 1;
+
+        ChangeState(EnemyState.State.Chase);
     }
 
     void AlertNearbyEnemies()
@@ -261,5 +282,11 @@ public class EnemyState : MonoBehaviour
         AlertNearbyEnemies();
 
         ChaseState();
+    }
+
+    public void WaitStop()
+    {
+        na.velocity = Vector3.zero;
+        na.speed = 0;
     }
 }

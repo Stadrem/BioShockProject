@@ -35,6 +35,7 @@ public class UiManager : MonoBehaviour
     public GameObject nameSpaceUi;
     public Sprite originSprite;
     public Image weaponeBulletIcon;
+    public Text weaponeName;
     bool rootUiOn = false;
 
     //현재 아이템
@@ -276,12 +277,25 @@ public class UiManager : MonoBehaviour
     public void WeaponeChange(int weapone)
     {
         
-        if(weapone == 1)
+        if(weapone == 0)
         {
+            weaponeName.text = "Spanner";
             weaponeBulletIcon.sprite = spriteList[6];
         }
         else
         {
+            if(weapone == 1)
+            {
+                weaponeName.text = "Revolver";
+            }
+            else if(weapone == 2)
+            {
+                weaponeName.text = "Machine Gun";
+            }
+            else if (weapone == 3)
+            {
+                weaponeName.text = "ShotGun";
+            }
             weaponeBulletIcon.sprite = spriteList[weapone];
         }
         currentWeapone = weapone;
