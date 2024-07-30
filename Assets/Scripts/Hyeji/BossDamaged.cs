@@ -9,19 +9,24 @@ public class BossDamaged : MonoBehaviour
     // HP 상태 100
     public int HP = 100;
     // 현재 HP
-    public int currHP = 0;
+    public int currHP;
 
     // HP UI
     public Slider hpUI;
 
     // 보스행동 스크립트
     private BossBehavior bossBehavior;
+    // 보스행동 스크립트
+    private BossBehavior_2 bossBehavior2;
 
     // Start is called before the first frame update
     void Start()
     {
         // bossBehavior 스크립트 참조
         bossBehavior = GetComponent<BossBehavior>();
+        // bossBehavior_2 스크립트 참조
+        bossBehavior2 = GetComponent<BossBehavior_2>();
+
     }
 
     // Update is called once per frame

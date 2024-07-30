@@ -14,7 +14,6 @@ public class BossBehavior : MonoBehaviour
         Damaged,
         Die
     }
-
     // 에너미 상태 변수
     public EnemyState state;
     // 플레이어 발견 범위
@@ -41,7 +40,7 @@ public class BossBehavior : MonoBehaviour
     // 근접 공격력
     public int meleeAttackPower = 10;
     // 중거리 공격 범위
-    public float shotAttackDistance = 7f;
+    public float shotAttackDistance = 4f;
     // 중거리 공격력
     public int shotAttackPower = 5;
     // 보스의 오른손
@@ -84,7 +83,7 @@ public class BossBehavior : MonoBehaviour
         // 보스 데미지 스크립트
         bossDamaged = GetComponent<BossDamaged>();
     }
-
+     
     void Update()
     {
         // 플레이어가 있는 방향으로 몸을 회전시킨다.
@@ -154,6 +153,7 @@ public class BossBehavior : MonoBehaviour
         }
     }
 
+    // 이동 상태 함수
     public void Move()
     {
         // 플레이어와 보스의 거리 구하기
@@ -177,6 +177,7 @@ public class BossBehavior : MonoBehaviour
     }
 
     // 공격 함수
+    // 플레이어가 공격 받았을 때 뒤로 밀리는 효과 추가(플레이어 위치 받아와서 back으로)
     public void Attack()
     {
         // 만약, 플레이어가 공격 범위 이내에 있다면 플레이어를 공격한다.
@@ -189,6 +190,8 @@ public class BossBehavior : MonoBehaviour
             currTime += Time.deltaTime;
             if (currTime >= attackDelayTime)
             {
+                // 싱글톤으로 HP 관리
+                GameManager.instance.Damaged(attackPower);
                 MeleeAttack();
                 currTime = 0;
             }
@@ -199,6 +202,8 @@ public class BossBehavior : MonoBehaviour
             currTime += Time.deltaTime;
             if (currTime >= attackDelayTime)
             {
+                // 싱글톤으로 HP 관리
+                GameManager.instance.Damaged(attackPower);
                 RandomShotAttack();
                 currTime = 0;
             }
@@ -222,7 +227,7 @@ public class BossBehavior : MonoBehaviour
             rightHand.rotation = originalRotation;
         }
 
-        // 오른쪽 팔의 드릴을 이용하여 후려친다. 패턴은 위 대각선, 아래 대각선 2개로 랜덤하게 부여
+        // 오른쪽 팔의 드릴을 이용하여 후려친다. 패턴은 위 대각선, 아래 대각선 2개로 랜덤하게 부여(ani)
         print("근접 공격");
     }
 
@@ -234,10 +239,12 @@ public class BossBehavior : MonoBehaviour
 
         if (attackType == 0)
         {
+            // 중거리 공격1
             ShotAttackType1();
         }
         else
         {
+            // 중거리 공격2
             ShotAttackType2();
         }
     }
@@ -256,6 +263,8 @@ public class BossBehavior : MonoBehaviour
                 StartCoroutine(ChargeTowardsPlayer());
             }
         }
+
+        
     }
 
     // 중거리 공격2 - 전방위 공격(땅내려치기)
@@ -279,7 +288,6 @@ public class BossBehavior : MonoBehaviour
         while (Time.time < startTime + chargeDutation)
         {
             print("돌진중");
-
             yield return null;
         }
 
@@ -298,7 +306,8 @@ public class BossBehavior : MonoBehaviour
     }
 
     public void Die()
-    {   
+    {
+        print("사망");
         // 캐릭터 컨트롤러 비활성화
         GetComponent<CharacterController>().enabled = false;
         // 애니메이션 트리거 추가
@@ -312,5 +321,16 @@ public class BossBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
+    }
+
+    // 공격시 충돌 처리 
+    private void OnTriggerEnter(Collider other)
+    {
+        // 객체가 Player, 에너미 상태가 attack일 경우
+        if(other.CompareTag("Player") && state == EnemyState.Attack)
+        {
+            // 플레이어에게 피해를 입힌다.
+            GameManager.instance.Damaged(attackPower);
+        }
     }
 }
