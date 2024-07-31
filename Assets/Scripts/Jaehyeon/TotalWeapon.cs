@@ -20,6 +20,10 @@ public class TotalWeapon : MonoBehaviour
    
     private float lastFireTime = 0f;
 
+    //마나 아이템 사용시 소모
+    public int manaCost = 1;
+    public bool isMagic = false;
+
 
 
 
@@ -35,6 +39,7 @@ public class TotalWeapon : MonoBehaviour
             Reload();
             return;
         }
+       
 
         // 만약 자동 발사 모드가 on 이라면
         if (AutoFire)
@@ -96,8 +101,8 @@ public class TotalWeapon : MonoBehaviour
             }
             else if (hitInfo.collider.CompareTag("Boss"))
             {
-                //BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
-                //bossDamaged.BossDamage(1);
+                BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
+                bossDamaged.Damaged(damage, type);
             }
 
             // 파편 효과 생성
