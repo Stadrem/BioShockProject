@@ -91,8 +91,8 @@ public class Telekinesis : MonoBehaviour
             }
             else if (hitInfo.collider.CompareTag("Boss"))
             {
-                //BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
-                //bossDamaged.BossDamage(1);
+                BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
+                bossDamaged.Damaged(damage,type);
             }
 
            
