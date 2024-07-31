@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static BossBehavior;
 using static EnemyAttack;
 
-public class EnemyRayAttack : MonoBehaviour, IAttack
+public class EnemyThrowAttack : MonoBehaviour, IAttack
 {
     //타겟 위치 임시 저장
     Vector3 tempPosition;
 
     EnemyState enemyState;
+
+    public GameObject bombItem;
 
     private void Start()
     {
@@ -43,8 +44,13 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
             Debug.DrawRay(transform.position, hit.transform.position - transform.position, Color.green, 1.0f);
             if (hit.transform.CompareTag("Player"))
             {
-                print("때림!");
-                GameManager.instance.Damaged(1);
+                GameObject bombInstance = Instantiate(bombItem);
+
+                bombInstance.transform.position = transform.position;
+
+                Rigidbody rb = bombInstance.GetComponent<Rigidbody>();
+
+                print("던짐!");
             }
             else
             {
