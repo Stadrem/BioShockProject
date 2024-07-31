@@ -17,41 +17,53 @@ public class TotalWeapon : MonoBehaviour
     public bool needMag = true; // 탄창이 필요한지 여부
 
     public int weaponeIndex = 0;
-   
+
     private float lastFireTime = 0f;
 
-    //마나 아이템 사용시 소모
-    public int manaCost = 1;
+    // 마나 아이템 사용시 소모
+    public int manaCost = 1; // 마법 사용 시 소모되는 마나
+
     public bool isMagic = false;
-
-
-
 
     void Start()
     {
-      
+
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Reload();
+            if (isMagic)
+            {
+                UseManaItem();
+            }
+            else
+            {
+                Reload();
+            }
             return;
         }
-       
 
-        // 만약 자동 발사 모드가 on 이라면
+        if (isMagic)
+        {
+            HandleMagicFire();
+        }
+        else
+        {
+            HandleWeaponFire();
+        }
+    }
+
+    void HandleWeaponFire()
+    {
         if (AutoFire)
         {
-            // 마우스 좌클릭이 눌린 상태, 이전 발사 이후로 fireRate만큼의 시간이 지남
             if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate)
             {
-                // 탄창이 필요하지 않거나, 현재 탄약이 0보다 크다면 발사
                 if (!needMag || UiManager.instance.BulletShoot())
                 {
                     Shoot();
-                    // 마지막 발사 시간을 현재 시간으로 갱신
                     lastFireTime = Time.time;
                 }
                 else
@@ -74,11 +86,40 @@ public class TotalWeapon : MonoBehaviour
                 }
             }
         }
-
-       
     }
 
+    void HandleMagicFire()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (TryUseMana())
+            {
+                UiManager.instance.ManaRefresh(manaCost);
+                Shoot();
+            }
+            else
+            {
+                UiManager.instance.UseMana(); // 마나 아이템 자동 사용
+            }
+        }
+    }
 
+    bool TryUseMana()
+    {
+        if (UiManager.instance.currentMana < 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    void UseManaItem()
+    {
+        UiManager.instance.UseMana();
+    }
 
     public void Shoot()
     {
@@ -119,21 +160,7 @@ public class TotalWeapon : MonoBehaviour
         {
             Debug.Log("장전중...");
 
-            //int currentWeapone = 0;
-
-            /*
-            for(int i = 1; i < WeaponMagicSwitcher.weapons.Length; i++)
-            {
-                if(WeaponMagicSwitcher.weapons[i].gameObject.activeSelf)
-                {
-                    currentWeapone = i;
-                    break;
-                }
-            }
-            */
-
             UiManager.instance.Reload(weaponeIndex);
-            //Debug.Log("장전완료. 현재 총알: " + UiManager.instance.bulletCurrent);
         }
     }
 }
