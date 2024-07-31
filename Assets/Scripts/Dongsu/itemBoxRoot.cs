@@ -20,8 +20,8 @@ public class ItemBoxRoot : MonoBehaviour
         //ui 매니저에서 아이템 갯수 가져오기
         Max = UiManager.instance.maxItems;
 
-        //아이템 리스트에 등록된 초대 갯수 만큼 루프
-        for (int i = 0; i < Max; i++)
+        //아이템 리스트에 등록된 최대 갯수 만큼 루프
+        for (int i = 1; i < Max; i++)
         {
             //보유할 최대 아이템은 3개
             if (itemList.Count == 3)
@@ -38,8 +38,8 @@ public class ItemBoxRoot : MonoBehaviour
                 //무작위 추가. 동일한 아이템도 등장 가능
                 itemList.Add(j);
 
-                //추가적인 무작위성을 위해 10% 확률로 날려버림
-                if (Random.Range(0, 10) >= 9)
+                //추가적인 무작위성을 위해 20% 확률로 날려버림
+                if (Random.Range(0, 10) >= 8)
                 {
                     itemList.RemoveAt(itemList.Count - 1); // 마지막 아이템 제거
                 }

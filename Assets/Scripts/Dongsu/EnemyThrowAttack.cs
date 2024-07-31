@@ -19,6 +19,7 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
 
     public void Attack()
     {
+        print("공격 호출!");
         tempPosition = GameManager.instance.player.transform.position;
 
         float distance = Vector3.Distance(tempPosition, transform.position);

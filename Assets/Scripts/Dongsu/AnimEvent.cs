@@ -12,7 +12,7 @@ public class AnimEvent : MonoBehaviour
 
     public GameObject attackPoint;
 
-    private IAttack attackSC;
+    public IAttack attackSC;
 
     //Animator 가져오기
     Animator anim;
@@ -23,7 +23,9 @@ public class AnimEvent : MonoBehaviour
     private void Start()
     {
         attackSC = GetComponent<IAttack>();
+
         enemyState = GetComponentInParent<EnemyState>();
+
         anim = GetComponent<Animator>();
     }
 
