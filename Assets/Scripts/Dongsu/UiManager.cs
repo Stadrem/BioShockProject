@@ -91,6 +91,8 @@ public class UiManager : MonoBehaviour
         manaGauge = temp.GetComponent<Image>();
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
+
+        ItemRefresh();
     }
 
     // Update is called once per frame
@@ -314,6 +316,10 @@ public class UiManager : MonoBehaviour
         {
             weaponeName.text = "Spanner";
             weaponeBulletIcon.sprite = spriteList[6];
+
+            currentWeapone = weapone;
+            bulletCurrentText.text = " ";
+            bulletMaxText.text = " ";
         }
         else
         {
@@ -330,9 +336,10 @@ public class UiManager : MonoBehaviour
                 weaponeName.text = "ShotGun";
             }
             weaponeBulletIcon.sprite = spriteList[weapone];
+
+            currentWeapone = weapone;
+            bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
+            bulletMaxText.text = keepItems[currentWeapone].ToString();
         }
-        currentWeapone = weapone;
-        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
-        bulletMaxText.text = keepItems[currentWeapone].ToString();
     }
 }
