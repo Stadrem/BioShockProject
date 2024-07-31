@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1410147954808022303}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 3671542289454585803}
   - component: {fileID: 2288738521959752300}
   - component: {fileID: 1474213007820227617}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 5910832320634471023}
   - component: {fileID: 9186913117828895054}
   - component: {fileID: 255219359452057859}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 7288641483671794461}
   - component: {fileID: 5465733027095233109}
   - component: {fileID: 7743836020989706685}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 1356627552408814158}
   - component: {fileID: 7855167239818299794}
   - component: {fileID: 8923774574161028919}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bouncer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167237879953315490}
   - component: {fileID: 5519759680238779859}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HPbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 5008195575181216593}
   - component: {fileID: 2424061776987927332}
   - component: {fileID: 742327829009257377}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 6482573906995462416}
   - component: {fileID: 4462866267203336457}
   - component: {fileID: 7238420136228316060}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BossHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 3317902593217349506}
   - component: {fileID: 9053985175076835120}
   - component: {fileID: 41872193817131086}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BigDaddy
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676899ea918ee6b47b9f51caedb4eb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 100
+  maxHP: 100
   currHP: 0
   hpUI: {fileID: 5519759680238779859}
 --- !u!143 &41872193817131086
@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 9013744474732568277}
   - component: {fileID: 3265730481136737794}
   - component: {fileID: 3135889245612358836}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,6 +973,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: default
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f4543ff1a44dfe34485c00ad6a2e5e93,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: f4543ff1a44dfe34485c00ad6a2e5e93,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -988,6 +993,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 45d03566df05cb84e95104aa7dc17dba, type: 2}
+    - target: {fileID: 8164078558771037576, guid: f4543ff1a44dfe34485c00ad6a2e5e93,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
