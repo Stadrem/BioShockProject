@@ -707,6 +707,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb Splicer
       objectReference: {fileID: 0}
+    - target: {fileID: 3727890826426414383, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: attackRanage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753544523677280668, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 4753544523677280668, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.06
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1473,11 +1488,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Splicer
       objectReference: {fileID: 0}
-    - target: {fileID: 3263172304490014429, guid: 6d35f13620cb86a4f957455c1e0be552,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1613,11 +1623,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer
-      objectReference: {fileID: 0}
-    - target: {fileID: 3263172304490014429, guid: f9c5b0971caede245afe5efe57ba31a6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}

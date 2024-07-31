@@ -12,6 +12,8 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
 
     public GameObject bombItem;
 
+    public GameObject attackPoint;
+
     private void Start()
     {
         enemyState = GetComponentInParent<EnemyState>();
@@ -25,7 +27,7 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
         float distance = Vector3.Distance(tempPosition, transform.position);
 
         //상대와 나의 거리가 reAttackDistance보다 크면, 추적
-        if (distance > enemyState.attackRanage)
+        if (distance > enemyState.attackRanage + 5)
         {
             enemyState.ChangeState(EnemyState.State.Chase);
         }
@@ -36,20 +38,27 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
     IEnumerator AttackDelay()
     {
         print("공격 레이 쏨 ");
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.05f);
 
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, tempPosition - transform.position, out hit, enemyState.attackRanage, enemyState.layerMask))
+        Vector3 dir = tempPosition - attackPoint.transform.position;
+        dir.Normalize();
+
+        if (Physics.Raycast(attackPoint.transform.position, dir, out hit, enemyState.attackRanage, enemyState.layerMask))
         {
-            Debug.DrawRay(transform.position, hit.transform.position - transform.position, Color.green, 1.0f);
+            //Debug.DrawRay(attackPoint.transform.position, hit.transform.position - attackPoint.transform.position, Color.green, 1.0f);
             if (hit.transform.CompareTag("Player"))
             {
                 GameObject bombInstance = Instantiate(bombItem);
 
-                bombInstance.transform.position = transform.position;
+                bombInstance.transform.position = attackPoint.transform.position;
 
                 Rigidbody rb = bombInstance.GetComponent<Rigidbody>();
+
+                bombInstance.transform.forward = dir;
+
+                rb.velocity = bombInstance.transform.forward * 7;
 
                 print("던짐!");
             }

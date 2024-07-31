@@ -238,7 +238,8 @@ public class UiManager : MonoBehaviour
         {
             keepItems[4] -= 1;
             ItemRefresh();
-            ManaRefresh(-1000);
+            currentMana = 1;
+            ManaRefresh(0);
         }
         else
         {

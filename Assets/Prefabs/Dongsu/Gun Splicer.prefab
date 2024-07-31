@@ -178,7 +178,6 @@ MonoBehaviour:
     m_Bits: 9
   enemyName: Splicer
   freezeTime: 6
-  reAttackDistance: 10
   baseSpeed: 4
   attackRanage: 10
   ragdollRigidbodies:
@@ -261,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7884242301120346621
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,7 +1117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d7076595919b34f9a77aa9f4c62c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: {fileID: 653906625820663188}
 --- !u!114 &5929486771603871309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,6 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e952d63edc7be7345a69ae672069f75c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackPoint: {fileID: 653906625820663188}
 --- !u!1 &749628062121333714 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8139853090755257685, guid: 358d5bae56ddc7c4b87cefe049623e27,
