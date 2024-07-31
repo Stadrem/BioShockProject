@@ -73,9 +73,6 @@ public class GameManager : MonoBehaviour
         {
             HP = maxHP;
         }
-
-        //anim.SetTrigger("IsDamaged");
-
         UiManager.instance.HPRefresh(HP);
 
         StartCoroutine(ShakeTime());

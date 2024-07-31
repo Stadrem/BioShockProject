@@ -38,7 +38,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Ice":
-                FreezeDamageStep(3.0f);
+                FreezeDamageStep();
                 break;
 
             default:
@@ -50,7 +50,7 @@ public class Damaged : MonoBehaviour
     //아래부터 enemyState에 상태 변화값을 던져줍니다. enemyState에 ChangeState 함수를 만들어서 컨트롤하세요.
 
     //기절 시간이 포함된 데미지 스텝
-    void FreezeDamageStep(float time)
+    void FreezeDamageStep()
     {
         enemyState.ChangeState(EnemyState.State.Freeze);
     }
@@ -61,6 +61,11 @@ public class Damaged : MonoBehaviour
         HP -= damage;
 
         enemyState.ChangeState(EnemyState.State.Stun);
+
+        if (HP <= 0)
+        {
+            enemyState.ChangeState(EnemyState.State.Die);
+        }
     }
 
     //damage는 깍을 피, j는 피해 입힐 횟수
@@ -87,6 +92,4 @@ public class Damaged : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-
-    
 }

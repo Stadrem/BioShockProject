@@ -30,9 +30,8 @@ public class TestAttack : MonoBehaviour
         {
             foreach (GameObject enemy in enemiesInRange)
             {
-                Debug.Log("Detected Enemy: " + enemy.name);
                 Damaged damaged = enemy.GetComponent<Damaged>();
-                damaged.Damage(1, "데미지타입");
+                damaged.Damage(1, "Ice");
             }
         }
     }

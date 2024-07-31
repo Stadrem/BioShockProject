@@ -40,24 +40,30 @@ public class ChaseRange : MonoBehaviour
 
             target = other.gameObject;
 
-            StartCoroutine(RetryRay(other.gameObject));
+            if(serching == true)
+            {
+                StartCoroutine(RetryRay(other.gameObject));
+            }
         }
     }
 
     private IEnumerator RetryRay(GameObject tar)
     {
-        print("코루틴 입장");
         while (serching == true)
         {
-            print("반복문 시작");
             if (Physics.Raycast(transform.position, tar.transform.position - transform.position, out hitInfo, chaseRange+20, enemyState.layerMask))
             {
                 print("Ray 발사  " + hitInfo.collider.name);
+
                 Debug.DrawRay(transform.position, tar.transform.position - transform.position, Color.red, 1.0f);
+
                 if (hitInfo.collider.gameObject == GameManager.instance.player)
                 {
                     print("추적 시작");
+
                     enemyState.ChangeState(EnemyState.State.Chase);
+
+                    serching = false;
                 }
             }
             else
@@ -68,6 +74,7 @@ public class ChaseRange : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -77,4 +84,5 @@ public class ChaseRange : MonoBehaviour
             serching = false;
         }
     }
+    */
 }
