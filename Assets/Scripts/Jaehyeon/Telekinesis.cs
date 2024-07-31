@@ -28,6 +28,7 @@ public class Telekinesis : MonoBehaviour
             if(!grab)
             {
                 SucGrabObject();
+
             }
             else
             {
