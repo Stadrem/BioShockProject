@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Telekinesis : MonoBehaviour
 {
-    public LayerMask layerMask;
+    public LayerMask layerMask; //select
+    public LayerMask throwdamMask; //enemy
     public float telekinesisRange = 100f;
     public float telekinesisForce = 10f;
     public float telekinesisGrabbi = 2f;
     private bool grab = false;
     private Transform grabbedObject;
     public GameObject effectPrefab;
+    public int damage = 5; // 공격 데미지
+    public string type = "?";
 
     private void Start()
     {
@@ -52,7 +55,12 @@ public class Telekinesis : MonoBehaviour
             if(hit.collider != null)
             {
                 grabbedObject = hit.transform;
-               
+
+                Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+                if(rb)
+                {
+                    rb.useGravity = false;
+                }
 
                 grab = true;
             }
@@ -62,18 +70,24 @@ public class Telekinesis : MonoBehaviour
 
     void SucThrowObject()
     {
-       Rigidbody rb =  grabbedObject.gameObject.AddComponent<Rigidbody>();  
+        Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+        if(rb == null)
+        {
+            rb =  grabbedObject.gameObject.AddComponent<Rigidbody>();  
+        }
+
+        rb.useGravity = true;
         rb.velocity = transform.forward * telekinesisForce;
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, telekinesisRange, layerMask))
+        if (Physics.Raycast(ray, out hitInfo, telekinesisRange, throwdamMask)) //throwdamMask || 1 << LayerMask.NameToLayer("Enemy")
         {
             Debug.Log(hitInfo.transform.name);
             if (hitInfo.collider.CompareTag("Enemy"))
             {
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
-                //damaged.Damage(damage, type);
+                damaged.Damage(damage, type);
             }
             else if (hitInfo.collider.CompareTag("Boss"))
             {

@@ -163,8 +163,6 @@ MonoBehaviour:
   magazineSize: 8
   needMag: 1
   weaponeIndex: 1
-  YeomleuckRange: 100
-  YeomleuckForce: 10
 --- !u!1 &3352017635971810300
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 183
   effectPrefab: {fileID: 7957833072274404953, guid: 3355f6bfa6db8b24281b827de929694c,
     type: 3}
   attackRange: 70
@@ -405,8 +403,6 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
-  YeomleuckRange: 100
-  YeomleuckForce: 10
 --- !u!1 &4185431918632900644
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,8 +566,6 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
-  YeomleuckRange: 100
-  YeomleuckForce: 10
 --- !u!1 &4772399458854677342
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,8 +697,134 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 1
   weaponeIndex: 2
-  YeomleuckRange: 100
-  YeomleuckForce: 10
+--- !u!1 &4907836061831509125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3929122033721800610}
+  - component: {fileID: 4506965408737823713}
+  - component: {fileID: 296740042916906169}
+  - component: {fileID: 5868715037324661111}
+  - component: {fileID: 8830087984050066008}
+  m_Layer: 0
+  m_Name: Yumleok
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3929122033721800610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907836061831509125}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.28218746, w: 0.9593593}
+  m_LocalPosition: {x: 0.04, y: 0.31, z: 0.928}
+  m_LocalScale: {x: 0.7545605, y: 2.842756, z: 0.7183392}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2786069098908586277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 32.782}
+--- !u!33 &4506965408737823713
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907836061831509125}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &296740042916906169
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907836061831509125}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5868715037324661111
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907836061831509125}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8830087984050066008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907836061831509125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aabc7c06fa5dadd488680f8533aa64e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  telekinesisRange: 100
+  telekinesisForce: 10
+  telekinesisGrabbi: 2
+  effectPrefab: {fileID: 7053385775836331393, guid: 354b6251e950209409c75ab984acf000,
+    type: 3}
+  damage: 5
+  type: '?'
 --- !u!1 &5008436924061526386
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 183
   effectPrefab: {fileID: 4932088507883938021, guid: 0e5709a7ddb77924090c112cf73bb98a,
     type: 3}
   attackRange: 70
@@ -868,8 +988,6 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
-  YeomleuckRange: 100
-  YeomleuckForce: 10
 --- !u!1 &7019342765622771261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,9 +1330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   gravity: -23
-  yVelocity: 0
   jumpPower: 5
-  jumpCount: 1
   crouchSpeed: 2.5
   crouchHeight: 1
   standHeight: 2
@@ -1278,6 +1394,7 @@ MonoBehaviour:
   magic:
   - {fileID: 6863778256595997507}
   - {fileID: 3622891644257273967}
+  - {fileID: 4907836061831509125}
   rightArm: {fileID: 3352017635971810300}
   leftArm: {fileID: 8740146471022538336}
   rightHand: {fileID: 3210943732930141375}
@@ -1316,6 +1433,7 @@ Transform:
   m_Children:
   - {fileID: 6286462333113105983}
   - {fileID: 5766099211873965480}
+  - {fileID: 3929122033721800610}
   m_Father: {fileID: 3539039149035074776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3472085875645326974
@@ -1584,5 +1702,3 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 1
   weaponeIndex: 3
-  YeomleuckRange: 100
-  YeomleuckForce: 10
