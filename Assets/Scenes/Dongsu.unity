@@ -350,9 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   gravity: -23
-  yVelocity: 0
   jumpPower: 5
-  jumpCount: 2
   crouchSpeed: 2.5
   crouchHeight: 1
   standHeight: 2
@@ -992,7 +990,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2118095277992545208, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1954713073}
   m_SourcePrefab: {fileID: 100100000, guid: 75a8cdc02a1d5d347a07650fb6cefaad, type: 3}
 --- !u!1001 &777512559
 PrefabInstance:
@@ -1723,6 +1725,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1954713067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2118095277992545208, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+    type: 3}
+  m_PrefabInstance: {fileID: 730375902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954713073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954713067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade9754d14bba65449f4d2ae3a98b115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2034144660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1735,6 +1755,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun Splicer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263172304490014429, guid: 6d35f13620cb86a4f957455c1e0be552,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
@@ -1872,6 +1897,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer
       objectReference: {fileID: 0}
+    - target: {fileID: 3263172304490014429, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2004,6 +2034,7 @@ SceneRoots:
   - {fileID: 551096295}
   - {fileID: 2636425657834585354}
   - {fileID: 2034144660}
+  - {fileID: 730375902}
   - {fileID: 380065956}
   - {fileID: 136609673}
   - {fileID: 3899751083828223929}
@@ -2012,4 +2043,3 @@ SceneRoots:
   - {fileID: 544778062}
   - {fileID: 1319756539}
   - {fileID: 91892257}
-  - {fileID: 730375902}

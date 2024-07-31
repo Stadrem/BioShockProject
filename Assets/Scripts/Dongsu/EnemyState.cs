@@ -13,7 +13,7 @@ public class EnemyState : MonoBehaviour
     public string enemyName;
     float shockStunTime = 2.0f;
     public float freezeTime = 5.0f;
-    public float reAttackDistance = 4.5f;
+    //public float reAttackDistance = 4.5f;
     public float baseSpeed = 4;
     public float attackRanage = 7.0f;
 
@@ -181,8 +181,8 @@ public class EnemyState : MonoBehaviour
 
             float distance = Vector3.Distance(GameManager.instance.player.transform.position, transform.position);
 
-            //상대와 나의 거리가 reAttackDistance보다 작으면 공격
-            if (distance <= reAttackDistance)
+            //상대와 나의 거리가 attackRanage보다 작으면 공격
+            if (distance <= attackRanage)
             {
                 ChangeState(EnemyState.State.Attack);
             }
@@ -207,7 +207,7 @@ public class EnemyState : MonoBehaviour
             rb.isKinematic = false;
         }
 
-        //na.ResetPath();
+        gameObject.layer = LayerMask.NameToLayer("Select");
 
         itemBox.SetActive(true);
 
