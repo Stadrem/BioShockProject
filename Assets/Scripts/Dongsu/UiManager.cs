@@ -220,11 +220,12 @@ public class UiManager : MonoBehaviour
 
     void UseHeal()
     {
-        if(keepItems[0] > 0)
+        if(keepItems[6] > 0)
         {
-            keepItems[0] -= 1;
+            keepItems[6] -= 1;
             ItemRefresh();
-            GameManager.instance.Damaged(-1000);
+            currentHP = GameManager.instance.maxHP;
+            HPRefresh(0);
         }
         else
         {
