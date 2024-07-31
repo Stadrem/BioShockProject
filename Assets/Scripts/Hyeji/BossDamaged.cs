@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class BossDamaged : MonoBehaviour
 {
-    // HP 상태 100
-    public int HP = 100;
+    // 최대 HP
+    public int maxHP = 100;
     // 현재 HP
     public int currHP;
 
@@ -27,6 +27,9 @@ public class BossDamaged : MonoBehaviour
         // bossBehavior_2 스크립트 참조
         bossBehavior2 = GetComponent<BossBehavior_2>();
 
+        // 현재 HP를 최대 HP로 설정하자
+        currHP = maxHP;
+
     }
 
     // Update is called once per frame
@@ -37,8 +40,15 @@ public class BossDamaged : MonoBehaviour
 
     public void Damaged(int damage, string type)
     {
+        // 체력이 0 이하인지 확인
+        if(currHP <= 0)
+        {
+            currHP = 0;
+            bossBehavior.ChangeState(BossBehavior.EnemyState.Die);
+        }
+
         // HP 바를 갱신하자.
-        int ratio = currHP / HP;
+        float ratio = currHP * 0.01f;
         hpUI.value = ratio;
 
         switch (type)
@@ -62,7 +72,7 @@ public class BossDamaged : MonoBehaviour
     private void CheckIfDead()
     {
         // 적이 죽었는지 확인한다.
-        if (HP <= 0)
+        if (currHP <= 0)
         {
             bossBehavior.ChangeState(BossBehavior.EnemyState.Die);
         }
@@ -74,7 +84,7 @@ public class BossDamaged : MonoBehaviour
     //  동결 상태
     IEnumerator FreezeDamageStep(int damage, float freezeDuration)
     {
-        HP -= damage; //동결 상태에서 데미지 처리 (값은 필요에 따라 조정)
+        currHP -= damage; //동결 상태에서 데미지 처리 (값은 필요에 따라 조정)
         print("동결 상태");
 
         // 동결 상태 적용
@@ -95,7 +105,7 @@ public class BossDamaged : MonoBehaviour
     // 감전 상태
     IEnumerator StunDamageStep(int damage, float stunDuration)
     {
-        HP -= damage;
+        currHP -= damage;
         print("감전");
 
         // 스턴 상태 적용
@@ -121,14 +131,14 @@ public class BossDamaged : MonoBehaviour
                 // 근접 공격일 경우 피해량 2배 증가
                 if(type == "Melee")
                 {
-                    HP -= damage * 2;
+                    currHP -= damage * 2;
                 }
                 else
                 {
                     // 아닐 시, 데미지 감소
-                    HP -= damage;
+                    currHP -= damage;
                 }
-                if (HP <= 0)
+                if (currHP <= 0)
                 {
                     bossBehavior.ChangeState(BossBehavior.EnemyState.Die);
                     yield break;
