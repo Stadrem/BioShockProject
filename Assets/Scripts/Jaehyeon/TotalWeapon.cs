@@ -96,6 +96,10 @@ public class TotalWeapon : MonoBehaviour
             {
                 UiManager.instance.ManaRefresh(manaCost);
                 Shoot();
+                if (!TryUseMana())
+                {
+                    UiManager.instance.UseMana(); // 마나 아이템 자동 사용
+                }
             }
             else
             {
