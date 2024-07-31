@@ -177,10 +177,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 9
   enemyName: Splicer
-  shockStunTime: 2
   freezeTime: 6
   reAttackDistance: 10
   baseSpeed: 4
+  attackRanage: 10
   ragdollRigidbodies:
   - {fileID: 98131812658340937}
   - {fileID: 901002323593227583}
@@ -786,6 +786,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7147784785058906009}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 358d5bae56ddc7c4b87cefe049623e27,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5929486771603871309}
     - targetCorrespondingSourceObject: {fileID: -8699787447509501512, guid: 358d5bae56ddc7c4b87cefe049623e27,
         type: 3}
       insertIndex: -1
@@ -1114,8 +1118,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d7076595919b34f9a77aa9f4c62c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRanage: 15
   attackPoint: {fileID: 653906625820663188}
+--- !u!114 &5929486771603871309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697831083979306024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e952d63edc7be7345a69ae672069f75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &749628062121333714 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8139853090755257685, guid: 358d5bae56ddc7c4b87cefe049623e27,

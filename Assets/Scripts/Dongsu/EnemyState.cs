@@ -15,6 +15,7 @@ public class EnemyState : MonoBehaviour
     public float freezeTime = 5.0f;
     public float reAttackDistance = 4.5f;
     public float baseSpeed = 4;
+    public float attackRanage = 7.0f;
 
     Rigidbody rb;
 
@@ -168,6 +169,7 @@ public class EnemyState : MonoBehaviour
         }
         else
         {
+            na.isStopped = false;
             na.speed = baseSpeed;
             anim.SetBool("IsAttack", false);
             anim.SetBool("IsWalk", true);
@@ -288,5 +290,6 @@ public class EnemyState : MonoBehaviour
     {
         na.velocity = Vector3.zero;
         na.speed = 0;
+        na.isStopped = true;
     }
 }

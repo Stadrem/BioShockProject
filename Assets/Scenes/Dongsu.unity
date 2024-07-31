@@ -926,6 +926,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 551096295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &730375902
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2118095277992545208, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_Name
+      value: Bomb Splicer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.902119
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.1322145
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75a8cdc02a1d5d347a07650fb6cefaad, type: 3}
 --- !u!1001 &777512559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1668,11 +1736,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Splicer
       objectReference: {fileID: 0}
-    - target: {fileID: 3912056709781346275, guid: 6d35f13620cb86a4f957455c1e0be552,
-        type: 3}
-      propertyPath: m_Acceleration
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1949,3 +2012,4 @@ SceneRoots:
   - {fileID: 544778062}
   - {fileID: 1319756539}
   - {fileID: 91892257}
+  - {fileID: 730375902}
