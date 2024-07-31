@@ -28,6 +28,10 @@ public class UiManager : MonoBehaviour
     Image hpGauge;
     float currentHP;
 
+    //Mana 게이지 개잇ㄴ
+    Image manaGauge;
+    float currentMana = 1;
+
     //아이템 루팅 관련
     public GameObject rootUi;
     public GameObject nameUi;
@@ -83,6 +87,8 @@ public class UiManager : MonoBehaviour
     {
         GameObject temp = GameObject.Find("HPRed");
         hpGauge = temp.GetComponent<Image>();
+        temp = GameObject.Find("ManaBlue");
+        manaGauge = temp.GetComponent<Image>();
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
     }
@@ -180,6 +186,19 @@ public class UiManager : MonoBehaviour
         }
     }
 
+    public void ManaRefresh(float i)
+    {
+        i = i * 0.1f;
+        currentMana -= i;
+
+        manaGauge.fillAmount = currentMana;
+
+        if (manaGauge.fillAmount >= 1)
+        {
+            manaGauge.fillAmount = 1;
+        }
+    }
+
     void BoxListRefresh()
     {
         for (int i = 0; i < 3; i++)
@@ -203,6 +222,20 @@ public class UiManager : MonoBehaviour
             keepItems[0] -= 1;
             ItemRefresh();
             GameManager.instance.Damaged(-1000);
+        }
+        else
+        {
+            alretAnim.SetTrigger("Alret");
+        }
+    }
+
+    public void UseMana()
+    {
+        if (keepItems[4] > 0)
+        {
+            keepItems[4] -= 1;
+            ItemRefresh();
+            ManaRefresh(-1000);
         }
         else
         {
