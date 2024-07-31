@@ -10,8 +10,6 @@ public class AnimEvent : MonoBehaviour
 {
     EnemyState enemyState;
 
-    public GameObject attackPoint;
-
     public IAttack attackSC;
 
     //Animator 가져오기
