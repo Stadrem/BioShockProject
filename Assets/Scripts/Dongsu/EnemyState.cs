@@ -207,7 +207,7 @@ public class EnemyState : MonoBehaviour
             rb.isKinematic = false;
         }
 
-        gameObject.layer = LayerMask.NameToLayer("Select");
+        ragdollRigidbodies[0].gameObject.layer = LayerMask.NameToLayer("Select");
 
         itemBox.SetActive(true);
 

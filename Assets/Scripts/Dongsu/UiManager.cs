@@ -15,22 +15,22 @@ public class UiManager : MonoBehaviour
     //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
 
-    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 
+    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 힐
     public List<Sprite> spriteList = new List<Sprite>();
 
-    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 
-    public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0};
+    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0, 0};
 
     //계획된 아이템 갯수
-    public int maxItems = 7;
+    public int maxItems = 8;
 
     //HP 게이지 갱신
     Image hpGauge;
-    float currentHP;
+    public float currentHP;
 
     //Mana 게이지 개잇ㄴ
     Image manaGauge;
-    float currentMana = 1;
+    public float currentMana = 1;
 
     //아이템 루팅 관련
     public GameObject rootUi;
@@ -91,6 +91,9 @@ public class UiManager : MonoBehaviour
         manaGauge = temp.GetComponent<Image>();
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
+
+        ItemRefresh();
+        WeaponeChange(0);
     }
 
     // Update is called once per frame
@@ -313,7 +316,11 @@ public class UiManager : MonoBehaviour
         if(weapone == 0)
         {
             weaponeName.text = "Spanner";
-            weaponeBulletIcon.sprite = spriteList[6];
+            weaponeBulletIcon.sprite = spriteList[0];
+
+            currentWeapone = weapone;
+            bulletCurrentText.text = " ";
+            bulletMaxText.text = " ";
         }
         else
         {
@@ -330,9 +337,10 @@ public class UiManager : MonoBehaviour
                 weaponeName.text = "ShotGun";
             }
             weaponeBulletIcon.sprite = spriteList[weapone];
+
+            currentWeapone = weapone;
+            bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
+            bulletMaxText.text = keepItems[currentWeapone].ToString();
         }
-        currentWeapone = weapone;
-        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
-        bulletMaxText.text = keepItems[currentWeapone].ToString();
     }
 }
