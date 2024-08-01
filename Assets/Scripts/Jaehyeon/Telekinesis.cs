@@ -71,12 +71,14 @@ public class Telekinesis : MonoBehaviour
 
     void SucThrowObject()
     {
-        Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-        if(rb == null)
+       
+        if(grabbedObject == null)
         {
-            rb =  grabbedObject.gameObject.AddComponent<Rigidbody>();  
+            grab = false;
+            return;
         }
-
+       
+        Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
         rb.useGravity = true;
         rb.velocity = transform.forward * telekinesisForce;
 
