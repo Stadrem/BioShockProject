@@ -10,6 +10,8 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
     EnemyState enemyState;
 
+    public GameObject attackPoint;
+
     private void Start()
     {
         enemyState = GetComponentInParent<EnemyState>();
@@ -37,9 +39,9 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, tempPosition - transform.position, out hit, enemyState.attackRanage, enemyState.layerMask))
+        if (Physics.Raycast(attackPoint.transform.position, tempPosition - attackPoint.transform.position, out hit, enemyState.attackRanage, enemyState.layerMask))
         {
-            Debug.DrawRay(transform.position, hit.transform.position - transform.position, Color.green, 1.0f);
+            Debug.DrawRay(attackPoint.transform.position, hit.transform.position - attackPoint.transform.position, Color.green, 1.0f);
             if (hit.transform.CompareTag("Player"))
             {
                 print("때림!");

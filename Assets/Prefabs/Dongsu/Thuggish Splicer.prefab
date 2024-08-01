@@ -260,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7884242301120346621
 Transform:
   m_ObjectHideFlags: 0
@@ -1069,7 +1069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d7076595919b34f9a77aa9f4c62c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: {fileID: 653906625820663188}
 --- !u!114 &7788050125435216226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,6 +1081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e952d63edc7be7345a69ae672069f75c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackPoint: {fileID: 653906625820663188}
 --- !u!1 &750791487044589427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 6d87c764081241f4d8dc1b7c2584655a,
