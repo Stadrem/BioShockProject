@@ -708,7 +708,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 227.7, y: 125}
+  m_SizeDelta: {x: 290, y: 125}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &2008611426620226122
 CanvasRenderer:
@@ -1350,8 +1350,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -56, y: -38}
-  m_SizeDelta: {x: 330.6, y: 300}
+  m_AnchoredPosition: {x: -29.5, y: -38}
+  m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2866203300009398683
 CanvasRenderer:
@@ -1762,15 +1762,21 @@ MonoBehaviour:
   - {fileID: 9003374823637728719}
   - {fileID: 5418163620053547449}
   spriteList:
-  - {fileID: 21300000, guid: 0687575ff862c474e96a3880357acdce, type: 3}
+  - {fileID: 21300000, guid: 9ef2c4b439ee73f4e8d96be0ea5386ae, type: 3}
   - {fileID: 21300000, guid: 479339dcff63d144598387c61a8dd87d, type: 3}
   - {fileID: 21300000, guid: 99d529f34cb7e8748b438aed8c47ca6f, type: 3}
   - {fileID: 21300000, guid: cf6882dfb6a724d45947a9ebeaa68ab5, type: 3}
   - {fileID: 21300000, guid: 6a27e32e23708b74c93cb3bc8a99965e, type: 3}
   - {fileID: 21300000, guid: 95a1ffe6637ed704aa3a95a4da5bbbbd, type: 3}
-  - {fileID: 21300000, guid: 9ef2c4b439ee73f4e8d96be0ea5386ae, type: 3}
+  - {fileID: 21300000, guid: 0687575ff862c474e96a3880357acdce, type: 3}
+  spriteMagicList:
+  - {fileID: 21300000, guid: 7d25d4e7ed444f844aebdc420f5ad69b, type: 3}
+  - {fileID: 21300000, guid: 4d8d13b6c0b965b44b811d5f4ebead89, type: 3}
+  - {fileID: 21300000, guid: 92fa3aac76a24e24bb864c5a33d13153, type: 3}
   keepItems: 000000000000000000000000000000000000000000000000
   maxItems: 6
+  currentHP: 0
+  currentMana: 1
   rootUi: {fileID: 2158061787757752198}
   nameUi: {fileID: 3402838729711140890}
   searchUi: {fileID: 7954365824767834358}
@@ -1818,11 +1824,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7230171100829071152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -9.19, y: 0}
   m_SizeDelta: {x: 56.399994, y: 50}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &1913094623543299917
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1853,18 +1859,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 55
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 55
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Bullets
+  m_Text: itemsitems
 --- !u!1 &4978523353386773042
 GameObject:
   m_ObjectHideFlags: 0
