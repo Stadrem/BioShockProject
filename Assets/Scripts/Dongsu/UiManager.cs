@@ -224,6 +224,11 @@ public class UiManager : MonoBehaviour
             bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
             bulletMaxText.text = keepItems[currentWeapone].ToString();
         }
+        else if(currentWeapone == 0)
+        {
+            bulletCurrentText.text = " ";
+            bulletMaxText.text = " ";
+        }
     }
 
     void UseHeal()
@@ -322,29 +327,32 @@ public class UiManager : MonoBehaviour
 
     public void WeaponeChange(int weapone)
     {
+        switch (weapone)
+        {
+            case 0:
+                weaponeName.text = "Spanner";
+                bulletCurrentText.text = " ";
+                bulletMaxText.text = " ";
+                break;
+            case 1:
+                weaponeName.text = "Revolver";
+                break;
+            case 2:
+                weaponeName.text = "Thompson";
+                break;
+            case 3:
+                weaponeName.text = "Shot Gun";
+                break;
+        }
+        weaponeBulletIcon.sprite = spriteList[weapone];
 
-            switch (weapone)
-            {
-                case 0:
-                    weaponeName.text = "Spanner";
-                    bulletCurrentText.text = " ";
-                    bulletMaxText.text = " ";
-                    break;
-                case 1:
-                    weaponeName.text = "Revolver";
-                    break;
-                case 2:
-                    weaponeName.text = "Machine Gun";
-                    break;
-                case 3:
-                    weaponeName.text = "ShotGun";
-                    break;
-            }
-            weaponeBulletIcon.sprite = spriteList[weapone];
-
-            currentWeapone = weapone;
+        currentWeapone = weapone;
+        if (weapone != 0)
+        {
             bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
             bulletMaxText.text = keepItems[currentWeapone].ToString();
+        }
+
     }
 
     public void MagicChange(int magic)
