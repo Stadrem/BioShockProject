@@ -2620,7 +2620,7 @@ PrefabInstance:
     - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
       propertyPath: damage
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
@@ -2630,7 +2630,12 @@ PrefabInstance:
     - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
       propertyPath: telekinesisForce
-      value: 15
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: telekinesisRange
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
