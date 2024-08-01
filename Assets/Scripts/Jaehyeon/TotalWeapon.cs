@@ -6,6 +6,7 @@ public class TotalWeapon : MonoBehaviour
 {
     public LayerMask layerMask;
     public GameObject effectPrefab; // 무기 또는 마법 효과 프리팹
+    public GameObject fireEffect;
     public float attackRange = 100f; // 공격 범위
     public int damage = 5; // 공격 데미지
     public string type = "?";
@@ -24,6 +25,8 @@ public class TotalWeapon : MonoBehaviour
     public int manaCost = 1; // 마법 사용 시 소모되는 마나
 
     public bool isMagic = false;
+
+    public bool isShockandFire = false;
 
     void Start()
     {
@@ -149,11 +152,28 @@ public class TotalWeapon : MonoBehaviour
                 BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
                 bossDamaged.Damaged(damage, type);
             }
-
             // 파편 효과 생성
             GameObject bulletImpact = Instantiate(effectPrefab);
+
+            if (isShockandFire == true)
+            {
+                GameObject fire = Instantiate(fireEffect);
+                fire.transform.position = hitInfo.transform.position;
+                fire.transform.parent = hitInfo.transform;
+            }
+            
             bulletImpact.transform.position = hitInfo.point;
-            bulletImpact.transform.forward = hitInfo.normal;
+            if (isMagic == true)
+            {
+                bulletImpact.transform.forward = transform.forward;
+            }
+            else
+            {
+                bulletImpact.transform.forward = hitInfo.normal;
+            }
+            
+            
+            
             Destroy(bulletImpact, 2); // 2초 뒤에 파괴
         }
     }
