@@ -18,8 +18,11 @@ public class UiManager : MonoBehaviour
     //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 힐
     public List<Sprite> spriteList = new List<Sprite>();
 
+    //0번 번개, 1번 불꽃, 2번 염동력
+    public List<Sprite> spriteMagicList = new List<Sprite>();
+
     //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
-    public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0, 0};
+    public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 
     //계획된 아이템 갯수
     public int maxItems = 8;
@@ -28,7 +31,7 @@ public class UiManager : MonoBehaviour
     Image hpGauge;
     public float currentHP;
 
-    //Mana 게이지 개잇ㄴ
+    //Mana 게이지 갱신
     Image manaGauge;
     public float currentMana = 1;
 
@@ -61,8 +64,10 @@ public class UiManager : MonoBehaviour
 
     int needMagazine;
     //1번 권총탄, 2번 기관총, 3번 샷건, 0번 빈칸
-    int[] weaponeMagazine = new int[] {0, 0, 0, 0 };
+    int[] weaponeMagazine = new int[] { 0, 0, 0, 0 };
     int currentWeapone = 1;
+
+    bool currentWahtMagic = false;
 
     void Awake()
     {
@@ -100,7 +105,7 @@ public class UiManager : MonoBehaviour
     void Update()
     {
         ItemBox();
-        if(Input.GetButtonDown("Heal"))
+        if (Input.GetButtonDown("Heal"))
         {
             UseHeal();
             ItemRefresh();
@@ -183,7 +188,7 @@ public class UiManager : MonoBehaviour
 
         hpGauge.fillAmount = currentHP * 0.1f;
 
-        if(hpGauge.fillAmount >= 1)
+        if (hpGauge.fillAmount >= 1)
         {
             hpGauge.fillAmount = 1;
         }
@@ -214,17 +219,26 @@ public class UiManager : MonoBehaviour
     {
         healItem.text = keepItems[0].ToString();
         manaItem.text = keepItems[4].ToString();
-        bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
-        bulletMaxText.text = keepItems[currentWeapone].ToString();
+        if(currentWeapone != 0 && currentWahtMagic == false)
+        {
+            bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
+            bulletMaxText.text = keepItems[currentWeapone].ToString();
+        }
+        else if(currentWeapone == 0)
+        {
+            bulletCurrentText.text = " ";
+            bulletMaxText.text = " ";
+        }
     }
 
     void UseHeal()
     {
-        if(keepItems[0] > 0)
+        if (keepItems[6] > 0)
         {
-            keepItems[0] -= 1;
+            keepItems[6] -= 1;
             ItemRefresh();
-            GameManager.instance.Damaged(-1000);
+            currentHP = GameManager.instance.maxHP;
+            HPRefresh(0);
         }
         else
         {
@@ -265,11 +279,11 @@ public class UiManager : MonoBehaviour
     {
         currentWeapone = weapone;
 
-        if(currentWeapone == 1)
+        if (currentWeapone == 1)
         {
             needMagazine = 8;
         }
-        else if(currentWeapone == 2)
+        else if (currentWeapone == 2)
         {
             needMagazine = 30;
         }
@@ -313,35 +327,55 @@ public class UiManager : MonoBehaviour
 
     public void WeaponeChange(int weapone)
     {
-        
-        if(weapone == 0)
+        switch (weapone)
         {
-            weaponeName.text = "Spanner";
-            weaponeBulletIcon.sprite = spriteList[0];
-
-            currentWeapone = weapone;
-            bulletCurrentText.text = " ";
-            bulletMaxText.text = " ";
-        }
-        else
-        {
-            if(weapone == 1)
-            {
+            case 0:
+                weaponeName.text = "Spanner";
+                bulletCurrentText.text = " ";
+                bulletMaxText.text = " ";
+                break;
+            case 1:
                 weaponeName.text = "Revolver";
-            }
-            else if(weapone == 2)
-            {
-                weaponeName.text = "Machine Gun";
-            }
-            else if (weapone == 3)
-            {
-                weaponeName.text = "ShotGun";
-            }
-            weaponeBulletIcon.sprite = spriteList[weapone];
+                break;
+            case 2:
+                weaponeName.text = "Thompson";
+                break;
+            case 3:
+                weaponeName.text = "Shot Gun";
+                break;
+        }
+        weaponeBulletIcon.sprite = spriteList[weapone];
 
-            currentWeapone = weapone;
+        currentWeapone = weapone;
+        if (weapone != 0)
+        {
             bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
             bulletMaxText.text = keepItems[currentWeapone].ToString();
         }
+
+    }
+
+    public void MagicChange(int magic)
+    {
+        switch (magic)
+        {
+            case 0:
+                weaponeName.text = "Shock";
+                break;
+            case 1:
+                weaponeName.text = "Fire";
+                break;
+            case 2:
+                weaponeName.text = "Telekinesis";
+                break;
+        }
+        bulletCurrentText.text = " ";
+        bulletMaxText.text = " ";
+        weaponeBulletIcon.sprite = spriteMagicList[magic];
+    }
+
+    public void Switcher(bool i)
+    {
+        currentWahtMagic = i;
     }
 }
