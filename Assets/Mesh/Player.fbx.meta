@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 021e3dd92135a2548957c02266c5b878
+guid: 453584a36c2add74fbc76c29d787c119
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BS_LowPoly_Shader_Base
-    second: {fileID: 2100000, guid: 80bbde0986409514a89734a0db7d082f, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
