@@ -40,11 +40,11 @@ public class BossBehavior : MonoBehaviour
     // 근접 공격력
     public int meleeAttackPower = 10;
     // 중거리 공격 범위
-    public float shotAttackDistance = 4f;
+    public float shotAttackDistance = 8f;
     // 중거리 공격력
     public int shotAttackPower = 5;
     // 보스의 오른손
-    public Transform rightHand;
+    Transform rightHand;
     // 회전할것인가?
     bool isRoatate = false;
     // 회전속도
@@ -59,7 +59,7 @@ public class BossBehavior : MonoBehaviour
     bool isPlayerClose = false;
 
     // 돌진 속도
-    public float chargeSpeed = 10f;
+    public float chargeSpeed = 20f;
     // 돌진 시작 거리
     public float chargeRange = 15f;
     // 돌진 여부
@@ -78,6 +78,8 @@ public class BossBehavior : MonoBehaviour
     private Vector3 knockbackDirection;
     private float knockbackStartTime;
     public float knockbackDuration = 0.2f;
+    // 충돌 감지 반경
+    public float collisionRadius = 1f;
 
     void Start()
     {
@@ -88,7 +90,7 @@ public class BossBehavior : MonoBehaviour
         // 빅대디의 캐릭터 컨트롤러 컴포넌트 받아오기
         cc = GetComponent<CharacterController>();
         // 초기 회전 상태 저장
-        originalRotation = rightHand.rotation;
+        //originalRotation = rightHand.rotation;
         targetRotation = Quaternion.Euler(-50, -47, 54) * originalRotation;
         // 보스 데미지 스크립트
         bossDamaged = GetComponent<BossDamaged>();
@@ -196,6 +198,7 @@ public class BossBehavior : MonoBehaviour
         dir = player.transform.position - transform.position;
         dir.Normalize();
         dir.y = 0;
+
         // 캐릭터 컨트롤러를 이용하여 이동
         cc.Move(dir * moveSpeed * Time.deltaTime);
     }
@@ -248,16 +251,16 @@ public class BossBehavior : MonoBehaviour
     // 근접 공격
     public void MeleeAttack()
     {
-        // 오른팔을 회전시킨다.
-        isRoatate = true;
-        rightHand.rotation = targetRotation;
+        //// 오른팔을 회전시킨다.
+        //isRoatate = true;
+        //rightHand.rotation = targetRotation;
 
-        // 플레이어와 멀어지면
-        if (isPlayerClose)
-        {
-            // 오른손을 원래 위치로 한다.
-            rightHand.rotation = originalRotation;
-        }
+        //// 플레이어와 멀어지면
+        //if (isPlayerClose)
+        //{
+        //    // 오른손을 원래 위치로 한다.
+        //    rightHand.rotation = originalRotation;
+        //}
 
         // 오른쪽 팔의 드릴을 이용하여 후려친다. 패턴은 위 대각선, 아래 대각선 2개로 랜덤하게 부여(ani)
         print("근접 공격");
@@ -294,9 +297,7 @@ public class BossBehavior : MonoBehaviour
                 print("돌진 공격");
                 StartCoroutine(ChargeTowardsPlayer());
             }
-        }
-
-        
+        }       
     }
 
     // 중거리 공격2 - 전방위 공격(땅내려치기)
@@ -312,18 +313,34 @@ public class BossBehavior : MonoBehaviour
         // 돌진할것인가
         isCharging = true;
         // 이동속도를 돌진속도로 변환
+        float originMoveSpeed = this.moveSpeed;
         this.moveSpeed = chargeSpeed;
 
-        float chargeDutation = 1f;
+        float chargeDutation = 2f;
         float startTime = Time.time;
 
+        // 지정된 시간동안 돌진
         while (Time.time < startTime + chargeDutation)
         {
+            //// 플레이어와의 충돌 감지
+            //Collider[] hitColliders = Physics.OverlapSphere(transform.position, collisionRadius);
+            //foreach(var hitCollider in hitColliders)
+            //{
+            //    if(hitCollider.CompareTag("Player"))
+            //    {
+            //        // 캐릭터 컨트롤러 감지
+            //        CharacterController cc = hitCollider.GetComponent<CharacterController>();
+            //        if(cc != null)
+            //        {
+            //            Vector3 knockbackDirection = (hitCollider.transform.position - transform.position);
+            //            knockbackDirection.Normalize();
+            //        }
+            //    }
+            //}
             print("돌진중");
             yield return null;
         }
-
-        this.moveSpeed = moveSpeed;
+        this.moveSpeed = originMoveSpeed;
         isCharging = false;
         state = EnemyState.Move;
     }
@@ -373,6 +390,6 @@ public class BossBehavior : MonoBehaviour
 
         knockbackDirection = direction.normalized;
         knockbackStartTime = Time.time;
-        isKnockback = true;
+        isKnockback = true;       
     }
 }

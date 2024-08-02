@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 14861628}
   - component: {fileID: 14861627}
   - component: {fileID: 14861630}
+  - component: {fileID: 14861631}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -232,6 +233,33 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &14861631
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14861625}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &106008180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305,18 +333,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98a09dfaf60923c448451f119541f5b5, type: 3}
---- !u!114 &177641924 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5519759680238779859, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
-    type: 3}
-  m_PrefabInstance: {fileID: 7147906203060239559}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &197401844
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currHP: 0
-  hpUI: {fileID: 177641924}
+  hpUI: {fileID: 0}
 --- !u!143 &674902219
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1582,7 +1598,7 @@ GameObject:
   - component: {fileID: 2047666702}
   - component: {fileID: 2047666701}
   m_Layer: 5
-  m_Name: BossHP_2
+  m_Name: BossHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1822,20 +1838,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
-        type: 3}
-      propertyPath: m_Name
-      value: BigDaddy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5910832320634471023, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+    - target: {fileID: 767356469925645605, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5910832320634471023, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+    - target: {fileID: 767356469925645605, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: m_Name
+      value: BigDaddy
       objectReference: {fileID: 0}
     - target: {fileID: 7780353077333902618, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
