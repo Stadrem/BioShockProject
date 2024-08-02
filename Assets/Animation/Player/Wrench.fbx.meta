@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d616e35af6783164d8c4a70b8c4da2a8
+guid: 345d51cd8fb9f5941a17909bef0a7c7a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -12,8 +12,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: revolver
-    second: {fileID: 2100000, guid: a68064e16d0e8894b906b699f3864eef, type: 2}
+      name: lambert2
+    second: {fileID: 2100000, guid: e27ce973103ef1946bae5eef2f43b55a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -22,7 +22,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
@@ -34,7 +34,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -43,9 +43,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Revolver_Idle
-      takeName: metarig|metarigAction
-      internalID: -887982601649841707
+      name: Wrench_Idle
+      takeName: Scene
+      internalID: -623603649343465320
       firstFrame: 1
       lastFrame: 30
       wrapMode: 0
@@ -72,9 +72,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Revolver_Walk
-      takeName: metarig|metarigAction
-      internalID: 3536513432961602234
+      name: Wrench_Walk
+      takeName: Scene
+      internalID: -8800838248204228948
       firstFrame: 40
       lastFrame: 70
       wrapMode: 0
@@ -101,9 +101,9 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Revolver_Attack
-      takeName: metarig|metarigAction
-      internalID: -8467477205274376854
+      name: Wrench_Attack
+      takeName: Scene
+      internalID: -491678979986718739
       firstFrame: 80
       lastFrame: 110
       wrapMode: 0
@@ -130,11 +130,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Revolver_Reload
-      takeName: metarig|metarigAction
-      internalID: -8514521339571864881
+      name: Wrench_Reload
+      takeName: Scene
+      internalID: -7861037764357068360
       firstFrame: 120
-      lastFrame: 179
+      lastFrame: 180
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -221,11 +221,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d616e35af6783164d8c4a70b8c4da2a8,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
