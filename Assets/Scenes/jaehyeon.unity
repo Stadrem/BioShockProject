@@ -2565,7 +2565,7 @@ PrefabInstance:
         type: 3}
       propertyPath: effectPrefab
       value: 
-      objectReference: {fileID: 1289543790355709915, guid: b99922c2f59b1a542bdd06ae8bee47ae,
+      objectReference: {fileID: 5933602760919840800, guid: fcb74f28d107e284e80af037bfec14ca,
         type: 3}
     - target: {fileID: 2238887376324779045, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
