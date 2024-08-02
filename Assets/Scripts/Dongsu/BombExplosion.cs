@@ -5,6 +5,7 @@ using UnityEngine;
 public class BombExplosion : MonoBehaviour
 {
     Animator anim;
+    public GameObject bombEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +52,9 @@ public class BombExplosion : MonoBehaviour
                 BossDamaged enemy = other.gameObject.GetComponent<BossDamaged>();
                 enemy.Damaged(3, "Bomb");
             }
+            bombEffect.SetActive(true);
         }
+        yield return new WaitForSeconds(0.5f);
         Destroy(transform.root.gameObject);
     }
 }
