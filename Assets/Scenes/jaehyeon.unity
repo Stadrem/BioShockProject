@@ -2661,6 +2661,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
+      propertyPath: effectPrefab
+      value: 
+      objectReference: {fileID: 5137123306192418792, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+    - target: {fileID: 8830087984050066008, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
       propertyPath: layerMask.m_Bits
       value: 1024
       objectReference: {fileID: 0}

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Telekinesis : MonoBehaviour
@@ -13,7 +14,8 @@ public class Telekinesis : MonoBehaviour
     private Transform grabbedObject;
     public GameObject effectPrefab;
     public int damage = 5; // 공격 데미지
-    public string type = "?";
+    public string type = "Tele";
+    public float telekinesisPush = 40;
 
     public int manaCost = 1; // 염력 사용 시 소모되는 마나
 
@@ -39,6 +41,8 @@ public class Telekinesis : MonoBehaviour
                 if (TryUseMana())
                 {
                     SucGrabObject();
+                    GameObject telekinesisImpact = Instantiate(effectPrefab);
+                    telekinesisImpact.transform.position = Camera.main.transform.position + Camera.main.transform.forward;
                 }
                 else
                 {
@@ -138,6 +142,7 @@ public class Telekinesis : MonoBehaviour
                 BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
                 bossDamaged.Damaged(damage, type);
             }
+            
         }
     }
 }

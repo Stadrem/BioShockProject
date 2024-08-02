@@ -16,6 +16,11 @@ public class PlayerMove : MonoBehaviour
     private bool isCrouching = false; // 앉기 상태
     private bool canJump = true; // 점프 가능 상태
 
+    private bool Knockback = false;
+    private Vector3 backDirection;
+    private float knockbackTime;
+    private float knockbackDuration = 0.5f;
+
     void Start()
     {
         // 캐릭터 컨트롤러 가져오기
@@ -72,7 +77,20 @@ public class PlayerMove : MonoBehaviour
         // dir의 y값에 yVelocity를 세팅함
         dir.y = yVelocity;
 
+      
+
         // 이동
         cc.Move(dir * speed * Time.deltaTime);
+    }
+
+    public void ApplyKnockback(Vector3 direction)
+    {
+
+        direction.y = 0;
+
+        backDirection = direction.normalized;
+        knockbackTime = Time.time;
+        Knockback = true;
+
     }
 }
