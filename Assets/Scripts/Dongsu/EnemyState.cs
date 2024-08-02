@@ -120,6 +120,8 @@ public class EnemyState : MonoBehaviour
     public void ChangeState(State newState)
     {
         currentState = newState;
+
+        na.isStopped = false;
     }
 
     void IdleState()
@@ -159,7 +161,6 @@ public class EnemyState : MonoBehaviour
         }
         else
         {
-            na.isStopped = false;
             na.speed = baseSpeed;
             anim.SetBool("IsAttack", false);
             anim.SetBool("IsWalk", true);
@@ -197,16 +198,18 @@ public class EnemyState : MonoBehaviour
             rb.isKinematic = false;
         }
 
+        na.isStopped = true;
+
         ragdollRigidbodies[0].gameObject.layer = LayerMask.NameToLayer("Select");
 
         itemBox.SetActive(true);
 
         ChaseRange.SetActive(false);
 
-        na.enabled = false;
-
         // 애니메이터 비활성화
         anim.enabled = false;
+
+        //na.enabled = false;
 
         this.enabled = false;
     }
