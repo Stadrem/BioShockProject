@@ -114,6 +114,10 @@ public class LittleSis_1 : MonoBehaviour
                     }
 
                     cc.Move(dir * followSpeed * Time.deltaTime);
+
+                    // 이동하면서 회전하기
+                    Quaternion targetRotation = Quaternion.LookRotation(dir);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
                 }
                 else
                 {
@@ -123,14 +127,15 @@ public class LittleSis_1 : MonoBehaviour
 
                     // 랜덤한 회전각 선언
                     float randAngle = Random.Range(-randRotate, randRotate);
-                    targetRotation = Quaternion.Euler(0, randAngle, 0);
-
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+                    Quaternion randomRotation = Quaternion.Euler(0, randAngle, 0);
 
                     randomPos = randomDirection;
                     timer = 0;
 
                     print("랜덤위치설정");
+
+                    // 랜덤 위치 설정 후 즉시 회전 
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
                 }
             }       
         }
