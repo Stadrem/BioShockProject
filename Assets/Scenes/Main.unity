@@ -5355,6 +5355,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6212,6 +6217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -7999,6 +8009,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9386,6 +9401,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -11338,6 +11358,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12469,10 +12494,20 @@ PrefabInstance:
       propertyPath: layerMask.m_Bits
       value: 183
       objectReference: {fileID: 0}
+    - target: {fileID: 964846803689372329, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 964846803689372329, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 3539039149035074776, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.1
+      value: 32.1
       objectReference: {fileID: 0}
     - target: {fileID: 3539039149035074776, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
@@ -12882,6 +12917,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13279,6 +13319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -15298,6 +15343,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -17512,6 +17562,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Splicer
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: 6d35f13620cb86a4f957455c1e0be552,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18404,6 +18459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -22871,6 +22931,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24919,6 +24984,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Splicer (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: 6d35f13620cb86a4f957455c1e0be552,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25811,6 +25881,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun Splicer (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: 6d35f13620cb86a4f957455c1e0be552,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
@@ -27035,6 +27110,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27713,6 +27793,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27781,6 +27866,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27848,6 +27938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -32053,6 +32148,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34169,6 +34269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35227,6 +35332,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35459,6 +35569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Thuggish Splicer (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -35693,6 +35808,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thuggish Splicer (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: f9c5b0971caede245afe5efe57ba31a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35925,6 +36045,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun Splicer (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2118095277992545208, guid: 6d35f13620cb86a4f957455c1e0be552,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
