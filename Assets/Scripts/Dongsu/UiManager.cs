@@ -302,23 +302,44 @@ public class UiManager : MonoBehaviour
             alretAnim.SetTrigger("Alret");
             return;
         }
-        //약간 부족하면 그냥 다 때려넣음
+
+        //약간 부족하면 필요한 만큼 계산
         else if (keepItems[currentWeapone] < needMagazine)
         {
-            needMagazine = keepItems[currentWeapone];
+            //필요한 장전 총알량 계산
+            needMagazine = needMagazine - weaponeMagazine[currentWeapone];
+            if(keepItems[currentWeapone] < needMagazine)
+            {
+                //그냥 다 떄려넣기
+                weaponeMagazine[currentWeapone] += keepItems[currentWeapone];
+
+                keepItems[currentWeapone] = 0;
+            }
+            else
+            {
+                //가방에서 필요한 장전량을 뺌
+                keepItems[currentWeapone] -= needMagazine;
+
+                //현재 탄환에 필요한 장전량 추가
+                weaponeMagazine[currentWeapone] += needMagazine;
+            }
         }
 
-        //보유중인 탄환을 임시 저장소에 돌려보냄
-        keepItems[currentWeapone] += weaponeMagazine[currentWeapone];
+        //일반적인 재장전
+        else
+        {
+            //장전된 탄환을 가방으로 돌려보냄
+            keepItems[currentWeapone] += weaponeMagazine[currentWeapone];
 
-        //장전된 탄환 초기화
-        weaponeMagazine[currentWeapone] = 0;
+            //장전된 탄환 초기화
+            weaponeMagazine[currentWeapone] = 0;
 
-        //요청 탄환 수 만큼 보유량 제거
-        keepItems[currentWeapone] -= needMagazine;
+            //요청 탄환 수 만큼 보유량 제거
+            keepItems[currentWeapone] -= needMagazine;
 
-        //장전
-        weaponeMagazine[currentWeapone] = needMagazine;
+            //장전
+            weaponeMagazine[currentWeapone] = needMagazine;
+        }
 
         //갱신
         bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
