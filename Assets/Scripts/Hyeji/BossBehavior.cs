@@ -188,9 +188,9 @@ public class BossBehavior : MonoBehaviour
         // 적이 플레이어와의 거리가 근접 공격 범위 이내에 있으면 공격 상태로 전환
         if (dist < meleeAttackDistance)
         {
-            state = EnemyState.Attack;
             // 이동 벡터를 0으로 설정하여 이동을 멈춘다.
             cc.Move(Vector3.zero);
+            state = EnemyState.Attack;
             return;
         }
 
