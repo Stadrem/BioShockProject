@@ -726,21 +726,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bomb Splicer
       objectReference: {fileID: 0}
-    - target: {fileID: 3727890826426414383, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
-        type: 3}
-      propertyPath: attackRanage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4753544523677280668, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 4753544523677280668, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.06
-      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 75a8cdc02a1d5d347a07650fb6cefaad,
         type: 3}
       propertyPath: m_LocalPosition.x
