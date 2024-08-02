@@ -22,8 +22,11 @@ public class LittleSis_1 : MonoBehaviour
     public float timer;
     // 무작위 이동 범위
     public float randSection = 2f;
+    // 무작위 회전 반경
+    public float randRotate = 1f;
 
     Vector3 randomPos;
+    private Quaternion targetRotation;
 
     // 빅대디가 죽었는지?
     bool isDead = false;
@@ -117,12 +120,19 @@ public class LittleSis_1 : MonoBehaviour
                     // 가만히 있지말기
                     Vector3 randomDirection = new Vector3(Random.Range(-randSection, randSection), 0, Random.Range(-randSection, randSection));
                     randomDirection += bigDaddy.position;
+
+                    // 랜덤한 회전각 선언
+                    float randAngle = Random.Range(-randRotate, randRotate);
+                    targetRotation = Quaternion.Euler(0, randAngle, 0);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+
                     randomPos = randomDirection;
                     timer = 0;
 
                     print("랜덤위치설정");
                 }
-            }      
+            }       
         }
     }
 
