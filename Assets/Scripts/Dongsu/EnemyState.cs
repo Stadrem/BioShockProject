@@ -32,7 +32,7 @@ public class EnemyState : MonoBehaviour
 
     //bool dying = false;
 
-    public GameObject AttackRange;
+    //public GameObject AttackRange;
     public GameObject ChaseRange;
     public State currentState;
     private State previousState;
@@ -55,7 +55,7 @@ public class EnemyState : MonoBehaviour
     void Start()
     {
         itemBox.SetActive(false);
-        na = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트를 가져옴
+        na = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         currentState = State.Idle;
@@ -79,15 +79,6 @@ public class EnemyState : MonoBehaviour
             OnStateChanged();
             previousState = currentState;
         }
-
-        /*
-        // 상태가 변경되었는지 확인
-        
-        if (ChaseOn == true)
-        {
-            ChaseState();
-        }
-        */
     }
 
     void OnStateChanged()
@@ -100,7 +91,6 @@ public class EnemyState : MonoBehaviour
 
             case State.Chase:
                 ChaseState();
-                //ChaseOn = true;
                 break;
 
             case State.Attack:
@@ -210,8 +200,6 @@ public class EnemyState : MonoBehaviour
         ragdollRigidbodies[0].gameObject.layer = LayerMask.NameToLayer("Select");
 
         itemBox.SetActive(true);
-
-        AttackRange.SetActive(false);
 
         ChaseRange.SetActive(false);
 

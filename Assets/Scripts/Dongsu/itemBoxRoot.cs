@@ -30,7 +30,7 @@ public class ItemBoxRoot : MonoBehaviour
                 break;
             }
             //0~최대 아이템 index 사이에서 랜덤으로 값 생성
-            int j = Random.Range(0, Max);
+            int j = Random.Range(1, Max);
 
             // 제외할 인덱스가 아니면 추가
             if (!excludedIndices.Contains(j))

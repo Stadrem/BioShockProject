@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     //다른 곳에서 활용할 변수등등
     public int HP = 10;
-    int maxHP;
+    public int maxHP;
 
     public GameObject player;
 

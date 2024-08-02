@@ -31,7 +31,7 @@ public class TestAttack : MonoBehaviour
             foreach (GameObject enemy in enemiesInRange)
             {
                 Damaged damaged = enemy.GetComponent<Damaged>();
-                damaged.Damage(1, "Ice");
+                damaged.Damage(1, "Shock");
             }
         }
     }
