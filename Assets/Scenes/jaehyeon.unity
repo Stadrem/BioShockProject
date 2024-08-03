@@ -511,6 +511,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
         type: 3}
+      propertyPath: keepItems.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: keepItems.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: keepItems.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: keepItems.Array.data[4]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: keepItems.Array.data[5]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: keepItems.Array.data[6]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711786038189220713, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
       propertyPath: spriteMagicList.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -2646,6 +2676,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 183874820168115644, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 183
+      objectReference: {fileID: 0}
+    - target: {fileID: 306528262812606906, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: attackRange
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 306528262812606906, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: effectPrefab
+      value: 
+      objectReference: {fileID: 3153472991145048103, guid: 3407e378c048bb5438424b28c7740b48,
+        type: 3}
     - target: {fileID: 306528262812606906, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
       propertyPath: layerMask.m_Bits
@@ -2744,6 +2790,28 @@ PrefabInstance:
         type: 3}
       propertyPath: isShockandFire
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7514797136037076214, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: effectPrefab
+      value: 
+      objectReference: {fileID: 7226583673155636401, guid: a2ab56839e1c9504ea9d141e95d0b16b,
+        type: 3}
+    - target: {fileID: 7514797136037076214, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 183
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908987154595905717, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: effectPrefab
+      value: 
+      objectReference: {fileID: 1758473627833946668, guid: 9b21333b068a5084ba09535839bee3c8,
+        type: 3}
+    - target: {fileID: 7908987154595905717, guid: 7f196d1faae8cd444ba22e771e9395bf,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 695
       objectReference: {fileID: 0}
     - target: {fileID: 8319318924597110907, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
