@@ -217,7 +217,16 @@ public class UiManager : MonoBehaviour
 
     public void ItemRefresh()
     {
-        healItem.text = keepItems[0].ToString();
+        if(keepItems[6] > 9)
+        {
+            keepItems[6] = 9;
+        }
+        if (keepItems[4] > 9)
+        {
+            keepItems[4] = 9;
+        }
+
+        healItem.text = keepItems[6].ToString();
         manaItem.text = keepItems[4].ToString();
         if(currentWeapone != 0 && currentWahtMagic == false)
         {
@@ -238,8 +247,13 @@ public class UiManager : MonoBehaviour
             keepItems[6] -= 1;
             ItemRefresh();
             currentHP = GameManager.instance.maxHP;
-            HPRefresh(0);
+            HPRefresh(GameManager.instance.maxHP);
         }
+        else if(currentHP == GameManager.instance.maxHP)
+        {
+            return;
+        }
+
         else
         {
             alretAnim.SetTrigger("Alret");

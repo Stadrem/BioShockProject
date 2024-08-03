@@ -26,6 +26,8 @@ public class EnemyState : MonoBehaviour
     //Animator 가져오기
     Animator anim;
 
+    CapsuleCollider col;
+
     public Rigidbody[] ragdollRigidbodies;
 
     bool firstHit = true;
@@ -61,6 +63,7 @@ public class EnemyState : MonoBehaviour
         currentState = State.Idle;
         previousState = currentState;
         na.speed = baseSpeed;
+        col = GetComponent<CapsuleCollider>();
 
         // 레그돌의 리지드바디를 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -205,6 +208,10 @@ public class EnemyState : MonoBehaviour
         itemBox.SetActive(true);
 
         ChaseRange.SetActive(false);
+
+        col.enabled = false;
+
+        na.speed = 0;
 
         // 애니메이터 비활성화
         anim.enabled = false;
