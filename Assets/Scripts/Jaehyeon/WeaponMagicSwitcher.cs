@@ -10,6 +10,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
     public GameObject leftArm;
     public Transform rightHand; // 오른손 위치
     public Transform leftHand; // 왼손 위치
+    
 
     private int selectedWeapon = 0;
     private int selectedmagic = 0;
