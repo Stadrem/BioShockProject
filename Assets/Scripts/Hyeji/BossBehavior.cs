@@ -389,6 +389,7 @@ public class BossBehavior : MonoBehaviour
         direction.y = 0;
 
         knockbackDirection = direction.normalized;
+        print(knockbackDirection);
         knockbackStartTime = Time.time;
         isKnockback = true;       
     }
