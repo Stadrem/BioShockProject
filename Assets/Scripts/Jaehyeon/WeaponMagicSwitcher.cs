@@ -10,6 +10,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
     public GameObject leftArm;
     public Transform rightHand; // 오른손 위치
     public Transform leftHand; // 왼손 위치
+    
 
     private int selectedWeapon = 0;
     private int selectedmagic = 0;
@@ -124,6 +125,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
             magic[i].SetActive(i == selectedmagic && isMagicActive);
             if (i == selectedmagic && isMagicActive)
             {
+                UiManager.instance.MagicChange(i);
                 magic[i].transform.SetParent(leftHand);
                 magic[i].transform.localPosition = Vector3.zero;
                 magic[i].transform.localRotation = Quaternion.identity;
@@ -138,6 +140,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
             leftArm.SetActive(true);
             rightArm.SetActive(false);
             leftArm.transform.SetParent(leftHand);
+            UiManager.instance.Switcher(true);
             //magic.transform.localPosition = Vector3.zero;
             //magic.transform.localRotation = Quaternion.identity;
 
@@ -151,6 +154,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
         {
             leftArm.SetActive(false);
             rightArm.SetActive(true);
+            UiManager.instance.Switcher(false);
 
             for (int i = 0; i < magic.Length; i++)
             {
