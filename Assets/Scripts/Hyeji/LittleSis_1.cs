@@ -147,7 +147,7 @@ public class LittleSis_1 : MonoBehaviour
     void UnFollow()
     {
         // 빅대디가 사망처리 될 경우
-        if (isDead)
+        if (!isDead)
         {
             // 빅대디의 뒤에 위치해서 정지 상태
             Vector3 stopDir = bigDaddy.position - transform.position;
