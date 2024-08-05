@@ -27,6 +27,7 @@ public class EnemyState : MonoBehaviour
     Animator anim;
 
     CapsuleCollider col;
+    Damaged damaged;
 
     public Rigidbody[] ragdollRigidbodies;
 
@@ -64,6 +65,7 @@ public class EnemyState : MonoBehaviour
         previousState = currentState;
         na.speed = baseSpeed;
         col = GetComponent<CapsuleCollider>();
+        damaged = GetComponent<Damaged>();
 
         // 레그돌의 리지드바디를 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -157,6 +159,10 @@ public class EnemyState : MonoBehaviour
 
     void ChaseState()
     {
+        if(damaged.HP <= 0)
+        {
+            return;
+        }
         if(firstHit == true)
         {
             anim.SetTrigger("IsFirstDetect");
@@ -186,8 +192,6 @@ public class EnemyState : MonoBehaviour
     void AttackState()
     {
         WaitStop();
-
-        //ChaseOn = false;
 
         anim.SetBool("IsWalk", false);
         anim.SetBool("IsAttack", true);

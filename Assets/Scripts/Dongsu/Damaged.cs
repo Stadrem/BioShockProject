@@ -34,7 +34,7 @@ public class Damaged : MonoBehaviour
                 break;
 
             case "Fire":
-                StartCoroutine(DamageStep(damage, 4, type));
+                StartCoroutine(DamageStep(damage, 11, type));
                 break;
 
             case "Ice":
@@ -89,7 +89,7 @@ public class Damaged : MonoBehaviour
                 enemyState.ChangeState(EnemyState.State.Die);
                 yield break;
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 }
