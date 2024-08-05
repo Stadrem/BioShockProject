@@ -195,6 +195,8 @@ public class EnemyState : MonoBehaviour
 
     void DieState()
     {
+        na.speed = 0;
+
         // 레그돌의 리지드바디 활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
@@ -210,8 +212,6 @@ public class EnemyState : MonoBehaviour
         ChaseRange.SetActive(false);
 
         col.enabled = false;
-
-        na.speed = 0;
 
         // 애니메이터 비활성화
         anim.enabled = false;

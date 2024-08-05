@@ -71,17 +71,17 @@ public class Damaged : MonoBehaviour
     //damage는 깍을 피, j는 피해 입힐 횟수
     IEnumerator DamageStep(int damage, int j, string type)
     {
-        enemyState.ChangeState(EnemyState.State.Damaged);
-
         for (int i = 0; i < j; i++)
         {
             if(enemyState.currentState == EnemyState.State.Freeze && type == "Melee")
             {
                 HP -= damage * 2;
+                enemyState.ChangeState(EnemyState.State.Damaged);
             }
             else
             {
                 HP -= damage;
+                enemyState.ChangeState(EnemyState.State.Damaged);
             }
             
             if (HP <= 0)
