@@ -195,6 +195,8 @@ public class EnemyState : MonoBehaviour
 
     void DieState()
     {
+        AlertNearbyEnemies();
+
         na.speed = 0;
 
         // 레그돌의 리지드바디 활성화
