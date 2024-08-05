@@ -184,9 +184,9 @@ public class UiManager : MonoBehaviour
 
     public void HPRefresh(int i)
     {
-        currentHP = i;
+        GameManager.instance.HP = i;
 
-        hpGauge.fillAmount = currentHP * 0.1f;
+        hpGauge.fillAmount = GameManager.instance.HP * 0.1f;
 
         if (hpGauge.fillAmount >= 1)
         {
@@ -246,10 +246,10 @@ public class UiManager : MonoBehaviour
         {
             keepItems[6] -= 1;
             ItemRefresh();
-            currentHP = GameManager.instance.maxHP;
+            GameManager.instance.HP = GameManager.instance.maxHP;
             HPRefresh(GameManager.instance.maxHP);
         }
-        else if(currentHP == GameManager.instance.maxHP)
+        else if(GameManager.instance.HP == GameManager.instance.maxHP)
         {
             return;
         }

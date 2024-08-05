@@ -152,9 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 183
   effectPrefab: {fileID: 162584487599433031, guid: 39f852c28f9c3fd45a427c24f3564ba7,
     type: 3}
+  fireEffect: {fileID: 0}
   attackRange: 50
   damage: 5
   type: '?'
@@ -163,6 +164,9 @@ MonoBehaviour:
   magazineSize: 8
   needMag: 1
   weaponeIndex: 1
+  manaCost: 1
+  isMagic: 0
+  isShockandFire: 0
 --- !u!1 &3352017635971810300
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,8 +397,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 183
-  effectPrefab: {fileID: 7957833072274404953, guid: 3355f6bfa6db8b24281b827de929694c,
+  effectPrefab: {fileID: 1000011113172478, guid: 4b9e1e5074422484cb2d2aca777ef525,
     type: 3}
+  fireEffect: {fileID: 1949376083282614, guid: 4dd6c2b5539220947a0c5938f0a39d20, type: 3}
   attackRange: 70
   damage: 2
   type: Fire
@@ -403,6 +408,9 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
+  manaCost: 1
+  isMagic: 1
+  isShockandFire: 1
 --- !u!1 &4185431918632900644
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,10 +563,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 183
   effectPrefab: {fileID: 3153472991145048103, guid: 3407e378c048bb5438424b28c7740b48,
     type: 3}
-  attackRange: 10
+  fireEffect: {fileID: 0}
+  attackRange: 9
   damage: 2
   type: '?'
   AutoFire: 0
@@ -566,6 +575,9 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
+  manaCost: 1
+  isMagic: 0
+  isShockandFire: 0
 --- !u!1 &4772399458854677342
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,9 +698,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 247
-  effectPrefab: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473,
+    m_Bits: 183
+  effectPrefab: {fileID: 7226583673155636401, guid: a2ab56839e1c9504ea9d141e95d0b16b,
     type: 3}
+  fireEffect: {fileID: 0}
   attackRange: 70
   damage: 1
   type: '?'
@@ -697,6 +710,9 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 1
   weaponeIndex: 2
+  manaCost: 1
+  isMagic: 0
+  isShockandFire: 0
 --- !u!1 &4907836061831509125
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,13 +837,12 @@ MonoBehaviour:
   throwdamMask:
     serializedVersion: 2
     m_Bits: 128
-  telekinesisRange: 100
-  telekinesisForce: 10
+  telekinesisRange: 120
+  telekinesisForce: 20
   telekinesisGrabbi: 2
-  effectPrefab: {fileID: 7053385775836331393, guid: 354b6251e950209409c75ab984acf000,
-    type: 3}
   damage: 5
-  type: Shot
+  type: '?'
+  manaCost: 1
 --- !u!1 &5008436924061526386
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,7 +996,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 183
-  effectPrefab: {fileID: 4932088507883938021, guid: 0e5709a7ddb77924090c112cf73bb98a,
+  effectPrefab: {fileID: 5933602760919840800, guid: fcb74f28d107e284e80af037bfec14ca,
+    type: 3}
+  fireEffect: {fileID: 7131401307255788800, guid: 4d9a3b35b3bc07649b697df7fb497b6d,
     type: 3}
   attackRange: 70
   damage: 2
@@ -991,6 +1008,9 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
+  manaCost: 1
+  isMagic: 1
+  isShockandFire: 1
 --- !u!1 &7019342765622771261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,6 +1287,7 @@ Transform:
   - {fileID: 3210943732930141375}
   - {fileID: 6518118739520742694}
   - {fileID: 8525232529532179442}
+  - {fileID: 2415716530983171764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3353612575595467012
@@ -1694,9 +1715,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 759
-  effectPrefab: {fileID: 7802979462468201273, guid: bddb971e34eb14d48be30c7b922eb077,
+    m_Bits: 695
+  effectPrefab: {fileID: 1758473627833946668, guid: 9b21333b068a5084ba09535839bee3c8,
     type: 3}
+  fireEffect: {fileID: 0}
   attackRange: 30
   damage: 10
   type: '?'
@@ -1705,3 +1727,85 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 1
   weaponeIndex: 3
+  manaCost: 1
+  isMagic: 0
+  isShockandFire: 0
+--- !u!1001 &3125362364790654208
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3539039149035074776}
+    m_Modifications:
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.01804176
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0029041069
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9998038
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0076499335
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -182.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.349
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137123306192418792, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_Name
+      value: CFXR Water Ripples
+      objectReference: {fileID: 0}
+    - target: {fileID: 5137123306192418792, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5a8d99fb95262ea458a7b580f2a1611c, type: 3}
+--- !u!4 &2415716530983171764 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3125362364790654208}
+  m_PrefabAsset: {fileID: 0}
