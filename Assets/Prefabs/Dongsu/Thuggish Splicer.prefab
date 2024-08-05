@@ -194,7 +194,7 @@ MonoBehaviour:
   - {fileID: 3029727815746209724}
   ChaseRange: {fileID: 522351869282769516}
   currentState: 0
-  alertRadius: 15
+  alertRadius: 8
   itemBox: {fileID: 5456376333995707649}
 --- !u!195 &3912056709781346275
 NavMeshAgent:
