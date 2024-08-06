@@ -1,0 +1,6 @@
+1~60 Idle
+70~110 Walk
+120~150 Attack
+160~180 Attack2
+190~210 Damaged
+220~240 Die
