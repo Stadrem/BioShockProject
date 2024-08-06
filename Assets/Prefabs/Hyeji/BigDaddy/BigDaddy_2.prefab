@@ -478,10 +478,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolRadius: 10
   patrolTime: 5
+  findDistance: 30
+  stopDistance: 15
   attackDistance: 5
   attackDelayTime: 3
   currTime: 0
   attackPower: 2
+  rotationSpeed: 2
   firePos: {fileID: 4324381064357281530}
   bulletFactory: {fileID: 7357661757114712996, guid: 0948e2b4b0ba23e4096e395341fb99f0,
     type: 3}

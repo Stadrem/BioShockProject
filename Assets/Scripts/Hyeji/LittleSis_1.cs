@@ -40,11 +40,21 @@ public class LittleSis_1 : MonoBehaviour
     // 현재시간
     float currTime;
 
+    // 애니메이션
+    Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
         // 빅대디의 transform 값 가져오기
         bigDaddy = GameObject.Find("BigDaddy").transform;
+
+        // 애니메이션 컨트롤러
+        anim = GetComponentInChildren<Animator>();
+        if (anim != null)
+        {
+            anim.SetTrigger("Idle");
+        }
 
         // 캐릭터 컨트롤러 컴포넌트
         cc = GetComponent<CharacterController>();
@@ -72,7 +82,7 @@ public class LittleSis_1 : MonoBehaviour
         {
             velocity.y = 0;
         }
-        //cc.Move(velocity * Time.deltaTime);
+        cc.Move(velocity * Time.deltaTime);
     }
 
     void Follow()
@@ -85,6 +95,12 @@ public class LittleSis_1 : MonoBehaviour
             // 빅대디와의 거리가 유지 거리보다 커질 때, 유지 거리를 벗어났을 때,
             if (dist > followDistance)
             {
+                // Move 애니메이션 트리거
+                if (anim != null)
+                {
+                    anim.SetTrigger("Move");
+                }
+
                 // 위치 추적
                 Vector3 targetPosition = bigDaddy.position;
                 Vector3 smoothPosition = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
@@ -100,6 +116,12 @@ public class LittleSis_1 : MonoBehaviour
             // 유지 거리 안에 있을 때,
             else
             {
+                // Move 애니메이션 트리거
+                if (anim != null)
+                {
+                    anim.SetTrigger("Idle");
+                }
+
                 // 시간이 흐름
                 timer += Time.deltaTime;
                 // 무작위 위치로 이동

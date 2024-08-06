@@ -922,7 +922,7 @@ PrefabInstance:
     - target: {fileID: 5579354812210274058, guid: ae780569a317a92468763ccd92e5f6c2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.18
+      value: -3.91
       objectReference: {fileID: 0}
     - target: {fileID: 5579354812210274058, guid: ae780569a317a92468763ccd92e5f6c2,
         type: 3}
@@ -973,11 +973,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LittleSister
-      objectReference: {fileID: 0}
-    - target: {fileID: 8816433102372248764, guid: ae780569a317a92468763ccd92e5f6c2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1089,11 +1084,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BigDaddy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7780353077333902618, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}

@@ -188,8 +188,8 @@ GameObject:
   - component: {fileID: 7780353077333902618}
   - component: {fileID: 3317902593217349506}
   - component: {fileID: 9053985175076835120}
-  - component: {fileID: 41872193817131086}
   - component: {fileID: 5697594284330228874}
+  - component: {fileID: 3188404779233106313}
   m_Layer: 7
   m_Name: BigDaddy
   m_TagString: Boss
@@ -236,7 +236,7 @@ MonoBehaviour:
   shotAttackPower: 5
   rotationSpeed: 2
   pauseDuration: 1
-  chargeSpeed: 5
+  chargeSpeed: 30
   chargeRange: 10
   isCharging: 0
   knockbackDistance: 10
@@ -258,32 +258,6 @@ MonoBehaviour:
   maxHP: 100
   currHP: 0
   hpUI: {fileID: 3498276318593002966}
---- !u!143 &41872193817131086
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806527828087090339}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!65 &5697594284330228874
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -305,6 +279,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.1365194, y: 2.4763246, z: 2.224579}
   m_Center: {x: 0.10367048, y: 1.3040683, z: -0.0704447}
+--- !u!195 &3188404779233106313
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806527828087090339}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6462369114099829459
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,6 +564,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bouncer
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c1e01722215f7c1419b34f172ee3a9cf,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 45d03566df05cb84e95104aa7dc17dba, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

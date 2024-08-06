@@ -22,8 +22,6 @@ public class BossBehavior : MonoBehaviour
     public float attackDistance = 2f;
     // Player Transform
     Transform player;
-    // 캐릭터 컨트롤러 컴포넌트
-    CharacterController cc;
     // 현재 시간
     float currTime = 0;
     // 공격 딜레이 시간
@@ -43,8 +41,6 @@ public class BossBehavior : MonoBehaviour
     public float shotAttackDistance = 8f;
     // 중거리 공격력
     public int shotAttackPower = 5;
-    // 보스의 오른손
-    Transform rightHand;
     // 회전할것인가?
     bool isRoatate = false;
     // 회전속도
@@ -61,7 +57,7 @@ public class BossBehavior : MonoBehaviour
     // 돌진 속도
     public float chargeSpeed = 20f;
     // 돌진 시작 거리
-    public float chargeRange = 15f;
+    public float chargeRange = 7f;
     // 돌진 여부
     public bool isCharging = false;
     // 캐릭터의 동작 여부
@@ -81,19 +77,23 @@ public class BossBehavior : MonoBehaviour
     // 충돌 감지 반경
     public float collisionRadius = 1f;
 
+    // NavMeshAgent
+    NavMeshAgent agent;
+    // Animation Controller
+    Animator ani;
+
     void Start()
     {
         // 최초의 보스 상태는 Idle
         state = EnemyState.Idle;
         // Player의 Transform 컴포넌트 받아오기
         player = GameObject.Find("Player").transform;
-        // 빅대디의 캐릭터 컨트롤러 컴포넌트 받아오기
-        cc = GetComponent<CharacterController>();
-        // 초기 회전 상태 저장
-        //originalRotation = rightHand.rotation;
-        targetRotation = Quaternion.Euler(-50, -47, 54) * originalRotation;
+        // NavMeshAgent 컴포넌트
+        agent = GetComponent<NavMeshAgent>();
         // 보스 데미지 스크립트
         bossDamaged = GetComponent<BossDamaged>();
+        // 애니메이션 컨트롤러
+        ani = GetComponent<Animator>();
     }
      
     void Update()
@@ -101,11 +101,15 @@ public class BossBehavior : MonoBehaviour
         // 플레이어가 있는 방향으로 몸을 회전시킨다.
         Vector3 directionToPlayer = player.position - transform.position;
         directionToPlayer.y = 0;
-        Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
 
-        // 보간을 이용하여 속도 조절
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 1f);
-
+        if(directionToPlayer != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+            //print(directionToPlayer);
+            // 보간을 이용하여 속도 조절
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 1f);
+        }
+        
         // 넉백 처리
         if(isKnockback)
         {
@@ -123,9 +127,11 @@ public class BossBehavior : MonoBehaviour
         switch (state)
         {
             case EnemyState.Idle:
+                //ani.SetTrigger("Idle");
                 Idle();
                 break;
             case EnemyState.Move:
+                //ani.SetTrigger("Move");
                 Move();
                 break;
             case EnemyState.Attack:
@@ -144,28 +150,45 @@ public class BossBehavior : MonoBehaviour
     public void ChangeState(EnemyState newState)
     {
         state = newState;
+        //UpdateAnimator();
 
         switch(state)
         {
             case EnemyState.Idle:
+                agent.isStopped = true;
                 // 대기 상태 로직
                 break;
             case EnemyState.Move:
+                agent.isStopped = false;
                 // 이동 상태 로직
                 break;
             case EnemyState.Attack:
+                agent.isStopped = true;
                 // 공격 상태 로직
                 break;
             case EnemyState.Damaged:
+                agent.isStopped = true;
                 // 피해 상태 로직
                 break;
             case EnemyState.Die:
+                agent.isStopped = true;
                 // 2초 후에 오브젝트를 제거시킨다.
                 StartCoroutine(RemoveAfterDelay(2.0f));
                 // 죽음 상태 로직
                 break;
         }
     }
+    //void UpdateAnimator()
+    //{
+    //    if (ani != null)
+    //    {
+    //        ani.SetTrigger("Idle");
+    //        ani.SetTrigger("Move");
+    //        //ani.SetTrigger("Attack");
+    //        //ani.SetTrigger("Damaged");
+    //        //ani.SetTrigger("Die");
+    //    }
+    //}
 
     // 대기 상태 함수
     public void Idle()
@@ -175,7 +198,8 @@ public class BossBehavior : MonoBehaviour
         if (findDistance > dist)
         {
             // move 상태로 변환
-            state = EnemyState.Move;
+            ChangeState(EnemyState.Move);
+            //state = EnemyState.Move;
         }
     }
 
@@ -186,21 +210,19 @@ public class BossBehavior : MonoBehaviour
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
         // 적이 플레이어와의 거리가 근접 공격 범위 이내에 있으면 공격 상태로 전환
-        if (dist < meleeAttackDistance)
+        if (dist < meleeAttackDistance || dist < shotAttackDistance)
         {
-            // 이동 벡터를 0으로 설정하여 이동을 멈춘다.
-            cc.Move(Vector3.zero);
-            state = EnemyState.Attack;
+            ChangeState(EnemyState.Attack);
             return;
         }
+        // 적이 플레이어와의 거리가 중거리 공격 범위 이내에 있으면 공격 상태로 전환
+        //if (dist > shotAttackDistance)
+        //{
+        //    ChangeState(EnemyState.Attack);
+        //}
 
-        // 플레이어와의 거리가 공격 범위 밖이라면 플레이어 방향으로 향한다.
-        dir = player.transform.position - transform.position;
-        dir.Normalize();
-        dir.y = 0;
-
-        // 캐릭터 컨트롤러를 이용하여 이동
-        cc.Move(dir * moveSpeed * Time.deltaTime);
+        // navmeshagent를 이용하여 플레이어 방향으로 이동한다.
+        agent.SetDestination(player.position);
     }
 
     // 공격 함수
@@ -245,24 +267,12 @@ public class BossBehavior : MonoBehaviour
         }
         else
         {
-            state = EnemyState.Move;
+            ChangeState(EnemyState.Move);
         }
     }
     // 근접 공격
     public void MeleeAttack()
     {
-        //// 오른팔을 회전시킨다.
-        //isRoatate = true;
-        //rightHand.rotation = targetRotation;
-
-        //// 플레이어와 멀어지면
-        //if (isPlayerClose)
-        //{
-        //    // 오른손을 원래 위치로 한다.
-        //    rightHand.rotation = originalRotation;
-        //}
-
-        // 오른쪽 팔의 드릴을 이용하여 후려친다. 패턴은 위 대각선, 아래 대각선 2개로 랜덤하게 부여(ani)
         print("근접 공격");
     }
 
@@ -313,57 +323,33 @@ public class BossBehavior : MonoBehaviour
         // 돌진할것인가
         isCharging = true;
         // 이동속도를 돌진속도로 변환
-        float originMoveSpeed = this.moveSpeed;
-        this.moveSpeed = chargeSpeed;
+        float originMoveSpeed = agent.speed;
+        agent.speed = chargeSpeed;
 
-        float chargeDutation = 2f;
+        float chargeDuration = 2f;
         float startTime = Time.time;
 
         // 지정된 시간동안 돌진
-        while (Time.time < startTime + chargeDutation)
+        while (Time.time < startTime + chargeDuration)
         {
-            //// 플레이어와의 충돌 감지
-            //Collider[] hitColliders = Physics.OverlapSphere(transform.position, collisionRadius);
-            //foreach(var hitCollider in hitColliders)
-            //{
-            //    if(hitCollider.CompareTag("Player"))
-            //    {
-            //        // 캐릭터 컨트롤러 감지
-            //        CharacterController cc = hitCollider.GetComponent<CharacterController>();
-            //        if(cc != null)
-            //        {
-            //            Vector3 knockbackDirection = (hitCollider.transform.position - transform.position);
-            //            knockbackDirection.Normalize();
-            //        }
-            //    }
-            //}
+            agent.SetDestination(player.position);
             print("돌진중");
             yield return null;
         }
-        this.moveSpeed = originMoveSpeed;
+        agent.speed = originMoveSpeed;
         isCharging = false;
-        state = EnemyState.Move;
+        // ChangeState?
+        ChangeState(EnemyState.Move);
     }
 
     public void Damaged(int damage, string type)
     {
         GetComponent<BossDamaged>().Damaged(damage, type);
-
-        // 동결
-        // 감전
-        // 근거리 및 원거리 공격
     }
 
     public void Die()
     {
         print("사망");
-        // 캐릭터 컨트롤러 비활성화
-        GetComponent<CharacterController>().enabled = false;
-        // 애니메이션 트리거 추가
-        // if(animoator != null)
-        //{
-        //    Animator.SetTrigger("Die");
-        //}
     }
 
     private IEnumerator RemoveAfterDelay(float delay)
