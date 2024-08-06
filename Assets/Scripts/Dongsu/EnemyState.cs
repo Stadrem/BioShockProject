@@ -17,6 +17,8 @@ public class EnemyState : MonoBehaviour
     public float baseSpeed = 4;
     public float attackRanage = 7.0f;
 
+    public GameObject scream;
+
     Rigidbody rb;
 
     //bool ChaseOn = false;
@@ -42,6 +44,8 @@ public class EnemyState : MonoBehaviour
     public float alertRadius = 10.0f;
     public GameObject itemBox;
 
+    public AudioSource dieSound;
+
     public enum State
     {
         Idle,
@@ -66,6 +70,7 @@ public class EnemyState : MonoBehaviour
         na.speed = baseSpeed;
         col = GetComponent<CapsuleCollider>();
         damaged = GetComponent<Damaged>();
+        dieSound = GetComponent<AudioSource>();
 
         // 레그돌의 리지드바디를 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -143,6 +148,8 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
+        dieSound.Play(0);
+
         WaitStop();
 
         anim.SetBool("IsDamaged", true);
@@ -199,6 +206,8 @@ public class EnemyState : MonoBehaviour
 
     void DieState()
     {
+        dieSound.Play(0);
+
         AlertNearbyEnemies();
 
         na.speed = 0;
@@ -271,6 +280,8 @@ public class EnemyState : MonoBehaviour
 
     IEnumerator Scream()
     {
+        scream.SetActive(true);
+
         //플레이어 방향 바라보기
         Vector3 lookPos = GameManager.instance.player.transform.position - transform.position;
 

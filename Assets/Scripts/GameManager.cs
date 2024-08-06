@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public VolumeProfile vpOrigin;
     public VolumeProfile vpDamaged;
 
-
+    AudioSource hitAudio;
 
     private void Awake()
     {
@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
         maxHP = HP;
         globalVolume = GameObject.Find("Global Volume");
         volume = globalVolume.GetComponent<Volume>();
+        hitAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -80,9 +81,11 @@ public class GameManager : MonoBehaviour
     //여러번, 고정적으로 사용할 함수 생성
     public void Damaged(int num)
     {
+        hitAudio.Play(0);
+
         HP -= num;
 
-        if(HP > maxHP)
+        if (HP > maxHP)
         {
             HP = maxHP;
         }

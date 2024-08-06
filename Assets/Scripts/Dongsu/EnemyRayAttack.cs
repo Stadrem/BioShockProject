@@ -12,6 +12,8 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
     public GameObject attackPoint;
 
+    public GameObject attackEffect;
+
     private void Start()
     {
         enemyState = GetComponentInParent<EnemyState>();
@@ -19,6 +21,10 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
     public void Attack()
     {
+        attackEffect.SetActive(true);
+
+        enemyState.WaitStop();
+
         tempPosition = GameManager.instance.player.transform.position;
 
         float distance = Vector3.Distance(tempPosition, transform.position);
@@ -35,7 +41,7 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
     IEnumerator AttackDelay()
     {
         print("공격 레이 쏨 ");
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.1f);
 
         RaycastHit hit;
 
@@ -49,15 +55,18 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
             }
             else
             {
-                yield return new WaitForSeconds(0.5f);
-                enemyState.ChangeState(EnemyState.State.Chase);
+                AttackFailed();
             }
         }
         else
         {
-            print("공격 레이 안 맞음");
-            yield return new WaitForSeconds(0.5f);
-            enemyState.ChangeState(EnemyState.State.Chase);
+            AttackFailed();
         }
+        yield return new WaitForSeconds(0.6f);
+        attackEffect.SetActive(false);
+    }
+    void AttackFailed()
+    {
+        enemyState.ChangeState(EnemyState.State.Chase);
     }
 }
