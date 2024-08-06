@@ -69,6 +69,9 @@ public class UiManager : MonoBehaviour
 
     bool currentWahtMagic = false;
 
+    public GameObject dialogueUi;
+    public Text dialougeText;
+
     void Awake()
     {
         //instance 값이 null이면
@@ -99,6 +102,8 @@ public class UiManager : MonoBehaviour
 
         ItemRefresh();
         WeaponeChange(0);
+
+        DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 5.0f);
     }
 
     // Update is called once per frame
@@ -412,5 +417,25 @@ public class UiManager : MonoBehaviour
     public void Switcher(bool i)
     {
         currentWahtMagic = i;
+    }
+
+    public void DialoguePopUp(string text, float time)
+    {
+        StartCoroutine(DialogueDelay(text, time));
+    }
+
+    IEnumerator DialogueDelay(string text, float time)
+    {
+        Time.timeScale = 0;
+
+        dialougeText.text = text;
+
+        dialogueUi.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(time);
+
+        dialogueUi.SetActive(false);
+
+        Time.timeScale = 1;
     }
 }
