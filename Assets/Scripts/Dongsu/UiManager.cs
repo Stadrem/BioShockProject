@@ -300,6 +300,8 @@ public class UiManager : MonoBehaviour
     {
         currentWeapone = weapone;
 
+
+
         if (currentWeapone == 1)
         {
             needMagazine = 8;
@@ -313,6 +315,11 @@ public class UiManager : MonoBehaviour
             needMagazine = 4;
         }
         else
+        {
+            return false;
+        }
+
+        if(weaponeMagazine[currentWeapone] == needMagazine)
         {
             return false;
         }
