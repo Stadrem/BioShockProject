@@ -40,7 +40,6 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
     IEnumerator AttackDelay()
     {
-        print("공격 레이 쏨 ");
         yield return new WaitForSeconds(0.1f);
 
         RaycastHit hit;
@@ -50,7 +49,6 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
             Debug.DrawRay(attackPoint.transform.position, hit.transform.position - attackPoint.transform.position, Color.green, 1.0f);
             if (hit.transform.CompareTag("Player"))
             {
-                print("때림!");
                 GameManager.instance.Damaged(1);
             }
             else
