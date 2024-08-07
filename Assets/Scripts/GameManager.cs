@@ -97,7 +97,9 @@ public class GameManager : MonoBehaviour
     IEnumerator ShakeTime(float i)
     {
         i = i * 0.2f;
-        
+
+        shakeAmount = i * 1.5f;
+
         VolumeDamaged(i);
         shake = true;
 

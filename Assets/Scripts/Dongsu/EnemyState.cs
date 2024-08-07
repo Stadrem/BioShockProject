@@ -16,6 +16,7 @@ public class EnemyState : MonoBehaviour
     //public float reAttackDistance = 4.5f;
     public float baseSpeed = 4;
     public float attackRanage = 7.0f;
+    Vector3 tempPosition;
 
     public GameObject scream;
 
@@ -45,6 +46,8 @@ public class EnemyState : MonoBehaviour
     public GameObject itemBox;
 
     public AudioSource dieSound;
+
+    public bool attackPass = false;
 
     public enum State
     {
@@ -83,12 +86,6 @@ public class EnemyState : MonoBehaviour
     void Update()
     {
         OnStateChanged();
-
-        if (currentState != previousState)
-        {
-            OnStateChanged();
-            previousState = currentState;
-        }
     }
 
     void OnStateChanged()
@@ -198,10 +195,17 @@ public class EnemyState : MonoBehaviour
 
     void AttackState()
     {
-        WaitStop();
+        if(CheckRay())
+        {
+            WaitStop();
 
-        anim.SetBool("IsWalk", false);
-        anim.SetBool("IsAttack", true);
+            anim.SetBool("IsWalk", false);
+            anim.SetBool("IsAttack", true);
+        }
+        else
+        {
+            ChangeState(EnemyState.State.Chase);
+        }
     }
 
     void DieState()
@@ -306,5 +310,32 @@ public class EnemyState : MonoBehaviour
         na.velocity = Vector3.zero;
         na.speed = 0;
         na.isStopped = true;
+    }
+
+    bool CheckRay()
+    {
+        print("플레이어 체크!");
+        RaycastHit hit;
+
+        Vector3 dir = GameManager.instance.player.transform.position - transform.position;
+        dir.Normalize();
+
+        if (Physics.Raycast(transform.position, dir, out hit, attackRanage, layerMask))
+        {
+            //Debug.DrawRay(attackPoint.transform.position, hit.transform.position - attackPoint.transform.position, Color.green, 1.0f);
+            if (hit.transform.CompareTag("Player"))
+            {
+                print("플레이어 체크 확인!");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }
