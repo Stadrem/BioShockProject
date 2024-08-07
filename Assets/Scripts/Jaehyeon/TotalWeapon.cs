@@ -20,6 +20,11 @@ public class TotalWeapon : MonoBehaviour
 
     private float lastFireTime = 0f;
 
+    public float Rebound = 2.0f;
+    public GameObject muzzleFlashPrefab; // 머즐 플래시 프리팹
+    public Transform muzzleFlashPosition; // 머즐 플래시 위치
+
+
     // 마나 아이템 사용시 소모
     public int manaCost = 1; // 마법 사용 시 소모되는 마나
 
@@ -30,6 +35,9 @@ public class TotalWeapon : MonoBehaviour
     Animator anim;
 
     bool isReloading = false; // 장전 상태를 추적
+
+    
+
 
     void Start()
     {
@@ -196,6 +204,17 @@ public class TotalWeapon : MonoBehaviour
 
             Destroy(bulletImpact, 2); // 2초 뒤에 파괴
         }
+
+        // 머즐 플래시 생성
+        if (muzzleFlashPrefab != null && muzzleFlashPosition != null)
+        {
+            GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, muzzleFlashPosition.position, muzzleFlashPosition.rotation);
+           Destroy(muzzleFlash, 0.1f); // 0.1초 뒤에 파괴
+        }
+
+        // 반동 효과 적용
+        ApplyRebound();
+
     }
 
     void Reload()
@@ -216,4 +235,10 @@ public class TotalWeapon : MonoBehaviour
         yield return new WaitForSeconds(2f); // 2초 딜레이
         isReloading = false;
     }
+    void ApplyRebound()
+    {
+        
+        Camera.main.transform.Rotate(-Rebound, 0, 0);
+    }
+
 }
