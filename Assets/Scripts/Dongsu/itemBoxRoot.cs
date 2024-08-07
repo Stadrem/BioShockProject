@@ -88,5 +88,6 @@ public class ItemBoxRoot : MonoBehaviour
             }
         }
         UiManager.instance.ItemRefresh();
+        SoundManager.instance.RootSound();
     }
 }

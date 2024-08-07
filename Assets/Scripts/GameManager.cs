@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     //여러번, 고정적으로 사용할 함수 생성
     public void Damaged(int num)
     {
-        hitAudio.Play(0);
+        SoundManager.instance.DamagedSound();
 
         HP -= num;
 

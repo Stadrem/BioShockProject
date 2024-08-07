@@ -24,7 +24,7 @@ public class BombExplosion : MonoBehaviour
         if(knockBack == true)
         {
             currentTime += Time.deltaTime;
-            GameManager.instance.player.transform.position += Vector3.back * 100 * Time.deltaTime;
+            GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
             if(currentTime > knockTime)
             {
                 knockBack = false;
@@ -58,7 +58,7 @@ public class BombExplosion : MonoBehaviour
             print(other.transform.name);
             if (other.gameObject.CompareTag("Player"))
             {
-                GameManager.instance.Damaged(4);
+                GameManager.instance.Damaged(3);
                 knockBack = true;
             }
             else if (other.gameObject.CompareTag("Enemy"))
