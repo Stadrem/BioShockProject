@@ -15,7 +15,7 @@ public class BossBehavior_2 : MonoBehaviour
     }
 
     // 에너미의 상태 변수
-    EnemyState state;
+    public EnemyState state;
 
     // Player 의 Transform
     Transform player;
@@ -29,6 +29,8 @@ public class BossBehavior_2 : MonoBehaviour
     private NavMeshAgent agent;
     // 로지의 시작 지점
     private Vector3 startPosition;
+    // Animator
+    Animator anim;
 
     public float findDistance = 30f;
     public float stopDistance = 15f;
@@ -44,6 +46,11 @@ public class BossBehavior_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        // Animator
+        anim = GetComponentInChildren<Animator>();
+        // 최초의 보스 상태 Idle
+        state = EnemyState.Idle;
         // 플레이어의 Transform 찾자
         player = GameObject.Find("Player").transform;
         // NavMeshAgent 컴포넌트
@@ -62,9 +69,12 @@ public class BossBehavior_2 : MonoBehaviour
         switch (state)
         {
             case EnemyState.Idle:
+                Idle();
+
                 break;
             case EnemyState.Move:
                 Move();
+                //anim.SetTrigger("WALK");
                 break;
             case EnemyState.Attack:
                 Attack();
@@ -87,18 +97,23 @@ public class BossBehavior_2 : MonoBehaviour
         {
             case EnemyState.Idle:
                 StartCoroutine(Idle());
+                anim.SetTrigger("IDLE");
                 break;
             case EnemyState.Move:
                 agent.isStopped = false;
+                anim.SetTrigger("WALK");
                 StartCoroutine(Patrol());
                 break;
             case EnemyState.Attack:
                 // 공격 시에는 navmesh 멈추자
                 agent.isStopped = false;
+                anim.SetTrigger("ATTACK");
                 break;
             case EnemyState.Damaged:
+                anim.SetTrigger("DAMAGE");
                 break;
             case EnemyState.Die:
+                anim.SetTrigger("DIE");
                 break;
         }
     }
@@ -148,13 +163,13 @@ public class BossBehavior_2 : MonoBehaviour
             // 플레이어를 부드럽게 바라보도록 회전
             Vector3 directionToPlayer = player.position - transform.position;
             // 수직 회전 방지
-            directionToPlayer.y = 0; 
+            directionToPlayer.y = 0;
 
             Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
 
             // 플레이어가 인지 범위 내로 들어왔다면
-            if(dist < findDistance)
+            if (dist < findDistance)
             {
                 ChangeState(EnemyState.Attack);
             }

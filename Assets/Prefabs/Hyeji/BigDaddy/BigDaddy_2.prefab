@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5493406254216666490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4863041996326090993}
+  m_Layer: 0
+  m_Name: firePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4863041996326090993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5493406254216666490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0.016879998, y: -0.032429993, z: 0.01900999}
+  m_LocalScale: {x: 0.009999998, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5485797912288789832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7481578861820693319
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e844a8031594e743b95c46131b72a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   patrolRadius: 10
   patrolTime: 5
   findDistance: 30
@@ -71,7 +103,7 @@ MonoBehaviour:
   currTime: 0
   attackPower: 2
   rotationSpeed: 2
-  firePos: {fileID: 0}
+  firePos: {fileID: 5493406254216666490}
   bulletFactory: {fileID: 7357661757114712996, guid: 0948e2b4b0ba23e4096e395341fb99f0,
     type: 3}
 --- !u!195 &3478439917607029100
@@ -166,9 +198,19 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 6744c9fa89350ff4fbb30717d1d48224, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -6370439082231127293, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4863041996326090993}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b, type: 3}
+--- !u!4 &5485797912288789832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6370439082231127293, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7761636521032328779}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7799221043279282592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
