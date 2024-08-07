@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TotalWeapon : MonoBehaviour
@@ -30,7 +29,7 @@ public class TotalWeapon : MonoBehaviour
 
     Animator anim;
 
-    bool WhillSwitch;
+    bool isReloading = false; // 장전 상태를 추적
 
     void Start()
     {
@@ -53,6 +52,9 @@ public class TotalWeapon : MonoBehaviour
             return;
         }
 
+        if (isReloading) // 장전 중에는 발사 불가능
+            return;
+
         if (isMagic)
         {
             HandleMagicFire();
@@ -62,14 +64,13 @@ public class TotalWeapon : MonoBehaviour
             HandleWeaponFire();
         }
 
-        if(Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0)
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
         }
         else
         {
             anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
-
         }
     }
 
@@ -145,7 +146,6 @@ public class TotalWeapon : MonoBehaviour
             anim.SetTrigger("RELOAD");
         }
         UiManager.instance.UseMana();
-
     }
 
     public void Shoot()
@@ -183,7 +183,7 @@ public class TotalWeapon : MonoBehaviour
                 fire.transform.position = hitInfo.transform.position;
                 fire.transform.parent = hitInfo.transform;
             }
-            
+
             bulletImpact.transform.position = hitInfo.point;
             if (isMagic == true)
             {
@@ -193,32 +193,27 @@ public class TotalWeapon : MonoBehaviour
             {
                 bulletImpact.transform.forward = hitInfo.normal;
             }
-            
-            
-            
+
             Destroy(bulletImpact, 2); // 2초 뒤에 파괴
         }
     }
 
     void Reload()
     {
-        if (needMag)
+        if (needMag && !isReloading)
         {
             if (UiManager.instance.Reload(weaponeIndex))
             {
-                //UiManager.instance.Reload(weaponeIndex);
                 anim.SetTrigger("RELOAD");
-                StartCoroutine(WaitForIt());
-            }
-            else
-            {
-
+                StartCoroutine(ReloadCoroutine());
             }
         }
     }
-    IEnumerator WaitForIt()
+
+    IEnumerator ReloadCoroutine()
     {
-        anim.SetTrigger("RELOAD");
-        yield return new WaitForSeconds(2.0f);
+        isReloading = true;
+        yield return new WaitForSeconds(2f); // 2초 딜레이
+        isReloading = false;
     }
 }
