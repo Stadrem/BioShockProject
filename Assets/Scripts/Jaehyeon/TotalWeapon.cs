@@ -28,9 +28,14 @@ public class TotalWeapon : MonoBehaviour
 
     public bool isShockandFire = false;
 
+    Animator anim;
+
+    bool WhillSwitch;
+
     void Start()
     {
-
+        anim = GetComponent<Animator>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -55,6 +60,16 @@ public class TotalWeapon : MonoBehaviour
         else
         {
             HandleWeaponFire();
+        }
+
+        if(Input.GetAxis("Horizontal") != 0|| Input.GetAxis("Vertical") != 0)
+        {
+            anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
+        }
+        else
+        {
+            anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
+
         }
     }
 
@@ -125,11 +140,18 @@ public class TotalWeapon : MonoBehaviour
 
     void UseManaItem()
     {
+        if (UiManager.instance.keepItems[4] != 0)
+        {
+            anim.SetTrigger("RELOAD");
+        }
         UiManager.instance.UseMana();
+
     }
 
     public void Shoot()
     {
+        anim.SetTrigger("ATTACK");
+
         if (effectPrefab == null)
         {
             Debug.LogError("Inspector창에 무기상태가 안들어감");
@@ -182,6 +204,11 @@ public class TotalWeapon : MonoBehaviour
     {
         if (needMag)
         {
+            if (UiManager.instance.keepItems[weaponeIndex] != 0)
+            {
+                anim.SetTrigger("RELOAD");
+            }
+
             Debug.Log("장전중...");
 
             UiManager.instance.Reload(weaponeIndex);

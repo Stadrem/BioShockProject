@@ -16,9 +16,11 @@ public class Telekinesis : MonoBehaviour
     public int manaCost = 1; // 염력 사용 시 소모되는 마나
 
     private GameObject effectObject; // 효과 오브젝트
+    Animator anim;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         // 플레이어에 붙어 있는 이펙트 오브젝트를 찾아서 할당
         effectObject = GameObject.Find("CFXR Water Ripples");
         if (effectObject != null)
@@ -33,6 +35,7 @@ public class Telekinesis : MonoBehaviour
         // R키로 마나아이템 사용(마나가 0이되지 않았을때도 사용가능)
         if (Input.GetKeyDown(KeyCode.R))
         {
+            anim.SetTrigger("RELOAD");
             UseManaItem();
             return;
         }
@@ -44,6 +47,7 @@ public class Telekinesis : MonoBehaviour
             {
                 if (TryUseMana())
                 {
+                    
                     SucGrabObject();
                     if (effectObject != null)
                     {
@@ -56,6 +60,7 @@ public class Telekinesis : MonoBehaviour
                     UiManager.instance.UseMana();
                     if (TryUseMana())
                     {
+                        
                         SucGrabObject();
                         if (effectObject != null)
                         {
@@ -72,6 +77,15 @@ public class Telekinesis : MonoBehaviour
                 {
                     effectObject.SetActive(false); // 던질 때 이펙트를 숨김
                 }
+            }
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
+            }
+            else
+            {
+                anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
+
             }
         }
 
@@ -104,6 +118,7 @@ public class Telekinesis : MonoBehaviour
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
+        anim.SetTrigger("ATTACK");
 
         if (Physics.Raycast(ray, out hit, telekinesisRange, layerMask))
         {
@@ -125,6 +140,7 @@ public class Telekinesis : MonoBehaviour
 
     void SucThrowObject()
     {
+        anim.SetTrigger("ATTACK");
         if (grabbedObject == null)
         {
             grab = false;

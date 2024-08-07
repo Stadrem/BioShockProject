@@ -27,7 +27,7 @@ public class PlayerMove : MonoBehaviour
         // 캐릭터 컨트롤러 가져오기
         cc = GetComponent<CharacterController>();
 
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
