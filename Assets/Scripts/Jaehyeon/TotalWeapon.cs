@@ -204,14 +204,15 @@ public class TotalWeapon : MonoBehaviour
     {
         if (needMag)
         {
-            if (UiManager.instance.keepItems[weaponeIndex] != 0)
+            if (UiManager.instance.Reload(weaponeIndex))
             {
+                //UiManager.instance.Reload(weaponeIndex);
                 anim.SetTrigger("RELOAD");
             }
+            else
+            {
 
-            Debug.Log("장전중...");
-
-            UiManager.instance.Reload(weaponeIndex);
+            }
         }
     }
 }
