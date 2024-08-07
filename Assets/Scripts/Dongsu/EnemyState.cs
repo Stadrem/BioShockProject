@@ -17,6 +17,8 @@ public class EnemyState : MonoBehaviour
     public float baseSpeed = 4;
     public float attackRanage = 7.0f;
 
+    public GameObject scream;
+
     Rigidbody rb;
 
     //bool ChaseOn = false;
@@ -25,6 +27,9 @@ public class EnemyState : MonoBehaviour
 
     //Animator 가져오기
     Animator anim;
+
+    CapsuleCollider col;
+    Damaged damaged;
 
     public Rigidbody[] ragdollRigidbodies;
 
@@ -38,6 +43,8 @@ public class EnemyState : MonoBehaviour
     private State previousState;
     public float alertRadius = 10.0f;
     public GameObject itemBox;
+
+    public AudioSource dieSound;
 
     public enum State
     {
@@ -61,6 +68,9 @@ public class EnemyState : MonoBehaviour
         currentState = State.Idle;
         previousState = currentState;
         na.speed = baseSpeed;
+        col = GetComponent<CapsuleCollider>();
+        damaged = GetComponent<Damaged>();
+        dieSound = GetComponent<AudioSource>();
 
         // 레그돌의 리지드바디를 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -120,6 +130,8 @@ public class EnemyState : MonoBehaviour
     public void ChangeState(State newState)
     {
         currentState = newState;
+
+        na.isStopped = false;
     }
 
     void IdleState()
@@ -136,6 +148,8 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
+        dieSound.Play(0);
+
         WaitStop();
 
         anim.SetBool("IsDamaged", true);
@@ -152,6 +166,10 @@ public class EnemyState : MonoBehaviour
 
     void ChaseState()
     {
+        if(damaged.HP <= 0)
+        {
+            return;
+        }
         if(firstHit == true)
         {
             anim.SetTrigger("IsFirstDetect");
@@ -159,7 +177,6 @@ public class EnemyState : MonoBehaviour
         }
         else
         {
-            na.isStopped = false;
             na.speed = baseSpeed;
             anim.SetBool("IsAttack", false);
             anim.SetBool("IsWalk", true);
@@ -183,19 +200,25 @@ public class EnemyState : MonoBehaviour
     {
         WaitStop();
 
-        //ChaseOn = false;
-
         anim.SetBool("IsWalk", false);
         anim.SetBool("IsAttack", true);
     }
 
     void DieState()
     {
+        dieSound.Play(0);
+
+        AlertNearbyEnemies();
+
+        na.speed = 0;
+
         // 레그돌의 리지드바디 활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
             rb.isKinematic = false;
         }
+
+        na.isStopped = true;
 
         ragdollRigidbodies[0].gameObject.layer = LayerMask.NameToLayer("Select");
 
@@ -203,10 +226,12 @@ public class EnemyState : MonoBehaviour
 
         ChaseRange.SetActive(false);
 
-        na.enabled = false;
+        col.enabled = false;
 
         // 애니메이터 비활성화
         anim.enabled = false;
+
+        //na.enabled = false;
 
         this.enabled = false;
     }
@@ -255,6 +280,8 @@ public class EnemyState : MonoBehaviour
 
     IEnumerator Scream()
     {
+        scream.SetActive(true);
+
         //플레이어 방향 바라보기
         Vector3 lookPos = GameManager.instance.player.transform.position - transform.position;
 

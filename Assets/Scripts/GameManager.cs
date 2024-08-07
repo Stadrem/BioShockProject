@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +23,15 @@ public class GameManager : MonoBehaviour
 
     private Transform cameraTransform;
     private Vector3 originalCameraLocalPosition;
+
+    GameObject globalVolume;
+
+    Volume volume;
+
+    public VolumeProfile vpOrigin;
+    public VolumeProfile vpDamaged;
+
+    AudioSource hitAudio;
 
     private void Awake()
     {
@@ -54,6 +65,9 @@ public class GameManager : MonoBehaviour
         originalCameraLocalPosition = Camera.main.transform.localPosition;
         anim = player.GetComponentInChildren<Animator>();
         maxHP = HP;
+        globalVolume = GameObject.Find("Global Volume");
+        volume = globalVolume.GetComponent<Volume>();
+        hitAudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -67,24 +81,43 @@ public class GameManager : MonoBehaviour
     //여러번, 고정적으로 사용할 함수 생성
     public void Damaged(int num)
     {
+        hitAudio.Play(0);
+
         HP -= num;
 
-        if(HP > maxHP)
+        if (HP > maxHP)
         {
             HP = maxHP;
         }
         UiManager.instance.HPRefresh(HP);
 
-        StartCoroutine(ShakeTime());
+        StartCoroutine(ShakeTime(num));
     }
 
-    IEnumerator ShakeTime()
+    IEnumerator ShakeTime(float i)
     {
+        i = i * 0.2f;
+        
+        VolumeDamaged(i);
         shake = true;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(i);
 
         shake = false;
+
         Camera.main.transform.localPosition = originalCameraLocalPosition;
+
+        VolumeOrigin();
+    }
+    void VolumeOrigin()
+    {
+        volume.profile = vpOrigin;
+        volume.weight = 1;
+    }
+
+    void VolumeDamaged(float i)
+    {
+        volume.profile = vpDamaged;
+        volume.weight = i;
     }
 }

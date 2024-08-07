@@ -43,7 +43,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Revolver_Idle
       takeName: metarig|metarigAction
       internalID: -887982601649841707
       firstFrame: 1
@@ -72,7 +72,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Walk
+      name: Revolver_Walk
       takeName: metarig|metarigAction
       internalID: 3536513432961602234
       firstFrame: 40
@@ -101,7 +101,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Attack
+      name: Revolver_Attack
       takeName: metarig|metarigAction
       internalID: -8467477205274376854
       firstFrame: 80
@@ -130,7 +130,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Reload
+      name: Revolver_Reload
       takeName: metarig|metarigAction
       internalID: -8514521339571864881
       firstFrame: 120

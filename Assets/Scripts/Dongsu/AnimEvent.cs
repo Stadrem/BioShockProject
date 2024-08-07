@@ -48,6 +48,7 @@ public class AnimEvent : MonoBehaviour
 
     void IsStun()
     {
+        enemyState.dieSound.Play();
         enemyState.WaitStop();
     }
 }

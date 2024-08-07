@@ -14,6 +14,8 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
 
     public GameObject attackPoint;
 
+    public GameObject attackEffect;
+
     private void Start()
     {
         enemyState = GetComponentInParent<EnemyState>();
@@ -21,6 +23,8 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
 
     public void Attack()
     {
+        attackEffect.SetActive(true);
+
         print("공격 호출!");
         tempPosition = GameManager.instance.player.transform.position;
 
@@ -58,21 +62,21 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
 
                 bombInstance.transform.forward = dir;
 
-                rb.velocity = bombInstance.transform.forward * 7;
+                rb.velocity = bombInstance.transform.forward * 15;
 
                 print("던짐!");
             }
             else
             {
-                yield return new WaitForSeconds(0.5f);
                 enemyState.ChangeState(EnemyState.State.Chase);
             }
         }
         else
         {
             print("공격 레이 안 맞음");
-            yield return new WaitForSeconds(0.5f);
             enemyState.ChangeState(EnemyState.State.Chase);
         }
+        yield return new WaitForSeconds(0.9f);
+        attackEffect.SetActive(false);
     }
 }

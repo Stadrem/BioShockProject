@@ -242,6 +242,7 @@ MonoBehaviour:
   knockbackDistance: 10
   knockbackTime: 0.2
   knockbackDuration: 0.2
+  collisionRadius: 1
 --- !u!114 &9053985175076835120
 MonoBehaviour:
   m_ObjectHideFlags: 0
