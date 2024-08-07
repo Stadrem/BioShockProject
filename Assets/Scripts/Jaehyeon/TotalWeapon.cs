@@ -208,11 +208,17 @@ public class TotalWeapon : MonoBehaviour
             {
                 //UiManager.instance.Reload(weaponeIndex);
                 anim.SetTrigger("RELOAD");
+                StartCoroutine(WaitForIt());
             }
             else
             {
 
             }
         }
+    }
+    IEnumerator WaitForIt()
+    {
+        anim.SetTrigger("RELOAD");
+        yield return new WaitForSeconds(2.0f);
     }
 }

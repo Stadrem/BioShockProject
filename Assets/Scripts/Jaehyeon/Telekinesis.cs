@@ -14,7 +14,7 @@ public class Telekinesis : MonoBehaviour
     public int damage = 5; // 공격 데미지
     public string type = "?";
     public int manaCost = 1; // 염력 사용 시 소모되는 마나
-
+    public int weaponeIndex = 0;
     private GameObject effectObject; // 효과 오브젝트
     Animator anim;
 
@@ -35,7 +35,12 @@ public class Telekinesis : MonoBehaviour
         // R키로 마나아이템 사용(마나가 0이되지 않았을때도 사용가능)
         if (Input.GetKeyDown(KeyCode.R))
         {
-            anim.SetTrigger("RELOAD");
+            if (UiManager.instance.Reload(weaponeIndex))
+            {
+                //UiManager.instance.Reload(weaponeIndex);
+                anim.SetTrigger("RELOAD");
+                
+            }
             UseManaItem();
             return;
         }
@@ -111,6 +116,10 @@ public class Telekinesis : MonoBehaviour
 
     void UseManaItem()
     {
+        if (UiManager.instance.keepItems[4] != 0)
+        {
+            anim.SetTrigger("RELOAD");
+        }
         UiManager.instance.UseMana();
     }
 
