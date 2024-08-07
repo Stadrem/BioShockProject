@@ -296,11 +296,9 @@ public class UiManager : MonoBehaviour
         return true;
     }
 
-    public bool Reload(int weapone)
+    public bool ReloadCheck(int weapone)
     {
         currentWeapone = weapone;
-
-
 
         if (currentWeapone == 1)
         {
@@ -319,7 +317,7 @@ public class UiManager : MonoBehaviour
             return false;
         }
 
-        if(weaponeMagazine[currentWeapone] == needMagazine)
+        if (weaponeMagazine[currentWeapone] == needMagazine)
         {
             return false;
         }
@@ -330,9 +328,15 @@ public class UiManager : MonoBehaviour
             alretAnim.SetTrigger("Alret");
             return false;
         }
+        return true;
+    }
+
+    public void Reload(int weapone)
+    {
+        currentWeapone = weapone;
 
         //약간 부족하면 필요한 만큼 계산
-        else if (keepItems[currentWeapone] < needMagazine)
+        if (keepItems[currentWeapone] < needMagazine)
         {
             //필요한 장전 총알량 계산
             needMagazine = needMagazine - weaponeMagazine[currentWeapone];
@@ -372,7 +376,6 @@ public class UiManager : MonoBehaviour
         //갱신
         bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
         bulletMaxText.text = keepItems[currentWeapone].ToString();
-        return true;
     }
 
     public void WeaponeChange(int weapone)
