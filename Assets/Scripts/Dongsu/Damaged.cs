@@ -9,6 +9,7 @@ public class Damaged : MonoBehaviour
     public int HP = 10;
     public float resis = 1.0f;
     //public float speed = 5.0f;
+    bool onFire = false;
     
 
     //Enemy 상태 관리 가져오기
@@ -80,8 +81,16 @@ public class Damaged : MonoBehaviour
             }
             else
             {
+                if(type != "Fire")
+                {
+                    enemyState.ChangeState(EnemyState.State.Damaged);
+                }
+                else if (onFire == false)
+                {
+                    onFire = true;
+                    enemyState.ChangeState(EnemyState.State.Damaged);
+                }
                 HP -= damage;
-                enemyState.ChangeState(EnemyState.State.Damaged);
             }
             
             if (HP <= 0)

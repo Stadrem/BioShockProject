@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -26,7 +27,7 @@ public class PlayerMove : MonoBehaviour
         // 캐릭터 컨트롤러 가져오기
         cc = GetComponent<CharacterController>();
 
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
@@ -83,7 +84,7 @@ public class PlayerMove : MonoBehaviour
         cc.Move(dir * speed * Time.deltaTime);
     }
 
-    public void ApplyKnockback(Vector3 direction)
+    /*public void ApplyKnockback(Vector3 direction)
     {
 
         direction.y = 0;
@@ -93,4 +94,21 @@ public class PlayerMove : MonoBehaviour
         Knockback = true;
 
     }
+     56 6 ,olklm /*private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Boss"))
+       {
+            Collider[] colls;
+            colls = Physics.OverlapSphere(this.transform.position, 1f, 1 << LayerMask.NameToLayer("Boss"));
+
+            foreach (Collider coll in colls)
+            {
+
+                coll.GetComponent<Rigidbody>().AddExplosionForce(300, transform.position, 10f);
+            }
+
+            Destroy(this.gameObject);
+        }
+        
+    }*/
 }

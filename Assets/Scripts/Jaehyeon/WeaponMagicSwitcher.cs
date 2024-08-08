@@ -6,12 +6,12 @@ public class WeaponMagicSwitcher : MonoBehaviour
 {
     public GameObject[] weapons; // 무기 배열 (오른손)
     public GameObject[] magic; // 마법 (왼손)
-    public GameObject rightArm;
-    public GameObject leftArm;
-    public Transform rightHand; // 오른손 위치
-    public Transform leftHand; // 왼손 위치
-    
+    //public GameObject rightArm;
+    //public GameObject leftArm;
+    //public Transform rightHand; // 오른손 위치
+    //public Transform leftHand; // 왼손 위치
 
+    
     private int selectedWeapon = 0;
     private int selectedmagic = 0;
     private bool isMagicActive = false; // 현재 마법 모드인지 여부
@@ -19,6 +19,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
     void Start()
     {
         SelectWeaponOrMagic();
+        
     }
 
     void Update()
@@ -111,9 +112,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (i == selectedWeapon && !isMagicActive)
             {
                 UiManager.instance.WeaponeChange(i);
-                weapons[i].transform.SetParent(rightHand);
-                weapons[i].transform.localPosition = Vector3.zero;
-                weapons[i].transform.localRotation = Quaternion.identity;
+                //weapons[i].transform.SetParent(rightHand);
+                //weapons[i].transform.localPosition = Vector3.zero;
+               // weapons[i].transform.localRotation = Quaternion.identity;
             }
         }
     }
@@ -126,9 +127,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (i == selectedmagic && isMagicActive)
             {
                 UiManager.instance.MagicChange(i);
-                magic[i].transform.SetParent(leftHand);
-                magic[i].transform.localPosition = Vector3.zero;
-                magic[i].transform.localRotation = Quaternion.identity;
+                //magic[i].transform.SetParent(leftHand);
+                //magic[i].transform.localPosition = Vector3.zero;
+                //magic[i].transform.localRotation = Quaternion.identity;
             }
         }
     }
@@ -137,9 +138,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
     {
         if (isMagicActive)
         {
-            leftArm.SetActive(true);
-            rightArm.SetActive(false);
-            leftArm.transform.SetParent(leftHand);
+            //leftArm.SetActive(true);
+            //rightArm.SetActive(false);
+            //leftArm.transform.SetParent(leftHand);
             UiManager.instance.Switcher(true);
             //magic.transform.localPosition = Vector3.zero;
             //magic.transform.localRotation = Quaternion.identity;
@@ -152,8 +153,8 @@ public class WeaponMagicSwitcher : MonoBehaviour
         }
         else
         {
-            leftArm.SetActive(false);
-            rightArm.SetActive(true);
+            //leftArm.SetActive(false);
+            //rightArm.SetActive(true);
             UiManager.instance.Switcher(false);
 
             for (int i = 0; i < magic.Length; i++)

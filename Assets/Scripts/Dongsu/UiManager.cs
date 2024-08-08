@@ -69,6 +69,11 @@ public class UiManager : MonoBehaviour
 
     bool currentWahtMagic = false;
 
+    public GameObject dialogueUi;
+    public Text dialougeText;
+
+    public RectTransform crossHair;
+
     void Awake()
     {
         //instance 값이 null이면
@@ -99,6 +104,8 @@ public class UiManager : MonoBehaviour
 
         ItemRefresh();
         WeaponeChange(0);
+
+        //DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 5.0f);
     }
 
     // Update is called once per frame
@@ -289,7 +296,7 @@ public class UiManager : MonoBehaviour
         return true;
     }
 
-    public void Reload(int weapone)
+    public bool Reload(int weapone)
     {
         currentWeapone = weapone;
 
@@ -307,14 +314,19 @@ public class UiManager : MonoBehaviour
         }
         else
         {
-            return;
+            return false;
+        }
+
+        if(weaponeMagazine[currentWeapone] == needMagazine)
+        {
+            return false;
         }
 
         //갯수가 없으면 리턴걸어줘야함
         if (keepItems[currentWeapone] == 0)
         {
             alretAnim.SetTrigger("Alret");
-            return;
+            return false;
         }
 
         //약간 부족하면 필요한 만큼 계산
@@ -358,6 +370,7 @@ public class UiManager : MonoBehaviour
         //갱신
         bulletCurrentText.text = weaponeMagazine[currentWeapone].ToString();
         bulletMaxText.text = keepItems[currentWeapone].ToString();
+        return true;
     }
 
     public void WeaponeChange(int weapone)
@@ -368,15 +381,19 @@ public class UiManager : MonoBehaviour
                 weaponeName.text = "Spanner";
                 bulletCurrentText.text = " ";
                 bulletMaxText.text = " ";
+                crossHair.localScale = new Vector3(0.5f, 0.5f, 1);
                 break;
             case 1:
                 weaponeName.text = "Revolver";
+                crossHair.localScale = new Vector3(1, 1, 1);
                 break;
             case 2:
                 weaponeName.text = "Thompson";
+                crossHair.localScale = new Vector3(1.5f, 1.5f, 1);
                 break;
             case 3:
                 weaponeName.text = "Shot Gun";
+                crossHair.localScale = new Vector3(2f, 2f, 1);
                 break;
         }
         weaponeBulletIcon.sprite = spriteList[weapone];
@@ -392,6 +409,7 @@ public class UiManager : MonoBehaviour
 
     public void MagicChange(int magic)
     {
+        crossHair.localScale = new Vector3(0.2f, 0.2f, 1);
         switch (magic)
         {
             case 0:
@@ -412,5 +430,25 @@ public class UiManager : MonoBehaviour
     public void Switcher(bool i)
     {
         currentWahtMagic = i;
+    }
+
+    public void DialoguePopUp(string text, float time)
+    {
+        StartCoroutine(DialogueDelay(text, time));
+    }
+
+    IEnumerator DialogueDelay(string text, float time)
+    {
+        Time.timeScale = 0;
+
+        dialougeText.text = text;
+
+        dialogueUi.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(time);
+
+        dialogueUi.SetActive(false);
+
+        Time.timeScale = 1;
     }
 }

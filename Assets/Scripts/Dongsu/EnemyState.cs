@@ -16,6 +16,9 @@ public class EnemyState : MonoBehaviour
     //public float reAttackDistance = 4.5f;
     public float baseSpeed = 4;
     public float attackRanage = 7.0f;
+    Vector3 tempPosition;
+
+    public GameObject scream;
 
     Rigidbody rb;
 
@@ -42,6 +45,10 @@ public class EnemyState : MonoBehaviour
     public float alertRadius = 10.0f;
     public GameObject itemBox;
 
+    public AudioSource dieSound;
+
+    public bool attackPass = false;
+
     public enum State
     {
         Idle,
@@ -66,6 +73,7 @@ public class EnemyState : MonoBehaviour
         na.speed = baseSpeed;
         col = GetComponent<CapsuleCollider>();
         damaged = GetComponent<Damaged>();
+        dieSound = GetComponent<AudioSource>();
 
         // 레그돌의 리지드바디를 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
@@ -78,12 +86,6 @@ public class EnemyState : MonoBehaviour
     void Update()
     {
         OnStateChanged();
-
-        if (currentState != previousState)
-        {
-            OnStateChanged();
-            previousState = currentState;
-        }
     }
 
     void OnStateChanged()
@@ -143,6 +145,8 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
+        dieSound.Play(0);
+
         WaitStop();
 
         anim.SetBool("IsDamaged", true);
@@ -191,14 +195,23 @@ public class EnemyState : MonoBehaviour
 
     void AttackState()
     {
-        WaitStop();
+        if(CheckRay())
+        {
+            WaitStop();
 
-        anim.SetBool("IsWalk", false);
-        anim.SetBool("IsAttack", true);
+            anim.SetBool("IsWalk", false);
+            anim.SetBool("IsAttack", true);
+        }
+        else
+        {
+            ChangeState(EnemyState.State.Chase);
+        }
     }
 
     void DieState()
     {
+        dieSound.Play(0);
+
         AlertNearbyEnemies();
 
         na.speed = 0;
@@ -271,6 +284,8 @@ public class EnemyState : MonoBehaviour
 
     IEnumerator Scream()
     {
+        scream.SetActive(true);
+
         //플레이어 방향 바라보기
         Vector3 lookPos = GameManager.instance.player.transform.position - transform.position;
 
@@ -295,5 +310,32 @@ public class EnemyState : MonoBehaviour
         na.velocity = Vector3.zero;
         na.speed = 0;
         na.isStopped = true;
+    }
+
+    bool CheckRay()
+    {
+        print("플레이어 체크!");
+        RaycastHit hit;
+
+        Vector3 dir = GameManager.instance.player.transform.position - transform.position;
+        dir.Normalize();
+
+        if (Physics.Raycast(transform.position, dir, out hit, attackRanage, layerMask))
+        {
+            //Debug.DrawRay(attackPoint.transform.position, hit.transform.position - attackPoint.transform.position, Color.green, 1.0f);
+            if (hit.transform.CompareTag("Player"))
+            {
+                print("플레이어 체크 확인!");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }
