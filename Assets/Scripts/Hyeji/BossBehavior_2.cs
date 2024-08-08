@@ -241,9 +241,22 @@ public class BossBehavior_2 : MonoBehaviour
 
     void AttackRay(Vector3 aimPos)
     {
+        // 공격 패턴2, 랜덤으로 애니메이션 출력
+        int randomAnim = Random.Range(0, 2);
+        if (randomAnim == 0)
+        {
+            anim.SetTrigger("Attack");
+        }
+        else
+        {
+            anim.ResetTrigger("Attack");
+            anim.SetTrigger("Attack2");
+        }
+
         // 플레이어가 있는 방향으로 ray를 발사한다.
         Ray ray = new Ray(firePos.transform.position, aimPos - firePos.transform.position);
         RaycastHit hitInfo;
+
 
         // Raycast 거리 설정
         float rayDistance = 20f;
