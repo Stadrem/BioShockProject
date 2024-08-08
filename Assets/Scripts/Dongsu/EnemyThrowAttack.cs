@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using static EnemyAttack;
 
@@ -29,49 +30,35 @@ public class EnemyThrowAttack : MonoBehaviour, IAttack
 
         float distance = Vector3.Distance(tempPosition, transform.position);
 
+        Vector3 dir = GameManager.instance.player.transform.position - transform.position;
+        dir.Normalize();
+
         //상대와 나의 거리가 reAttackDistance보다 크면, 추적
         if (distance > enemyState.attackRanage + 5)
         {
             enemyState.ChangeState(EnemyState.State.Chase);
         }
-
-        StartCoroutine(AttackDelay());
+        StartCoroutine(AttackDelay(dir));
     }
 
-    IEnumerator AttackDelay()
+    IEnumerator AttackDelay(Vector3 dir)
     {
         yield return new WaitForSeconds(0.05f);
 
-        RaycastHit hit;
+        enemyState.attackPass = true;
 
-        Vector3 dir = tempPosition - attackPoint.transform.position;
-        dir.Normalize();
+        GameObject bombInstance = Instantiate(bombItem);
 
-        if (Physics.Raycast(attackPoint.transform.position, dir, out hit, enemyState.attackRanage, enemyState.layerMask))
-        {
-            //Debug.DrawRay(attackPoint.transform.position, hit.transform.position - attackPoint.transform.position, Color.green, 1.0f);
-            if (hit.transform.CompareTag("Player"))
-            {
-                GameObject bombInstance = Instantiate(bombItem);
+        bombInstance.transform.position = attackPoint.transform.position;
 
-                bombInstance.transform.position = attackPoint.transform.position;
+        Rigidbody rb = bombInstance.GetComponent<Rigidbody>();
 
-                Rigidbody rb = bombInstance.GetComponent<Rigidbody>();
+        bombInstance.transform.forward = dir;
 
-                bombInstance.transform.forward = dir;
+        rb.velocity = bombInstance.transform.forward * 10;
 
-                rb.velocity = bombInstance.transform.forward * 10;
-            }
-            else
-            {
-                enemyState.ChangeState(EnemyState.State.Chase);
-            }
-        }
-        else
-        {
-            enemyState.ChangeState(EnemyState.State.Chase);
-        }
         yield return new WaitForSeconds(0.9f);
         attackEffect.SetActive(false);
     }
 }
+

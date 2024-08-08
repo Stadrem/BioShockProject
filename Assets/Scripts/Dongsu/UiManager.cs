@@ -300,8 +300,6 @@ public class UiManager : MonoBehaviour
     {
         currentWeapone = weapone;
 
-
-
         if (currentWeapone == 1)
         {
             needMagazine = 8;

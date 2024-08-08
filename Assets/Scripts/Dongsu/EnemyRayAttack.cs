@@ -14,13 +14,18 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
     public GameObject attackEffect;
 
+    AudioSource audioSource;
+
     private void Start()
     {
         enemyState = GetComponentInParent<EnemyState>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Attack()
     {
+        audioSource.Play();
+
         attackEffect.SetActive(true);
 
         enemyState.WaitStop();

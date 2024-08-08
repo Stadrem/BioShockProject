@@ -32,7 +32,7 @@ public class ChaseRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && GameManager.instance.isDie == false)
         {
             print("플레이어입장");
 
