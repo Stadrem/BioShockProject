@@ -36,13 +36,17 @@ public class TotalWeapon : MonoBehaviour
 
     bool isReloading = false; // 장전 상태를 추적
 
-    
+    //사운드 구현
+    public AudioClip AttackSound;
+    public AudioClip ReloadSound;
+    private AudioSource audioSource;
 
 
     void Start()
     {
         anim = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -159,6 +163,12 @@ public class TotalWeapon : MonoBehaviour
     public void Shoot()
     {
         anim.SetTrigger("ATTACK");
+        // 발사 소리 재생
+        if (AttackSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(AttackSound);
+        }
+
 
         if (effectPrefab == null)
         {
@@ -205,6 +215,10 @@ public class TotalWeapon : MonoBehaviour
             Destroy(bulletImpact, 2); // 2초 뒤에 파괴
         }
 
+        
+
+
+
         // 머즐 플래시 생성
         if (muzzleFlashPrefab != null && muzzleFlashPosition != null)
         {
@@ -217,6 +231,8 @@ public class TotalWeapon : MonoBehaviour
 
     }
 
+
+
     void Reload()
     {
         if (needMag && !isReloading)
@@ -226,6 +242,11 @@ public class TotalWeapon : MonoBehaviour
                 anim.SetTrigger("RELOAD");
                 StartCoroutine(ReloadCoroutine());
             }
+        }
+        // 발사 소리 재생
+        if (ReloadSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(ReloadSound);
         }
     }
 
@@ -237,8 +258,17 @@ public class TotalWeapon : MonoBehaviour
     }
     void ApplyRebound()
     {
-        
-        Camera.main.transform.Rotate(-Rebound, 0, 0);
+        isRebound = 1;
     }
 
+    int isRebound;
+    private void LateUpdate()
+    {
+        if(isRebound > 0)
+        {
+            Camera.main.transform.Rotate(-Rebound, 0, 0);
+            isRebound++;
+            isRebound %= 3;            
+        }        
+    }
 }

@@ -1760,6 +1760,8 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  AttackSound: {fileID: 0}
+  ReloadSound: {fileID: 0}
 --- !u!4 &7613699149715872250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
@@ -1870,12 +1872,14 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
-  Rebound: 2
+  Rebound: 0
   muzzleFlashPrefab: {fileID: 0}
   muzzleFlashPosition: {fileID: 0}
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  AttackSound: {fileID: 0}
+  ReloadSound: {fileID: 0}
 --- !u!4 &3291530061248337086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
@@ -1890,6 +1894,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3539039149035074776}
     m_Modifications:
+    - target: {fileID: 114991594491602772, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114991594491602772, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+        type: 3}
+      propertyPath: clearBehavior
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1958,6 +1972,12 @@ PrefabInstance:
 --- !u!4 &2415716530983171764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 781899972000002996, guid: 5a8d99fb95262ea458a7b580f2a1611c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3125362364790654208}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7788200326343062248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5137123306192418792, guid: 5a8d99fb95262ea458a7b580f2a1611c,
     type: 3}
   m_PrefabInstance: {fileID: 3125362364790654208}
   m_PrefabAsset: {fileID: 0}
@@ -2087,12 +2107,14 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
-  Rebound: 2
+  Rebound: 0
   muzzleFlashPrefab: {fileID: 0}
   muzzleFlashPosition: {fileID: 0}
   manaCost: 1
   isMagic: 1
   isShockandFire: 1
+  AttackSound: {fileID: 0}
+  ReloadSound: {fileID: 0}
 --- !u!1001 &4028769674155069484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2173,6 +2195,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7431348598150062053}
+    - targetCorrespondingSourceObject: {fileID: 8688304692454094769, guid: 615786ca45538f14898e79b670297869,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 677420567002682445}
   m_SourcePrefab: {fileID: 100100000, guid: 615786ca45538f14898e79b670297869, type: 3}
 --- !u!4 &4913936357694684455 stripped
 Transform:
@@ -2217,6 +2243,104 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  AttackSound: {fileID: 8300000, guid: 978fd0d3d2312ee4d8e386eac8c1cace, type: 3}
+  ReloadSound: {fileID: 8300000, guid: 2e18a0745a8dfdf49b9924bd5b1e48ea, type: 3}
+--- !u!82 &677420567002682445
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726924758066718621}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &5820140468871119023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2297,6 +2421,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2470764583692149527}
+    - targetCorrespondingSourceObject: {fileID: 3421387754538157385, guid: 8d617ecf686bfd94abd84d119f0cdd31,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8099625193655816615}
   m_SourcePrefab: {fileID: 100100000, guid: 8d617ecf686bfd94abd84d119f0cdd31, type: 3}
 --- !u!4 &8427831728891912028 stripped
 Transform:
@@ -2331,7 +2459,7 @@ MonoBehaviour:
   damage: 10
   type: '?'
   AutoFire: 1
-  fireRate: 1.5
+  fireRate: 1.3
   magazineSize: 30
   needMag: 1
   weaponeIndex: 3
@@ -2341,6 +2469,104 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  AttackSound: {fileID: 8300000, guid: 03f4c45cb3cd3fc418a3c3fd3cbf6cc7, type: 3}
+  ReloadSound: {fileID: 0}
+--- !u!82 &8099625193655816615
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9204932000944621030}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &6208514335191133127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2417,6 +2643,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7564027802728803151}
+    - targetCorrespondingSourceObject: {fileID: 593622421864063474, guid: 1d27b521184d74d4db09543e7327f2cb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 973124992144596615}
   m_SourcePrefab: {fileID: 100100000, guid: 1d27b521184d74d4db09543e7327f2cb, type: 3}
 --- !u!4 &6151418165049331855 stripped
 Transform:
@@ -2455,6 +2685,105 @@ MonoBehaviour:
   type: '?'
   manaCost: 1
   weaponeIndex: 0
+  effectObject: {fileID: 7788200326343062248}
+  grabSound: {fileID: 8300000, guid: 03f4c45cb3cd3fc418a3c3fd3cbf6cc7, type: 3}
+  throwSound: {fileID: 8300000, guid: 03f4c45cb3cd3fc418a3c3fd3cbf6cc7, type: 3}
+--- !u!82 &973124992144596615
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6779582745553586741}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &7144820060580916249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2570,9 +2899,11 @@ MonoBehaviour:
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
-  Rebound: 2
+  Rebound: 0
   muzzleFlashPrefab: {fileID: 0}
   muzzleFlashPosition: {fileID: 0}
   manaCost: 1
   isMagic: 1
   isShockandFire: 1
+  AttackSound: {fileID: 0}
+  ReloadSound: {fileID: 0}
