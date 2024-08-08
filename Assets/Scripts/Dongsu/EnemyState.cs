@@ -85,6 +85,11 @@ public class EnemyState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.isDie == true)
+        {
+            ChangeState(EnemyState.State.Idle);
+        }
+
         OnStateChanged();
     }
 
@@ -133,6 +138,8 @@ public class EnemyState : MonoBehaviour
 
     void IdleState()
     {
+        na.ResetPath();
+        anim.SetBool("IsAttack", false);
         anim.SetTrigger("IsIdle");
     }
 

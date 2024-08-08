@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     AudioSource hitAudio;
 
+    public bool isDie = false;
+
     private void Awake()
     {
         //instance 값이 null이면
@@ -72,6 +74,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(HP <= 0)
+        {
+            isDie = true;
+        }
+        else
+        {
+            isDie = false;
+        }
+
         if (shake == true)
         {
             Camera.main.transform.localPosition = originalCameraLocalPosition + Random.insideUnitSphere * shakeAmount;
