@@ -1351,7 +1351,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.446
+  m_Volume: 0.186
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2412,7 +2412,7 @@ MonoBehaviour:
   damage: 2
   type: Shock
   AutoFire: 0
-  fireRate: 0.1
+  fireRate: 1
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0
@@ -3187,6 +3187,7 @@ MonoBehaviour:
   manaCost: 1
   weaponeIndex: 0
   effectObject: {fileID: 7788200326343062248}
+  fireRate: 1
   grabSound: {fileID: 8300000, guid: 071635c6fed0c6f4f9773a458e02a0e1, type: 3}
   throwSound: {fileID: 8300000, guid: 2d1b2b64438f192499f498ea15a0d138, type: 3}
 --- !u!82 &973124992144596615
@@ -3400,7 +3401,7 @@ MonoBehaviour:
   damage: 2
   type: Fire
   AutoFire: 0
-  fireRate: 0.1
+  fireRate: 1
   magazineSize: 30
   needMag: 0
   weaponeIndex: 0

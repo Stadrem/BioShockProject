@@ -16,6 +16,8 @@ public class Telekinesis : MonoBehaviour
     public int manaCost = 1; // 염력 사용 시 소모되는 마나
     public int weaponeIndex = 0;
     public GameObject effectObject; // 효과 오브젝트
+    public float fireRate = 0.1f; // 발사 간격 (자동 발사용)
+    private float lastFireTime = 0f;
     Animator anim;
     //public ParticleSystem effectPS;
 
@@ -49,8 +51,14 @@ public class Telekinesis : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate)
         {
+
+            if (GameManager.instance.HP <= 0)
+            {
+                Debug.Log("플레이어 HP가 0, 공격할 수 없습니다.");
+                return;
+            }
             // 만약 오브젝트를 당긴다면
             if (!grab)
             {
@@ -61,7 +69,9 @@ public class Telekinesis : MonoBehaviour
                     if (effectObject != null)
                     {
                         StartCoroutine(EffectPopUP()); // 이펙트를 보이게 함
+                        
                     }
+                    
                     PlaySound(grabSound); // 소리 재생
                 }
                 else
@@ -96,6 +106,7 @@ public class Telekinesis : MonoBehaviour
                 anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
 
             }
+            lastFireTime = Time.time;
         }
 
         if (grab && grabbedObject != null)
