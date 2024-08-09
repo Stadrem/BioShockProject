@@ -72,10 +72,9 @@ public class ItemBoxRoot : MonoBehaviour
                 //달러면 3~7개 획득
                 if (itemList[0] == 5)
                 {
-                    //StartCoroutine(DollarGet());
-                    int tempDollar = Random.Range(3, 8);
+                    StartCoroutine(DollarGet());
+                    int tempDollar = Random.Range(2, 17);
                     UiManager.instance.keepItems[5] += tempDollar;
-                    //UiManager.instance.dollarText.text = UiManager.instance.keepItems[5].ToString();
                 }
                 //총알이면 3~10발
                 if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
@@ -96,6 +95,7 @@ public class ItemBoxRoot : MonoBehaviour
 
     IEnumerator DollarGet()
     {
+        UiManager.instance.dollarText.text = UiManager.instance.keepItems[5].ToString("D4");
         UiManager.instance.dollarUi.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         UiManager.instance.dollarUi.SetActive(false);

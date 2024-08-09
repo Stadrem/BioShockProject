@@ -199,7 +199,7 @@ MonoBehaviour:
   - {fileID: 3029727815746209724}
   ChaseRange: {fileID: 522351869282769516}
   currentState: 0
-  alertRadius: 7
+  alertRadius: 8
   itemBox: {fileID: 5456376333995707649}
   dieSound: {fileID: 0}
   attackPass: 0
