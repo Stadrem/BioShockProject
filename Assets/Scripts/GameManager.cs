@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
         shakeAmount = i * 1.5f;
 
         VolumeDamaged(i);
+
         shake = true;
 
         yield return new WaitForSeconds(i);
@@ -146,6 +147,11 @@ public class GameManager : MonoBehaviour
     {
         volume.profile = vpDamaged;
         volume.weight = i;
+    }
+
+    public void CameraShake(int num)
+    {
+        StartCoroutine(ShakeTime(num));
     }
 
     IEnumerator DieCameraMoving()
