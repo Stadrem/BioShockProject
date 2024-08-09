@@ -166,6 +166,8 @@ public class TotalWeapon : MonoBehaviour
         // 발사 소리 재생
         if (AttackSound != null && audioSource != null)
         {
+            //audioSource.Play();
+            //audioSource.time = 0.5f;
             audioSource.PlayOneShot(AttackSound);
         }
 
