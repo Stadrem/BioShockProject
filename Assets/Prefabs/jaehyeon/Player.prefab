@@ -1179,7 +1179,7 @@ GameObject:
   - component: {fileID: 5938549074237149450}
   - component: {fileID: 1755419633624885074}
   - component: {fileID: 5508545993148770584}
-  - component: {fileID: 4473560093874494701}
+  - component: {fileID: 4512419124416233400}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1452,7 +1452,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1460,7 +1460,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &4473560093874494701
+--- !u!54 &4512419124416233400
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
