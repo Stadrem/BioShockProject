@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2bd722e30a5363489bc0e7e35511455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlesRing: {fileID: 5302658394907460404, guid: 9b59fd4cdaa68f043b5db1c7a1631ad5,
+    type: 3}
   state: 0
-  findDistance: 8
-  attackDistance: 2
   attackPower: 3
   moveSpeed: 5
   meleeAttackDistance: 2
@@ -62,10 +62,11 @@ MonoBehaviour:
   chargeSpeed: 30
   chargeRange: 10
   isCharging: 0
-  knockbackDistance: 10
+  knockbackDistance: 5
   knockbackTime: 0.2
   knockbackDuration: 0.2
   collisionRadius: 1
+  idleTIme: 10
 --- !u!114 &9053985175076835120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +117,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -191,7 +192,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 45d03566df05cb84e95104aa7dc17dba, type: 2}
+      objectReference: {fileID: 9100000, guid: 626be18bfed44814abe178847022ac3c, type: 2}
     - target: {fileID: 5866666021909216657, guid: db94ae86c895b384190ffcdd8b2ebdce,
         type: 3}
       propertyPath: m_ApplyRootMotion
@@ -200,8 +201,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: db94ae86c895b384190ffcdd8b2ebdce,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1493644862036136258}
   m_SourcePrefab: {fileID: 100100000, guid: db94ae86c895b384190ffcdd8b2ebdce, type: 3}
+--- !u!1 &4635757967597109272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: db94ae86c895b384190ffcdd8b2ebdce,
+    type: 3}
+  m_PrefabInstance: {fileID: 5518295609189940553}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1493644862036136258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635757967597109272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1d69351ba155d44ba3a172f957c2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5412858239649864354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: db94ae86c895b384190ffcdd8b2ebdce,

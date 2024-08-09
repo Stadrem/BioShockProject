@@ -32,6 +32,10 @@ public class BossBehavior_2 : MonoBehaviour
     // Animator
     Animator anim;
 
+    // LineRenderer
+    LineRenderer lineRenderer;
+    public float lineDuration = 0.2f;
+
     public float findDistance = 30f;
     public float stopDistance = 15f;
     public float attackDistance = 20f;
@@ -60,7 +64,11 @@ public class BossBehavior_2 : MonoBehaviour
         startPosition = transform.position;
 
         // 초기 상태를 Idle로 설정
-        ChangeState(EnemyState.Idle);
+        //ChangeState(EnemyState.Idle);
+
+        // LineRenderer 
+        lineRenderer.positionCount = 2;
+        lineRenderer.enabled = false;
         //StartCoroutine(Patrol());
     }
 
@@ -70,7 +78,6 @@ public class BossBehavior_2 : MonoBehaviour
         {
             case EnemyState.Idle:
                 Idle();
-
                 break;
             case EnemyState.Move:
                 Move();
@@ -91,12 +98,11 @@ public class BossBehavior_2 : MonoBehaviour
     private void ChangeState(EnemyState newState)
     {
         state = newState;
-        StopAllCoroutines();
+        //StopAllCoroutines();
 
         switch (newState)
         {
             case EnemyState.Idle:
-                StartCoroutine(Idle());
                 anim.SetTrigger("IDLE");
                 break;
             case EnemyState.Move:
@@ -130,30 +136,46 @@ public class BossBehavior_2 : MonoBehaviour
         return hit.position;
     }
 
-    // 대기 상태 함수
-    private IEnumerator Idle()
+    //// 대기 상태 함수
+    //private IEnumerator Idle()
+    //{
+    //    yield return new WaitForSeconds(2f);
+    //    // Move 상태로 전환한다. 아 이걸 Patrol로?
+    //    // 패트롤 상태로 변경
+    //    StartCoroutine(Patrol());
+
+    //    //ChangeState(EnemyState.Move);
+    //}
+
+    float idleTime = 2f;
+    void Idle()
     {
-        yield return new WaitForSeconds(2f);
-        // Move 상태로 전환한다. 아 이걸 Patrol로?
-        ChangeState(EnemyState.Move);
+        // 시간 흐르게하고
+        currTime += Time.deltaTime;
+        if(currTime >= idleTime)
+        {
+            currTime = 0;
+            // 움직임 상태로 변환 하자 -> 정찰 코루틴 실행
+            ChangeState(EnemyState.Move);
+        }
     }
 
     // 정찰 상태 함수
     private IEnumerator Patrol()
     {
+        // 로지가 Move 상태라면
         while (state == EnemyState.Move)
         {
+            // 랜덤한 지점으로 움직이게끔 방향과 자리를 설정
             Vector3 newDestination = GetRandomPoint(startPosition, patrolRadius);
             agent.SetDestination(newDestination);
 
             yield return new WaitForSeconds(patrolTime);
         }
     }
-
     // 이동 상태 함수
     void Move()
     {
-
         // 플레이어와 보스 사이의 거리 구하기
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
@@ -242,16 +264,21 @@ public class BossBehavior_2 : MonoBehaviour
     void AttackRay(Vector3 aimPos)
     {
         // 공격 패턴2, 랜덤으로 애니메이션 출력
-        int randomAnim = Random.Range(0, 2);
-        if (randomAnim == 0)
-        {
-            anim.SetTrigger("Attack");
-        }
-        else
-        {
-            anim.ResetTrigger("Attack");
-            anim.SetTrigger("Attack2");
-        }
+        //int randomAnim = Random.Range(0, 2);
+        //if (randomAnim == 0)
+        //{
+        //    anim.SetTrigger("ATTACK");
+        //}
+        //else
+        //{
+        //    anim.ResetTrigger("ATTACK");
+        //    anim.SetTrigger("ATTACK2");
+        //}
+
+        // 라인렌더러
+        lineRenderer.enabled = true;
+        lineRenderer.SetPosition(0, firePos.transform.position);
+        lineRenderer.SetPosition(1, aimPos);
 
         // 플레이어가 있는 방향으로 ray를 발사한다.
         Ray ray = new Ray(firePos.transform.position, aimPos - firePos.transform.position);

@@ -31,8 +31,6 @@ public class LittleSis_1 : MonoBehaviour
     // 빅대디가 죽었는지?
     bool isDead = false;
 
-    // 캐릭터 컨트롤러
-    CharacterController cc;
     // 중력 적용
     private Vector3 velocity;
     private float gravity = -9.81f;
@@ -42,6 +40,8 @@ public class LittleSis_1 : MonoBehaviour
 
     // 애니메이션
     Animator anim;
+    // Nav Mesh Agent
+    NavMeshAgent agent;
 
     // Start is called before the first frame update
     void Start()
@@ -49,15 +49,17 @@ public class LittleSis_1 : MonoBehaviour
         // 빅대디의 transform 값 가져오기
         bigDaddy = GameObject.Find("BigDaddy").transform;
 
+        // NavMeshAgent
+        agent = GetComponent<NavMeshAgent>();
+
         // 애니메이션 컨트롤러
         anim = GetComponentInChildren<Animator>();
+
+        // 애니메이터가 존재한다면 idle 트리거 발생
         if (anim != null)
         {
             anim.SetTrigger("Idle");
         }
-
-        // 캐릭터 컨트롤러 컴포넌트
-        cc = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -72,17 +74,6 @@ public class LittleSis_1 : MonoBehaviour
         {
             UnFollow();
         }
-
-        // 중력 적용하기
-        if (!cc.isGrounded)
-        {
-            velocity.y += gravity * Time.deltaTime;
-        }
-        else
-        {
-            velocity.y = 0;
-        }
-        cc.Move(velocity * Time.deltaTime);
     }
 
     void Follow()
@@ -92,15 +83,15 @@ public class LittleSis_1 : MonoBehaviour
         {
             // 빅대디와의 일정 거리 유지하기
             float dist = Vector3.Distance(transform.position, bigDaddy.position);
-            // 빅대디와의 거리가 유지 거리보다 커질 때, 유지 거리를 벗어났을 때,
+            // 빅대디가 플레이어를 추적하느라 멀어졌을 때,
             if (dist > followDistance)
             {
+                // 쫓아가라
                 // Move 애니메이션 트리거
                 if (anim != null)
                 {
                     anim.SetTrigger("Move");
                 }
-
                 // 위치 추적
                 Vector3 targetPosition = bigDaddy.position;
                 Vector3 smoothPosition = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
@@ -113,14 +104,17 @@ public class LittleSis_1 : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
 
             }
-            // 유지 거리 안에 있을 때,
+            // 빅대디가 유지 거리 안에 있을 때,
             else
             {
+                anim.SetTrigger("Move");
+                anim.SetTrigger("Idle");
+
                 // Move 애니메이션 트리거
-                if (anim != null)
-                {
-                    anim.SetTrigger("Idle");
-                }
+                //if (anim != null)
+                //{
+                //    anim.SetTrigger("Idle");
+                //}
 
                 // 시간이 흐름
                 timer += Time.deltaTime;
@@ -135,11 +129,13 @@ public class LittleSis_1 : MonoBehaviour
                         dir.Normalize();
                     }
 
-                    cc.Move(dir * followSpeed * Time.deltaTime);
+                    //cc.Move(dir * followSpeed * Time.deltaTime);
 
                     // 이동하면서 회전하기
                     Quaternion targetRotation = Quaternion.LookRotation(dir);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+
+                    timer = 0;
                 }
                 else
                 {
@@ -169,8 +165,9 @@ public class LittleSis_1 : MonoBehaviour
     void UnFollow()
     {
         // 빅대디가 사망처리 될 경우
-        if (!isDead)
+        if (isDead)
         {
+            // Move를 멈추고 Sad Animation
             // 빅대디의 뒤에 위치해서 정지 상태
             Vector3 stopDir = bigDaddy.position - transform.position;
             isForward = stopDir.z > 0 ? true : false;
