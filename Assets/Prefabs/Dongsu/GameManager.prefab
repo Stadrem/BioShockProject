@@ -50,3 +50,5 @@ MonoBehaviour:
   shakeAmount: 0.07
   vpOrigin: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
   vpDamaged: {fileID: 11400000, guid: 0b83c44b5b64be74c812776b20940351, type: 2}
+  isDie: 0
+  resurrectCap: {fileID: 0}

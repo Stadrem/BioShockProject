@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Searcher;
 using UnityEngine;
@@ -74,6 +75,12 @@ public class UiManager : MonoBehaviour
 
     public RectTransform crossHair;
 
+    public GameObject dollarUi;
+
+    public GameObject dollarTextObj;
+
+    public TextMeshPro dollarText;
+
     void Awake()
     {
         //instance 값이 null이면
@@ -101,6 +108,7 @@ public class UiManager : MonoBehaviour
         manaGauge = temp.GetComponent<Image>();
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
+        dollarText = dollarTextObj.GetComponent<TextMeshPro>();
 
         ItemRefresh();
         WeaponeChange(0);
@@ -378,21 +386,21 @@ public class UiManager : MonoBehaviour
         switch (weapone)
         {
             case 0:
-                weaponeName.text = "Spanner";
+                weaponeName.text = "렌치";
                 bulletCurrentText.text = " ";
                 bulletMaxText.text = " ";
                 crossHair.localScale = new Vector3(0.5f, 0.5f, 1);
                 break;
             case 1:
-                weaponeName.text = "Revolver";
+                weaponeName.text = "권총";
                 crossHair.localScale = new Vector3(1, 1, 1);
                 break;
             case 2:
-                weaponeName.text = "Thompson";
+                weaponeName.text = "기관총";
                 crossHair.localScale = new Vector3(1.5f, 1.5f, 1);
                 break;
             case 3:
-                weaponeName.text = "Shot Gun";
+                weaponeName.text = "산탄총";
                 crossHair.localScale = new Vector3(2f, 2f, 1);
                 break;
         }
@@ -413,13 +421,13 @@ public class UiManager : MonoBehaviour
         switch (magic)
         {
             case 0:
-                weaponeName.text = "Shock";
+                weaponeName.text = "전기";
                 break;
             case 1:
-                weaponeName.text = "Fire";
+                weaponeName.text = "화염";
                 break;
             case 2:
-                weaponeName.text = "Telekinesis";
+                weaponeName.text = "염력";
                 break;
         }
         bulletCurrentText.text = " ";

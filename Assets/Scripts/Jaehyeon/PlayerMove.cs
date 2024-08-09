@@ -22,11 +22,17 @@ public class PlayerMove : MonoBehaviour
     private float knockbackTime;
     private float knockbackDuration = 0.5f;
 
+    public float Walktime = 1;
+    public float currenttime;
+    public AudioClip MoveSound;
+    public AudioClip JumpSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         // 캐릭터 컨트롤러 가져오기
         cc = GetComponent<CharacterController>();
-
+        audioSource = GetComponent<AudioSource>();
         //Cursor.lockState = CursorLockMode.Confined;
     }
 
@@ -40,6 +46,25 @@ public class PlayerMove : MonoBehaviour
         Vector3 dirV = transform.forward * v;
         Vector3 dir = dirH + dirV;
 
+        if(dir.sqrMagnitude > 0)
+        {
+            // 시간흐르게
+            currenttime += Time.deltaTime;
+            // 0.1 보다 크면
+            if(currenttime > Walktime)
+            {
+                // 소리한번 내고
+                if (MoveSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(MoveSound);
+                }
+                // 초기화
+                currenttime = 0;
+            }
+
+            
+        }
+        
         dir.Normalize();
 
         // 앉기 처리
@@ -70,6 +95,12 @@ public class PlayerMove : MonoBehaviour
         {
             yVelocity = jumpPower;
             canJump = false; // 점프 후에는 점프 불가능 상태로 전환
+            if (JumpSound != null && audioSource != null)
+            {
+                //audioSource.Play();
+                //audioSource.time = 0.5f;
+                audioSource.PlayOneShot(JumpSound);
+            }
         }
 
         // yVelocity 값을 점점 줄여줌 (중력에 의해서)

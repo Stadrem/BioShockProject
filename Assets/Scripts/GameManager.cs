@@ -33,6 +33,15 @@ public class GameManager : MonoBehaviour
 
     AudioSource hitAudio;
 
+    public bool isDie = false;
+
+    bool diePopUp = false;
+
+    public GameObject resurrectCap;
+
+    CharacterController cc;
+    ObjRotate cameraRoater;
+
     private void Awake()
     {
         //instance 값이 null이면
@@ -68,10 +77,26 @@ public class GameManager : MonoBehaviour
         globalVolume = GameObject.Find("Global Volume");
         volume = globalVolume.GetComponent<Volume>();
         hitAudio = GetComponent<AudioSource>();
+        cc = player.GetComponent<CharacterController>();
+        cameraRoater = Camera.main.GetComponent<ObjRotate>();
     }
 
     private void Update()
     {
+        if(HP <= 0)
+        {
+            isDie = true;
+
+            if(diePopUp == false)
+            {
+                StartCoroutine(DieCameraMoving());
+            }
+        }
+        else
+        {
+            isDie = false;
+        }
+
         if (shake == true)
         {
             Camera.main.transform.localPosition = originalCameraLocalPosition + Random.insideUnitSphere * shakeAmount;
@@ -121,5 +146,43 @@ public class GameManager : MonoBehaviour
     {
         volume.profile = vpDamaged;
         volume.weight = i;
+    }
+
+    IEnumerator DieCameraMoving()
+    {
+        diePopUp = true;
+
+        cameraRoater.enabled = false;
+
+        // 카메라를 Z축으로 -90도 회전시키기
+        Quaternion targetRotation = Quaternion.Euler(Camera.main.transform.eulerAngles.x, Camera.main.transform.eulerAngles.y, -90);
+        float duration = 0.5f; // 회전 시간
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, targetRotation, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 대화 팝업 시간 동안 대기
+        yield return new WaitForSeconds(3.0f);
+
+        UiManager.instance.HPRefresh(maxHP);
+
+        UiManager.instance.DialoguePopUp("당신은 죽었습니다. \n\n\n 최근에 방문한 부활장치에서 부활합니다.", 3.0f);
+
+        cc.enabled = false;
+
+        player.transform.position = resurrectCap.transform.position;
+
+        cc.enabled = true;
+
+        isDie = false;
+
+        cameraRoater.enabled = true;
+
+        diePopUp = false;
     }
 }

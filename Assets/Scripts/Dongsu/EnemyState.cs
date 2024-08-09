@@ -49,6 +49,8 @@ public class EnemyState : MonoBehaviour
 
     public bool attackPass = false;
 
+    public ParticleSystem bloodEffect;
+
     public enum State
     {
         Idle,
@@ -85,6 +87,11 @@ public class EnemyState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.isDie == true)
+        {
+            ChangeState(EnemyState.State.Idle);
+        }
+
         OnStateChanged();
     }
 
@@ -121,7 +128,6 @@ public class EnemyState : MonoBehaviour
                 DieState();
                 break;
         }
-
     }
 
     public void ChangeState(State newState)
@@ -133,6 +139,9 @@ public class EnemyState : MonoBehaviour
 
     void IdleState()
     {
+        na.ResetPath();
+        anim.SetBool("IsWalk", false);
+        anim.SetBool("IsAttack", false);
         anim.SetTrigger("IsIdle");
     }
 
@@ -146,6 +155,7 @@ public class EnemyState : MonoBehaviour
     void DamagedState()
     {
         dieSound.Play(0);
+        bloodEffect.Play();
 
         WaitStop();
 
@@ -211,6 +221,7 @@ public class EnemyState : MonoBehaviour
     void DieState()
     {
         dieSound.Play(0);
+        bloodEffect.Play();
 
         AlertNearbyEnemies();
 
