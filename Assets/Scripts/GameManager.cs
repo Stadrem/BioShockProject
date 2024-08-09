@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(HP <= 0)
+        if (HP <= 0)
         {
             isDie = true;
 
