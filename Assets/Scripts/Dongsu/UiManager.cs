@@ -79,7 +79,7 @@ public class UiManager : MonoBehaviour
 
     public GameObject dollarTextObj;
 
-    public TextMeshPro dollarText;
+    public TextMeshProUGUI dollarText;
 
     void Awake()
     {
@@ -108,7 +108,7 @@ public class UiManager : MonoBehaviour
         manaGauge = temp.GetComponent<Image>();
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
-        dollarText = dollarTextObj.GetComponent<TextMeshPro>();
+        dollarText = dollarTextObj.GetComponent<TextMeshProUGUI>();
 
         ItemRefresh();
         WeaponeChange(0);
