@@ -200,8 +200,11 @@ public class TotalWeapon : MonoBehaviour
             if (isShockandFire == true)
             {
                 GameObject fire = Instantiate(fireEffect);
+                
                 fire.transform.position = hitInfo.transform.position;
                 fire.transform.parent = hitInfo.transform;
+
+                Destroy(fire, 2f);
             }
 
             bulletImpact.transform.position = hitInfo.point;
@@ -214,7 +217,7 @@ public class TotalWeapon : MonoBehaviour
                 bulletImpact.transform.forward = hitInfo.normal;
             }
 
-            Destroy(bulletImpact, 2); // 2초 뒤에 파괴
+            Destroy(bulletImpact, 1); // 2초 뒤에 파괴
         }
 
         
