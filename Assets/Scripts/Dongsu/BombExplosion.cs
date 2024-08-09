@@ -25,6 +25,7 @@ public class BombExplosion : MonoBehaviour
         {
             currentTime += Time.deltaTime;
             GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
+
             if(currentTime > knockTime)
             {
                 knockBack = false;

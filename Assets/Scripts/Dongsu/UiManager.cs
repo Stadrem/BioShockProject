@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Searcher;
 using UnityEngine;
@@ -74,6 +75,12 @@ public class UiManager : MonoBehaviour
 
     public RectTransform crossHair;
 
+    public GameObject dollarUi;
+
+    public GameObject dollarTextObj;
+
+    public TextMeshPro dollarText;
+
     void Awake()
     {
         //instance 값이 null이면
@@ -101,6 +108,7 @@ public class UiManager : MonoBehaviour
         manaGauge = temp.GetComponent<Image>();
         currentHP = GameManager.instance.HP;
         alretAnim = alretText.GetComponent<Animator>();
+        dollarText = dollarTextObj.GetComponent<TextMeshPro>();
 
         ItemRefresh();
         WeaponeChange(0);
