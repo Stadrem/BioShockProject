@@ -1508,6 +1508,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Splicer
       objectReference: {fileID: 0}
+    - target: {fileID: 3727890826426414383, guid: 6d35f13620cb86a4f957455c1e0be552,
+        type: 3}
+      propertyPath: alertRadius
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: 6d35f13620cb86a4f957455c1e0be552,
         type: 3}
       propertyPath: m_LocalPosition.x

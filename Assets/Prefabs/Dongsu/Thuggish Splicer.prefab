@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0227926a44a3e04a8f8e9bfe60f20ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
+  HP: 20
   resis: 1
 --- !u!114 &3727890826426414383
 MonoBehaviour:
@@ -309,7 +309,7 @@ MonoBehaviour:
     m_Bits: 9
   enemyName: Splicer
   freezeTime: 6
-  baseSpeed: 4
+  baseSpeed: 5
   attackRanage: 2
   scream: {fileID: 9111679984422007378}
   ragdollRigidbodies:
@@ -341,10 +341,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3
-  m_Acceleration: 4
+  m_Acceleration: 15
   avoidancePriority: 50
-  m_AngularSpeed: 1000
-  m_StoppingDistance: 1
+  m_AngularSpeed: 2000
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1086,6 +1086,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7259706953941549036}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d87c764081241f4d8dc1b7c2584655a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5053207971147207181}
     - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: 6d87c764081241f4d8dc1b7c2584655a,
         type: 3}
       insertIndex: -1
@@ -1472,6 +1476,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5053207971147207181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697831083979306024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dea13f667c040541bbedcb3227c85a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &750791487044589427 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 6d87c764081241f4d8dc1b7c2584655a,

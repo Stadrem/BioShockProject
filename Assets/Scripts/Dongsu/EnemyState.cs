@@ -126,7 +126,6 @@ public class EnemyState : MonoBehaviour
                 DieState();
                 break;
         }
-
     }
 
     public void ChangeState(State newState)
@@ -139,6 +138,7 @@ public class EnemyState : MonoBehaviour
     void IdleState()
     {
         na.ResetPath();
+        anim.SetBool("IsWalk", false);
         anim.SetBool("IsAttack", false);
         anim.SetTrigger("IsIdle");
     }
