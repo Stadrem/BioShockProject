@@ -49,6 +49,8 @@ public class EnemyState : MonoBehaviour
 
     public bool attackPass = false;
 
+    public ParticleSystem bloodEffect;
+
     public enum State
     {
         Idle,
@@ -153,6 +155,7 @@ public class EnemyState : MonoBehaviour
     void DamagedState()
     {
         dieSound.Play(0);
+        bloodEffect.Play();
 
         WaitStop();
 
@@ -218,6 +221,7 @@ public class EnemyState : MonoBehaviour
     void DieState()
     {
         dieSound.Play(0);
+        bloodEffect.Play();
 
         AlertNearbyEnemies();
 
