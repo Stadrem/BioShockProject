@@ -1,27 +1,27 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-//¸¶¿ì½ºÀÇ ¿òÁ÷ÀÓ¿¡ µû¶ó
-//Ä«¸Þ¶ó, Ä³¸¯ÅÍ¸¦ È¸ÀüÇÏ°í ½Í´Ù.
+//ë§ˆìš°ìŠ¤ì˜ ì›€ì§ìž„ì— ë”°ë¼
+//ì¹´ë©”ë¼, ìºë¦­í„°ë¥¼ íšŒì „í•˜ê³  ì‹¶ë‹¤.
 
 
 
 public class ObjRotate : MonoBehaviour
 {
-    //È¸Àü°ª 2(¸¶¿ì½ºÀÇ ¿òÁ÷ÀÓÀ» ´©ÀûÇÏ´Â °ª)
+    //íšŒì „ê°’ 2(ë§ˆìš°ìŠ¤ì˜ ì›€ì§ìž„ì„ ëˆ„ì í•˜ëŠ” ê°’)
     float rotX = 0;
     float rotY = 0;
 
-    //È¸Àü ½ºÇÇµå == µµ¸®µµ¸® °¢ÀÌ ³Ê¹« ÀÛÀ½, ¿òÁ÷ÀÓÀÇ º¯È­ °ÅÀÇ ¾ø±â¿¡ ÇØ´ç ÄÚµå »ç¿ë
+    //íšŒì „ ìŠ¤í”¼ë“œ == ë„ë¦¬ë„ë¦¬ ê°ì´ ë„ˆë¬´ ìž‘ìŒ, ì›€ì§ìž„ì˜ ë³€í™” ê±°ì˜ ì—†ê¸°ì— í•´ë‹¹ ì½”ë“œ ì‚¬ìš©
     float rotSpeed = 200;
 
-    //È¸Àü °¡´É ¿©ºÎ ==ÇÏ³ª´Â Ä«¸Þ¶ó¿¡ Áý¾î³Ö°í ÇÏ³ª´Â ÇÃ·¹ÀÌ¾î¿¡ ³ÖÀ»°Í. RotX´Â ÇÃ·¹ÀÌ¾î¿¡, RotY´Â ¸ÞÀÎÄ«¸Þ¶ó¿¡ 
+    //íšŒì „ ê°€ëŠ¥ ì—¬ë¶€ ==í•˜ë‚˜ëŠ” ì¹´ë©”ë¼ì— ì§‘ì–´ë„£ê³  í•˜ë‚˜ëŠ” í”Œë ˆì´ì–´ì— ë„£ì„ê²ƒ. RotXëŠ” í”Œë ˆì´ì–´ì—, RotYëŠ” ë©”ì¸ì¹´ë©”ë¼ì— 
     public bool useRotX;
     public bool useRotY;
 
-    //region ·¹ÆÛ·±½º Å¸ÀÔ°ú value Å¸ÀÔÀÇ °æ¿ì ¹ÝÈ¯µÇ¾úÀ» ¶§ ¸â¹öº¯¼ö Á¢±ÙÇã¿ë/ ºñÇã¿ë 
+    //region ë ˆí¼ëŸ°ìŠ¤ íƒ€ìž…ê³¼ value íƒ€ìž…ì˜ ê²½ìš° ë°˜í™˜ë˜ì—ˆì„ ë•Œ ë©¤ë²„ë³€ìˆ˜ ì ‘ê·¼í—ˆìš©/ ë¹„í—ˆìš© 
     //void TestFunc()
     //{
     // MyTransform myTransform = new Mytransform();
@@ -34,10 +34,10 @@ public class ObjRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //1. ¸¶¿ì½ºÀÇ ¿òÁ÷ÀÓ°ªÀ» ¹Þ¾Æ¿ÀÀÚ(ÁÂ¿ì»óÇÏ)
+        //1. ë§ˆìš°ìŠ¤ì˜ ì›€ì§ìž„ê°’ì„ ë°›ì•„ì˜¤ìž(ì¢Œìš°ìƒí•˜)
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
-        //2. ¸¶¿ì½ºÀÇ ¿òÁ÷ÀÓ°ªÀ» ´©Àû½ÃÅ°ÀÚ
+        //2. ë§ˆìš°ìŠ¤ì˜ ì›€ì§ìž„ê°’ì„ ëˆ„ì ì‹œí‚¤ìž
 
         if (useRotY)
         {
@@ -53,10 +53,10 @@ public class ObjRotate : MonoBehaviour
 
         //rotY += my * Time.deltaTime * rotSpeed;
 
-        //rotXÀÇ °ªÀ» -80 80µµ·Î Á¦ÇÑ
+        //rotXì˜ ê°’ì„ -80 80ë„ë¡œ ì œí•œ
         rotX = Mathf.Clamp(rotX, -80, 80);
 
-        //3. ´©ÀûµÈ °ªÀ» ¹°Ã¼ÀÇ È¸Àü°ªÀ¸·Î ¼ÂÆÃÇÏÀÚ. localEulerAngles(0~360°ª ¼¼ÆÃ)
+        //3. ëˆ„ì ëœ ê°’ì„ ë¬¼ì²´ì˜ íšŒì „ê°’ìœ¼ë¡œ ì…‹íŒ…í•˜ìž. localEulerAngles(0~360ê°’ ì„¸íŒ…)
         transform.localEulerAngles = new Vector3(-rotX, rotY, 0);
     }
 }

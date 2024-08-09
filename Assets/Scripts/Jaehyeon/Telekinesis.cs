@@ -14,20 +14,24 @@ public class Telekinesis : MonoBehaviour
     public int damage = 5; // 공격 데미지
     public string type = "?";
     public int manaCost = 1; // 염력 사용 시 소모되는 마나
-
-    private GameObject effectObject; // 효과 오브젝트
+    public int weaponeIndex = 0;
+    public GameObject effectObject; // 효과 오브젝트
     Animator anim;
+    //public ParticleSystem effectPS;
+
+    // 사운드 구현
+    public AudioClip grabSound;
+    public AudioClip throwSound;
+    private AudioSource audioSource;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
-        // 플레이어에 붙어 있는 이펙트 오브젝트를 찾아서 할당
-        effectObject = GameObject.Find("CFXR Water Ripples");
+        audioSource = GetComponent<AudioSource>();
         if (effectObject != null)
         {
             effectObject.SetActive(false); // 초기에는 비활성화 상태로 설정
         }
-      
     }
 
     void Update()
@@ -35,7 +39,12 @@ public class Telekinesis : MonoBehaviour
         // R키로 마나아이템 사용(마나가 0이되지 않았을때도 사용가능)
         if (Input.GetKeyDown(KeyCode.R))
         {
-            anim.SetTrigger("RELOAD");
+            if (UiManager.instance.Reload(weaponeIndex))
+            {
+                //UiManager.instance.Reload(weaponeIndex);
+                anim.SetTrigger("RELOAD");
+                
+            }
             UseManaItem();
             return;
         }
@@ -51,8 +60,9 @@ public class Telekinesis : MonoBehaviour
                     SucGrabObject();
                     if (effectObject != null)
                     {
-                        effectObject.SetActive(true); // 이펙트를 보이게 함
+                        StartCoroutine(EffectPopUP()); // 이펙트를 보이게 함
                     }
+                    PlaySound(grabSound); // 소리 재생
                 }
                 else
                 {
@@ -64,8 +74,9 @@ public class Telekinesis : MonoBehaviour
                         SucGrabObject();
                         if (effectObject != null)
                         {
-                            effectObject.SetActive(true); // 이펙트를 보이게 함
+                            StartCoroutine(EffectPopUP()); // 이펙트를 보이게 함
                         }
+                        PlaySound(grabSound); // 소리 재생
                     }
                 }
             }
@@ -73,10 +84,8 @@ public class Telekinesis : MonoBehaviour
             {
                 SucThrowObject();
                 grab = false;
-                if (effectObject != null)
-                {
-                    effectObject.SetActive(false); // 던질 때 이펙트를 숨김
-                }
+                StartCoroutine(EffectPopUP());
+                PlaySound(throwSound); // 소리 재생
             }
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
@@ -111,6 +120,10 @@ public class Telekinesis : MonoBehaviour
 
     void UseManaItem()
     {
+        if (UiManager.instance.keepItems[4] != 0)
+        {
+            anim.SetTrigger("RELOAD");
+        }
         UiManager.instance.UseMana();
     }
 
@@ -178,5 +191,19 @@ public class Telekinesis : MonoBehaviour
                 }
             }
         }
+    }
+    void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
+    IEnumerator EffectPopUP()
+    {
+        effectObject.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        effectObject.SetActive(false);
     }
 }
