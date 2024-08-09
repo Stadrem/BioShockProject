@@ -121,12 +121,13 @@ public class TotalWeapon : MonoBehaviour
 
     void HandleMagicFire()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.time - lastFireTime >= fireRate)
         {
             if (TryUseMana())
             {
                 UiManager.instance.ManaRefresh(manaCost);
                 Shoot();
+                lastFireTime = Time.time;
                 if (!TryUseMana())
                 {
                     UiManager.instance.UseMana(); // 마나 아이템 자동 사용
@@ -162,6 +163,13 @@ public class TotalWeapon : MonoBehaviour
 
     public void Shoot()
     {
+
+        if (GameManager.instance.HP <= 0)
+        {
+            Debug.Log("플레이어 HP가 0입니다. 공격할 수 없습니다.");
+            return;
+        }
+
         anim.SetTrigger("ATTACK");
         // 발사 소리 재생
         if (AttackSound != null && audioSource != null)
@@ -199,12 +207,15 @@ public class TotalWeapon : MonoBehaviour
 
             if (isShockandFire == true)
             {
-                GameObject fire = Instantiate(fireEffect);
-                
-                fire.transform.position = hitInfo.transform.position;
-                fire.transform.parent = hitInfo.transform;
+                if (hitInfo.transform.CompareTag("Enemy") || hitInfo.transform.CompareTag("Boss"))
+                {
+                    GameObject fire = Instantiate(fireEffect);
 
-                Destroy(fire, 2f);
+                    fire.transform.position = hitInfo.transform.position;
+                    fire.transform.parent = hitInfo.transform;
+
+                    Destroy(fire, 2f);
+                }
             }
 
             bulletImpact.transform.position = hitInfo.point;
@@ -242,18 +253,27 @@ public class TotalWeapon : MonoBehaviour
     {
         if (needMag && !isReloading)
         {
-            if (UiManager.instance.Reload(weaponeIndex))
+            // 현재 탄창이 가득 차 있는지 확인
+            bool canReload = UiManager.instance.Reload(weaponeIndex);
+
+            if (canReload)
             {
                 anim.SetTrigger("RELOAD");
                 StartCoroutine(ReloadCoroutine());
+
+                // 탄창이 가득 차지 않았을 때만 소리 재생
+                if (ReloadSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(ReloadSound);
+                }
+            }
+            else
+            {
+                Debug.Log("탄창이 이미 가득 찼습니다. 장전 소리를 재생하지 않습니다.");
             }
         }
-        // 발사 소리 재생
-        if (ReloadSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(ReloadSound);
-        }
     }
+
 
     IEnumerator ReloadCoroutine()
     {
