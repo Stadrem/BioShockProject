@@ -1898,10 +1898,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 925739188270868807, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 925739188270868807, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 925739188270868807, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607799683635064396, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607799683635064396, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607799683635064396, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4491650121180146416, guid: 98a09dfaf60923c448451f119541f5b5,
         type: 3}
       propertyPath: m_Name
       value: UiManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475689255447065900, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475689255447065900, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475689255447065900, guid: 98a09dfaf60923c448451f119541f5b5,
+        type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
