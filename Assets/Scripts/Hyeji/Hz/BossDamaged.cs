@@ -12,7 +12,7 @@ public class BossDamaged : MonoBehaviour
     public int currHP;
 
     // HP UI
-    public Slider hpUI;
+    //public Slider hpUI;
 
     // 보스행동 스크립트
     private BossBehavior bossBehavior;
@@ -49,7 +49,7 @@ public class BossDamaged : MonoBehaviour
 
         // HP 바를 갱신하자.
         float ratio = currHP * 0.01f;
-        hpUI.value = ratio;
+        //hpUI.value = ratio;
 
         switch (type)
         {
