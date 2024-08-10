@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ItemBoxRoot : MonoBehaviour
 {
-    //0번 힐, 1번 마나, 2번 총알, 3번 달러
+    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
     //아이템 박스에 들어갈 리스트
     public List<int> itemList = new List<int>();
 
@@ -72,9 +72,9 @@ public class ItemBoxRoot : MonoBehaviour
                 //달러면 3~7개 획득
                 if (itemList[0] == 5)
                 {
-                    StartCoroutine(DollarGet());
                     int tempDollar = Random.Range(2, 17);
                     UiManager.instance.keepItems[5] += tempDollar;
+                    StartCoroutine(DollarGet());
                 }
                 //총알이면 3~10발
                 if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
