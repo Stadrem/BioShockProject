@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9053985175076835120}
   - component: {fileID: 5697594284330228874}
   - component: {fileID: 3188404779233106313}
+  - component: {fileID: 364372294909041947}
   m_Layer: 7
   m_Name: BigDaddy
   m_TagString: Boss
@@ -48,25 +49,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2bd722e30a5363489bc0e7e35511455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlesRing: {fileID: 5302658394907460404, guid: 9b59fd4cdaa68f043b5db1c7a1631ad5,
-    type: 3}
+  particlesRing: {fileID: 0}
   state: 0
+  currTime: 0
+  attackDelayTime: 2
   attackPower: 3
   moveSpeed: 5
   meleeAttackDistance: 2
   meleeAttackPower: 10
   shotAttackDistance: 10
   shotAttackPower: 5
+  isRoatate: 0
   rotationSpeed: 2
   pauseDuration: 1
+  originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  isPlayerClose: 0
   chargeSpeed: 30
   chargeRange: 10
   isCharging: 0
+  isMoving: 0
   knockbackDistance: 5
   knockbackTime: 0.2
+  isKnockback: 0
+  knockbackDirection: {x: 0, y: 0, z: 0}
+  knockbackStartTime: 0
   knockbackDuration: 0.2
   collisionRadius: 1
-  idleTIme: 10
+  idleTIme: 5
 --- !u!114 &9053985175076835120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +135,46 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &364372294909041947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5806527828087090339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d392590eff8e8c14b9e8cb8ca8d94c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlesRing: {fileID: 0}
+  state: 0
+  currTime: 0
+  attackDelayTime: 2
+  attackPower: 3
+  moveSpeed: 2
+  meleeAttackDistance: 4
+  meleeAttackPower: 10
+  shotAttackDistance: 20
+  shotAttackPower: 5
+  isRoatate: 0
+  rotationSpeed: 2
+  pauseDuration: 1
+  originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  isPlayerClose: 0
+  chargeSpeed: 10
+  chargeRange: 7
+  isCharging: 0
+  isMoving: 0
+  knockbackDistance: 10
+  knockbackTime: 0.2
+  isKnockback: 0
+  knockbackDirection: {x: 0, y: 0, z: 0}
+  knockbackStartTime: 0
+  knockbackDuration: 0.2
+  collisionRadius: 1
+  idleTIme: 5
 --- !u!1001 &5518295609189940553
 PrefabInstance:
   m_ObjectHideFlags: 0
