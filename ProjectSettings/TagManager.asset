@@ -8,6 +8,7 @@ TagManager:
   - Boss
   - itemBox
   - Select
+  - Bomb
   layers:
   - Default
   - TransparentFX
@@ -40,7 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - NotBake
   m_SortingLayers:
   - name: Default
     uniqueID: 0
