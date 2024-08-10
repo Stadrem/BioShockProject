@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class BossBehavior : MonoBehaviour
 {
     // 파티클 시스템 오브젝트
-    public GameObject particlesRing;
+    GameObject particlesRing;
     // 에너미 상태
     public enum EnemyState
     {
@@ -15,8 +15,8 @@ public class BossBehavior : MonoBehaviour
         Attack,
         Melee,
         ShotAttack,
-        ShotAttackType1,
-        ShotAttackType2,
+        //ShotAttackType1,
+        //ShotAttackType2,
         Damaged,
         Die
     }
@@ -25,11 +25,11 @@ public class BossBehavior : MonoBehaviour
     // 플레이어 공격 가능 범위
     //public float attackDistance = 2f;
     // Player Transform
-    Transform player;
+    public Transform player;
     // 현재 시간
-    float currTime = 0;
+    public float currTime = 0;
     // 공격 딜레이 시간
-    float attackDelayTime = 2f;
+    public float attackDelayTime = 2f;
     // 이동 방향 
     //Vector3 dir;
     // 보스 공격력
@@ -46,17 +46,17 @@ public class BossBehavior : MonoBehaviour
     // 중거리 공격력
     public int shotAttackPower = 5;
     // 회전할것인가?
-    bool isRoatate = false;
+    public bool isRoatate = false;
     // 회전속도
     public float rotationSpeed = 2f;
     // 회전 후 대기 시간
     public float pauseDuration = 1f;
     // 원래 회전각
-    private Quaternion originalRotation;
+    public Quaternion originalRotation;
     // 타겟 회전각
-    private Quaternion targetRotation;
+    public Quaternion targetRotation;
     // 플레이어가 가까운가?
-    bool isPlayerClose = false;
+    public bool isPlayerClose = false;
 
     // 돌진 속도
     public float chargeSpeed = 10f;
@@ -65,7 +65,7 @@ public class BossBehavior : MonoBehaviour
     // 돌진 여부
     public bool isCharging = false;
     // 캐릭터의 동작 여부
-    bool isMoving = false;
+    public bool isMoving = false;
     // 보스 데미지 스크립트 참조
     private BossDamaged bossDamaged;
 
@@ -74,9 +74,9 @@ public class BossBehavior : MonoBehaviour
     // 넉백 시간
     public float knockbackTime = 0.2f;
     // 넉백 되었는가?
-    private bool isKnockback = false;
-    private Vector3 knockbackDirection;
-    private float knockbackStartTime;
+    public bool isKnockback = false;
+    public Vector3 knockbackDirection;
+    public float knockbackStartTime;
     public float knockbackDuration = 0.2f;
     // 충돌 감지 반경
     public float collisionRadius = 1f;
@@ -86,8 +86,20 @@ public class BossBehavior : MonoBehaviour
     // Animation Controller
     Animator anim;
 
-    // ShotAttackDecide
-    ShotAttackDecide shotattackDc;
+    // 보스행동 스크립트
+    private OnMeleeAttackEnd onMelee;
+
+    // 플레이어 위치를 저장하는 큐
+    private Queue<Vector3> playerPositions = new Queue<Vector3>();
+    // 플레이어의 위치를 저장하는 간격
+    public float recordInterval = 0.1f;
+    // 0.2초 전 플레이어 위치를 위한 타이머
+    private float recordTimer = 0f;
+    // 저장할 최대 위치 수 (0.2초 동안 저장할 위치의 수)
+    private int maxRecordedPositions = 2;
+    // 인식 거리 (플레이어가 이 거리 내로 들어오면 보스가 추적을 시작함)
+    public float detectionRange = 15f;
+
 
     void Start()
     {
@@ -101,12 +113,18 @@ public class BossBehavior : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         // 보스 데미지 스크립트
         bossDamaged = GetComponent<BossDamaged>();
+        // bossBehavior 스크립트 참조
+        onMelee = GetComponent<OnMeleeAttackEnd>();
 
-        shotattackDc = GetComponent<ShotAttackDecide>();
+        StartCoroutine(RecordPlayerPosition());
+
     }
 
     void Update()
     {
+        // 플레이어와의 거리 계산
+        float distanceToPlayer = Vector3.Distance(player.position, transform.position);
+
         // 플레이어가 있는 방향으로 몸을 회전시킨다.
         Vector3 directionToPlayer = player.position - transform.position;
         directionToPlayer.y = 0;
@@ -135,8 +153,7 @@ public class BossBehavior : MonoBehaviour
         switch (state)
         {
             case EnemyState.Idle:
-                Idle();
-                //anim.SetTrigger("Idle");
+                Idle(distanceToPlayer);
                 break;
             case EnemyState.Move:
                 Move();
@@ -145,13 +162,7 @@ public class BossBehavior : MonoBehaviour
                 MeleeAttack();
                 break;
             case EnemyState.ShotAttack:
-                MeleeAttack();
-                break;
-            case EnemyState.ShotAttackType1:
-                ShotAttackType1();
-                break;
-            case EnemyState.ShotAttackType2:
-                ShotAttackType2();
+                ShotAttack();
                 break;
             case EnemyState.Damaged:
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
@@ -165,6 +176,13 @@ public class BossBehavior : MonoBehaviour
     // 상태 변경 함수
     public void ChangeState(EnemyState newState)
     {
+        // 상태 변경 전에 플래그를 초기화합니다.
+        if (newState != EnemyState.ShotAttack)
+        {
+            isInShotAttack = false;
+            isAttacking = false; // ShotAttack 상태가 아닐 때 공격 플래그 초기화
+        }
+
         state = newState;
         switch (state)
         {
@@ -184,35 +202,32 @@ public class BossBehavior : MonoBehaviour
                 // 애니메이션
                 anim.SetTrigger("Melee");
                 break;
-            //case EnemyState.ShotAttack:
-            //    {
-            //        // 공격 상태 로직
-            //        int attackType = Random.Range(0, 2);
-            //        if (attackType == 0)
-            //        {
-            //            // 중거리 공격1
-            //            ShotAttackType1();
-            //        }
-            //        else
-            //        {
-            //            agent.isStopped = true;
-            //            // 중거리 공격2
-            //            ShotAttackType2();
-            //        }
-            //    }
-            //    break;
             case EnemyState.ShotAttack:
-                //agent.isStopped = true;
-                //anim.SetTrigger("Shot");
+                {
+                    // 공격 상태 로직
+                    int attackType = Random.Range(0, 2);
+                    if (attackType == 0)
+                    {
+                        // 중거리 공격1
+                        ShotAttackType1(); 
+                    }
+                    else
+                    {
+                        agent.isStopped = true;
+                        // 중거리 공격2
+                        ShotAttackType2();
+                    }
+                }
                 break;
-            case EnemyState.ShotAttackType1:
-                //agent.isStopped = true;
-                anim.SetTrigger("Shot");
-                break;
-            case EnemyState.ShotAttackType2:
-                agent.isStopped = true;
-                anim.SetTrigger("Shot2");
-                break;
+            //case EnemyState.ShotAttackType1:
+            //    agent.isStopped = true;
+            //    isKnockback = true;
+            //    //anim.SetTrigger("Shot");
+            //    break;
+            //case EnemyState.ShotAttackType2:
+            //    agent.isStopped = true;
+            //    //anim.SetTrigger("Shot2");
+            //    break;
             case EnemyState.Damaged:
                 agent.isStopped = true;
                 anim.SetTrigger("Damage");
@@ -227,19 +242,27 @@ public class BossBehavior : MonoBehaviour
                 break;
         }
     }
-
+    
     // 대기 시간
-    public float idleTIme = 5f;
+    // public float idleTIme = 5f;
     // 대기 상태 함수
-    public void Idle()
+    public void Idle(float distanceToPlayer)
     {
-        currTime += Time.deltaTime;
-        if (idleTIme <= currTime)
+        // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작
+        if (distanceToPlayer <= detectionRange)
         {
-            currTime = 0;
-
             ChangeState(EnemyState.Move);
+            return;
         }
+
+        //currTime += Time.deltaTime;
+        //if (idleTIme <= currTime)
+        //{
+        //    currTime = 0;
+
+        //    // 대기 상태 끝나면 움직여라
+        //    ChangeState(EnemyState.Move);
+        //}
     }
     // 이동 상태 함수
     public void Move()
@@ -248,40 +271,27 @@ public class BossBehavior : MonoBehaviour
         float dist = Vector3.Distance(player.transform.position, transform.position);
 
         // 플레이어와의 거리가 근거리 공격 범위안이라면
-        if (dist <= 2)
+        if (dist <= meleeAttackDistance)
         {
             // 근거리로 상태 전환
             ChangeState(EnemyState.Melee);
         }
-        // 플레이어와의 거리가 5 이상되면
-        else if (dist > 10)
+        // 아니면
+        else if (dist <= shotAttackDistance)
         {
-            // 돌진
-            ChangeState(EnemyState.ShotAttackType1);
+            // 중거리로 상태 전환
+            ChangeState(EnemyState.ShotAttack);
         }
-        // 플레이어와의 거리가 10 이상 되면
-        else if (dist > 5)
+        else
         {
-            // 땅내려치기
-            ChangeState(EnemyState.ShotAttackType2);
+            agent.SetDestination(player.position);
+            //anim.SetTrigger("Move");
         }
-        //// 아니면
-        //else if (dist <= shotAttackDistance)
-        //{
-        //    // 중거리로 상태 전환
-        //    ChangeState(EnemyState.ShotAttack);
-        //}
-        //else
-        //{
-        //    agent.SetDestination(player.position);
-        //    //anim.SetTrigger("Move");
-        //}
     }
 
     // 근접 공격
     public void MeleeAttack()
     {
-        print("근접 공격");
         //ParticleMake();
 
         // 시간을 흐르게 하자
@@ -289,126 +299,96 @@ public class BossBehavior : MonoBehaviour
         // 공격 지연시간 경과시
         if (currTime >= attackDelayTime)
         {
+            print("근접 공격");
             // 플레이어에게 넉백 적용
             isKnockback = true;
-            //ApplyKnockback(player.position - transform.position);
             // 싱글톤으로 HP 관리
             GameManager.instance.Damaged(attackPower);
             // 초기화
             currTime = 0;
         }
-        //// 플레이어와의 거리 다시 계산
-        //float dist = Vector3.Distance(player.position, transform.position);
 
-        //// 만약 플레이어와의 거리가 근접 공격 가능 범위에서 벗어나면
-        //if (dist > meleeAttackDistance)
-        //{
-        //    // 중거리 공격 상태로 전환
-        //    ChangeState(EnemyState.ShotAttack);
-        //}
+        // 플레이어와 보스의 거리 구하기
+        float dist = Vector3.Distance(player.transform.position, transform.position);
+        if (dist > meleeAttackDistance)
+        {
+            
+            ChangeState(EnemyState.ShotAttack);
+            //ChangeState(EnemyState.Move);
+        }
     }
+ 
 
     // 공격 하고있는가?
     bool isAttacking;
+    // 이미 shotAttack?
+    bool isInShotAttack = false;
 
+    // 중거리 공격 함수
     public void ShotAttack()
     {
-        // 시간을 흐르게 하자
-        currTime += Time.deltaTime;
-        // 공격 지연시간 경과시
+        if (isInShotAttack) return;
+
+        isInShotAttack = true;
+
+        // 시간을 흐르게 하자.
+        if (isAttacking == false)
+        {
+            currTime += Time.deltaTime;
+
+        }
         if (currTime >= attackDelayTime)
         {
-            // 플레이어에게 넉백 적용
-            isKnockback = true;
-            // 싱글톤으로 HP 관리
+            isAttacking = true;
             GameManager.instance.Damaged(attackPower);
             // 초기화
             currTime = 0;
+        }
 
-            float dist = Vector3.Distance(player.transform.position, transform.position);
-            // 거리가 10보다 커지면 돌진하고
-            if (dist > 10)
-            {
-                ChangeState(EnemyState.ShotAttackType1);
-            }
-            // 거리가 5보다 커지면 땅내려치기
-            else if (dist > 5)
-            {
-                ChangeState(EnemyState.ShotAttackType2);
-            }
+        // 플레이어와의 거리 다시 계산
+        float dist = Vector3.Distance(player.position, transform.position);
+        // 중거리 공격 범위 밖이면
+        if (dist > shotAttackDistance)
+        {
+            // 이동 상태로 전환
+            ChangeState(EnemyState.Move);
+        }
+        // 근거리 범위로 들어왔다면
+        else if (dist <= meleeAttackDistance)
+        {
+            // 근거리 공격 전환
+            ChangeState(EnemyState.Melee);
         }
     }
 
-    //// 중거리 공격 함수
-    //public void ShotAttack()
-    //{
-    //    // 시간을 흐르게 하자.
-    //    if (isAttacking == false)
-    //    {
-    //        currTime += Time.deltaTime;
-
-    //    }
-    //    if (currTime >= attackDelayTime)
-    //    {
-    //        isAttacking = true;
-    //        GameManager.instance.Damaged(attackPower);
-    //        // 초기화
-    //        currTime = 0;
-    //    }
-    //    //// 플레이어와의 거리 다시 계산
-    //    //float dist = Vector3.Distance(player.position, transform.position);
-    //    //// 중거리 공격 범위 밖이면
-    //    //if (dist > shotAttackDistance)
-    //    //{
-    //    //    // 이동 상태로 전환
-    //    //    ChangeState(EnemyState.Move);
-    //    //}
-    //    //// 근거리 범위로 들어왔다면
-    //    //else if (dist <= meleeAttackDistance)
-    //    //{
-    //    //    // 근거리 공격 전환
-    //    //    ChangeState(EnemyState.Melee);
-    //    //}
-    //}
+    // 플레이어 위치를 기록하는 코루틴
+    private IEnumerator RecordPlayerPosition()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(recordInterval);
+            if (playerPositions.Count >= maxRecordedPositions)
+            {
+                playerPositions.Dequeue(); // 가장 오래된 위치를 제거
+            }
+            playerPositions.Enqueue(player.position); // 현재 플레이어 위치를 큐에 추가
+        }
+    }
 
     // 중거리 공격1 - 돌진 공격
     public void ShotAttackType1()
     {
-        // 돌진할것인가
-        isCharging = true;
-        // 이동속도를 돌진속도로 변환
-        float originMoveSpeed = agent.speed;
-        agent.speed = chargeSpeed;
-
-        float dist = Vector3.Distance(player.transform.position, transform.position);
-
-        // 거리가 10이상이라면 계속 공격
-        while (dist > 10)
-        {
-            agent.SetDestination(player.position);
-            print("돌진중");
-        }
-
-        // 속도 원래 속도로 바꾸기
-        agent.speed = originMoveSpeed;
-        // 돌진 끝
-        isCharging = false;
-        // 공격 끝
-        isAttacking = false;
-
-        ChangeState(EnemyState.Move);
-        //agent.SetDestination(player.position);
-
-        //shotattackDc.ChargeAttack();
-
-        //anim.SetTrigger("Shot");
-
-        //StartCoroutine(ChargeTowardsPlayer());
+        anim.SetTrigger("Shot");
+        StartCoroutine(ChargeTowardsPlayer());
     }
 
     // 중거리 공격2 - 전방위 공격(땅내려치기)
     public void ShotAttackType2()
     {
+        anim.ResetTrigger("Shot");
+        anim.ResetTrigger("Shot2");
+        anim.ResetTrigger("Move");
+
         anim.SetTrigger("Shot2");
         print("땅내려치기");
 
@@ -421,38 +401,53 @@ public class BossBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         isAttacking = false;
+
+        // 움직임으로 전환
         ChangeState(EnemyState.Move);
+        
     }
 
     // 플레이어를 향해 돌진, 일정 시간이 지나면 이동 상태로 돌아간다.
-    //private IEnumerator ChargeTowardsPlayer()
-    //{
-    //    // 돌진할것인가
-    //    isCharging = true;
-    //    // 이동속도를 돌진속도로 변환
-    //    float originMoveSpeed = agent.speed;
-    //    agent.speed = chargeSpeed;
+    private IEnumerator ChargeTowardsPlayer()
+    {
+        // 돌진할것인가
+        isCharging = true;
 
-    //    float chargeDuration = 2f;
-    //    float startTime = Time.time;
+        // 큐에서 0.2초 전에 있었던 위치를 가져옵니다.
+        Vector3 targetPosition;
+        if (playerPositions.Count > 0)
+        {
+            targetPosition = playerPositions.Peek();
+        }
+        else
+        {
+            targetPosition = player.position; // 큐가 비어있으면 현재 위치로 대체
+        }
 
-    //    // 지정된 시간동안 돌진
-    //    while (Time.time < startTime + chargeDuration)
-    //    {
-    //        agent.SetDestination(player.position);
-    //        print("돌진중");
-    //        yield return null;
-    //    }
-    //    // 속도 원래 속도로 바꾸기
-    //    agent.speed = originMoveSpeed;
-    //    // 돌진 끝
-    //    isCharging = false;
-    //    // 공격 끝
-    //    isAttacking = false;
+        // 이동속도를 돌진속도로 변환
+        float originMoveSpeed = agent.speed;
+        agent.speed = chargeSpeed;
 
-    //    ChangeState(EnemyState.Move);
-    //    //agent.SetDestination(player.position);
-    //}
+        float chargeDuration = 2f;
+        float startTime = Time.time;
+
+        // 지정된 시간동안 돌진
+        while (Time.time < startTime + chargeDuration)
+        {
+            agent.SetDestination(player.position);
+            print("돌진중");
+            yield return null;
+        }
+        // 속도 원래 속도로 바꾸기
+        agent.speed = originMoveSpeed;
+        // 돌진 끝
+        isCharging = false;
+        // 공격 끝
+        isAttacking = false;
+
+        ChangeState(EnemyState.Move);
+        //agent.SetDestination(player.position);
+    }
 
     public void Damaged(int damage, string type)
     {
@@ -499,10 +494,10 @@ public class BossBehavior : MonoBehaviour
         print(state);
 
         // 공격 상태일 때 파티클 생성
-        if (state == EnemyState.Melee || state == EnemyState.ShotAttackType1)
+        if (state == EnemyState.Melee || state == EnemyState.ShotAttack)
         {
             // 부딪히면 파티클 생성
-            ParticleMake();
+            //ParticleMake();
 
             // 맞은 대상이 플레이어라면
             if (other.CompareTag("Player"))
@@ -513,15 +508,4 @@ public class BossBehavior : MonoBehaviour
             }
         }
     }
-
-    // 넉백 효과 적용 메서드
-    //private void ApplyKnockback(Vector3 direction)
-    //{
-    //    direction.y = 0;
-
-    //    knockbackDirection = direction.normalized;
-    //    print(knockbackDirection);
-    //    knockbackStartTime = Time.time;
-    //    isKnockback = true;
-    //}
 }
