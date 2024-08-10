@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Searcher;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
@@ -16,14 +18,22 @@ public class UiManager : MonoBehaviour
     //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
 
-    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 힐
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
     public List<Sprite> spriteList = new List<Sprite>();
 
     //0번 번개, 1번 불꽃, 2번 염동력
     public List<Sprite> spriteMagicList = new List<Sprite>();
 
-    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
     public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    string[] nameList = new string[] { "렌치", "권총 일반탄", "기관총 일반탄", "산탄총 일반탄", "이브 주사기", "달러", "응급 치료 키트" };
+
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    int[] priceList = new int[] { 0, 2, 1, 5, 40, 1, 20 };
+
+    public GameObject[] storeList = new GameObject[] { };
 
     //계획된 아이템 갯수
     public int maxItems = 8;
@@ -98,6 +108,35 @@ public class UiManager : MonoBehaviour
             //의도치 않은 중복 적용일 태니 이 게임 오브젝트 파괴.
             Destroy(gameObject);
         }
+        for(int i = 0; i < storeList.Length; i++)
+        {
+            ThisItemNum itemInfo = storeList[i].GetComponent<ThisItemNum>();
+
+            if(i == 0)
+            {
+                int fix = 1;
+                itemInfo.itemNum = fix;
+                itemInfo.itemName = nameList[fix];
+                itemInfo.icon = spriteList[fix];
+                itemInfo.price = priceList[fix];
+            }
+            else if(i == 4)
+            {
+                int fix = 6;
+                itemInfo.itemNum = fix;
+                itemInfo.itemName = nameList[fix];
+                itemInfo.icon = spriteList[fix];
+                itemInfo.price = priceList[fix];
+            }
+            else
+            {
+                itemInfo.itemNum = i + 1;
+                itemInfo.itemName = nameList[i + 1];
+                itemInfo.icon = spriteList[i + 1];
+                itemInfo.price = priceList[i + 1];
+            }
+            
+        }
     }
 
     void Start()
@@ -112,6 +151,8 @@ public class UiManager : MonoBehaviour
 
         ItemRefresh();
         WeaponeChange(0);
+
+        dollarText.text = keepItems[5].ToString("D4");
 
         //DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 5.0f);
     }
@@ -271,7 +312,7 @@ public class UiManager : MonoBehaviour
 
         else
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("응급 처치 도구가 없습니다.");
         }
     }
 
@@ -286,7 +327,7 @@ public class UiManager : MonoBehaviour
         }
         else
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("이브 주사기가 없습니다.");
         }
     }
 
@@ -294,7 +335,7 @@ public class UiManager : MonoBehaviour
     {
         if (weaponeMagazine[currentWeapone] == 0)
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("총알이 장전 되어있지 않습니다.");
             return false;
         }
         weaponeMagazine[currentWeapone] -= 1;
@@ -333,7 +374,7 @@ public class UiManager : MonoBehaviour
         //갯수가 없으면 리턴걸어줘야함
         if (keepItems[currentWeapone] == 0)
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("장전할 총알이 부족합니다.");
             return false;
         }
 
@@ -383,24 +424,21 @@ public class UiManager : MonoBehaviour
 
     public void WeaponeChange(int weapone)
     {
+        weaponeName.text = nameList[weapone];
         switch (weapone)
         {
             case 0:
-                weaponeName.text = "렌치";
                 bulletCurrentText.text = " ";
                 bulletMaxText.text = " ";
                 crossHair.localScale = new Vector3(0.5f, 0.5f, 1);
                 break;
             case 1:
-                weaponeName.text = "권총";
                 crossHair.localScale = new Vector3(1, 1, 1);
                 break;
             case 2:
-                weaponeName.text = "기관총";
                 crossHair.localScale = new Vector3(1.5f, 1.5f, 1);
                 break;
             case 3:
-                weaponeName.text = "산탄총";
                 crossHair.localScale = new Vector3(2f, 2f, 1);
                 break;
         }
@@ -458,5 +496,11 @@ public class UiManager : MonoBehaviour
         dialogueUi.SetActive(false);
 
         Time.timeScale = 1;
+    }
+
+    public void Alret(string text)
+    {
+        alretText.text = text;
+        alretAnim.SetTrigger("Alret");
     }
 }

@@ -183,7 +183,7 @@ MonoBehaviour:
   enemyName: Splicer
   freezeTime: 6
   baseSpeed: 2
-  attackRanage: 14
+  attackRanage: 18
   scream: {fileID: 7893014273683006442}
   ragdollRigidbodies:
   - {fileID: 98131812658340937}
