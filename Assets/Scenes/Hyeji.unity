@@ -838,9 +838,9 @@ GameObject:
   - component: {fileID: 676524239}
   - component: {fileID: 676524238}
   - component: {fileID: 676524242}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: itemBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -963,6 +963,37 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 742a81587574d0249b5adbc6c0c7fa97, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &808066495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 808066496}
+  m_Layer: 0
+  m_Name: AttackRay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &808066496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808066495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.273, y: 6.89, z: -5.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1060007854}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +1006,7 @@ GameObject:
   - component: {fileID: 961739752}
   - component: {fileID: 961739751}
   - component: {fileID: 961739750}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1208,6 +1239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212e94afc70244c4ebb1fb90902d50d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1060007854 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5412858239649864354, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7147906203060239559}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1123530088 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8816433102372248764, guid: ae780569a317a92468763ccd92e5f6c2,
@@ -2064,6 +2101,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3188404779233106313, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3317902593217349506, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: player
@@ -2073,6 +2115,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3317902593217349506, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: rayOrigin
+      value: 
+      objectReference: {fileID: 808066496}
+    - target: {fileID: 3317902593217349506, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
@@ -2138,7 +2190,11 @@ PrefabInstance:
     - {fileID: 364372294909041947, guid: 716fcc4b6079ddd4e95f6bf118fc39f7, type: 3}
     - {fileID: 1493644862036136258, guid: 716fcc4b6079ddd4e95f6bf118fc39f7, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5412858239649864354, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 808066496}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}

@@ -22,8 +22,6 @@ public class BossBehavior : MonoBehaviour
     }
     // 에너미 상태 변수
     public EnemyState state;
-    // 플레이어 공격 가능 범위
-    //public float attackDistance = 2f;
     // Player Transform
     public Transform player;
     // 현재 시간
@@ -38,7 +36,7 @@ public class BossBehavior : MonoBehaviour
     public float moveSpeed = 2;
 
     // 근접 공격 범위
-    public float meleeAttackDistance = 4f;
+    public float meleeAttackDistance = 10f;
     // 근접 공격력
     public int meleeAttackPower = 10;
     // 중거리 공격 범위
@@ -100,6 +98,11 @@ public class BossBehavior : MonoBehaviour
     // 인식 거리 (플레이어가 이 거리 내로 들어오면 보스가 추적을 시작함)
     public float detectionRange = 15f;
 
+    public float meleeAttackRange = 5f; // 근접 공격 거리
+    public LayerMask playerLayer; // 플레이어가 속한 레이어
+    public Transform rayOrigin; // 레이 오브젝트
+
+
 
     void Start()
     {
@@ -124,6 +127,14 @@ public class BossBehavior : MonoBehaviour
     {
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
+
+        // 보스가 플레이어와 너무 가까이 붙지 않도록 거리 유지
+        //if (distanceToPlayer < 2.9f)  // 예시: 최소 2미터 거리를 유지
+        //{
+        //    Vector3 direction = (transform.position - player.transform.position).normalized;
+        //    transform.position = player.transform.position + direction * 2.9f;
+        //}
+
 
         // 플레이어가 있는 방향으로 몸을 회전시킨다.
         Vector3 directionToPlayer = player.position - transform.position;
@@ -254,15 +265,6 @@ public class BossBehavior : MonoBehaviour
             ChangeState(EnemyState.Move);
             return;
         }
-
-        //currTime += Time.deltaTime;
-        //if (idleTIme <= currTime)
-        //{
-        //    currTime = 0;
-
-        //    // 대기 상태 끝나면 움직여라
-        //    ChangeState(EnemyState.Move);
-        //}
     }
     // 이동 상태 함수
     public void Move()
@@ -300,10 +302,12 @@ public class BossBehavior : MonoBehaviour
         if (currTime >= attackDelayTime)
         {
             print("근접 공격");
-            // 플레이어에게 넉백 적용
-            isKnockback = true;
-            // 싱글톤으로 HP 관리
-            GameManager.instance.Damaged(attackPower);
+            // Ray 적용
+            MeleeRay();
+
+            // 상태를 전환하거나, 루프가 다시 돌아오지 않도록 설정
+            ChangeState(EnemyState.Idle);
+
             // 초기화
             currTime = 0;
         }
@@ -488,13 +492,76 @@ public class BossBehavior : MonoBehaviour
         Destroy(rising, 2);
     }
 
+    void MeleeRay()
+    {
+        Debug.Log("MeleeRay 호출됨");
+
+        // 플레이어의 중심을 향하는 방향 벡터를 계산
+        Vector3 origin = rayOrigin.position;
+        Vector3 direction = (player.position - origin).normalized;
+
+        // 현재 보스와 플레이어의 거리 확인
+        float distanceToPlayer = Vector3.Distance(player.position, origin);
+        Debug.Log("보스와 플레이어 간 거리: " + distanceToPlayer);
+
+        // 레이캐스트 발사
+        RaycastHit hit;
+
+        Debug.DrawRay(origin, direction * meleeAttackDistance, Color.red, 1.0f);
+
+        if (Physics.Raycast(origin, direction, out hit, meleeAttackDistance, playerLayer))
+        {
+            Debug.Log("RayCast 충돌 발생");
+
+            if (hit.transform.CompareTag("Player"))
+            {
+                Debug.Log("플레이어와 충돌");
+                isKnockback = true;
+                GameManager.instance.Damaged(meleeAttackPower);
+            }
+        }
+        else
+        {
+            Debug.Log("충돌없어");
+        }
+
+
+        //Debug.Log("MeleeRay 호출됨");
+        //Vector3 direction = player.position - transform.position;
+
+        //// 레이캐스트 발사
+        //RaycastHit hit;
+        //// 눈으로 확인해보기
+        //Debug.DrawRay(transform.position, direction * meleeAttackRange, Color.red, 1.0f);
+
+        //if (Physics.Raycast(transform.position, direction, out hit, meleeAttackRange, playerLayer))
+        //{
+        //    Debug.Log("???");
+        //    Debug.Log(hit.transform.name);
+
+        //    // 레이캐스트가 맞은 객체의 태그가 "Player"인지 확인
+        //    if (hit.transform.CompareTag("Player"))
+        //    {
+        //        // 플레이어에게 피해를 입힌다.
+        //        Debug.Log("Ray");
+        //        // 플레이어에게 넉백 적용
+        //        isKnockback = true;
+        //        GameManager.instance.Damaged(meleeAttackPower);
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.Log("충돌없어");
+        //}
+    }
+
     // 공격시 충돌 처리 
     private void OnTriggerEnter(Collider other)
     {
         print(state);
 
         // 공격 상태일 때 파티클 생성
-        if (state == EnemyState.Melee || state == EnemyState.ShotAttack)
+        if (state == EnemyState.ShotAttack)
         {
             // 부딪히면 파티클 생성
             //ParticleMake();
