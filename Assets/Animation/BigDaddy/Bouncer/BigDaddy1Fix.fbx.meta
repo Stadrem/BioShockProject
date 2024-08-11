@@ -3,7 +3,12 @@ guid: db94ae86c895b384190ffcdd8b2ebdce
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Big_Daddy_Texture
+    second: {fileID: 2100000, guid: cf4d32ef0484ea64280857aa74c65fb4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
