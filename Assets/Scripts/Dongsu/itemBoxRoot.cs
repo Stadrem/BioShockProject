@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 public class ItemBoxRoot : MonoBehaviour
 {
+<<<<<<< HEAD
     //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+=======
+    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+>>>>>>> parent of d592ae1 (Revert "Merge remote-tracking branch 'origin/Dongsu' into Hyeji")
     //아이템 박스에 들어갈 리스트
     public List<int> itemList = new List<int>();
 

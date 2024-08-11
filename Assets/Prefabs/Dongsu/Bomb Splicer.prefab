@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemList: 
-  excludedIndices: 
+  excludedIndices: 010000000200000004000000
 --- !u!1 &7893014273683006442
 GameObject:
   m_ObjectHideFlags: 0
