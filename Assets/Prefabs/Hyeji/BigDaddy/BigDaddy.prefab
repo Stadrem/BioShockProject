@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7780353077333902618}
@@ -104,8 +104,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1775331, y: 1.2884392, z: 1.2635124}
+  m_Center: {x: -0.00032321614, y: 0.14421813, z: 0.04838147}
 --- !u!114 &4595738442730054787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlesRing: {fileID: 5302658394907460404, guid: 9b59fd4cdaa68f043b5db1c7a1631ad5,
     type: 3}
-  paritlclesLight: {fileID: 2140069744954036262, guid: edfe8323b3f04a340a07982459f0f3e6,
+  paritlclesLight: {fileID: 5302658394907460404, guid: 9b59fd4cdaa68f043b5db1c7a1631ad5,
     type: 3}
   audioSource: {fileID: 0}
   IdleSound: {fileID: 8300000, guid: 926a144c1757cb74186c401a41fe1c6c, type: 3}
@@ -484,6 +484,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3580757877598263572}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: db94ae86c895b384190ffcdd8b2ebdce,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2546761359716135903}
   m_SourcePrefab: {fileID: 100100000, guid: db94ae86c895b384190ffcdd8b2ebdce, type: 3}
 --- !u!1 &4635757967597109272 stripped
 GameObject:
@@ -504,6 +508,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+--- !u!114 &2546761359716135903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635757967597109272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057277af2f544d0418b6ad1ce1f69488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5412858239649864354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: db94ae86c895b384190ffcdd8b2ebdce,

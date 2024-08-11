@@ -73,4 +73,10 @@ public class OnMeleeRay : MonoBehaviour
             Debug.Log("충돌없어");
         }
     }
+
+    void Slam()
+    {
+        print("되는거니?");
+        bossBehavior.Shot2Particle();
+    }
 }

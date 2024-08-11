@@ -457,12 +457,18 @@ public class BossBehavior : MonoBehaviour
 
         anim.SetTrigger("Shot2");     
         print("땅내려치기");
-        // 파티클 넣기
-        ParticleLight();
+        
 
         // 일정시간이 지난 후 상태를 변경, 빠져나온다
         StartCoroutine(WaitAndChageState(6.2f));
     }
+
+    public void Shot2Particle()
+    {
+        // 파티클 넣기
+        ParticleLight();
+    }
+
 
     // 상태바꾸기 코루틴 함수
     private IEnumerator WaitAndChageState(float waitTime)
