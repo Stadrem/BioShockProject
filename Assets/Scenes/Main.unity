@@ -11364,6 +11364,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652174168543399063, guid: 80bd1f1412699af499fa78af795f598e,
+        type: 3}
+      propertyPath: HP
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 7159525684965831264, guid: 80bd1f1412699af499fa78af795f598e,
         type: 3}
       propertyPath: m_Name
@@ -12184,7 +12189,7 @@ PrefabInstance:
     - target: {fileID: 3539039149035074776, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.26
+      value: 13.44
       objectReference: {fileID: 0}
     - target: {fileID: 3539039149035074776, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
@@ -12194,7 +12199,7 @@ PrefabInstance:
     - target: {fileID: 3539039149035074776, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.8
+      value: -3.51
       objectReference: {fileID: 0}
     - target: {fileID: 3539039149035074776, guid: 7f196d1faae8cd444ba22e771e9395bf,
         type: 3}
@@ -13179,7 +13184,7 @@ PrefabInstance:
     - target: {fileID: 8816433102372248764, guid: ae780569a317a92468763ccd92e5f6c2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15546,6 +15551,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1744497479795076302, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf4d32ef0484ea64280857aa74c65fb4, type: 2}
+    - target: {fileID: 3317902593217349506, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: knockbackTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3317902593217349506, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: meleeAttackPower
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3317902593217349506, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+        type: 3}
+      propertyPath: knockbackDuration
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5697594284330228874, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: m_IsTrigger
@@ -15559,12 +15584,12 @@ PrefabInstance:
     - target: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7780353077333902618, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 95.982
+      value: 90.2
       objectReference: {fileID: 0}
     - target: {fileID: 7780353077333902618, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
@@ -15574,7 +15599,7 @@ PrefabInstance:
     - target: {fileID: 7780353077333902618, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.804
+      value: -2.6
       objectReference: {fileID: 0}
     - target: {fileID: 7780353077333902618, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
         type: 3}
