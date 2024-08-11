@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 14861632}
   - component: {fileID: 14861633}
   - component: {fileID: 14861634}
+  - component: {fileID: 14861635}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -280,6 +281,32 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5865448, y: 2, z: 1.4615536}
   m_Center: {x: 0.073853135, y: 0, z: 0.029099464}
+--- !u!143 &14861635
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14861625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &90428169 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1475487717516908, guid: fe91343b9a35bb14794086f1770004a3,
@@ -1774,7 +1801,7 @@ PrefabInstance:
     - target: {fileID: 8816433102372248764, guid: ae780569a317a92468763ccd92e5f6c2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9083368106137925749, guid: ae780569a317a92468763ccd92e5f6c2,
         type: 3}

@@ -11,7 +11,7 @@ public class OnMeleeAttackEnd : MonoBehaviour
     void Start()
     {
         // bossBehavior 스크립트 참조
-        bossBehavior = GetComponentInChildren<BossBehavior>();
+        bossBehavior = GetComponentInParent<BossBehavior>();
     }
 
     public void MeleeAttackEnd()

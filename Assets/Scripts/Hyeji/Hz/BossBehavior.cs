@@ -151,17 +151,37 @@ public class BossBehavior : MonoBehaviour
         // 넉백 처리
         if (isKnockback == true)
         {
-
+            //시간 흐름
             currTime += Time.deltaTime;
-            GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
+
+            //넉백
+            Vector3 knockbackDirection = -GameManager.instance.player.transform.forward * 5 * Time.deltaTime;
+
+            GameManager.instance.player.GetComponent<CharacterController>().Move(knockbackDirection);
+
             print("넉백");
 
+            //시간 오버
             if (currTime > knockbackTime)
             {
                 isKnockback = false;
+
                 currTime = 0;
             }
         }
+        //if (isKnockback == true)
+        //{
+
+        //    currTime += Time.deltaTime;
+        //    GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
+        //    print("넉백");
+
+        //    if (currTime > knockbackTime)
+        //    {
+        //        isKnockback = false;
+        //        currTime = 0;
+        //    }
+        //}
 
         switch (state)
         {

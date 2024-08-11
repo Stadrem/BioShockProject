@@ -88,7 +88,7 @@ MonoBehaviour:
   attackPower: 3
   moveSpeed: 5
   meleeAttackDistance: 7
-  meleeAttackPower: 10
+  meleeAttackPower: 3
   shotAttackDistance: 15
   shotAttackPower: 5
   isRoatate: 0
