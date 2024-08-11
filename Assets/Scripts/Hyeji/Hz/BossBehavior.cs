@@ -274,7 +274,7 @@ public class BossBehavior : MonoBehaviour
                 {
                     agent.isStopped = true;
                     // 2초 후에 오브젝트를 제거시킨다.
-                    StartCoroutine(RemoveAfterDelay(2.0f));
+                    StartCoroutine(RemoveAfterDelay(20f));
                     anim.SetTrigger("Die");
                 }
                 break;
@@ -286,6 +286,8 @@ public class BossBehavior : MonoBehaviour
     // 대기 상태 함수
     public void Idle(float distanceToPlayer)
     {
+        // 반복문으로 데미지 받을경우 탈출 (Return)
+
         // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작
         if (distanceToPlayer <= detectionRange)
         {
@@ -368,14 +370,14 @@ public class BossBehavior : MonoBehaviour
             // 초기화
             currTime = 0;
         }
-        // 플레이어와 보스의 거리 구하기
-        float dist = Vector3.Distance(player.transform.position, transform.position);
-        if (dist > meleeAttackDistance)
-        {
+        //// 플레이어와 보스의 거리 구하기
+        //float dist = Vector3.Distance(player.transform.position, transform.position);
+        //if (dist > meleeAttackDistance)
+        //{
             
-            ChangeState(EnemyState.ShotAttack);
-            //ChangeState(EnemyState.Move);
-        }
+        //    ChangeState(EnemyState.ShotAttack);
+        //    //ChangeState(EnemyState.Move);
+        //}
     }
 
     // 공격 하고있는가?
@@ -463,6 +465,7 @@ public class BossBehavior : MonoBehaviour
         StartCoroutine(WaitAndChageState(6.2f));
     }
 
+    // 중거리 공격 2 - 땅내려치기 - 파티클2 생성 
     public void Shot2Particle()
     {
         // 파티클 넣기
@@ -481,9 +484,16 @@ public class BossBehavior : MonoBehaviour
         
     }
 
+
+    // 돌진 시도 중인가 체크
+    private bool end = false;
+
     // 플레이어를 향해 돌진, 일정 시간이 지나면 이동 상태로 돌아간다.
     private IEnumerator ChargeTowardsPlayer()
     {
+        // 다음 돌진 시 초기화
+        end = false;
+
         // 돌진할것인가
         isCharging = true;
 
@@ -518,7 +528,19 @@ public class BossBehavior : MonoBehaviour
         while (Time.time < startTime + chargeDuration)
         {
             
-            agent.SetDestination(player.position);
+            agent.SetDestination(targetPosition);
+
+            // 충돌 판정 (가령 플레이어와의 거리로 체크)
+            if (!end && Vector3.Distance(transform.position, player.position) < meleeAttackDistance - 2)
+            {
+                // 플레이어에게 데미지 입히기
+                GameManager.instance.Damaged(attackPower);
+                // 데미지를 한 번 입히면 true로 설정하여 연속 데미지 방지
+                end = true;
+                print("돌진데미지");
+            }
+            // 여기까지
+
             print("돌진중");
             yield return null;
         }

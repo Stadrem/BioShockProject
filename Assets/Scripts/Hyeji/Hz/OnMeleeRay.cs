@@ -41,7 +41,7 @@ public class OnMeleeRay : MonoBehaviour
         // 레이캐스트 발사
         RaycastHit hit;
 
-        Debug.DrawRay(origin, direction * 7, Color.red, 1.0f);
+        Debug.DrawRay(origin, direction * 12, Color.red, 1.0f);
 
         if (Physics.Raycast(origin, direction, out hit, 7, playerLayer))
         {
@@ -70,6 +70,14 @@ public class OnMeleeRay : MonoBehaviour
         }
         else
         {
+            // 플레이어와 보스의 거리 구하기
+            float dist = Vector3.Distance(bossBehavior.player.transform.position, transform.position);
+            if (dist > bossBehavior.meleeAttackDistance)
+            {
+
+                bossBehavior.ChangeState(BossBehavior.EnemyState.ShotAttack);
+                //ChangeState(EnemyState.Move);
+            }
             Debug.Log("충돌없어");
         }
     }

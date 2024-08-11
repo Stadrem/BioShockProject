@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class LittleSis_1 : MonoBehaviour
+public class FirstLittleSister : MonoBehaviour
 {
 
     public enum SisterState
