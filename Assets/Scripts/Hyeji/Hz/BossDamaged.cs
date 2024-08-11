@@ -16,26 +16,56 @@ public class BossDamaged : MonoBehaviour
 
     // 보스행동 스크립트
     private BossBehavior bossBehavior;
-    // 보스행동 스크립트
+    // 보스행동 스크립트2
     private BossBehavior_2 bossBehavior2;
+
+    // 보스행동 스크립트2
+    private rosieBehavior rosie;
+
+    // Particle System
+    ParticleSystem ps;
+    // 파티클 오브젝트
+    public GameObject ParitcleLight;
+
+    // AudioSource
+    private AudioSource audioSource;
+    // 사운드 - 빅대디 데미지 상태
+    public AudioClip damageSound;
+
 
     // Start is called before the first frame update
     void Start()
     {
         // bossBehavior 스크립트 참조
         bossBehavior = GetComponent<BossBehavior>();
-        // bossBehavior_2 스크립트 참조
-        bossBehavior2 = GetComponent<BossBehavior_2>();
-
+        // rosieBehavior 스크립트 참조
+        rosie = GetComponent<rosieBehavior>();
         // 현재 HP를 최대 HP로 설정하자
         currHP = maxHP;
+        // Audio
+        audioSource = GetComponent<AudioSource>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
 
+    void MakeParticle()
+    {
+        GameObject psLight = Instantiate(ParitcleLight);
+        psLight.transform.position = transform.position;
+        // 파티클 시스템 컴포넌트 가져오기
+        ParticleSystem ps = psLight.GetComponent<ParticleSystem>();
+        // 컴포넌트 있으면 실행하게 하기
+        if (ps != null)
+        {
+            ps.Play();
+        }
+        // 2초가 지나면 파괴하게 하기
+        Destroy(psLight, 2);
     }
 
     public void Damaged(int damage, string type)
@@ -45,6 +75,8 @@ public class BossDamaged : MonoBehaviour
         {
             currHP = 0;
             bossBehavior.ChangeState(BossBehavior.EnemyState.Die);
+            CheckIfDead();
+            return;
         }
 
         // HP 바를 갱신하자.
@@ -54,15 +86,19 @@ public class BossDamaged : MonoBehaviour
         switch (type)
         {
             case "Shock":
+                PlayDamageEffect(type);
                 StartCoroutine(StunDamageStep(damage, 1.0f));
                 break;
             case "Fire":
+                PlayDamageEffect(type);
                 StartCoroutine(DamageStep(damage, 5, type));
                 break;
             case "Ice":
+                PlayDamageEffect(type);
                 StartCoroutine(FreezeDamageStep(3, 3.0f));
                 break;
             default:
+                PlayDamageEffect(type);
                 StartCoroutine(DamageStep(damage, 1, type));
                 break;
         }
@@ -148,6 +184,17 @@ public class BossDamaged : MonoBehaviour
 
             // 대기 상태로 전환한다.
             bossBehavior.ChangeState(BossBehavior.EnemyState.Idle);
+        }
+    }
+
+    // 공통된 피해 효과를 처리
+    private void PlayDamageEffect(string type)
+    {
+        MakeParticle();
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+            Debug.Log($"{type} 타입의 데미지 발생");
         }
     }
 }

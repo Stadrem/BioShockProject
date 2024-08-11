@@ -47,6 +47,9 @@ public class BossBehavior_2 : MonoBehaviour
     public GameObject firePos;
     public GameObject bulletFactory;
 
+    // Audio Source
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +65,8 @@ public class BossBehavior_2 : MonoBehaviour
         //agent.isStopped = false;
         // 로지의 시작 지점 저장
         startPosition = transform.position;
+        // Audio
+        audioSource = GetComponent<AudioSource>();
 
         // 초기 상태를 Idle로 설정
         //ChangeState(EnemyState.Idle);

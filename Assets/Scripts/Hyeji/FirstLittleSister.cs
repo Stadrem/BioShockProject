@@ -50,20 +50,19 @@ public class FirstLittleSister : MonoBehaviour
     // 빅대디 행동 스크립트
     private BossBehavior bossBehavior;
 
+
     // Start is called before the first frame update
     void Start()
     {
         // 빅대디의 transform 값 가져오기
         bigDaddy = GameObject.Find("BigDaddy").transform;
-
         // NavMeshAgent
         agent = GetComponent<NavMeshAgent>();
-
         // 애니메이션 컨트롤러
         anim = GetComponentInChildren<Animator>();
-
         // 빅대디 행동 스크립트 가져오기
         bossBehavior = GetComponent<BossBehavior>();
+
 
         // 애니메이터가 존재한다면 idle 트리거 발생
         if (anim != null)

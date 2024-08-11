@@ -5,8 +5,26 @@ using UnityEngine.AI;
 
 public class BossBehavior : MonoBehaviour
 {
-    // 파티클 시스템 오브젝트
+    // 파티클 시스템 오브젝트 (근접, 충돌)
     public GameObject particlesRing;
+    // 파티클 시스템 오브젝트 (땅 내려치기)
+    public GameObject paritlclesLight;
+
+    public AudioSource audioSource;
+
+    // 사운드 - 대기 상태
+    public AudioClip IdleSound;
+    // 사운드 - 이동 상태
+    public AudioClip MoveSound;
+    // 사운드 - 드릴 휘두르는 상태
+    public AudioClip drillSound;
+    // 사운드 - 충돌 났을때 상태
+    public AudioClip collisionSound;
+    // 사운드 - 돌진 상태
+    public AudioClip chargeSound;
+    // 사운드 - 빅대디 죽음 상태
+    public AudioClip dieSound;
+
     // 에너미 상태
     public enum EnemyState
     {
@@ -84,8 +102,8 @@ public class BossBehavior : MonoBehaviour
     // Animation Controller
     Animator anim;
 
-    // 보스행동 스크립트
-    private OnMeleeAttackEnd onMelee;
+    // 근접 레이 스크립트
+    public OnMeleeRay meleeRay;
 
     // 플레이어 위치를 저장하는 큐
     private Queue<Vector3> playerPositions = new Queue<Vector3>();
@@ -99,7 +117,6 @@ public class BossBehavior : MonoBehaviour
     public float detectionRange = 15f;
 
     public float meleeAttackRange = 5f; // 근접 공격 거리
-    //public LayerMask playerLayer; // 플레이어가 속한 레이어
     public Transform rayOrigin; // 레이 오브젝트
 
 
@@ -116,9 +133,11 @@ public class BossBehavior : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         // 보스 데미지 스크립트
         bossDamaged = GetComponent<BossDamaged>();
-        // bossBehavior 스크립트 참조
-        onMelee = GetComponent<OnMeleeAttackEnd>();
-
+        // meleeRay 스크립트 참조
+        meleeRay = GetComponentInChildren<OnMeleeRay>();
+        // Audio
+        audioSource = GetComponent<AudioSource>();
+        // 플레이어 위치 저장
         StartCoroutine(RecordPlayerPosition());
 
     }
@@ -127,14 +146,6 @@ public class BossBehavior : MonoBehaviour
     {
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
-
-        // 보스가 플레이어와 너무 가까이 붙지 않도록 거리 유지
-        //if (distanceToPlayer < 2.9f)  // 예시: 최소 2미터 거리를 유지
-        //{
-        //    Vector3 direction = (transform.position - player.transform.position).normalized;
-        //    transform.position = player.transform.position + direction * 2.9f;
-        //}
-
 
         // 플레이어가 있는 방향으로 몸을 회전시킨다.
         Vector3 directionToPlayer = player.position - transform.position;
@@ -169,19 +180,6 @@ public class BossBehavior : MonoBehaviour
                 currTime = 0;
             }
         }
-        //if (isKnockback == true)
-        //{
-
-        //    currTime += Time.deltaTime;
-        //    GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
-        //    print("넉백");
-
-        //    if (currTime > knockbackTime)
-        //    {
-        //        isKnockback = false;
-        //        currTime = 0;
-        //    }
-        //}
 
         switch (state)
         {
@@ -228,6 +226,7 @@ public class BossBehavior : MonoBehaviour
                 agent.isStopped = false;
                 // 이동 상태 애니메이션
                 anim.SetTrigger("Move");
+                
                 break;
             case EnemyState.Melee:
                 agent.isStopped = true;
@@ -282,10 +281,18 @@ public class BossBehavior : MonoBehaviour
         // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작
         if (distanceToPlayer <= detectionRange)
         {
+            // 소리한번 내고
+            if (IdleSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(IdleSound);
+                Debug.Log("대기상태소리임");
+            }
+
             ChangeState(EnemyState.Move);
             return;
         }
     }
+
     // 이동 상태 함수
     public void Move()
     {
@@ -306,8 +313,15 @@ public class BossBehavior : MonoBehaviour
         }
         else
         {
+            // 보스가 이미 이동 중인지 확인하여 사운드 중복 방지
+            if (!audioSource.isPlaying && MoveSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(MoveSound);
+                Debug.Log("움직여");
+            }
+
             agent.SetDestination(player.position);
-            //anim.SetTrigger("Move");
+            anim.SetTrigger("Move");
         }
     }
 
@@ -324,14 +338,28 @@ public class BossBehavior : MonoBehaviour
             // 애니메이션
             anim.SetTrigger("Melee");
 
+            // 드릴 오디오
+            // 소리한번 내고
+            if (drillSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(drillSound);
+                Debug.Log("드릴 휘두르는 소리");
+            }
             print("근접 공격");
-            // Ray 적용
-            MeleeRay();
 
+            if(meleeRay != null)
+            {
+                //MeleeRay();
+                meleeRay.Meleeray();
+                Debug.Log("Melee 호출되라");
+            }
+            else
+            {
+                Debug.Log("Null");
+            }           
             // 초기화
             currTime = 0;
         }
-
         // 플레이어와 보스의 거리 구하기
         float dist = Vector3.Distance(player.transform.position, transform.position);
         if (dist > meleeAttackDistance)
@@ -341,7 +369,6 @@ public class BossBehavior : MonoBehaviour
             //ChangeState(EnemyState.Move);
         }
     }
- 
 
     // 공격 하고있는가?
     bool isAttacking;
@@ -372,6 +399,7 @@ public class BossBehavior : MonoBehaviour
         // 플레이어와의 거리 다시 계산
         float dist = Vector3.Distance(player.position, transform.position);
         // 중거리 공격 범위 밖이면
+        // 이거 다시 확인할것
         if (dist > shotAttackDistance)
         {
             // 이동 상태로 전환
@@ -403,6 +431,12 @@ public class BossBehavior : MonoBehaviour
     public void ShotAttackType1()
     {
         anim.SetTrigger("Shot");
+        // 소리한번 내고
+        if (chargeSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(chargeSound);
+            Debug.Log("대기상태소리임");
+        }
         StartCoroutine(ChargeTowardsPlayer());
     }
 
@@ -413,9 +447,10 @@ public class BossBehavior : MonoBehaviour
         anim.ResetTrigger("Shot2");
         anim.ResetTrigger("Move");
 
-        anim.SetTrigger("Shot2");
-        // 파티클 넣기 
+        anim.SetTrigger("Shot2");     
         print("땅내려치기");
+        // 파티클 넣기
+        ParticleLight();
 
         // 일정시간이 지난 후 상태를 변경, 빠져나온다
         StartCoroutine(WaitAndChageState(6.2f));
@@ -456,13 +491,32 @@ public class BossBehavior : MonoBehaviour
         float chargeDuration = 2f;
         float startTime = Time.time;
 
+        // 돌진 시작과 동시에 소리 재생 (반복 재생 설정)
+        if (chargeSound != null && audioSource != null)
+        {
+            audioSource.loop = true;  // 루프 설정
+            audioSource.clip = chargeSound;
+            audioSource.Play();
+            Debug.Log("돌진 시작 - 소리 재생");
+        }
+
         // 지정된 시간동안 돌진
         while (Time.time < startTime + chargeDuration)
         {
+            
             agent.SetDestination(player.position);
             print("돌진중");
             yield return null;
         }
+
+        // 돌진 끝나면 소리 중지
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            audioSource.loop = false;  // 루프 설정 해제
+            Debug.Log("돌진 종료 - 소리 중지");
+        }
+
         // 속도 원래 속도로 바꾸기
         agent.speed = originMoveSpeed;
         // 돌진 끝
@@ -477,7 +531,6 @@ public class BossBehavior : MonoBehaviour
     public void Damaged(int damage, string type)
     {
         anim.SetTrigger("Damage");
-
         GetComponent<BossDamaged>().Damaged(damage, type);
 
     }
@@ -485,6 +538,12 @@ public class BossBehavior : MonoBehaviour
     public void Die()
     {
         anim.SetTrigger("Die");
+        // 소리한번 내고
+        if (dieSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(dieSound);
+            Debug.Log("죽었");
+        }
         print("사망");
 
     }
@@ -495,8 +554,8 @@ public class BossBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // 파티클 라이징 생성 함수
-    void ParticleMake()
+    // 파티클 라이징 생성 함수 (충돌 했을 때)
+    public void ParticleMake()
     {
         // 파티클 라이징 생성시킨다.
         GameObject rising = Instantiate(particlesRing);
@@ -513,77 +572,23 @@ public class BossBehavior : MonoBehaviour
         Destroy(rising, 2);
     }
 
-    void MeleeRay()
+    // 파티클 라이트 생성 함수 (땅내려치기 했을 때)
+    void ParticleLight()
     {
-        // "Player" 레이어를 playerLayer로 설정
-        int playerLayer = LayerMask.GetMask("Player");
-
-        Debug.Log("MeleeRay 호출됨");
-
-        // 플레이어의 중심을 향하는 방향 벡터를 계산
-        Vector3 origin = rayOrigin.position;
-        Vector3 direction = (player.position - origin).normalized;
-
-        // 현재 보스와 플레이어의 거리 확인
-        float distanceToPlayer = Vector3.Distance(player.position, origin);
-        Debug.Log("보스와 플레이어 간 거리: " + distanceToPlayer);
-
-        // 레이캐스트 발사
-        RaycastHit hit;
-
-        Debug.DrawRay(origin, direction * 7, Color.red, 1.0f);
-
-        if (Physics.Raycast(origin, direction, out hit, 7, playerLayer))
+        // 파티클 라이징 생성시킨다.
+        GameObject light = Instantiate(paritlclesLight);
+        // 파티클 라이징의 위치를 빅대디의 위치로 한다.
+        light.transform.position = transform.position;
+        // 파티클 시스템 컴포넌트 가져오기
+        ParticleSystem ps = light.GetComponent<ParticleSystem>();
+        // 컴포넌트 있으면 실행하게 하기
+        if (ps != null)
         {
-            Debug.Log("RayCast 충돌 발생");
-
-            if (hit.transform.CompareTag("Player"))
-            {
-                Debug.Log("플레이어와 충돌");
-
-                // 부딪히면 파티클 생성
-                ParticleMake();
-                isKnockback = true;
-                GameManager.instance.Damaged(meleeAttackPower);   
-                
-                
-            }
+            ps.Play();
         }
-        else
-        {
-            Debug.Log("충돌없어");
-        }
-
-
-        //Debug.Log("MeleeRay 호출됨");
-        //Vector3 direction = player.position - transform.position;
-
-        //// 레이캐스트 발사
-        //RaycastHit hit;
-        //// 눈으로 확인해보기
-        //Debug.DrawRay(transform.position, direction * meleeAttackRange, Color.red, 1.0f);
-
-        //if (Physics.Raycast(transform.position, direction, out hit, meleeAttackRange, playerLayer))
-        //{
-        //    Debug.Log("???");
-        //    Debug.Log(hit.transform.name);
-
-        //    // 레이캐스트가 맞은 객체의 태그가 "Player"인지 확인
-        //    if (hit.transform.CompareTag("Player"))
-        //    {
-        //        // 플레이어에게 피해를 입힌다.
-        //        Debug.Log("Ray");
-        //        // 플레이어에게 넉백 적용
-        //        isKnockback = true;
-        //        GameManager.instance.Damaged(meleeAttackPower);
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.Log("충돌없어");
-        //}
+        // 2초가 지나면 파괴하게 하기
+        Destroy(light, 2);
     }
-
     // 공격시 충돌 처리 
     private void OnTriggerEnter(Collider other)
     {
