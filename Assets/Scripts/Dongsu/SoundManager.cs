@@ -18,6 +18,8 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip failSound;
 
+    public AudioClip healSound;
+
     private void Awake()
     {
         //instance 값이 null이면
@@ -47,6 +49,11 @@ public class SoundManager : MonoBehaviour
         transform.SetParent(GameManager.instance.player.transform);
     }
 
+    void PlaySound(AudioClip audios, float volume)
+    {
+        audioSource.PlayOneShot(audios, volume);
+    }
+
     public void DamagedSound()
     {
         PlaySound(damagedAudio, 0.5f);
@@ -55,11 +62,6 @@ public class SoundManager : MonoBehaviour
     public void RootSound()
     {
         PlaySound(rootAudio, 0.5f);
-    }
-
-    void PlaySound(AudioClip audios, float volume)
-    {
-        audioSource.PlayOneShot(audios, volume);
     }
 
     public void SelectSound()
@@ -75,5 +77,10 @@ public class SoundManager : MonoBehaviour
     public void FailSound()
     {
         PlaySound(failSound, 0.5f);
+    }
+
+    public void HealSound()
+    {
+        PlaySound(healSound, 0.5f);
     }
 }

@@ -41,7 +41,8 @@ public class ItemBoxRoot : MonoBehaviour
                 //추가적인 무작위성을 위해 20% 확률로 날려버림
                 if (Random.Range(0, 10) >= 8)
                 {
-                    itemList.RemoveAt(itemList.Count - 1); // 마지막 아이템 제거
+                    // 마지막 아이템 제거
+                    itemList.RemoveAt(itemList.Count - 1);
                 }
             }
         }
@@ -50,6 +51,7 @@ public class ItemBoxRoot : MonoBehaviour
     //ui 매니저에 현재 아이템 박스가 보유한 아이템들 보여주는 함수
     public void itemView()
     {
+        //아이템 리스트 3칸에 정보 채워넣음
         for (int h = 0; h < itemList.Count; h++)
         {
             UiManager.instance.imgList[h].gameObject.SetActive(true);
@@ -58,46 +60,86 @@ public class ItemBoxRoot : MonoBehaviour
 
     }
 
-    //아이템 획득 시 순차적으로 제거
+    //아이템 획득 시 순차적으로 획득 및 제거
     public void GetItem()
     {
+        //아이템이 비어있지 않다면
         if (itemList != null)
         {
+            //상자에 등록된 아이템 갯수가 0보다 작음
             if (itemList.Count <= 0)
             {
+                //그냥 빈칸만 보여줄거임
                 itemView();
             }
             else
             {
-                //달러면 3~7개 획득
+                //몇개 주워갈지에 대한 임시 변수
+                int tempNum = 0;
+
+                //이게 무슨 아이템 이름인지?
+                string tempName = UiManager.instance.nameList[itemList[0]];
+
+                //달러면 2~45개 획득
                 if (itemList[0] == 5)
                 {
-                    int tempDollar = Random.Range(2, 17);
-                    UiManager.instance.keepItems[5] += tempDollar;
+                    tempNum = Random.Range(2, 46);
+
+                    UiManager.instance.keepItems[5] += tempNum;
+
+                    //달러 전용 팝업
                     StartCoroutine(DollarGet());
                 }
                 //총알이면 3~10발
                 if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
                 {
-                    UiManager.instance.keepItems[itemList[0]] += Random.Range(3, 11);
+                    tempNum = Random.Range(3, 11);
+
+                    UiManager.instance.keepItems[itemList[0]] += tempNum;
                 }
+                //그 외의 모든 아이템은 1개
                 else
                 {
-                    UiManager.instance.keepItems[itemList[0]] += 1;
+                    tempNum = 1;
+
+                    UiManager.instance.keepItems[itemList[0]] += tempNum;
                 }
+                //아이템 획득 알림
+                StartCoroutine(ItemGetAlret(tempName, tempNum));
+
+                //첫번째 배열 제거
                 itemList.RemoveAt(0);
+
+                //획득 후 남은 아이템 보여줌
                 itemView();
             }
         }
+        //보유 아이템 새로고침 및 사운드 재생
         UiManager.instance.ItemRefresh();
         SoundManager.instance.RootSound();
     }
 
+    //달러 획득 팝업
     IEnumerator DollarGet()
     {
+        //현재 숫자 자릿수에 따라서 0을 더 붙여줌 (D4)
         UiManager.instance.dollarText.text = UiManager.instance.keepItems[5].ToString("D4");
+
+        //팝업 딸깍
         UiManager.instance.dollarUi.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         UiManager.instance.dollarUi.SetActive(false);
+    }
+
+    //아이템 갯수 알림 팝업
+    IEnumerator ItemGetAlret(string name, int num)
+    {
+        string sum = "획득: " + name + " ( " + num + " )";
+        UiManager.instance.getAlret.text = sum;
+
+        //팝업 딸깍
+        UiManager.instance.getAlret.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        UiManager.instance.getAlret.gameObject.SetActive(false);
     }
 }

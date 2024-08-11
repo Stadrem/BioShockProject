@@ -28,12 +28,16 @@ public class UiManager : MonoBehaviour
     public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 
     //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
-    string[] nameList = new string[] { "렌치", "권총 일반탄", "기관총 일반탄", "산탄총 일반탄", "이브 주사기", "달러", "응급 치료 키트" };
+    public string[] nameList = new string[] { "렌치", "권총 일반탄", "기관총 일반탄", "산탄총 일반탄", "이브 주사기", "달러", "응급 치료 키트" };
 
     //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
     int[] priceList = new int[] { 0, 2, 1, 5, 40, 1, 20 };
 
+    //스토어 리스트 담는 곳
     public GameObject[] storeList = new GameObject[] { };
+
+    //상점Ui
+    public GameObject shopUi;
 
     //계획된 아이템 갯수
     public int maxItems = 8;
@@ -68,28 +72,32 @@ public class UiManager : MonoBehaviour
     public LayerMask layerMask;
 
     //탄창 관련
-    //public int bulletCurrent = 0;
-    //public int bulletMax = 0;
     public Text bulletCurrentText;
     public Text bulletMaxText;
 
+    //필요한 탄창 갯수
     int needMagazine;
     //1번 권총탄, 2번 기관총, 3번 샷건, 0번 빈칸
     int[] weaponeMagazine = new int[] { 0, 0, 0, 0 };
     int currentWeapone = 1;
 
+    //현재 매직인가?
     bool currentWahtMagic = false;
 
+    //이벤트 텍스트 팝업
     public GameObject dialogueUi;
     public Text dialougeText;
 
+    //크로스 헤어
     public RectTransform crossHair;
 
+    //달러 획득 팝업
     public GameObject dollarUi;
-
     public GameObject dollarTextObj;
-
     public TextMeshProUGUI dollarText;
+
+    //아이템 획득 알림
+    public Text getAlret;
 
     void Awake()
     {
@@ -108,10 +116,13 @@ public class UiManager : MonoBehaviour
             //의도치 않은 중복 적용일 태니 이 게임 오브젝트 파괴.
             Destroy(gameObject);
         }
+
+        //상점 초기화
         for(int i = 0; i < storeList.Length; i++)
         {
             ThisItemNum itemInfo = storeList[i].GetComponent<ThisItemNum>();
 
+            //0번은 사용하지 않으므로 1번으로 수정
             if(i == 0)
             {
                 int fix = 1;
@@ -120,6 +131,7 @@ public class UiManager : MonoBehaviour
                 itemInfo.icon = spriteList[fix];
                 itemInfo.price = priceList[fix];
             }
+            //4번은 달러이므로 스킵
             else if(i == 4)
             {
                 int fix = 6;
@@ -128,6 +140,7 @@ public class UiManager : MonoBehaviour
                 itemInfo.icon = spriteList[fix];
                 itemInfo.price = priceList[fix];
             }
+            //스킵해야할 놈들 때문에 1씩 밀어서 사용
             else
             {
                 itemInfo.itemNum = i + 1;
@@ -154,17 +167,17 @@ public class UiManager : MonoBehaviour
 
         dollarText.text = keepItems[5].ToString("D4");
 
-        //DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 5.0f);
+        DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 3.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
         ItemBox();
+
         if (Input.GetButtonDown("Heal"))
         {
             UseHeal();
-            ItemRefresh();
         }
     }
 
@@ -192,6 +205,7 @@ public class UiManager : MonoBehaviour
 
                 if (Input.GetButtonDown("Get") && rootUiOn)
                 {
+                    //획득 로직
                     BoxListRefresh();
                     itemBoxRoot.GetItem();
                     ItemRefresh();
@@ -199,7 +213,7 @@ public class UiManager : MonoBehaviour
 
                 if (Input.GetButtonDown("Get") && !rootUiOn)
                 {
-                    print("아이템 박스 오픈");
+                    //아이템 박스 오픈
                     nameUi.SetActive(false);
                     searchUi.SetActive(false);
                     nameSpaceUi.SetActive(false);
@@ -214,6 +228,7 @@ public class UiManager : MonoBehaviour
             }
             else
             {
+                //종료
                 nameSpaceUi.SetActive(true);
                 nameUi.SetActive(true);
                 searchUi.SetActive(false);
@@ -301,18 +316,23 @@ public class UiManager : MonoBehaviour
         if (keepItems[6] > 0)
         {
             keepItems[6] -= 1;
-            ItemRefresh();
-            GameManager.instance.HP = GameManager.instance.maxHP;
-            HPRefresh(GameManager.instance.maxHP);
-        }
-        else if(GameManager.instance.HP == GameManager.instance.maxHP)
-        {
-            return;
-        }
 
-        else
+            ItemRefresh();
+
+            GameManager.instance.HP = GameManager.instance.maxHP;
+
+            HPRefresh(GameManager.instance.maxHP);
+
+            SoundManager.instance.HealSound();
+        }
+        else if(keepItems[6] == 0)
         {
             Alret("응급 처치 도구가 없습니다.");
+        }
+        else if (GameManager.instance.HP == GameManager.instance.maxHP)
+        {
+            Alret("사용 할 필요가 없습니다.");
+            return;
         }
     }
 
