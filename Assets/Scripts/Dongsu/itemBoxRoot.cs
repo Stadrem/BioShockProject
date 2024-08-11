@@ -69,22 +69,29 @@ public class ItemBoxRoot : MonoBehaviour
             }
             else
             {
+                int tempNum = 0;
+
+                string tempName = UiManager.instance.nameList[itemList[0]];
+
                 //달러면 3~7개 획득
                 if (itemList[0] == 5)
                 {
-                    int tempDollar = Random.Range(2, 17);
-                    UiManager.instance.keepItems[5] += tempDollar;
+                    tempNum = Random.Range(2, 17);
+                    UiManager.instance.keepItems[5] += tempNum;
                     StartCoroutine(DollarGet());
                 }
                 //총알이면 3~10발
                 if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
                 {
-                    UiManager.instance.keepItems[itemList[0]] += Random.Range(3, 11);
+                    tempNum = Random.Range(3, 11);
+                    UiManager.instance.keepItems[itemList[0]] += tempNum;
                 }
                 else
                 {
-                    UiManager.instance.keepItems[itemList[0]] += 1;
+                    tempNum = 1;
+                    UiManager.instance.keepItems[itemList[0]] += tempNum;
                 }
+                StartCoroutine(ItemGetAlret(tempName, tempNum));
                 itemList.RemoveAt(0);
                 itemView();
             }
@@ -93,11 +100,22 @@ public class ItemBoxRoot : MonoBehaviour
         SoundManager.instance.RootSound();
     }
 
+    //달러 갱신
     IEnumerator DollarGet()
     {
         UiManager.instance.dollarText.text = UiManager.instance.keepItems[5].ToString("D4");
         UiManager.instance.dollarUi.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         UiManager.instance.dollarUi.SetActive(false);
+    }
+
+    //아이템 갯수 알림 팝업
+    IEnumerator ItemGetAlret(string name, int num)
+    {
+        string sum = name + "을 " + num + "개 획득했습니다.";
+        UiManager.instance.getAlret.text = sum;
+        UiManager.instance.getAlret.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        UiManager.instance.getAlret.gameObject.SetActive(false);
     }
 }
