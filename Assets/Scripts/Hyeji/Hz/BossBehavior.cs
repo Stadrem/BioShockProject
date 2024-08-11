@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class BossBehavior : MonoBehaviour
 {
     // 파티클 시스템 오브젝트
-    GameObject particlesRing;
+    public GameObject particlesRing;
     // 에너미 상태
     public enum EnemyState
     {
@@ -38,7 +38,7 @@ public class BossBehavior : MonoBehaviour
     // 근접 공격 범위
     public float meleeAttackDistance = 5f;
     // 근접 공격력
-    public int meleeAttackPower = 10;
+    public int meleeAttackPower = 3;
     // 중거리 공격 범위
     public float shotAttackDistance = 20f;
     // 중거리 공격력
@@ -394,6 +394,7 @@ public class BossBehavior : MonoBehaviour
         anim.ResetTrigger("Move");
 
         anim.SetTrigger("Shot2");
+        // 파티클 넣기 
         print("땅내려치기");
 
         // 일정시간이 지난 후 상태를 변경, 빠져나온다
@@ -520,10 +521,11 @@ public class BossBehavior : MonoBehaviour
             {
                 Debug.Log("플레이어와 충돌");
 
-                isKnockback = true;
-                GameManager.instance.Damaged(meleeAttackPower);   
                 // 부딪히면 파티클 생성
                 ParticleMake();
+                isKnockback = true;
+                GameManager.instance.Damaged(meleeAttackPower);   
+                
                 
             }
         }

@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2bd722e30a5363489bc0e7e35511455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlesRing: {fileID: 5302658394907460404, guid: 9b59fd4cdaa68f043b5db1c7a1631ad5,
+    type: 3}
   state: 0
   player: {fileID: 0}
   currTime: 0
