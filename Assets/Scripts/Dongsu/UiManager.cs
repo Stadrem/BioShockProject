@@ -122,6 +122,7 @@ public class UiManager : MonoBehaviour
         {
             ThisItemNum itemInfo = storeList[i].GetComponent<ThisItemNum>();
 
+            //0번은 사용하지 않으므로 1번으로 수정
             if(i == 0)
             {
                 int fix = 1;
@@ -130,6 +131,7 @@ public class UiManager : MonoBehaviour
                 itemInfo.icon = spriteList[fix];
                 itemInfo.price = priceList[fix];
             }
+            //4번은 달러이므로 스킵
             else if(i == 4)
             {
                 int fix = 6;
@@ -138,6 +140,7 @@ public class UiManager : MonoBehaviour
                 itemInfo.icon = spriteList[fix];
                 itemInfo.price = priceList[fix];
             }
+            //스킵해야할 놈들 때문에 1씩 밀어서 사용
             else
             {
                 itemInfo.itemNum = i + 1;
@@ -164,7 +167,7 @@ public class UiManager : MonoBehaviour
 
         dollarText.text = keepItems[5].ToString("D4");
 
-        //DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 5.0f);
+        DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 3.0f);
     }
 
     // Update is called once per frame
