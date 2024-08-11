@@ -48,7 +48,7 @@ public class BossDamaged : MonoBehaviour
         }
 
         // HP 바를 갱신하자.
-        float ratio = currHP * 0.01f;
+        //float ratio = currHP * 0.01f;
         //hpUI.value = ratio;
 
         switch (type)

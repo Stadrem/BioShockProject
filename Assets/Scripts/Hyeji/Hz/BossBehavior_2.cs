@@ -59,7 +59,7 @@ public class BossBehavior_2 : MonoBehaviour
         player = GameObject.Find("Player").transform;
         // NavMeshAgent 컴포넌트
         agent = GetComponent<NavMeshAgent>();
-        agent.isStopped = false;
+        //agent.isStopped = false;
         // 로지의 시작 지점 저장
         startPosition = transform.position;
 
@@ -69,6 +69,7 @@ public class BossBehavior_2 : MonoBehaviour
         // LineRenderer 
         lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
+
         //StartCoroutine(Patrol());
     }
 
@@ -103,6 +104,7 @@ public class BossBehavior_2 : MonoBehaviour
         switch (newState)
         {
             case EnemyState.Idle:
+                agent.isStopped = true;
                 anim.SetTrigger("IDLE");
                 break;
             case EnemyState.Move:
@@ -112,7 +114,7 @@ public class BossBehavior_2 : MonoBehaviour
                 break;
             case EnemyState.Attack:
                 // 공격 시에는 navmesh 멈추자
-                agent.isStopped = false;
+                agent.isStopped = true;
                 anim.SetTrigger("ATTACK");
                 break;
             case EnemyState.Damaged:

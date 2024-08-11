@@ -146,8 +146,8 @@ public class FirstLittleSister : MonoBehaviour
 
 
                     // 이동하면서 회전하기
-                    Quaternion targetRotation = Quaternion.LookRotation(dir);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+                    //Quaternion targetRotation = Quaternion.LookRotation(dir);
+                    //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
 
                     timer = 0;
                 }

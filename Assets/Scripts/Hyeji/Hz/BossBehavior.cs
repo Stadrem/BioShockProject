@@ -36,7 +36,7 @@ public class BossBehavior : MonoBehaviour
     public float moveSpeed = 2;
 
     // 근접 공격 범위
-    public float meleeAttackDistance = 10f;
+    public float meleeAttackDistance = 5f;
     // 근접 공격력
     public int meleeAttackPower = 10;
     // 중거리 공격 범위
@@ -99,7 +99,7 @@ public class BossBehavior : MonoBehaviour
     public float detectionRange = 15f;
 
     public float meleeAttackRange = 5f; // 근접 공격 거리
-    public LayerMask playerLayer; // 플레이어가 속한 레이어
+    //public LayerMask playerLayer; // 플레이어가 속한 레이어
     public Transform rayOrigin; // 레이 오브젝트
 
 
@@ -151,8 +151,10 @@ public class BossBehavior : MonoBehaviour
         // 넉백 처리
         if (isKnockback == true)
         {
+
             currTime += Time.deltaTime;
             GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
+            print("넉백");
 
             if (currTime > knockbackTime)
             {
@@ -209,9 +211,7 @@ public class BossBehavior : MonoBehaviour
                 break;
             case EnemyState.Melee:
                 agent.isStopped = true;
-                //isKnockback = true;
-                // 애니메이션
-                anim.SetTrigger("Melee");
+                //isKnockback = true;         
                 break;
             case EnemyState.ShotAttack:
                 {
@@ -301,12 +301,12 @@ public class BossBehavior : MonoBehaviour
         // 공격 지연시간 경과시
         if (currTime >= attackDelayTime)
         {
+            // 애니메이션
+            anim.SetTrigger("Melee");
+
             print("근접 공격");
             // Ray 적용
             MeleeRay();
-
-            // 상태를 전환하거나, 루프가 다시 돌아오지 않도록 설정
-            ChangeState(EnemyState.Idle);
 
             // 초기화
             currTime = 0;
@@ -494,6 +494,9 @@ public class BossBehavior : MonoBehaviour
 
     void MeleeRay()
     {
+        // "Player" 레이어를 playerLayer로 설정
+        int playerLayer = LayerMask.GetMask("Player");
+
         Debug.Log("MeleeRay 호출됨");
 
         // 플레이어의 중심을 향하는 방향 벡터를 계산
@@ -507,17 +510,21 @@ public class BossBehavior : MonoBehaviour
         // 레이캐스트 발사
         RaycastHit hit;
 
-        Debug.DrawRay(origin, direction * meleeAttackDistance, Color.red, 1.0f);
+        Debug.DrawRay(origin, direction * 7, Color.red, 1.0f);
 
-        if (Physics.Raycast(origin, direction, out hit, meleeAttackDistance, playerLayer))
+        if (Physics.Raycast(origin, direction, out hit, 7, playerLayer))
         {
             Debug.Log("RayCast 충돌 발생");
 
             if (hit.transform.CompareTag("Player"))
             {
                 Debug.Log("플레이어와 충돌");
+
                 isKnockback = true;
-                GameManager.instance.Damaged(meleeAttackPower);
+                GameManager.instance.Damaged(meleeAttackPower);   
+                // 부딪히면 파티클 생성
+                ParticleMake();
+                
             }
         }
         else
