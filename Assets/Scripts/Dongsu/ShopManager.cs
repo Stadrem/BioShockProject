@@ -8,7 +8,7 @@ public class ShopManager : MonoBehaviour
     public Sprite originEffect;
     public Sprite selectEffect;
     int selectNum = 0;
-    int beforeNum = 0;
+    //int beforeNum = 0;
     float whatUpDown = 0;
 
     private void Start()
