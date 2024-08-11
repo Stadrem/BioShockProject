@@ -119,6 +119,8 @@ public class BossBehavior : MonoBehaviour
     public float meleeAttackRange = 5f; // 근접 공격 거리
     public Transform rayOrigin; // 레이 오브젝트
 
+    public GameObject damageTriggerCube; 
+
 
 
     void Start()
@@ -139,6 +141,12 @@ public class BossBehavior : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         // 플레이어 위치 저장
         StartCoroutine(RecordPlayerPosition());
+
+        // 초기 상태에서 비활성화된 상태를 유지
+        if (damageTriggerCube != null)
+        {
+            damageTriggerCube.SetActive(false);
+        }
 
     }
 
@@ -607,6 +615,21 @@ public class BossBehavior : MonoBehaviour
                 // 플레이어에게 피해를 입힌다.
                 GameManager.instance.Damaged(attackPower);
             }
+        }
+    }
+
+    // 투명 박스를 활성화한 뒤 0.1초 후 비활성화
+    public IEnumerator ActivateDamageTrigger()
+    {
+        if (damageTriggerCube != null)
+        {
+            damageTriggerCube.SetActive(true); // 투명 박스 활성화
+            Debug.Log("투명 박스 활성화");
+
+            yield return new WaitForSeconds(0.1f); // 0.1초 대기
+
+            damageTriggerCube.SetActive(false); // 투명 박스 비활성화
+            Debug.Log("투명 박스 비활성화");
         }
     }
 }
