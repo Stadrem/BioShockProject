@@ -51,6 +51,17 @@ public class Telekinesis : MonoBehaviour
             return;
         }
 
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
+        }
+        else
+        {
+            anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
+
+        }
+
+
         if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate)
         {
 
@@ -99,15 +110,7 @@ public class Telekinesis : MonoBehaviour
                 GameManager.instance.TeleEffect();
                 PlaySound(throwSound); // 소리 재생
             }
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            {
-                anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
-            }
-            else
-            {
-                anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
-
-            }
+            
             lastFireTime = Time.time;
         }
 
