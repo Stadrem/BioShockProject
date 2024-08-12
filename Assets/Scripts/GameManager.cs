@@ -124,6 +124,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ShakeTime(num));
     }
 
+    public void TeleEffect()
+    {
+        StartCoroutine(TeleTime());
+    }
+
     IEnumerator ShakeTime(float i)
     {
         i = i * 0.2f;
@@ -142,6 +147,23 @@ public class GameManager : MonoBehaviour
 
         VolumeOrigin();
     }
+
+    IEnumerator TeleTime()
+    {
+        float volume = 0.5f;
+
+        while (volume > 0)
+        {
+            VolumeDamaged(volume);
+            yield return new WaitForSeconds(0.2f);
+            volume -= 0.1f;
+        }
+
+        VolumeDamaged(0);
+
+        VolumeOrigin();
+    }
+
     void VolumeOrigin()
     {
         volume.profile = vpOrigin;

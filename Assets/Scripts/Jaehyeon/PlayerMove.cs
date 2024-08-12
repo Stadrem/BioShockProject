@@ -17,10 +17,10 @@ public class PlayerMove : MonoBehaviour
     private bool isCrouching = false; // 앉기 상태
     private bool canJump = true; // 점프 가능 상태
 
-    private bool Knockback = false;
+    //private bool Knockback = false;
     private Vector3 backDirection;
-    private float knockbackTime;
-    private float knockbackDuration = 0.5f;
+    //private float knockbackTime;
+    //private float knockbackDuration = 0.5f;
 
     public float Walktime = 1;
     public float currenttime;
