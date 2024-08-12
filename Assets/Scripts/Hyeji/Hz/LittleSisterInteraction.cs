@@ -42,7 +42,7 @@ public class LittleSisterInteraction : MonoBehaviour
                 // 활성화 시키자
                 interactionUI.SetActive(true);
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.L))
                 {
                     // 호출 함수
                     Interact();
