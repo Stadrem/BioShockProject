@@ -123,7 +123,10 @@ public class BossBehavior : MonoBehaviour
     public float meleeAttackRange = 5f; // 근접 공격 거리
     public Transform rayOrigin; // 레이 오브젝트
 
-    public GameObject damageTriggerCube; 
+    public GameObject damageTriggerCube;
+
+    // 빅대디 죽었다
+    public bool isDying = false;
 
 
 
@@ -158,6 +161,13 @@ public class BossBehavior : MonoBehaviour
 
     void Update()
     {
+        // 죽으면 플레이어의 방향으로 회전하는 로직 false 시키기
+        if(state == EnemyState.Die)
+        {
+            // 나머지 상태 비활성화
+
+        }
+
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -213,7 +223,10 @@ public class BossBehavior : MonoBehaviour
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
                 break;
             case EnemyState.Die:
-                Die();
+                if(isDying == true)
+                {
+                    Die();
+                }       
                 break;
         }
     }
@@ -581,6 +594,8 @@ public class BossBehavior : MonoBehaviour
 
     public void Die()
     {
+        isDying = false;
+        print("죽었는지 확인");
         anim.SetTrigger("Die");
         // 소리한번 내고
         if (dieSound != null && audioSource != null)

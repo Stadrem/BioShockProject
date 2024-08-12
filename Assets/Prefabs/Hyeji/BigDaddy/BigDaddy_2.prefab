@@ -24,12 +24,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5493406254216666490}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.016879998, y: -0.032429993, z: 0.01900999}
-  m_LocalScale: {x: 0.009999998, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: -0.45567286, y: -0.11271723, z: -0.8756312, w: -0.11369754}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.009142295, y: 0.009142298, z: 0.009142295}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5485797912288789832}
+  m_Father: {fileID: 5273935340371939977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7481578861820693319
 GameObject:
@@ -83,6 +83,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currHP: 0
+  angry: 2
+  currTime: 0
   ParitcleLight: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
     type: 3}
   damageSound: {fileID: 8300000, guid: 40cad915ea28bb5429e9db67304a1765, type: 3}
@@ -434,15 +436,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -6370439082231127293, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
+    - targetCorrespondingSourceObject: {fileID: 2487701635932566722, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4863041996326090993}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b, type: 3}
---- !u!4 &5485797912288789832 stripped
+--- !u!4 &5273935340371939977 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -6370439082231127293, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
+  m_CorrespondingSourceObject: {fileID: 2487701635932566722, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
     type: 3}
   m_PrefabInstance: {fileID: 7761636521032328779}
   m_PrefabAsset: {fileID: 0}

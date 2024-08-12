@@ -11,6 +11,11 @@ public class BossDamaged : MonoBehaviour
     public int maxHP = 100;
     // 현재 HP
     public int currHP;
+    // 피격 횟수
+    public int angry = 2;
+
+    // 현재 시간
+    public float currTime;
 
     // HP UI
     //public Slider hpUI;
@@ -47,19 +52,23 @@ public class BossDamaged : MonoBehaviour
         currHP = maxHP;
         // Audio
         audioSource = GetComponent<AudioSource>();
-
-        
-
+     
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // 피격 횟수에 따른 애니메이션 딜레이 적용
+        currTime += Time.deltaTime;
+        // 리셋시간보다 현재시간이 커지면
+        if(currTime > 20)
+        {
+            // 피격 횟수 초기화
+            angry = 0;
+            // 현재 시간 초기화
+            currTime = 0;
+        }
     }
-
-
-
 
     void MakeParticle()
     {
@@ -76,8 +85,6 @@ public class BossDamaged : MonoBehaviour
         Destroy(psLight, 2);
     }
 
-
-
     public void Damaged(int damage, string type)
     {
         // 체력이 0 이하인지 확인
@@ -88,6 +95,13 @@ public class BossDamaged : MonoBehaviour
             onChangeState(BossBehavior.EnemyState.Die);
             CheckIfDead();
             return;
+        }
+
+        // 피격 증가 및 초기화
+        angry++;
+        if(angry < 5)
+        {
+            onChangeState(BossBehavior.EnemyState.Damaged);
         }
 
         // HP 바를 갱신하자.
@@ -128,8 +142,6 @@ public class BossDamaged : MonoBehaviour
         {
             //bossBehavior.ChangeState(BossBehavior.EnemyState.Damaged);
             onChangeState(BossBehavior.EnemyState.Damaged);
-
-
         }
     }
     //  동결 상태
@@ -160,6 +172,7 @@ public class BossDamaged : MonoBehaviour
     // 감전 상태
     IEnumerator StunDamageStep(int damage, float stunDuration)
     {
+
         currHP -= damage;
         print("감전");
 

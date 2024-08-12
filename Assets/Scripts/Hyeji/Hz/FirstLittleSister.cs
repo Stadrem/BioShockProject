@@ -74,6 +74,15 @@ public class FirstLittleSister : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 빅대디 죽으면 회전시키는 로직도 중단
+        // 빅대디가 살아있고, 죽지 않은 경우에만 회전 및 이동처리를 해야함 (변경 0812)
+        if(bigDaddy != null & !isDead)
+        {
+            return;
+        }
+
+
+
 
         // 빅대디가 있는 방향으로 몸을 회전시킨다.
         Vector3 directionToBigDaddy = bigDaddy.position - transform.position;
@@ -87,13 +96,18 @@ public class FirstLittleSister : MonoBehaviour
         }
 
         // 빅대디 죽으면 추적 다 중단
+        // 빅대디가 살아있고 추적 상태일때
         if (bigDaddy != null & !isDead && state == SisterState.Move)
         {
+            // 빅대디의 위치로 간다
             agent.SetDestination(bigDaddy.position);
         }
+        // 빅대디가 죽었고 추적이 중단된다면
         else
         {
-            agent.isStopped = false;
+            // 이동을 멈춘다 (이거 바꿨음 0812)
+            //agent.isStopped = false;
+            agent.isStopped = true;
         }
 
         // 상태

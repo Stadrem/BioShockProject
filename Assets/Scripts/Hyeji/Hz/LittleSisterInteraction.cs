@@ -15,6 +15,7 @@ public class LittleSisterInteraction : MonoBehaviour
     // 빅대디 죽었니?
     private bool isDead = false;
 
+    BossBehavior bossBehavior;
     private Animator anim;
     private NavMeshAgent agent;
 
@@ -27,32 +28,40 @@ public class LittleSisterInteraction : MonoBehaviour
 
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        bossBehavior = GetComponent<BossBehavior>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isDead)
-        {
-            // 리틀 시스터랑 플레이어 거리 구하기
-            float dist = Vector3.Distance(transform.position, player.position);
-            // 상호작용 거리에 들어오면
-            if (dist <= interactionDistance)
-            {
-                // 활성화 시키자
-                interactionUI.SetActive(true);
 
-                if (Input.GetKeyDown(KeyCode.L))
-                {
-                    // 호출 함수
-                    Interact();
-                }
-                else
-                {
-                    interactionUI.SetActive(false);
-                }
-            }
-        }
+        //if(BossBehavior.ChangeState(BossBehavior.EnemyState.Die)
+        //{
+        //    bossBehavior.ChangeState(BossBehavior.EnemyState.Die
+        //}
+
+
+        //if (isDead)
+        //{
+        //    // 리틀 시스터랑 플레이어 거리 구하기
+        //    float dist = Vector3.Distance(transform.position, player.position);
+        //    // 상호작용 거리에 들어오면
+        //    if (dist <= interactionDistance)
+        //    {
+        //        // 활성화 시키자
+        //        interactionUI.SetActive(true);
+
+        //        if (Input.GetKeyDown(KeyCode.L))
+        //        {
+        //            // 호출 함수
+        //            Interact();
+        //        }
+        //        else
+        //        {
+        //            interactionUI.SetActive(false);
+        //        }
+        //    }
+        //}
     }
 
     // 빅대디가 죽었을 때 호출하는 메서드
@@ -66,5 +75,7 @@ public class LittleSisterInteraction : MonoBehaviour
     void Interact()
     {
         print("상호작용 완료");
+        // 사라지게 해라
+        Destroy(this.gameObject);
     }
 }
