@@ -458,7 +458,7 @@ public class BossBehavior : MonoBehaviour
         anim.ResetTrigger("Move");
 
         anim.SetTrigger("Shot2");
-        GameManager.instance.CameraShake(2);
+        
         print("땅내려치기");
         
 
@@ -470,6 +470,7 @@ public class BossBehavior : MonoBehaviour
     public void Shot2Particle()
     {
         // 파티클 넣기
+        GameManager.instance.CameraShake(2);
         ParticleLight();
     }
 
