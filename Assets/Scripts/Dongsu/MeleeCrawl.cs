@@ -32,12 +32,10 @@ public class MeleeCrawl : MonoBehaviour
             if (distance > 5)
             {
                 enemyState.baseSpeed = 10;
-                anim.SetBool("IsCrawl", true);
             }
             else
             {
                 enemyState.baseSpeed = 5;
-                anim.SetBool("IsCrawl", false);
             }
         }
     }
