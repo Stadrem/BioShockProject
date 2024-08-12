@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5162446600886984749}
   - component: {fileID: 8102685861777930183}
-  - component: {fileID: 5973922542041721652}
+  - component: {fileID: 8578813519726488925}
   m_Layer: 0
   m_Name: Little
   m_TagString: Untagged
@@ -56,7 +56,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5973922542041721652
+--- !u!114 &8578813519726488925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,9 +65,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6088843881663705608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96e3ce6467e69984b8fa138187ee2515, type: 3}
+  m_Script: {fileID: 11500000, guid: da7d4a1dd7969f24bbe08ba70914c493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  followSpeed: 5
+  rotateSpeed: 10
+  followDistance: 3
+  wanderRadius: 7
+  wanderTimer: 3
+  timer: 0
+  randSection: 2
+  randRotate: 1
 --- !u!1001 &7570360876723664123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79,7 +88,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb244d55e50568b429cc71a3ccf1de54,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb244d55e50568b429cc71a3ccf1de54,
         type: 3}
@@ -89,7 +98,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb244d55e50568b429cc71a3ccf1de54,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.452
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb244d55e50568b429cc71a3ccf1de54,
         type: 3}
