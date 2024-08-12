@@ -119,6 +119,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ShakeTime(num));
     }
 
+    public void CameraShake(int num)
+    {
+        StartCoroutine(ShakeTime(num));
+    }
+
     IEnumerator ShakeTime(float i)
     {
         i = i * 0.2f;
@@ -147,11 +152,6 @@ public class GameManager : MonoBehaviour
     {
         volume.profile = vpDamaged;
         volume.weight = i;
-    }
-
-    public void CameraShake(int num)
-    {
-        StartCoroutine(ShakeTime(num));
     }
 
     IEnumerator DieCameraMoving()
