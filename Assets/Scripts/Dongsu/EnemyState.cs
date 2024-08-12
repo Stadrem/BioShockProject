@@ -51,6 +51,8 @@ public class EnemyState : MonoBehaviour
 
     public ParticleSystem bloodEffect;
 
+    bool damaging = false;
+
     public enum State
     {
         Idle,
@@ -154,16 +156,21 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
-        dieSound.Play(0);
-        bloodEffect.Play();
+        if(damaging == false)
+        {
+            damaging = true;
 
-        WaitStop();
+            dieSound.Play(0);
+            bloodEffect.Play();
 
-        anim.SetBool("IsDamaged", true);
+            WaitStop();
 
-        ChangeState(EnemyState.State.Chase);
+            anim.SetBool("IsDamaged", true);
 
-        AlertNearbyEnemies();
+            StartCoroutine(DeleyChase());
+
+            AlertNearbyEnemies();
+        }
     }
 
     void FreezeState()
@@ -275,6 +282,15 @@ public class EnemyState : MonoBehaviour
         anim.speed = 1;
 
         ChangeState(EnemyState.State.Chase);
+    }
+
+    IEnumerator DeleyChase()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        ChangeState(EnemyState.State.Chase);
+
+        damaging = false;
     }
 
     void AlertNearbyEnemies()
