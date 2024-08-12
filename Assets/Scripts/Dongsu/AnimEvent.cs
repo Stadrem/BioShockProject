@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.AI;
 using static EnemyAttack;
 using static UnityEngine.GraphicsBuffer;
 
 public class AnimEvent : MonoBehaviour
 {
     EnemyState enemyState;
+
+    NavMeshAgent nav;
 
     public IAttack attackSC;
 
@@ -24,7 +27,28 @@ public class AnimEvent : MonoBehaviour
 
         enemyState = GetComponentInParent<EnemyState>();
 
+        nav = GetComponentInParent<NavMeshAgent>();
+
         anim = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        // 현재 속도 벡터를 얻고, 그 크기를 구합니다.
+        float speed = nav.velocity.magnitude;
+
+        // 속도가 0.1 이상일 때 2번째 레이어의 weight 값을 1로 설정합니다.
+        if (speed > 0.05f && speed < 2)
+        {
+            anim.SetLayerWeight(1, 0.5f);
+        }
+        else if(speed < 0.05f)
+        {
+            anim.SetLayerWeight(1, 0f);
+        }
+
+        // Animator의 float 파라미터를 갱신합니다.
+        //anim.SetFloat("Speed", speed);
     }
 
     void IsAttack()
@@ -32,9 +56,9 @@ public class AnimEvent : MonoBehaviour
         attackSC.Attack();
     }
 
-    void IsDamaged()
+    void IsDamagedEnd()
     {
-        anim.SetBool("IsDamaged", false);
+        enemyState.damaging = false;
     }
 
     void IsTurn()

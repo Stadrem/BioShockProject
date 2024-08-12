@@ -34,8 +34,6 @@ public class ChaseRange : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && GameManager.instance.isDie == false)
         {
-            print("플레이어입장");
-
             serching = true;
 
             target = other.gameObject;
@@ -53,14 +51,10 @@ public class ChaseRange : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, tar.transform.position - transform.position, out hitInfo, chaseRange+20, enemyState.layerMask))
             {
-                print("Ray 발사  " + hitInfo.collider.name);
-
                 Debug.DrawRay(transform.position, tar.transform.position - transform.position, Color.red, 1.0f);
 
                 if (hitInfo.collider.gameObject == GameManager.instance.player)
                 {
-                    print("추적 시작");
-
                     enemyState.ChangeState(EnemyState.State.Chase);
 
                     serching = false;
@@ -70,19 +64,7 @@ public class ChaseRange : MonoBehaviour
             {
                 print("아무것도 없는데요?");
             }
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(2.0f);
         }
     }
-
-    /*
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            enemyState.ChangeState(EnemyState.State.Chase);
-
-            serching = false;
-        }
-    }
-    */
 }

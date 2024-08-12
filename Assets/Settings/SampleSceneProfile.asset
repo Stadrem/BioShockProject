@@ -68,7 +68,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.29
+    m_Value: 0.315
   smoothness:
     m_OverrideState: 1
     m_Value: 0.4
@@ -93,10 +93,10 @@ MonoBehaviour:
     m_Value: 0
   quality:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.088
+    m_Value: 0.1
   clamp:
     m_OverrideState: 0
     m_Value: 0.05
@@ -208,22 +208,22 @@ MonoBehaviour:
     m_Value: 10
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 118.23
+    m_Value: 30
   gaussianMaxRadius:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 1.5
   highQualitySampling:
     m_OverrideState: 0
     m_Value: 0
   focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 27.4
   aperture:
-    m_OverrideState: 0
-    m_Value: 5.6
+    m_OverrideState: 1
+    m_Value: 9.5
   focalLength:
-    m_OverrideState: 0
-    m_Value: 50
+    m_OverrideState: 1
+    m_Value: 139
   bladeCount:
     m_OverrideState: 0
     m_Value: 5
