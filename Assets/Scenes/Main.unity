@@ -10585,7 +10585,7 @@ PrefabInstance:
     - target: {fileID: 7566403572318675969, guid: 2f9c42652b8cf3b4086f37ec54d80857,
         type: 3}
       propertyPath: m_Name
-      value: Store (1)
+      value: Store
       objectReference: {fileID: 0}
     - target: {fileID: 7566403572318675969, guid: 2f9c42652b8cf3b4086f37ec54d80857,
         type: 3}
@@ -11531,7 +11531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 272487399}
   m_Layer: 0
-  m_Name: itemBoxs
+  m_Name: "\uB3C4\uAD6C \uC0C1\uC790"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12809,7 +12809,7 @@ PrefabInstance:
     - target: {fileID: 1007613399320212210, guid: ac3a37138623c224caa310ab6e1564c4,
         type: 3}
       propertyPath: m_Name
-      value: ResurrectionDevice (1)
+      value: ResurrectionDeviceB
       objectReference: {fileID: 0}
     - target: {fileID: 3424986337008290965, guid: ac3a37138623c224caa310ab6e1564c4,
         type: 3}
@@ -16205,7 +16205,7 @@ PrefabInstance:
     - target: {fileID: 1007613399320212210, guid: ac3a37138623c224caa310ab6e1564c4,
         type: 3}
       propertyPath: m_Name
-      value: ResurrectionDevice
+      value: ResurrectionDeviceA
       objectReference: {fileID: 0}
     - target: {fileID: 3424986337008290965, guid: ac3a37138623c224caa310ab6e1564c4,
         type: 3}
@@ -19187,7 +19187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1800551325}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: "\uC2A4\uD50C\uB77C\uC774\uC11C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
