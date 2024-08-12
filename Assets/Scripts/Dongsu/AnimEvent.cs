@@ -38,15 +38,11 @@ public class AnimEvent : MonoBehaviour
         float speed = nav.velocity.magnitude;
 
         // 속도가 0.1 이상일 때 2번째 레이어의 weight 값을 1로 설정합니다.
-        if (speed > 0.05f && speed < 6)
+        if (speed > 0.05f && speed < 2)
         {
             anim.SetLayerWeight(1, 0.5f);
         }
-        else if(speed > 6)
-        {
-            anim.SetLayerWeight(1, 0f);
-        }
-        else
+        else if(speed < 0.05f)
         {
             anim.SetLayerWeight(1, 0f);
         }
@@ -60,9 +56,9 @@ public class AnimEvent : MonoBehaviour
         attackSC.Attack();
     }
 
-    void IsDamaged()
+    void IsDamagedEnd()
     {
-        anim.SetBool("IsDamaged", false);
+        enemyState.damaging = false;
     }
 
     void IsTurn()
