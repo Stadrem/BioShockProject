@@ -162,6 +162,8 @@ public class EnemyState : MonoBehaviour
         anim.SetBool("IsDamaged", true);
 
         ChangeState(EnemyState.State.Chase);
+
+        AlertNearbyEnemies();
     }
 
     void FreezeState()
