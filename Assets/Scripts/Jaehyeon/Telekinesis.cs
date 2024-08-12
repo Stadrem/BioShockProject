@@ -71,7 +71,7 @@ public class Telekinesis : MonoBehaviour
                         StartCoroutine(EffectPopUP()); // 이펙트를 보이게 함
                         
                     }
-                    
+                    GameManager.instance.TeleEffect();
                     PlaySound(grabSound); // 소리 재생
                 }
                 else
@@ -86,6 +86,7 @@ public class Telekinesis : MonoBehaviour
                         {
                             StartCoroutine(EffectPopUP()); // 이펙트를 보이게 함
                         }
+                        GameManager.instance.TeleEffect();
                         PlaySound(grabSound); // 소리 재생
                     }
                 }
@@ -95,6 +96,7 @@ public class Telekinesis : MonoBehaviour
                 SucThrowObject();
                 grab = false;
                 StartCoroutine(EffectPopUP());
+                GameManager.instance.TeleEffect();
                 PlaySound(throwSound); // 소리 재생
             }
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
