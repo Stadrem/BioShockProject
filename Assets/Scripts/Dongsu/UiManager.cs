@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Searcher;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
@@ -16,14 +18,26 @@ public class UiManager : MonoBehaviour
     //아이콘들어갈 ui
     public List<Image> imgList = new List<Image>();
 
-    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 힐
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
     public List<Sprite> spriteList = new List<Sprite>();
 
     //0번 번개, 1번 불꽃, 2번 염동력
     public List<Sprite> spriteMagicList = new List<Sprite>();
 
-    //0번 힐, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
     public int[] keepItems = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    public string[] nameList = new string[] { "렌치", "권총 일반탄", "기관총 일반탄", "산탄총 일반탄", "이브 주사기", "달러", "응급 치료 키트" };
+
+    //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
+    int[] priceList = new int[] { 0, 2, 1, 5, 40, 1, 20 };
+
+    //스토어 리스트 담는 곳
+    public GameObject[] storeList = new GameObject[] { };
+
+    //상점Ui
+    public GameObject shopUi;
 
     //계획된 아이템 갯수
     public int maxItems = 8;
@@ -58,28 +72,32 @@ public class UiManager : MonoBehaviour
     public LayerMask layerMask;
 
     //탄창 관련
-    //public int bulletCurrent = 0;
-    //public int bulletMax = 0;
     public Text bulletCurrentText;
     public Text bulletMaxText;
 
+    //필요한 탄창 갯수
     int needMagazine;
     //1번 권총탄, 2번 기관총, 3번 샷건, 0번 빈칸
     int[] weaponeMagazine = new int[] { 0, 0, 0, 0 };
     int currentWeapone = 1;
 
+    //현재 매직인가?
     bool currentWahtMagic = false;
 
+    //이벤트 텍스트 팝업
     public GameObject dialogueUi;
     public Text dialougeText;
 
+    //크로스 헤어
     public RectTransform crossHair;
 
+    //달러 획득 팝업
     public GameObject dollarUi;
-
     public GameObject dollarTextObj;
-
     public TextMeshProUGUI dollarText;
+
+    //아이템 획득 알림
+    public Text getAlret;
 
     void Awake()
     {
@@ -98,6 +116,40 @@ public class UiManager : MonoBehaviour
             //의도치 않은 중복 적용일 태니 이 게임 오브젝트 파괴.
             Destroy(gameObject);
         }
+
+        //상점 초기화
+        for(int i = 0; i < storeList.Length; i++)
+        {
+            ThisItemNum itemInfo = storeList[i].GetComponent<ThisItemNum>();
+
+            //0번은 사용하지 않으므로 1번으로 수정
+            if(i == 0)
+            {
+                int fix = 1;
+                itemInfo.itemNum = fix;
+                itemInfo.itemName = nameList[fix];
+                itemInfo.icon = spriteList[fix];
+                itemInfo.price = priceList[fix];
+            }
+            //4번은 달러이므로 스킵
+            else if(i == 4)
+            {
+                int fix = 6;
+                itemInfo.itemNum = fix;
+                itemInfo.itemName = nameList[fix];
+                itemInfo.icon = spriteList[fix];
+                itemInfo.price = priceList[fix];
+            }
+            //스킵해야할 놈들 때문에 1씩 밀어서 사용
+            else
+            {
+                itemInfo.itemNum = i + 1;
+                itemInfo.itemName = nameList[i + 1];
+                itemInfo.icon = spriteList[i + 1];
+                itemInfo.price = priceList[i + 1];
+            }
+            
+        }
     }
 
     void Start()
@@ -113,17 +165,19 @@ public class UiManager : MonoBehaviour
         ItemRefresh();
         WeaponeChange(0);
 
-        //DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 5.0f);
+        dollarText.text = keepItems[5].ToString("D4");
+
+        DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 3.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
         ItemBox();
+
         if (Input.GetButtonDown("Heal"))
         {
             UseHeal();
-            ItemRefresh();
         }
     }
 
@@ -151,6 +205,7 @@ public class UiManager : MonoBehaviour
 
                 if (Input.GetButtonDown("Get") && rootUiOn)
                 {
+                    //획득 로직
                     BoxListRefresh();
                     itemBoxRoot.GetItem();
                     ItemRefresh();
@@ -158,7 +213,7 @@ public class UiManager : MonoBehaviour
 
                 if (Input.GetButtonDown("Get") && !rootUiOn)
                 {
-                    print("아이템 박스 오픈");
+                    //아이템 박스 오픈
                     nameUi.SetActive(false);
                     searchUi.SetActive(false);
                     nameSpaceUi.SetActive(false);
@@ -173,6 +228,7 @@ public class UiManager : MonoBehaviour
             }
             else
             {
+                //종료
                 nameSpaceUi.SetActive(true);
                 nameUi.SetActive(true);
                 searchUi.SetActive(false);
@@ -260,18 +316,23 @@ public class UiManager : MonoBehaviour
         if (keepItems[6] > 0)
         {
             keepItems[6] -= 1;
-            ItemRefresh();
-            GameManager.instance.HP = GameManager.instance.maxHP;
-            HPRefresh(GameManager.instance.maxHP);
-        }
-        else if(GameManager.instance.HP == GameManager.instance.maxHP)
-        {
-            return;
-        }
 
-        else
+            ItemRefresh();
+
+            GameManager.instance.HP = GameManager.instance.maxHP;
+
+            HPRefresh(GameManager.instance.maxHP);
+
+            SoundManager.instance.HealSound();
+        }
+        else if(keepItems[6] == 0)
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("응급 처치 도구가 없습니다.");
+        }
+        else if (GameManager.instance.HP == GameManager.instance.maxHP)
+        {
+            Alret("사용 할 필요가 없습니다.");
+            return;
         }
     }
 
@@ -286,7 +347,7 @@ public class UiManager : MonoBehaviour
         }
         else
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("이브 주사기가 없습니다.");
         }
     }
 
@@ -294,7 +355,7 @@ public class UiManager : MonoBehaviour
     {
         if (weaponeMagazine[currentWeapone] == 0)
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("총알이 장전 되어있지 않습니다.");
             return false;
         }
         weaponeMagazine[currentWeapone] -= 1;
@@ -333,7 +394,7 @@ public class UiManager : MonoBehaviour
         //갯수가 없으면 리턴걸어줘야함
         if (keepItems[currentWeapone] == 0)
         {
-            alretAnim.SetTrigger("Alret");
+            Alret("장전할 총알이 부족합니다.");
             return false;
         }
 
@@ -383,24 +444,21 @@ public class UiManager : MonoBehaviour
 
     public void WeaponeChange(int weapone)
     {
+        weaponeName.text = nameList[weapone];
         switch (weapone)
         {
             case 0:
-                weaponeName.text = "렌치";
                 bulletCurrentText.text = " ";
                 bulletMaxText.text = " ";
                 crossHair.localScale = new Vector3(0.5f, 0.5f, 1);
                 break;
             case 1:
-                weaponeName.text = "권총";
                 crossHair.localScale = new Vector3(1, 1, 1);
                 break;
             case 2:
-                weaponeName.text = "기관총";
                 crossHair.localScale = new Vector3(1.5f, 1.5f, 1);
                 break;
             case 3:
-                weaponeName.text = "산탄총";
                 crossHair.localScale = new Vector3(2f, 2f, 1);
                 break;
         }
@@ -458,5 +516,11 @@ public class UiManager : MonoBehaviour
         dialogueUi.SetActive(false);
 
         Time.timeScale = 1;
+    }
+
+    public void Alret(string text)
+    {
+        alretText.text = text;
+        alretAnim.SetTrigger("Alret");
     }
 }

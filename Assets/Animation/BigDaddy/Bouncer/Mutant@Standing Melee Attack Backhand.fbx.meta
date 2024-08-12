@@ -57,8 +57,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.31251648
-        functionName: Attack
+      - time: 0.3272711
+        functionName: Meleeray
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

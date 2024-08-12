@@ -24,9 +24,12 @@ public class BombExplosion : MonoBehaviour
         if(knockBack == true)
         {
             currentTime += Time.deltaTime;
-            GameManager.instance.player.transform.position += Vector3.back * 50 * Time.deltaTime;
 
-            if(currentTime > knockTime)
+            Vector3 knockbackDirection = -GameManager.instance.player.transform.forward * 25 * Time.deltaTime;
+
+            GameManager.instance.player.GetComponent<CharacterController>().Move(knockbackDirection);
+
+            if (currentTime > knockTime)
             {
                 knockBack = false;
                 currentTime = 0;
@@ -48,7 +51,7 @@ public class BombExplosion : MonoBehaviour
 
     IEnumerator BombTime()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(4.0f);
 
         Collider[] hits = Physics.OverlapSphere(transform.position, 4.0f, layerMask);
 

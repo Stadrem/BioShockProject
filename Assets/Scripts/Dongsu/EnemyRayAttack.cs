@@ -45,7 +45,7 @@ public class EnemyRayAttack : MonoBehaviour, IAttack
 
     IEnumerator AttackDelay()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
 
         RaycastHit hit;
 

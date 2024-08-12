@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(HP <= 0)
+        if (HP <= 0)
         {
             isDie = true;
 
@@ -119,6 +119,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ShakeTime(num));
     }
 
+    public void CameraShake(int num)
+    {
+        StartCoroutine(ShakeTime(num));
+    }
+
+    public void TeleEffect()
+    {
+        StartCoroutine(TeleTime());
+    }
+
     IEnumerator ShakeTime(float i)
     {
         i = i * 0.2f;
@@ -137,6 +147,17 @@ public class GameManager : MonoBehaviour
 
         VolumeOrigin();
     }
+
+    IEnumerator TeleTime()
+    {
+
+        VolumeDamaged(0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        VolumeOrigin();
+    }
+
     void VolumeOrigin()
     {
         volume.profile = vpOrigin;
@@ -147,11 +168,6 @@ public class GameManager : MonoBehaviour
     {
         volume.profile = vpDamaged;
         volume.weight = i;
-    }
-
-    public void CameraShake(int num)
-    {
-        StartCoroutine(ShakeTime(num));
     }
 
     IEnumerator DieCameraMoving()

@@ -47,6 +47,9 @@ public class BossBehavior_2 : MonoBehaviour
     public GameObject firePos;
     public GameObject bulletFactory;
 
+    // Audio Source
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,9 +62,11 @@ public class BossBehavior_2 : MonoBehaviour
         player = GameObject.Find("Player").transform;
         // NavMeshAgent 컴포넌트
         agent = GetComponent<NavMeshAgent>();
-        agent.isStopped = false;
+        //agent.isStopped = false;
         // 로지의 시작 지점 저장
         startPosition = transform.position;
+        // Audio
+        audioSource = GetComponent<AudioSource>();
 
         // 초기 상태를 Idle로 설정
         //ChangeState(EnemyState.Idle);
@@ -69,6 +74,7 @@ public class BossBehavior_2 : MonoBehaviour
         // LineRenderer 
         lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
+
         //StartCoroutine(Patrol());
     }
 
@@ -103,6 +109,7 @@ public class BossBehavior_2 : MonoBehaviour
         switch (newState)
         {
             case EnemyState.Idle:
+                agent.isStopped = true;
                 anim.SetTrigger("IDLE");
                 break;
             case EnemyState.Move:
@@ -112,7 +119,7 @@ public class BossBehavior_2 : MonoBehaviour
                 break;
             case EnemyState.Attack:
                 // 공격 시에는 navmesh 멈추자
-                agent.isStopped = false;
+                agent.isStopped = true;
                 anim.SetTrigger("ATTACK");
                 break;
             case EnemyState.Damaged:

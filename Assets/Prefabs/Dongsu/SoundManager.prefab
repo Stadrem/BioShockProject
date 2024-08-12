@@ -176,6 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagedAudio: {fileID: 8300000, guid: 40cda279da2faea43ad6582184440a70, type: 3}
   rootAudio: {fileID: 8300000, guid: d7c95eed694a87347a69766b51e45b3a, type: 3}
+  selectSound: {fileID: 8300000, guid: 7006f759989864a4e844eff608d61367, type: 3}
+  paySound: {fileID: 8300000, guid: f6ce6289074ae0444977853c3494b27c, type: 3}
+  failSound: {fileID: 8300000, guid: 6d0c6347becd17d45a0c4df2bc084c68, type: 3}
+  healSound: {fileID: 8300000, guid: a872dfc3f30897142b41b7920f846558, type: 3}
 --- !u!82 &3822702887171445769
 AudioSource:
   m_ObjectHideFlags: 0
