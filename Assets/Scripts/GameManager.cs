@@ -150,13 +150,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TeleTime()
     {
-        float volume = 0.5f;
+        float volume = 0.9f;
 
         while (volume > 0)
         {
             VolumeDamaged(volume);
-            yield return new WaitForSeconds(0.2f);
-            volume -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+            volume -= 0.2f;
         }
 
         VolumeDamaged(0);
