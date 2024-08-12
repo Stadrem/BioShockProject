@@ -457,7 +457,8 @@ public class BossBehavior : MonoBehaviour
         anim.ResetTrigger("Shot2");
         anim.ResetTrigger("Move");
 
-        anim.SetTrigger("Shot2");     
+        anim.SetTrigger("Shot2");
+        GameManager.instance.CameraShake(2);
         print("땅내려치기");
         
 
