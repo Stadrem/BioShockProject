@@ -40,7 +40,7 @@ public class AnimEvent : MonoBehaviour
         // 속도가 0.1 이상일 때 2번째 레이어의 weight 값을 1로 설정합니다.
         if (speed > 0.05f && speed < 6)
         {
-            anim.SetLayerWeight(1, 0.8f);
+            anim.SetLayerWeight(1, 0.5f);
         }
         else if(speed > 6)
         {
