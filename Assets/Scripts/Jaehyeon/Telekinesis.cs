@@ -114,7 +114,9 @@ public class Telekinesis : MonoBehaviour
             // 오브젝트를 플레이어 앞에 계속해서 유지
             grabbedObject.position = Vector3.Lerp(grabbedObject.position, Camera.main.transform.position + Camera.main.transform.forward * telekinesisGrabbi, Time.deltaTime * 10);
         }
+
     }
+
 
     bool TryUseMana()
     {
@@ -156,7 +158,14 @@ public class Telekinesis : MonoBehaviour
                     rb = grabbedObject.gameObject.AddComponent<Rigidbody>();
                 }
 
-                rb.useGravity = false;
+                Rigidbody[] allRb = grabbedObject.GetComponentsInChildren<Rigidbody>();
+                foreach (Rigidbody r in allRb)
+                {
+                    r.useGravity = false;
+                    r.angularVelocity = Vector3.zero;
+                }
+
+                
                 grab = true;
             }
         }
@@ -177,8 +186,16 @@ public class Telekinesis : MonoBehaviour
             rb = grabbedObject.gameObject.AddComponent<Rigidbody>();
         }
 
-        rb.useGravity = true;
-        rb.velocity = transform.forward * telekinesisForce;
+        Rigidbody[] allRb = grabbedObject.GetComponentsInChildren<Rigidbody>();
+        foreach(Rigidbody r in allRb)
+        
+        {
+            r.useGravity = true;
+            r.velocity = transform.forward * telekinesisForce;
+        }
+
+        //rb.useGravity = true;        
+        //rb.velocity = transform.forward * telekinesisForce;
 
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
