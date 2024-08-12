@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+// 에너미 상태
+
+
 public class BossBehavior : MonoBehaviour
 {
     // 파티클 시스템 오브젝트 (근접, 충돌)
@@ -31,12 +34,13 @@ public class BossBehavior : MonoBehaviour
         Idle,
         Move,
         Attack,
+        Damaged,
+        Die,
+
         Melee,
         ShotAttack,
         //ShotAttackType1,
         //ShotAttackType2,
-        Damaged,
-        Die
     }
     // 에너미 상태 변수
     public EnemyState state;
@@ -123,6 +127,7 @@ public class BossBehavior : MonoBehaviour
 
 
 
+
     void Start()
     {
         // 애니메이션 컨트롤러
@@ -135,6 +140,7 @@ public class BossBehavior : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         // 보스 데미지 스크립트
         bossDamaged = GetComponent<BossDamaged>();
+        bossDamaged.onChangeState = ChangeState;
         // meleeRay 스크립트 참조
         meleeRay = GetComponentInChildren<OnMeleeRay>();
         // Audio

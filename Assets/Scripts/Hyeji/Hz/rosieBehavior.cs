@@ -15,6 +15,7 @@ public class rosieBehavior : MonoBehaviour
         Die
     }
 
+
     // 에너미의 상태 변수
     public EnemyState state;
     // Player 의 Transform
@@ -54,6 +55,12 @@ public class rosieBehavior : MonoBehaviour
     // 사운드 - 빅대디 죽음 상태
     public AudioClip dieSound;
 
+    public void ChangeState(BossBehavior.EnemyState s)
+    {
+        EnemyState _state = (EnemyState)s;
+        ChangeState(_state);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +80,9 @@ public class rosieBehavior : MonoBehaviour
         // LineRenderer 
         lr.positionCount = 2;
         lr.enabled = false;
+
+        BossDamaged bossDamaged = GetComponent<BossDamaged>();
+        bossDamaged.onChangeState = ChangeState;
     }
 
     void Update()
@@ -131,7 +141,7 @@ public class rosieBehavior : MonoBehaviour
                 }
                 break;
             case EnemyState.Damaged:
-                anim.SetTrigger("DAMAGE");
+                anim.SetTrigger("DAMAGED");
                 break;
             case EnemyState.Die:
                 anim.SetTrigger("DIE");
