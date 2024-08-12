@@ -224,7 +224,12 @@ public class BossDamaged : MonoBehaviour
 
             // 대기 상태로 전환한다.
             //bossBehavior.ChangeState(BossBehavior.EnemyState.Idle);
-            onChangeState(BossBehavior.EnemyState.Idle);
+            if(currHP > 0)
+            {
+                // 이거 계속 사망 상태 이후에 Idle로 잘못전환되는걸 방지함
+                onChangeState(BossBehavior.EnemyState.Idle);
+            }
+            
 
         }
     }

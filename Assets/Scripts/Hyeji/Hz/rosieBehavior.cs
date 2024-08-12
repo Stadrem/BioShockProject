@@ -87,6 +87,12 @@ public class rosieBehavior : MonoBehaviour
 
     void Update()
     {
+        // 죽음 상태라면 빠져나가기
+        if(state == EnemyState.Die)
+        {
+            return;
+        }
+
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -219,9 +225,8 @@ public class rosieBehavior : MonoBehaviour
     }
 
     // 공격 상태 함수
-    void Attack()
+    public void Attack()
     {
-
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
         if (distanceToPlayer > attackDistance)
@@ -245,7 +250,7 @@ public class rosieBehavior : MonoBehaviour
             agent.isStopped = true;
             print("공격!");
             // 파티클
-            Particle();
+            //Particle();
             // 공격 수행
             AttackRay(player.position);
 
@@ -293,11 +298,14 @@ public class rosieBehavior : MonoBehaviour
 
     }
 
-    void AttackRay(Vector3 aimPos)
+    public void AttackRay(Vector3 aimPos)
     {
         // 플레이어가 있는 방향으로 ray를 발사한다.
         Ray ray = new Ray(firePos.transform.position, aimPos - firePos.transform.position);
         RaycastHit hit;
+
+        // 파티클
+        Particle();
 
         // Raycast 거리 설정
         float rayDistance = 20f;

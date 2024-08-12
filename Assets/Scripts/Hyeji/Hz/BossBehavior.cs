@@ -129,8 +129,6 @@ public class BossBehavior : MonoBehaviour
     public bool isDying = false;
 
 
-
-
     void Start()
     {
         // 애니메이션 컨트롤러
@@ -161,11 +159,13 @@ public class BossBehavior : MonoBehaviour
 
     void Update()
     {
-        // 죽으면 플레이어의 방향으로 회전하는 로직 false 시키기
-        if(state == EnemyState.Die)
+        // 죽음 상태라면 빠져나가기
+        if (state == EnemyState.Die)
         {
+            // 죽음만 활성화 
+            Die();
             // 나머지 상태 비활성화
-
+            return;
         }
 
         // 플레이어와의 거리 계산
@@ -234,6 +234,12 @@ public class BossBehavior : MonoBehaviour
     // 상태 변경 함수
     public void ChangeState(EnemyState newState)
     {
+        // 죽음 상태에서는 다른 상태로 전환되지 않도록 막기
+        if (state == EnemyState.Die)
+        {
+            return;
+        }
+
         // 상태 변경 전에 플래그를 초기화합니다.
         if (newState != EnemyState.ShotAttack)
         {
@@ -594,6 +600,12 @@ public class BossBehavior : MonoBehaviour
 
     public void Die()
     {
+        // 사망 상태 이미 설정되었다면 리셋
+        if(!isDying)
+        {
+            return;
+        }
+
         isDying = false;
         print("죽었는지 확인");
         anim.SetTrigger("Die");
