@@ -150,10 +150,16 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TeleTime()
     {
+        float volume = 0.5f;
 
-        VolumeDamaged(0.5f);
+        while (volume > 0)
+        {
+            VolumeDamaged(volume);
+            yield return new WaitForSeconds(0.2f);
+            volume -= 0.1f;
+        }
 
-        yield return new WaitForSeconds(0.5f);
+        VolumeDamaged(0);
 
         VolumeOrigin();
     }
