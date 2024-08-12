@@ -337,7 +337,7 @@ public class EnemyState : MonoBehaviour
     public void WaitStop()
     {
         na.velocity = Vector3.zero;
-        na.speed = 0;
+        na.speed = 2;
         na.isStopped = true;
     }
 
