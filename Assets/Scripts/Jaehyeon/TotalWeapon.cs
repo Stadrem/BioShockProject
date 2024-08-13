@@ -35,6 +35,12 @@ public class TotalWeapon : MonoBehaviour
     Animator anim;
 
     bool isReloading = false; // 장전 상태를 추적
+    public bool IsReloading()
+    {
+        return isReloading;
+    }
+
+    public bool isAttacking = false;
 
     //사운드 구현
     public AudioClip AttackSound;
@@ -51,6 +57,9 @@ public class TotalWeapon : MonoBehaviour
 
     void Update()
     {
+
+
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (isMagic)
@@ -169,8 +178,13 @@ public class TotalWeapon : MonoBehaviour
             Debug.Log("플레이어 HP가 0입니다. 공격할 수 없습니다.");
             return;
         }
-        
+
+        isAttacking = true;  // 공격 시작
         anim.SetTrigger("ATTACK");
+        StartCoroutine(EndAttack());
+
+
+
         // 발사 소리 재생
         if (AttackSound != null && audioSource != null)
         {
@@ -229,6 +243,8 @@ public class TotalWeapon : MonoBehaviour
             }
 
             Destroy(bulletImpact, 1); // 2초 뒤에 파괴
+
+            
         }
 
         
@@ -297,4 +313,13 @@ public class TotalWeapon : MonoBehaviour
             isRebound %= 3;            
         }        
     }
+
+    private IEnumerator EndAttack()
+    {
+        yield return new WaitForSeconds(1f); // 예를 들어 1초 뒤에 공격이 끝난다고 가정
+        isAttacking = false;
+    }
+
 }
+
+
