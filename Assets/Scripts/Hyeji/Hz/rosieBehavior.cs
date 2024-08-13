@@ -162,7 +162,7 @@ public class rosieBehavior : MonoBehaviour
         //// 플레이어와의 거리 계산
         //float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-        Debug.Log("distanceToPlayer: " + distanceToPlayer);
+        //Debug.Log("distanceToPlayer: " + distanceToPlayer);
         Debug.Log("detectionRange: " + detectionRange);
 
         // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작

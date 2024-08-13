@@ -76,12 +76,13 @@ public class FirstLittleSister : MonoBehaviour
     {
         // 빅대디 죽으면 회전시키는 로직도 중단
         // 빅대디가 살아있고, 죽지 않은 경우에만 회전 및 이동처리를 해야함 (변경 0812)
-        if(bigDaddy != null & !isDead)
-        {
-            return;
-        }
+        // 결국 빅대디가 없으면 회전 멈춰야하니까 리턴값을 빅대디가 없고 죽은 경우로 줘야함
+        //if(bigDaddy = null)
+        //{
+        //    return;
+        //}
 
-
+        // 빅대디 죽으면 Stop 함수로 호출
 
 
         // 빅대디가 있는 방향으로 몸을 회전시킨다.
@@ -97,7 +98,8 @@ public class FirstLittleSister : MonoBehaviour
 
         // 빅대디 죽으면 추적 다 중단
         // 빅대디가 살아있고 추적 상태일때
-        if (bigDaddy != null & !isDead && state == SisterState.Move)
+        if (bigDaddy != null & !isDead)
+        //if (bigDaddy != null & !isDead && state == SisterState.Move)
         {
             // 빅대디의 위치로 간다
             agent.SetDestination(bigDaddy.position);
@@ -161,6 +163,7 @@ public class FirstLittleSister : MonoBehaviour
     // 빅대디가 살아 있을경우, 이동 반경에 따른 대기 상태
     void Idle()
     {
+        // 빅대디가 살아있고 
         if (bigDaddy != null && !isDead)
         {
             // 빅대디와의 거리 계산
@@ -228,6 +231,7 @@ public class FirstLittleSister : MonoBehaviour
     }
     void Move()
     {
+        // 빅대디 있고, 살아있으면
         if (bigDaddy != null && !isDead)
         {
             // 빅대디와의 현재 거리 계산
@@ -254,6 +258,7 @@ public class FirstLittleSister : MonoBehaviour
                 }
             }
         }
+        // 빅대디 죽었으면 스탑
         else
         {
             ChangeState(SisterState.Stop);

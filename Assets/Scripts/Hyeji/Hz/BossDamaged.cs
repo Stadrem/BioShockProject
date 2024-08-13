@@ -61,7 +61,7 @@ public class BossDamaged : MonoBehaviour
         // 피격 횟수에 따른 애니메이션 딜레이 적용
         currTime += Time.deltaTime;
         // 리셋시간보다 현재시간이 커지면
-        if(currTime > 20)
+        if (currTime > 7)
         {
             // 피격 횟수 초기화
             angry = 0;
@@ -88,7 +88,7 @@ public class BossDamaged : MonoBehaviour
     public void Damaged(int damage, string type)
     {
         // 체력이 0 이하인지 확인
-        if(currHP <= 0)
+        if (currHP <= 0)
         {
             currHP = 0;
             //bossBehavior.ChangeState(BossBehavior.EnemyState.Die);
@@ -99,10 +99,12 @@ public class BossDamaged : MonoBehaviour
 
         // 피격 증가 및 초기화
         angry++;
-        if(angry < 5)
+        if (angry < 5)
         {
             onChangeState(BossBehavior.EnemyState.Damaged);
+            print("앵그리확인");
         }
+
 
         // HP 바를 갱신하자.
         //float ratio = currHP * 0.01f;

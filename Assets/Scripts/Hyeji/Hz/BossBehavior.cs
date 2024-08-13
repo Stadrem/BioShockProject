@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -158,7 +159,7 @@ public class BossBehavior : MonoBehaviour
     }
 
     void Update()
-    {
+    {     
         // 죽음 상태라면 빠져나가기
         if (state == EnemyState.Die)
         {
