@@ -34,6 +34,14 @@ public class ObjRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (GameManager.instance.HP <= 0)
+        {
+            // 공격을 멈추고 모든 움직임이나 상호작용을 차단
+            return;
+        }
+
+
         //1. 마우스의 움직임값을 받아오자(좌우상하)
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
