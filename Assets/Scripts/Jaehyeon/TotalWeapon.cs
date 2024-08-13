@@ -23,7 +23,7 @@ public class TotalWeapon : MonoBehaviour
     public float Rebound = 2.0f;
     public GameObject muzzleFlashPrefab; // 머즐 플래시 프리팹
     public Transform muzzleFlashPosition; // 머즐 플래시 위치
-
+    public bool isSwitching = false;
 
     // 마나 아이템 사용시 소모
     public int manaCost = 1; // 마법 사용 시 소모되는 마나
@@ -64,7 +64,7 @@ public class TotalWeapon : MonoBehaviour
             return;
         }
 
-        if (isReloading) // 장전 중에는 발사 불가능
+        if (isReloading || isSwitching) // 장전 중에는 발사 불가능
             return;
 
         if (isMagic)
@@ -164,12 +164,12 @@ public class TotalWeapon : MonoBehaviour
     public void Shoot()
     {
 
-        if (GameManager.instance.HP <= 0)
+        if (GameManager.instance.HP <= 0 || isReloading || isSwitching)
         {
             Debug.Log("플레이어 HP가 0입니다. 공격할 수 없습니다.");
             return;
         }
-
+        
         anim.SetTrigger("ATTACK");
         // 발사 소리 재생
         if (AttackSound != null && audioSource != null)
@@ -258,6 +258,7 @@ public class TotalWeapon : MonoBehaviour
 
             if (canReload)
             {
+
                 anim.SetTrigger("RELOAD");
                 StartCoroutine(ReloadCoroutine());
 

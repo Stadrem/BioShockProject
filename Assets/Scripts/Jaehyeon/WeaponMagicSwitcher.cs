@@ -15,15 +15,17 @@ public class WeaponMagicSwitcher : MonoBehaviour
     private int selectedWeapon = 0;
     private int selectedmagic = 0;
     private bool isMagicActive = false; // 현재 마법 모드인지 여부
+ 
 
     void Start()
     {
         SelectWeaponOrMagic();
-        
     }
 
     void Update()
     {
+
+
         // 마우스 휠로 무기 전환
         if (!isMagicActive)
         {
@@ -32,7 +34,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
             //마우스 휠 위로
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
+                
                 selectedWeapon = (selectedWeapon + 1) % weapons.Length;
+                
             }
             //마우스 휠 아래로 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
@@ -40,7 +44,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
                 selectedWeapon--;
                 if (selectedWeapon < 0)
                 {
+                    
                     selectedWeapon = weapons.Length - 1;
+                    
                 }
             }
 
@@ -81,6 +87,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
         {
             isMagicActive = !isMagicActive;
             SelectWeaponOrMagic();
+            
         }
 
         /*// 마우스 좌클릭으로 무기 또는 마법 사용
