@@ -65,7 +65,7 @@ public class Ending : MonoBehaviour
     {
         while (true)
         {
-            obj.transform.position -= new Vector3(0, 0.05f, 0);
+            obj.transform.position -= new Vector3(0, 0.02f, 0);
             yield return new WaitForSeconds(0.05f);
         }
     }
