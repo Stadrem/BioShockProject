@@ -57,13 +57,7 @@ public class TotalWeapon : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.HP <= 0)
-        {
-            // 공격을 멈추고 모든 움직임이나 상호작용을 차단
-            return;
-        }
-
-
+      
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (isMagic)
