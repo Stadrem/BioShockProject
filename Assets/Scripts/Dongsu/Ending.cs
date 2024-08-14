@@ -34,6 +34,7 @@ public class Ending : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //엔딩 이벤트 시작
+            EndingPack();
         }
     }
 
@@ -54,7 +55,7 @@ public class Ending : MonoBehaviour
         {
             blackOut.color = blackOut.color.WithAlpha(alpha);
             alpha += 0.01f;
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.2f);
             if (alpha >= 1) break;
         }
         SceneManager.LoadScene("Ending");
@@ -62,7 +63,7 @@ public class Ending : MonoBehaviour
 
     void CartGo()
     {
-        cart.m_Speed = 2;
+        cart.m_Speed = 2.0f;
     }
 
     void CameraOn()
@@ -73,7 +74,7 @@ public class Ending : MonoBehaviour
     {
         while (true)
         {
-            obj.transform.position -= new Vector3(0, 0.02f, 0);
+            obj.transform.position -= new Vector3(0, 0.01f, 0);
             yield return new WaitForSeconds(0.05f);
         }
     }
