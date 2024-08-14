@@ -1914,6 +1914,7 @@ MonoBehaviour:
   Rebound: 1.5
   muzzleFlashPrefab: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
   muzzleFlashPosition: {fileID: 3095646175598405367}
+  isSwitching: 0
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
@@ -2132,6 +2133,7 @@ MonoBehaviour:
   Rebound: 0
   muzzleFlashPrefab: {fileID: 0}
   muzzleFlashPosition: {fileID: 0}
+  isSwitching: 0
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
@@ -2481,6 +2483,7 @@ MonoBehaviour:
   Rebound: 0
   muzzleFlashPrefab: {fileID: 0}
   muzzleFlashPosition: {fileID: 0}
+  isSwitching: 0
   manaCost: 1
   isMagic: 1
   isShockandFire: 1
@@ -2803,6 +2806,7 @@ MonoBehaviour:
   Rebound: 2
   muzzleFlashPrefab: {fileID: 100002, guid: fc7f8379080d0a844ad699b91bfd56f0, type: 3}
   muzzleFlashPosition: {fileID: 1095820598299391471}
+  isSwitching: 0
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
@@ -3029,6 +3033,7 @@ MonoBehaviour:
   Rebound: 8
   muzzleFlashPrefab: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
   muzzleFlashPosition: {fileID: 5494597018464554177}
+  isSwitching: 0
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
@@ -3470,6 +3475,7 @@ MonoBehaviour:
   Rebound: 0
   muzzleFlashPrefab: {fileID: 0}
   muzzleFlashPosition: {fileID: 0}
+  isSwitching: 0
   manaCost: 1
   isMagic: 1
   isShockandFire: 1
