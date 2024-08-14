@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370157e9e0045114194e3bf234d6c2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 10
+  HP: 15
   maxHP: 0
   player: {fileID: 0}
   shakeAmount: 0.07
