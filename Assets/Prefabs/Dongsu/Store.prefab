@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 3780918181232582650}
   - component: {fileID: -3854455144737457966}
   - component: {fileID: 2530004349374233188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Store
   m_TagString: Untagged
   m_Icon: {fileID: 0}
