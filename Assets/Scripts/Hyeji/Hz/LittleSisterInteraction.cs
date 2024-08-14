@@ -10,7 +10,7 @@ public class LittleSisterInteraction : MonoBehaviour
     // 빅대디의 Transform
     Transform bigDaddy;
     // 플레이어 Transform
-    Transform player;
+    //Transform player;
     // 리틀 시스터 Transform
     Transform littleSister;
 
@@ -34,12 +34,12 @@ public class LittleSisterInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").transform;
+        //player = GameObject.Find("Player").transform;
         bigDaddy = GameObject.Find("BigDaddy").transform;
         littleSister = GameObject.Find("LittleSister").transform;
 
         // 널레퍼런스 방지하기
-        if(player == null || bigDaddy == null || littleSister == null)
+        if( bigDaddy == null || littleSister == null)
         {
             return;
         }
