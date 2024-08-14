@@ -31,7 +31,10 @@ public class Ending : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //엔딩 이벤트 시작
+        if (other.CompareTag("Player"))
+        {
+            //엔딩 이벤트 시작
+        }
     }
 
     void EndingPack()
