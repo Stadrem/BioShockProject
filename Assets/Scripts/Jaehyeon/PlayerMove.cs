@@ -70,6 +70,12 @@ public class PlayerMove : MonoBehaviour
         // 앉기 처리
         if (Input.GetKeyDown(KeyCode.C))
         {
+            if (GameManager.instance.HP <= 0)
+            {
+               
+                return;
+            }
+
             isCrouching = !isCrouching;
             if (isCrouching)
             {
@@ -93,6 +99,13 @@ public class PlayerMove : MonoBehaviour
         // 스페이스 바를 누르면 점프
         if (Input.GetButtonDown("Jump") && canJump) // 점프 가능 상태 확인
         {
+
+            if (GameManager.instance.HP <= 0)
+            {
+                
+                return;
+            }
+
             yVelocity = jumpPower;
             canJump = false; // 점프 후에는 점프 불가능 상태로 전환
             if (JumpSound != null && audioSource != null)

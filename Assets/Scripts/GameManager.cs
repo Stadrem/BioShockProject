@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public VolumeProfile vpOrigin;
     public VolumeProfile vpDamaged;
+    public VolumeProfile vpTele;
 
     AudioSource hitAudio;
 
@@ -150,16 +151,16 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TeleTime()
     {
-        float volume = 0.9f;
+        float volume = 1.0f;
 
         while (volume > 0)
         {
-            VolumeDamaged(volume);
-            yield return new WaitForSeconds(0.1f);
-            volume -= 0.2f;
+            VolumeTele(volume);
+            yield return new WaitForSeconds(0.05f);
+            volume -= 0.1f;
         }
 
-        VolumeDamaged(0);
+        VolumeTele(0);
 
         VolumeOrigin();
     }
@@ -173,6 +174,12 @@ public class GameManager : MonoBehaviour
     void VolumeDamaged(float i)
     {
         volume.profile = vpDamaged;
+        volume.weight = i;
+    }
+
+    void VolumeTele(float i)
+    {
+        volume.profile = vpTele;
         volume.weight = i;
     }
 

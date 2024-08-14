@@ -19,6 +19,7 @@ public class Telekinesis : MonoBehaviour
     public float fireRate = 0.1f; // 발사 간격 (자동 발사용)
     private float lastFireTime = 0f;
     Animator anim;
+    GameObject whatObjectTag;
     //public ParticleSystem effectPS;
 
     // 사운드 구현
@@ -50,6 +51,17 @@ public class Telekinesis : MonoBehaviour
             UseManaItem();
             return;
         }
+
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
+        }
+        else
+        {
+            anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
+
+        }
+
 
         if (Input.GetButton("Fire1") && Time.time - lastFireTime >= fireRate)
         {
@@ -99,15 +111,7 @@ public class Telekinesis : MonoBehaviour
                 GameManager.instance.TeleEffect();
                 PlaySound(throwSound); // 소리 재생
             }
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            {
-                anim.SetFloat("WALK_AND_IDLE", 1, 0.25f * 0.3f, Time.deltaTime);
-            }
-            else
-            {
-                anim.SetFloat("WALK_AND_IDLE", 0, 0.25f * 0.3f, Time.deltaTime);
-
-            }
+            
             lastFireTime = Time.time;
         }
 
@@ -142,7 +146,7 @@ public class Telekinesis : MonoBehaviour
         UiManager.instance.UseMana();
     }
 
-    void SucGrabObject()
+    public void SucGrabObject()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
@@ -152,7 +156,12 @@ public class Telekinesis : MonoBehaviour
         {
             if (hit.collider != null)
             {
+                whatObjectTag = hit.transform.gameObject;
+
                 grabbedObject = hit.transform;
+
+                Collider col = grabbedObject.GetComponent<Collider>();
+                col.enabled = false;
 
                 Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
                 if (rb == null)
@@ -173,7 +182,7 @@ public class Telekinesis : MonoBehaviour
         }
     }
 
-    void SucThrowObject()
+    public void SucThrowObject()
     {
         anim.SetTrigger("ATTACK");
         if (grabbedObject == null)
@@ -181,6 +190,9 @@ public class Telekinesis : MonoBehaviour
             grab = false;
             return;
         }
+
+        Collider col = grabbedObject.GetComponent<Collider>();
+        col.enabled = true;
 
         Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
         if (rb == null)
@@ -204,7 +216,7 @@ public class Telekinesis : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo, telekinesisRange, throwdamMask))
         {
             Debug.Log(hitInfo.transform.name);
-            if (hitInfo.collider.CompareTag("Enemy") || hitInfo.collider.CompareTag("Boss"))
+            if (hitInfo.collider.CompareTag("Enemy") || hitInfo.collider.CompareTag("Boss") && !whatObjectTag.CompareTag("Bomb"))
             {
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
                 if (damaged != null)

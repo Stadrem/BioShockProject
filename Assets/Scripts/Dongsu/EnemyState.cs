@@ -119,7 +119,6 @@ public class EnemyState : MonoBehaviour
 
             case State.Damaged:
                 print("데미지");
-                DamagedState();
                 break;
 
             case State.Freeze:
@@ -127,7 +126,6 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Die:
-                DieState();
                 break;
         }
     }
@@ -137,6 +135,33 @@ public class EnemyState : MonoBehaviour
         currentState = newState;
 
         na.isStopped = false;
+
+        switch (currentState)
+        {
+            case State.Idle:
+                break;
+
+            case State.Chase:
+                break;
+
+            case State.Attack:
+                break;
+
+            case State.Stun:
+                break;
+
+            case State.Damaged:
+                print("데미지");
+                DamagedState();
+                break;
+
+            case State.Freeze:
+                break;
+
+            case State.Die:
+                DieState();
+                break;
+        }
     }
 
     void IdleState()
@@ -156,8 +181,6 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
-        if(damaging == false)
-        {
             damaging = true;
 
             dieSound.Play(0);
@@ -171,7 +194,6 @@ public class EnemyState : MonoBehaviour
             StartCoroutine(DeleyChase());
 
             AlertNearbyEnemies();
-        }
     }
 
     void FreezeState()
