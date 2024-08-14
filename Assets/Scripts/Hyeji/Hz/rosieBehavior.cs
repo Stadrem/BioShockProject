@@ -55,6 +55,8 @@ public class rosieBehavior : MonoBehaviour
     // 사운드 - 빅대디 죽음 상태
     public AudioClip dieSound;
 
+    bool isDie = false;
+
     public void ChangeState(BossBehavior.EnemyState s)
     {
         EnemyState _state = (EnemyState)s;
@@ -93,6 +95,8 @@ public class rosieBehavior : MonoBehaviour
             return;
         }
 
+        
+
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -119,7 +123,13 @@ public class rosieBehavior : MonoBehaviour
 
     private void ChangeState(EnemyState newState)
     {
+
         if (state == newState) return;  // 동일한 상태로의 전환을 막음
+
+        if (isDie)
+        {
+            return;
+        }
 
         Debug.Log("Changing state from " + state + " to " + newState);
 
@@ -151,6 +161,7 @@ public class rosieBehavior : MonoBehaviour
                 break;
             case EnemyState.Die:
                 anim.SetTrigger("DIE");
+                isDie = true;
                 break;
         }
     }
