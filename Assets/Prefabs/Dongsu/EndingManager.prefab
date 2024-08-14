@@ -51,13 +51,15 @@ MonoBehaviour:
     width: 0.2
   m_Looped: 0
   m_Waypoints:
-  - position: {x: -2.027041, y: 0, z: -3.8860989}
+  - position: {x: -3.3013532, y: 2.5355575, z: -4.0138206}
     roll: 0
-  - position: {x: 1.451817, y: 0, z: 0.61517334}
+  - position: {x: 1.0575428, y: 1.0863764, z: 0.5301933}
     roll: 0
-  - position: {x: -0.4193592, y: 0, z: 6.99981}
+  - position: {x: -1.9328048, y: 0.44764143, z: 6.6016254}
     roll: 0
-  - position: {x: -18.506, y: 0, z: 4.953621}
+  - position: {x: -8.389967, y: 0, z: 6.109455}
+    roll: 0
+  - position: {x: -10.11122, y: 0, z: -0.90065956}
     roll: 0
 --- !u!1 &1451142367448752483
 GameObject:
@@ -87,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 1451142367448752483}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.306677, z: -0, w: 0.9518137}
-  m_LocalPosition: {x: 2.1871266, y: 5.24, z: -0.8271742}
+  m_LocalPosition: {x: 0.87, y: 2.71, z: -1.62}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -267,6 +269,37 @@ MonoBehaviour:
     m_PositionOffset: 0
     m_SearchRadius: 2
     m_SearchResolution: 5
+--- !u!1 &1734150705085144369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7293036602343348840}
+  m_Layer: 0
+  m_Name: EffectPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7293036602343348840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734150705085144369}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.65, y: 1.07, z: -1.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2689335503963135227}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3820975354612423116
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,8 +400,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3846835436685718102}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.40717304, z: -0, w: 0.91335106}
-  m_LocalPosition: {x: 3.222959, y: 0.18, z: -7.2060986}
+  m_LocalRotation: {x: 0.10052846, y: 0.47972164, z: -0.055439595, w: 0.86987793}
+  m_LocalPosition: {x: 1.9486468, y: 2.7155576, z: -7.3338203}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -416,8 +449,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5476851193915134234}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.32500985, y: -0.07600813, z: -0.026216436, w: 0.9422867}
-  m_LocalPosition: {x: 3.222959, y: 0.18, z: -7.2060986}
+  m_LocalRotation: {x: 0.00047580522, y: -0.09315612, z: 0.000044517757, w: 0.9956514}
+  m_LocalPosition: {x: 1.9486468, y: 2.7155576, z: -7.3338203}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -601,6 +634,7 @@ Transform:
   - {fileID: 2061944177316456407}
   - {fileID: 5876459429235971}
   - {fileID: 8549548935148655905}
+  - {fileID: 7293036602343348840}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &517986178245713337
@@ -618,7 +652,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -636,9 +670,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e594a4c6fafa5464f98d88becd9b64cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  handToggle: {fileID: 0}
   obj: {fileID: 1451142367448752483}
+  effect: {fileID: 8205706795460263314, guid: 326e86d5729c54e479798cacab220bb2, type: 3}
+  effectPosition: {fileID: 1734150705085144369}
+  ui: {fileID: 0}
   blackOut: {fileID: 8335199419807222774}
   cart: {fileID: 8372458680270042589}
-  main: {fileID: 0}
   dolly: {fileID: 2905232160529814992}
