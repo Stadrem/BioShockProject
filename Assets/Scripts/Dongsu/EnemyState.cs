@@ -51,7 +51,7 @@ public class EnemyState : MonoBehaviour
 
     public ParticleSystem bloodEffect;
 
-    bool damaging = false;
+    public bool damaging = false;
 
     public enum State
     {
@@ -119,7 +119,6 @@ public class EnemyState : MonoBehaviour
 
             case State.Damaged:
                 print("데미지");
-                DamagedState();
                 break;
 
             case State.Freeze:
@@ -127,7 +126,6 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Die:
-                DieState();
                 break;
         }
     }
@@ -137,6 +135,33 @@ public class EnemyState : MonoBehaviour
         currentState = newState;
 
         na.isStopped = false;
+
+        switch (currentState)
+        {
+            case State.Idle:
+                break;
+
+            case State.Chase:
+                break;
+
+            case State.Attack:
+                break;
+
+            case State.Stun:
+                break;
+
+            case State.Damaged:
+                print("데미지");
+                DamagedState();
+                break;
+
+            case State.Freeze:
+                break;
+
+            case State.Die:
+                DieState();
+                break;
+        }
     }
 
     void IdleState()
@@ -156,21 +181,19 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
-        if(damaging == false)
-        {
             damaging = true;
 
             dieSound.Play(0);
+
             bloodEffect.Play();
 
             WaitStop();
 
-            anim.SetBool("IsDamaged", true);
+            anim.SetTrigger("IsDamaged");
 
             StartCoroutine(DeleyChase());
 
             AlertNearbyEnemies();
-        }
     }
 
     void FreezeState()
@@ -286,11 +309,9 @@ public class EnemyState : MonoBehaviour
 
     IEnumerator DeleyChase()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
 
         ChangeState(EnemyState.State.Chase);
-
-        damaging = false;
     }
 
     void AlertNearbyEnemies()

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4488176361072370523}
   - component: {fileID: 8337721473361972873}
   - component: {fileID: 5222240631340912256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PopUpEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,4 +69,4 @@ MonoBehaviour:
   text: "\uBC14\uB85C \uC55E\uC5D0 \uBE45\uB300\uB514\uAC00 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uB3CC\uC9C4\uACFC
     \uAC15\uB825\uD55C \uADFC\uC811 \uACF5\uACA9\uC744 \uD558\uB2C8 \uC870\uC2EC\uD558\uC138\uC694.\n\n\uD589\uC6B4\uC744
     \uBE55\uB2C8\uB2E4!"
-  time: 5
+  time: 3

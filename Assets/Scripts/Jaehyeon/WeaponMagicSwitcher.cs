@@ -15,15 +15,22 @@ public class WeaponMagicSwitcher : MonoBehaviour
     private int selectedWeapon = 0;
     private int selectedmagic = 0;
     private bool isMagicActive = false; // 현재 마법 모드인지 여부
+    public TotalWeapon currentWeapon; // 현재 무기 스크립트
+
+   
 
     void Start()
     {
         SelectWeaponOrMagic();
-        
     }
 
     void Update()
     {
+        if (currentWeapon != null && currentWeapon.IsReloading() || currentWeapon.isAttacking)
+        {
+            return; // 장전 중일 때 무기 또는 마법 전환 불가
+        }
+
         // 마우스 휠로 무기 전환
         if (!isMagicActive)
         {
@@ -32,7 +39,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
             //마우스 휠 위로
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
+                
                 selectedWeapon = (selectedWeapon + 1) % weapons.Length;
+                
             }
             //마우스 휠 아래로 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
@@ -40,7 +49,9 @@ public class WeaponMagicSwitcher : MonoBehaviour
                 selectedWeapon--;
                 if (selectedWeapon < 0)
                 {
+                    
                     selectedWeapon = weapons.Length - 1;
+                    
                 }
             }
 
@@ -81,6 +92,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
         {
             isMagicActive = !isMagicActive;
             SelectWeaponOrMagic();
+            
         }
 
         /*// 마우스 좌클릭으로 무기 또는 마법 사용
@@ -112,9 +124,10 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (i == selectedWeapon && !isMagicActive)
             {
                 UiManager.instance.WeaponeChange(i);
+                currentWeapon = weapons[i].GetComponent<TotalWeapon>();
                 //weapons[i].transform.SetParent(rightHand);
                 //weapons[i].transform.localPosition = Vector3.zero;
-               // weapons[i].transform.localRotation = Quaternion.identity;
+                // weapons[i].transform.localRotation = Quaternion.identity;
             }
         }
     }
@@ -127,6 +140,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
             if (i == selectedmagic && isMagicActive)
             {
                 UiManager.instance.MagicChange(i);
+                
                 //magic[i].transform.SetParent(leftHand);
                 //magic[i].transform.localPosition = Vector3.zero;
                 //magic[i].transform.localRotation = Quaternion.identity;
@@ -136,6 +150,7 @@ public class WeaponMagicSwitcher : MonoBehaviour
     //무기나 마법 상태에 따라 오른팔과 왼팔 설정
     void SelectWeaponOrMagic()
     {
+
         if (isMagicActive)
         {
             //leftArm.SetActive(true);

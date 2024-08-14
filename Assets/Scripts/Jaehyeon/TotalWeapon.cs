@@ -23,7 +23,7 @@ public class TotalWeapon : MonoBehaviour
     public float Rebound = 2.0f;
     public GameObject muzzleFlashPrefab; // 머즐 플래시 프리팹
     public Transform muzzleFlashPosition; // 머즐 플래시 위치
-
+    public bool isSwitching = false;
 
     // 마나 아이템 사용시 소모
     public int manaCost = 1; // 마법 사용 시 소모되는 마나
@@ -35,6 +35,12 @@ public class TotalWeapon : MonoBehaviour
     Animator anim;
 
     bool isReloading = false; // 장전 상태를 추적
+    public bool IsReloading()
+    {
+        return isReloading;
+    }
+
+    public bool isAttacking = false;
 
     //사운드 구현
     public AudioClip AttackSound;
@@ -51,6 +57,7 @@ public class TotalWeapon : MonoBehaviour
 
     void Update()
     {
+      
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (isMagic)
@@ -64,7 +71,7 @@ public class TotalWeapon : MonoBehaviour
             return;
         }
 
-        if (isReloading) // 장전 중에는 발사 불가능
+        if (isReloading || isSwitching) // 장전 중에는 발사 불가능
             return;
 
         if (isMagic)
@@ -163,22 +170,20 @@ public class TotalWeapon : MonoBehaviour
 
     public void Shoot()
     {
-
-        if (GameManager.instance.HP <= 0)
+        if (GameManager.instance.HP <= 0 || isReloading || isSwitching)
         {
             Debug.Log("플레이어 HP가 0입니다. 공격할 수 없습니다.");
             return;
         }
 
+        isAttacking = true;  // 공격 시작
         anim.SetTrigger("ATTACK");
+        StartCoroutine(EndAttack());
         // 발사 소리 재생
         if (AttackSound != null && audioSource != null)
         {
-            //audioSource.Play();
-            //audioSource.time = 0.5f;
             audioSource.PlayOneShot(AttackSound);
         }
-
 
         if (effectPrefab == null)
         {
@@ -186,12 +191,27 @@ public class TotalWeapon : MonoBehaviour
             return;
         }
 
-        // Raycast를 이용해 적 감지 및 데미지 적용
+
+        if (type == "Shotgun") // 무기 타입이 샷건일 경우
+        {
+            ShootShotgun();
+        }
+        else // 그 외의 무기들은 기본 Shoot 방식을 사용
+        {
+            ShootStandard();
+        }
+
+        // 반동 효과 적용
+        ApplyRebound();
+    }
+
+    void ShootStandard()
+    {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hitInfo;
+
         if (Physics.Raycast(ray, out hitInfo, attackRange, layerMask))
         {
-            Debug.Log(hitInfo.transform.name);
             if (hitInfo.collider.CompareTag("Enemy"))
             {
                 Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
@@ -217,7 +237,6 @@ public class TotalWeapon : MonoBehaviour
                     Destroy(fire, 2f);
                 }
             }
-
             bulletImpact.transform.position = hitInfo.point;
             if (isMagic == true)
             {
@@ -229,22 +248,90 @@ public class TotalWeapon : MonoBehaviour
             }
 
             Destroy(bulletImpact, 1); // 2초 뒤에 파괴
+
         }
-
-        
-
-
 
         // 머즐 플래시 생성
         if (muzzleFlashPrefab != null && muzzleFlashPosition != null)
         {
             GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, muzzleFlashPosition.position, muzzleFlashPosition.rotation);
-           Destroy(muzzleFlash, 0.1f); // 0.1초 뒤에 파괴
+            Destroy(muzzleFlash, 0.1f);
         }
-
         // 반동 효과 적용
         ApplyRebound();
 
+    }
+
+    void ShootShotgun()
+    {
+        int pellets = 8; // 샷건에서 나가는 총알 수
+        float spreadAngle = 10f; // 퍼짐 각도
+
+        for (int i = 0; i < pellets; i++)
+        {
+            Vector3 spread = new Vector3(
+                Random.Range(-spreadAngle, spreadAngle),
+                Random.Range(-spreadAngle, spreadAngle),
+                0
+            );
+
+            Quaternion rotation = Quaternion.Euler(spread);
+            Vector3 direction = rotation * Camera.main.transform.forward;
+
+            Ray ray = new Ray(Camera.main.transform.position, direction);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo, attackRange, layerMask))
+            {
+                if (hitInfo.collider.CompareTag("Enemy"))
+                {
+                    Damaged damaged = hitInfo.collider.GetComponent<Damaged>();
+                    damaged.Damage(damage, type);
+                }
+                else if (hitInfo.collider.CompareTag("Boss"))
+                {
+                    BossDamaged bossDamaged = hitInfo.collider.GetComponent<BossDamaged>();
+                    bossDamaged.Damaged(damage, type);
+                }
+
+                // 파편 효과 생성
+                GameObject bulletImpact = Instantiate(effectPrefab);
+
+                if (isShockandFire == true)
+                {
+                    if (hitInfo.transform.CompareTag("Enemy") || hitInfo.transform.CompareTag("Boss"))
+                    {
+                        GameObject fire = Instantiate(fireEffect);
+
+                        fire.transform.position = hitInfo.transform.position;
+                        fire.transform.parent = hitInfo.transform;
+
+                        Destroy(fire, 2f);
+                    }
+                }
+
+                bulletImpact.transform.position = hitInfo.point;
+                if (isMagic == true)
+                {
+                    bulletImpact.transform.forward = transform.forward;
+                }
+                else
+                {
+                    bulletImpact.transform.forward = hitInfo.normal;
+                }
+
+                Destroy(bulletImpact, 1); // 2초 뒤에 파괴
+            }
+        }
+
+        // 머즐 플래시 생성
+        if (muzzleFlashPrefab != null && muzzleFlashPosition != null)
+        {
+            GameObject muzzleFlash = Instantiate(muzzleFlashPrefab, muzzleFlashPosition.position, muzzleFlashPosition.rotation);
+            Destroy(muzzleFlash, 0.1f);
+        }
+        // 반동 효과 적용
+        ApplyRebound();
     }
 
 
@@ -258,6 +345,7 @@ public class TotalWeapon : MonoBehaviour
 
             if (canReload)
             {
+
                 anim.SetTrigger("RELOAD");
                 StartCoroutine(ReloadCoroutine());
 
@@ -296,4 +384,13 @@ public class TotalWeapon : MonoBehaviour
             isRebound %= 3;            
         }        
     }
+
+    private IEnumerator EndAttack()
+    {
+        yield return new WaitForSeconds(1f); // 예를 들어 1초 뒤에 공격이 끝난다고 가정
+        isAttacking = false;
+    }
+
 }
+
+

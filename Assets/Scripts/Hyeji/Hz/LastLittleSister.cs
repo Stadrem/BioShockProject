@@ -73,6 +73,19 @@ public class LastLittleSister : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 빅대디 죽으면 회전시키는 로직도 중단
+        // 빅대디가 살아있고, 죽지 않은 경우에만 회전 및 이동처리를 해야함 (변경 0812, 0813)
+        if (bigDaddy2 != null & isDead)
+        {
+            return;
+        }
+        // 만약 빅대디 죽으면 바로 상태전환을 Stop으로
+        else
+        {
+            // 빅대디 죽으면 Stop 함수로 호출
+            ChangeState(SisterState.Stop);
+        }
+
 
         // 빅대디가 있는 방향으로 몸을 회전시킨다.
         Vector3 directionToBigDaddy = bigDaddy2.position - transform.position;
@@ -165,65 +178,21 @@ public class LastLittleSister : MonoBehaviour
                 }
             }
         }
-
-        //// 빅대디가 리틀시스터와 유지 거리 안에 있을 때,
-        //else
-        //{
-        //    anim.SetTrigger("Idle");
-
-        //    // 시간이 흐름
-        //    timer += Time.deltaTime;
-
-        //    // 무작위 위치로 이동
-        //    if (timer <= wanderTimer)
-        //    {
-        //        Vector3 dir = randomPos - transform.position;
-
-        //        if (dir.magnitude >= 1)
-        //        {
-        //            dir.Normalize();
-        //        }
-
-        //        // 이동하면서 회전하기
-        //        //Quaternion targetRotation = Quaternion.LookRotation(dir);
-        //        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-
-        //        timer = 0;
-        //    }
-        //    else
-        //    {
-        //        // 가만히 있지말기
-        //        Vector3 randomDirection = new Vector3(Random.Range(-randSection, randSection), 0, Random.Range(-randSection, randSection));
-        //        randomDirection += bigDaddy.position;
-
-        //        // 랜덤한 회전각 선언
-        //        float randAngle = Random.Range(-randRotate, randRotate);
-        //        Quaternion randomRotation = Quaternion.Euler(0, randAngle, 0);
-
-        //        randomPos = randomDirection;
-        //        timer = 0;
-
-        //        print("랜덤위치설정");
-
-        //        // 랜덤 위치 설정 후 즉시 회전 
-        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
-        //    }
-        //}
-
     }
     void Move()
     {
+        // 빅대디가 살아있고 죽지 않았다면
         if (bigDaddy2 != null && !isDead)
         {
             // 빅대디와의 현재 거리 계산
             float dist = Vector3.Distance(transform.position, bigDaddy2.position);
 
-            // 빅대디와의 거리 계산
+            // 빅대디와의 거리 계산해서 가까우면 대기
             if (dist <= followDistance)
             {
                 ChangeState(SisterState.Idle);
             }
-
+            // 만약 빅대디랑 거리가 멀어지면 따라가기
             else
             {
                 // 거리가 충분히 가까워지면 Idle 상태로 전환
@@ -239,8 +208,10 @@ public class LastLittleSister : MonoBehaviour
                 }
             }
         }
+        // 빅대디가 사라지고 죽었다면
         else
         {
+            // Stop 상태로 전환한다(울어)
             ChangeState(SisterState.Stop);
         }
 
@@ -316,18 +287,29 @@ public class LastLittleSister : MonoBehaviour
 
     void Stop()
     {
-        // agent가 존재하면
-        if (agent != null)
+        // 빅대디의 추적을 중단하고 
+        // 네비게이션 멈추고
+        // 애니메이션 stop
+
+        // 빅대디 죽었다
+        if(!isDead)
         {
-            // 이동 멈추기
-            agent.isStopped = true;
+            // 근데 에이전트가 존재하면
+            if (agent != null)
+            {
+                // 이동을 멈추기
+                agent.isStopped = true;
+                // 에이전트 경로를 초기화시킨다.
+                agent.ResetPath();
+            }
+            // anim 존재하면
+            if (anim != null)
+            {
+                // Stop 애니메이션 작동
+                anim.SetTrigger("Stop");
+            }
         }
-        // anim 존재하면
-        if (anim != null)
-        {
-            // Stop 애니메이션 작동
-            anim.SetTrigger("Stop");
-        }
+        
 
 
         // 이동 멈추고 SadAnimation 

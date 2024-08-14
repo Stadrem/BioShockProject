@@ -55,6 +55,8 @@ public class rosieBehavior : MonoBehaviour
     // 사운드 - 빅대디 죽음 상태
     public AudioClip dieSound;
 
+    bool isDie = false;
+
     public void ChangeState(BossBehavior.EnemyState s)
     {
         EnemyState _state = (EnemyState)s;
@@ -87,6 +89,14 @@ public class rosieBehavior : MonoBehaviour
 
     void Update()
     {
+        // 죽음 상태라면 빠져나가기
+        if(state == EnemyState.Die)
+        {
+            return;
+        }
+
+        
+
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -113,7 +123,13 @@ public class rosieBehavior : MonoBehaviour
 
     private void ChangeState(EnemyState newState)
     {
+
         if (state == newState) return;  // 동일한 상태로의 전환을 막음
+
+        if (isDie)
+        {
+            return;
+        }
 
         Debug.Log("Changing state from " + state + " to " + newState);
 
@@ -145,6 +161,7 @@ public class rosieBehavior : MonoBehaviour
                 break;
             case EnemyState.Die:
                 anim.SetTrigger("DIE");
+                isDie = true;
                 break;
         }
     }
@@ -156,7 +173,7 @@ public class rosieBehavior : MonoBehaviour
         //// 플레이어와의 거리 계산
         //float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
-        Debug.Log("distanceToPlayer: " + distanceToPlayer);
+        //Debug.Log("distanceToPlayer: " + distanceToPlayer);
         Debug.Log("detectionRange: " + detectionRange);
 
         // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작
@@ -219,9 +236,8 @@ public class rosieBehavior : MonoBehaviour
     }
 
     // 공격 상태 함수
-    void Attack()
+    public void Attack()
     {
-
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
         if (distanceToPlayer > attackDistance)
@@ -245,7 +261,7 @@ public class rosieBehavior : MonoBehaviour
             agent.isStopped = true;
             print("공격!");
             // 파티클
-            Particle();
+            //Particle();
             // 공격 수행
             AttackRay(player.position);
 
@@ -293,11 +309,14 @@ public class rosieBehavior : MonoBehaviour
 
     }
 
-    void AttackRay(Vector3 aimPos)
+    public void AttackRay(Vector3 aimPos)
     {
         // 플레이어가 있는 방향으로 ray를 발사한다.
         Ray ray = new Ray(firePos.transform.position, aimPos - firePos.transform.position);
         RaycastHit hit;
+
+        // 파티클
+        Particle();
 
         // Raycast 거리 설정
         float rayDistance = 20f;

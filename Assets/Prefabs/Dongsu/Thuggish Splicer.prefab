@@ -332,6 +332,7 @@ MonoBehaviour:
   dieSound: {fileID: 0}
   attackPass: 0
   bloodEffect: {fileID: 8151192206945363120}
+  damaging: 0
 --- !u!195 &3912056709781346275
 NavMeshAgent:
   m_ObjectHideFlags: 0

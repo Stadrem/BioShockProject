@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -123,9 +124,10 @@ public class BossBehavior : MonoBehaviour
     public float meleeAttackRange = 5f; // 근접 공격 거리
     public Transform rayOrigin; // 레이 오브젝트
 
-    public GameObject damageTriggerCube; 
+    public GameObject damageTriggerCube;
 
-
+    // 빅대디 죽었다
+    public bool isDying = false;
 
 
     void Start()
@@ -157,7 +159,16 @@ public class BossBehavior : MonoBehaviour
     }
 
     void Update()
-    {
+    {     
+        // 죽음 상태라면 빠져나가기
+        if (state == EnemyState.Die)
+        {
+            // 죽음만 활성화 
+            Die();
+            // 나머지 상태 비활성화
+            return;
+        }
+
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -213,7 +224,10 @@ public class BossBehavior : MonoBehaviour
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
                 break;
             case EnemyState.Die:
-                Die();
+                if(isDying == true)
+                {
+                    Die();
+                }       
                 break;
         }
     }
@@ -221,6 +235,12 @@ public class BossBehavior : MonoBehaviour
     // 상태 변경 함수
     public void ChangeState(EnemyState newState)
     {
+        // 죽음 상태에서는 다른 상태로 전환되지 않도록 막기
+        if (state == EnemyState.Die)
+        {
+            return;
+        }
+
         // 상태 변경 전에 플래그를 초기화합니다.
         if (newState != EnemyState.ShotAttack)
         {
@@ -581,6 +601,14 @@ public class BossBehavior : MonoBehaviour
 
     public void Die()
     {
+        // 사망 상태 이미 설정되었다면 리셋
+        if(!isDying)
+        {
+            return;
+        }
+
+        isDying = false;
+        print("죽었는지 확인");
         anim.SetTrigger("Die");
         // 소리한번 내고
         if (dieSound != null && audioSource != null)
