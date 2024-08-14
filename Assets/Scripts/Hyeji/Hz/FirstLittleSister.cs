@@ -98,7 +98,7 @@ public class FirstLittleSister : MonoBehaviour
 
         // 빅대디 죽으면 추적 다 중단
         // 빅대디가 살아있고 추적 상태일때
-        if (bigDaddy != null & !isDead)
+        if (bigDaddy != null && !isDead)
         //if (bigDaddy != null & !isDead && state == SisterState.Move)
         {
             // 빅대디의 위치로 간다

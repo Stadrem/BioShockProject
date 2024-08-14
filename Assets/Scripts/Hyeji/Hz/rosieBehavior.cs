@@ -56,6 +56,10 @@ public class rosieBehavior : MonoBehaviour
     public AudioClip dieSound;
 
     bool isDie = false;
+    public int angry;
+
+    // bool 값 변수
+    DieScript dieScript;
 
     public void ChangeState(BossBehavior.EnemyState s)
     {
@@ -83,14 +87,31 @@ public class rosieBehavior : MonoBehaviour
         lr.positionCount = 2;
         lr.enabled = false;
 
+        // DieScript 참조
+        dieScript = GetComponent<DieScript>();
+
         BossDamaged bossDamaged = GetComponent<BossDamaged>();
         bossDamaged.onChangeState = ChangeState;
     }
 
     void Update()
     {
+        if (angry >= 5)
+        {
+            // 피격 횟수에 따른 애니메이션 딜레이 적용
+            currTime += Time.deltaTime;
+            // 리셋시간보다 현재시간이 커지면
+            if (currTime > 7)
+            {
+                // 피격 횟수 초기화
+                angry = 0;
+                // 현재 시간 초기화
+                currTime = 0;
+            }
+        }
+
         // 죽음 상태라면 빠져나가기
-        if(state == EnemyState.Die)
+        if (state == EnemyState.Die)
         {
             return;
         }
@@ -157,11 +178,21 @@ public class rosieBehavior : MonoBehaviour
                 }
                 break;
             case EnemyState.Damaged:
-                anim.SetTrigger("DAMAGED");
+                if (angry <= 5)
+                {
+                    anim.SetTrigger("DAMAGED");
+                }
+                // 피격 증가 및 초기화
+                angry++;
+                print("앵그리확인");
                 break;
             case EnemyState.Die:
-                anim.SetTrigger("DIE");
-                isDie = true;
+                dieScript.die = true;
+                {
+                    anim.SetTrigger("DIE");
+                    isDie = true;
+                }
+                
                 break;
         }
     }
@@ -174,7 +205,7 @@ public class rosieBehavior : MonoBehaviour
         //float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
         //Debug.Log("distanceToPlayer: " + distanceToPlayer);
-        Debug.Log("detectionRange: " + detectionRange);
+        //Debug.Log("detectionRange: " + detectionRange);
 
         // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작
         if (distanceToPlayer <= detectionRange)

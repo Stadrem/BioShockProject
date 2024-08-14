@@ -129,6 +129,11 @@ public class BossBehavior : MonoBehaviour
     // 빅대디 죽었다
     public bool isDying = false;
 
+    // bool 값 변수
+    DieScript dieScript;
+
+    public int angry;
+
 
     void Start()
     {
@@ -156,6 +161,9 @@ public class BossBehavior : MonoBehaviour
             damageTriggerCube.SetActive(false);
         }
 
+        // DieScript 참조
+        dieScript = GetComponent<DieScript>();
+
     }
 
     void Update()
@@ -182,6 +190,20 @@ public class BossBehavior : MonoBehaviour
             //print(directionToPlayer);
             // 보간을 이용하여 속도 조절
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 1f);
+        }
+
+        if (angry >= 5)
+        {
+            // 피격 횟수에 따른 애니메이션 딜레이 적용
+            currTime += Time.deltaTime;
+            // 리셋시간보다 현재시간이 커지면
+            if (currTime > 7)
+            {
+                // 피격 횟수 초기화
+                angry = 0;
+                // 현재 시간 초기화
+                currTime = 0;
+            }
         }
 
         // 넉백 처리
@@ -222,6 +244,13 @@ public class BossBehavior : MonoBehaviour
                 break;
             case EnemyState.Damaged:
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
+                if (angry <= 5)
+                {
+                    anim.SetTrigger("Damage");
+                }
+                // 피격 증가 및 초기화
+                angry++;
+                print("앵그리확인");
                 break;
             case EnemyState.Die:
                 if(isDying == true)
@@ -297,7 +326,10 @@ public class BossBehavior : MonoBehaviour
                 anim.SetTrigger("Damage");
                 break;
             case EnemyState.Die:
+
+                dieScript.die = true;
                 {
+                    
                     agent.isStopped = true;
                     // 2초 후에 오브젝트를 제거시킨다.
                     StartCoroutine(RemoveAfterDelay(20f));
@@ -608,6 +640,7 @@ public class BossBehavior : MonoBehaviour
         }
 
         isDying = false;
+
         print("죽었는지 확인");
         anim.SetTrigger("Die");
         // 소리한번 내고

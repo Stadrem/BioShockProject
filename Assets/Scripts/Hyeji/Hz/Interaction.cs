@@ -12,10 +12,11 @@ public class Interaction : MonoBehaviour
     public Image interactionUI;
     public Text interactionMessage;
 
-    public GameObject destroyEffect;
-    
+    public GameObject destroyEffect;  
 
     Transform littleSister;
+    public GameObject bigDaddy;
+    DieScript dieScript;
 
     // 접근했는가?
     bool contact = false;
@@ -30,29 +31,37 @@ public class Interaction : MonoBehaviour
         interactionUI.gameObject.SetActive(false);
 
         ps = GetComponent<ParticleSystem>();
+
+        // 보스 사망 bool 스크립트 받아오기
+        dieScript = bigDaddy.GetComponent<DieScript>();
     }
 
     // Start is called before the first frame update
     void Update()
     {
-        // L누르고 접촉했을때
-        if (Input.GetKeyDown(KeyCode.L) && contact == true)
+        // 보스가 죽었을 때
+        if (dieScript.die == true)
         {
-            Collider sistercollider = littleSister.GetComponent<Collider>();
-            if (sistercollider != null)
+            // L누르고 접촉했을때
+            if (Input.GetKeyDown(KeyCode.L))
             {
+                //Collider sistercollider = littleSister.GetComponent<Collider>();
+                //if (sistercollider != null)
+                //{
+                //    Exit();
+                //    sistercollider.enabled = false;
+                //    //OnTriggerExit(sistercollider);
+                //}
                 Exit();
-                sistercollider.enabled = false;
-                //OnTriggerExit(sistercollider);
+                // 없어지면서 효과 나오게하기 (이펙트)
+                Instantiate(destroyEffect, transform.position, transform.rotation);
+                // 리틀 시스터 오브젝트 없애기
+                Destroy(gameObject);
+                //StartCoroutine(DestroyAfterDelay());
             }
 
-            // 없어지면서 효과 나오게하기 (이펙트)
-            Instantiate(destroyEffect, transform.position, transform.rotation);
-            // 리틀 시스터 오브젝트 없애기
-            Destroy(littleSister.gameObject);       
-            //StartCoroutine(DestroyAfterDelay());
-                   
         }
+      
     }
 
     private void OnTriggerEnter(Collider other)
