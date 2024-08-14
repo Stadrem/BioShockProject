@@ -91,7 +91,7 @@ public class ItemBoxRoot : MonoBehaviour
                     StartCoroutine(DollarGet());
                 }
                 //총알이면 3~10발
-                if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
+                else if (itemList[0] == 1 || itemList[0] == 2 || itemList[0] == 3)
                 {
                     tempNum = Random.Range(3, 11);
 

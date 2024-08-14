@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 2636031646217800567}
   - component: {fileID: 2914210434967949516}
   - component: {fileID: 6746350100599384795}
+  - component: {fileID: 5235854764303343414}
   m_Layer: 0
   m_Name: NewsPaperVendingMachine
   m_TagString: Untagged
@@ -575,6 +576,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5235854764303343414
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796773244691392422}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.023719536, y: 0.027310764, z: 0.061538223}
+  m_Center: {x: 0.0004264442, y: -0.0003260844, z: 0.030563274}
 --- !u!1 &7566403572318675969
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,8 +664,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.06, y: 3, z: 2.05}
-  m_Center: {x: 0, y: 1.48, z: 0}
+  m_Size: {x: 2.91, y: 3, z: 2.33}
+  m_Center: {x: 0, y: 1.48, z: -0.69}
 --- !u!1 &9000258185550276062
 GameObject:
   m_ObjectHideFlags: 0

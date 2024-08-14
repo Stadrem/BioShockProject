@@ -167,7 +167,7 @@ public class UiManager : MonoBehaviour
 
         dollarText.text = keepItems[5].ToString("D4");
 
-        //DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 3.0f);
+        DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 3.0f);
     }
 
     // Update is called once per frame
@@ -257,7 +257,7 @@ public class UiManager : MonoBehaviour
     {
         GameManager.instance.HP = i;
 
-        hpGauge.fillAmount = GameManager.instance.HP * 0.1f;
+        hpGauge.fillAmount = GameManager.instance.HP * 0.05f;
 
         if (hpGauge.fillAmount >= 1)
         {
