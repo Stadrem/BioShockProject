@@ -257,7 +257,7 @@ public class UiManager : MonoBehaviour
     {
         GameManager.instance.HP = i;
 
-        hpGauge.fillAmount = GameManager.instance.HP * 0.1f;
+        hpGauge.fillAmount = GameManager.instance.HP * 0.05f;
 
         if (hpGauge.fillAmount >= 1)
         {
