@@ -243,6 +243,7 @@ MonoBehaviour:
   meleeAttackRange: 5
   rayOrigin: {fileID: 6911014074829768596}
   damageTriggerCube: {fileID: 764835754225558913}
+  isDying: 0
 --- !u!114 &9053985175076835120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currHP: 0
+  angry: 2
+  currTime: 0
   ParitcleLight: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
     type: 3}
   damageSound: {fileID: 8300000, guid: 2837fa94dc9ce934ea5a2a439b0becd3, type: 3}

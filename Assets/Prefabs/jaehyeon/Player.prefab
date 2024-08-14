@@ -760,6 +760,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3539039149035074776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6110194615164281123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5034458839788293086}
+  m_Layer: 3
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5034458839788293086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110194615164281123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3291530061248337086}
+  - {fileID: 4913936357694684455}
+  - {fileID: 7613699149715872250}
+  - {fileID: 8427831728891912028}
+  - {fileID: 3666874161583407788}
+  - {fileID: 6940142835565385553}
+  - {fileID: 6151418165049331855}
+  m_Father: {fileID: 6518118739520742694}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6863778256595997507
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,14 +939,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4251059246349361491}
-  - {fileID: 3291530061248337086}
-  - {fileID: 4913936357694684455}
-  - {fileID: 7613699149715872250}
-  - {fileID: 8427831728891912028}
-  - {fileID: 3666874161583407788}
-  - {fileID: 6940142835565385553}
-  - {fileID: 6151418165049331855}
   - {fileID: 2415716530983171764}
+  - {fileID: 5034458839788293086}
   m_Father: {fileID: 3539039149035074776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2598122825357522587
@@ -1073,9 +1105,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7247657106461703067}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.206, y: 1.574, z: 0.845}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.203, y: 1.6, z: 0.84}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4913936357694684455}
@@ -1229,8 +1261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  gravity: -23
-  jumpPower: 5
+  gravity: -10
+  jumpPower: 2
   crouchSpeed: 2.5
   crouchHeight: 1
   standHeight: 2
@@ -1299,6 +1331,7 @@ MonoBehaviour:
   - {fileID: 4154722610708256790}
   - {fileID: 7717911438687768043}
   - {fileID: 6779582745553586741}
+  currentWeapon: {fileID: 0}
 --- !u!23 &5938549074237149450
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1512,8 +1545,8 @@ Transform:
   m_GameObject: {fileID: 8731241651210475096}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000014901161, y: -0.10222748, z: 0.05071477, w: 0.9934675}
-  m_LocalPosition: {x: 0.136, y: 1.627, z: 0.856}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.124, y: 1.774, z: 0.859}
+  m_LocalScale: {x: 1, y: 4.3150835, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7613699149715872250}
@@ -1801,8 +1834,13 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
+    - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
+      objectReference: {fileID: 0}
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1816,7 +1854,7 @@ PrefabInstance:
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.15
+      value: 0.14999993
       objectReference: {fileID: 0}
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
@@ -1826,17 +1864,17 @@ PrefabInstance:
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7143389830889888311, guid: 8265fd87ee6d81243b861243a8dd3a12,
         type: 3}
@@ -1912,12 +1950,13 @@ MonoBehaviour:
   needMag: 1
   weaponeIndex: 2
   Rebound: 1.5
-  muzzleFlashPrefab: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 3}
+  muzzleFlashPrefab: {fileID: 199458, guid: 7b6a7e40bd9ccc0489274923930761c7, type: 3}
   muzzleFlashPosition: {fileID: 3095646175598405367}
   isSwitching: 0
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  isAttacking: 0
   AttackSound: {fileID: 8300000, guid: 1bf6130e05d00214cac5c9efb5c6191c, type: 3}
   ReloadSound: {fileID: 8300000, guid: 71b3175d48bb7284e8164bccc56b81ef, type: 3}
 --- !u!82 &3939235403870249819
@@ -2028,12 +2067,17 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
     - target: {fileID: 3687976549038099519, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
       propertyPath: m_Name
       value: Wrench
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
       objectReference: {fileID: 0}
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
@@ -2048,7 +2092,7 @@ PrefabInstance:
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.15
+      value: 0.14999993
       objectReference: {fileID: 0}
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
@@ -2058,17 +2102,17 @@ PrefabInstance:
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4063798881120638597, guid: 254527ffce3831d4ea6ff5da76ce4bc8,
         type: 3}
@@ -2137,6 +2181,7 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  isAttacking: 0
   AttackSound: {fileID: 8300000, guid: 7e04eceba22f43b419161275b260bece, type: 3}
   ReloadSound: {fileID: 0}
 --- !u!82 &1516623236676350196
@@ -2352,7 +2397,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
     - target: {fileID: 26700664578665048, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
@@ -2361,8 +2406,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: 0.09999995
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
@@ -2372,7 +2422,7 @@ PrefabInstance:
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06
+      value: 0.05999992
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
@@ -2382,17 +2432,17 @@ PrefabInstance:
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: a620f39050a1cdc4192cd4d694a0e3f5,
         type: 3}
@@ -2487,6 +2537,7 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 1
   isShockandFire: 1
+  isAttacking: 0
   AttackSound: {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
   ReloadSound: {fileID: 0}
 --- !u!82 &2528586752166497620
@@ -2687,12 +2738,17 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
     - target: {fileID: 8347667896413302027, guid: 615786ca45538f14898e79b670297869,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347667896413302027, guid: 615786ca45538f14898e79b670297869,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8347667896413302027, guid: 615786ca45538f14898e79b670297869,
         type: 3}
@@ -2702,7 +2758,7 @@ PrefabInstance:
     - target: {fileID: 8347667896413302027, guid: 615786ca45538f14898e79b670297869,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.075
+      value: 0.07499998
       objectReference: {fileID: 0}
     - target: {fileID: 8347667896413302027, guid: 615786ca45538f14898e79b670297869,
         type: 3}
@@ -2796,7 +2852,7 @@ MonoBehaviour:
   effectPrefab: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
   fireEffect: {fileID: 0}
   attackRange: 50
-  damage: 5
+  damage: 3
   type: '?'
   AutoFire: 1
   fireRate: 1
@@ -2804,12 +2860,13 @@ MonoBehaviour:
   needMag: 1
   weaponeIndex: 1
   Rebound: 2
-  muzzleFlashPrefab: {fileID: 100002, guid: fc7f8379080d0a844ad699b91bfd56f0, type: 3}
+  muzzleFlashPrefab: {fileID: 199458, guid: 29d86feb88bf925428f9d7de6d4b401f, type: 3}
   muzzleFlashPosition: {fileID: 1095820598299391471}
   isSwitching: 0
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  isAttacking: 0
   AttackSound: {fileID: 8300000, guid: 0dc606de8d656e345b60c562790d068b, type: 3}
   ReloadSound: {fileID: 8300000, guid: 8b77372996b9bae4988753591d1588aa, type: 3}
 --- !u!82 &677420567002682445
@@ -2914,8 +2971,13 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
+    - target: {fileID: 2607837782985285619, guid: 8d617ecf686bfd94abd84d119f0cdd31,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
+      objectReference: {fileID: 0}
     - target: {fileID: 2607837782985285619, guid: 8d617ecf686bfd94abd84d119f0cdd31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2939,17 +3001,17 @@ PrefabInstance:
     - target: {fileID: 2607837782985285619, guid: 8d617ecf686bfd94abd84d119f0cdd31,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2607837782985285619, guid: 8d617ecf686bfd94abd84d119f0cdd31,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2607837782985285619, guid: 8d617ecf686bfd94abd84d119f0cdd31,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2607837782985285619, guid: 8d617ecf686bfd94abd84d119f0cdd31,
         type: 3}
@@ -3023,8 +3085,8 @@ MonoBehaviour:
   effectPrefab: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
   fireEffect: {fileID: 0}
   attackRange: 30
-  damage: 10
-  type: '?'
+  damage: 1
+  type: Shotgun
   AutoFire: 1
   fireRate: 1.3
   magazineSize: 30
@@ -3037,6 +3099,7 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 0
   isShockandFire: 0
+  isAttacking: 0
   AttackSound: {fileID: 8300000, guid: 17d8e1de36344514794335a30d403ff6, type: 3}
   ReloadSound: {fileID: 8300000, guid: bfa44e31b01af74459a1713764e1e432, type: 3}
 --- !u!82 &8099625193655816615
@@ -3141,12 +3204,17 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: 0.09999995
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
@@ -3156,7 +3224,7 @@ PrefabInstance:
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06
+      value: 0.05999992
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
@@ -3166,17 +3234,17 @@ PrefabInstance:
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: 1d27b521184d74d4db09543e7327f2cb,
         type: 3}
@@ -3242,7 +3310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1536
   throwdamMask:
     serializedVersion: 2
     m_Bits: 128
@@ -3359,12 +3427,17 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6518118739520742694}
+    m_TransformParent: {fileID: 5034458839788293086}
     m_Modifications:
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.1999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: 0.09999995
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
@@ -3374,7 +3447,7 @@ PrefabInstance:
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.06
+      value: 0.05999992
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
@@ -3384,17 +3457,17 @@ PrefabInstance:
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 249713238480681800, guid: ca3a0ad72fcbc8c4c8eaba7985e90f40,
         type: 3}
@@ -3465,7 +3538,7 @@ MonoBehaviour:
     type: 3}
   fireEffect: {fileID: 1949376083282614, guid: 4dd6c2b5539220947a0c5938f0a39d20, type: 3}
   attackRange: 70
-  damage: 2
+  damage: 1
   type: Fire
   AutoFire: 0
   fireRate: 1
@@ -3479,6 +3552,7 @@ MonoBehaviour:
   manaCost: 1
   isMagic: 1
   isShockandFire: 1
+  isAttacking: 0
   AttackSound: {fileID: 8300000, guid: 3a8e11adbf834c3448dbecf868cabb6d, type: 3}
   ReloadSound: {fileID: 0}
 --- !u!82 &7791610608694535217
