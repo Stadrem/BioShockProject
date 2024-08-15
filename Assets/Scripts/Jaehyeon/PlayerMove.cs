@@ -38,6 +38,11 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance.HP <= 0)
+        {
+
+            return;
+        }
         // 사용자의 입력을 받아서 방향을 만듦
         float h = Input.GetAxis("Horizontal"); // a = -1, d = 1, 눌르지 않으면 0
         float v = Input.GetAxis("Vertical"); // s = -1, w = 1, 눌르지 않으면 0
@@ -45,6 +50,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 dirH = transform.right * h;
         Vector3 dirV = transform.forward * v;
         Vector3 dir = dirH + dirV;
+
 
         if(dir.sqrMagnitude > 0)
         {
