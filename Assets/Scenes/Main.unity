@@ -4920,6 +4920,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 22.236
       objectReference: {fileID: 0}
+    - target: {fileID: -2367636915646711287, guid: 7912dcd9348ead54bb3ed3b846cde71c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.188
+      objectReference: {fileID: 0}
+    - target: {fileID: -2367636915646711287, guid: 7912dcd9348ead54bb3ed3b846cde71c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.196
+      objectReference: {fileID: 0}
     - target: {fileID: -2352153653463756960, guid: 7912dcd9348ead54bb3ed3b846cde71c,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -9129,6 +9139,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -125.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088688947297397964, guid: 7912dcd9348ead54bb3ed3b846cde71c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 23.63
       objectReference: {fileID: 0}
     - target: {fileID: 4095287925173179944, guid: 7912dcd9348ead54bb3ed3b846cde71c,
         type: 3}
@@ -31064,6 +31079,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2043047992}
+    - target: {fileID: 2720092532843931095, guid: 8a9e3e7f2deb30c4cb23df529b98f3d6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.49
+      objectReference: {fileID: 0}
     - target: {fileID: 2733863580564216405, guid: 8a9e3e7f2deb30c4cb23df529b98f3d6,
         type: 3}
       propertyPath: m_Mesh
@@ -32220,7 +32240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Version: 3
   m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
+  m_AdditionalLightsShadowResolutionTier: 0
   m_LightLayerMask: 1
   m_RenderingLayers: 1
   m_CustomShadowLayers: 0
@@ -32241,13 +32261,13 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.7646299, g: 1, b: 0.7327044, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.42
   m_Range: 7.13
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -34238,7 +34258,7 @@ PrefabInstance:
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.6
+      value: -16.98
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -34248,7 +34268,7 @@ PrefabInstance:
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.23
+      value: 7.3
       objectReference: {fileID: 0}
     - target: {fileID: 8220651588259639477, guid: f9c5b0971caede245afe5efe57ba31a6,
         type: 3}
@@ -39917,6 +39937,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1283683617}
+    - target: {fileID: 1755480202395051240, guid: 552a113a1a2f1af40a39e429b985a873,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.875
+      objectReference: {fileID: 0}
     - target: {fileID: 2569483519801549515, guid: 552a113a1a2f1af40a39e429b985a873,
         type: 3}
       propertyPath: m_Mesh
