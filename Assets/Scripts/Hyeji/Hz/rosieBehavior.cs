@@ -419,7 +419,7 @@ public class rosieBehavior : MonoBehaviour
         // 소리한번 내고
         if (damageSound != null && audioSource != null)
         {
-            audioSource.PlayOneShot(damageSound);
+            audioSource.PlayOneShot(damageSound, 0.5f);
             Debug.Log("Damage Sound");
         }
 

@@ -201,7 +201,7 @@ public class BossDamaged : MonoBehaviour
         MakeParticle();
         if (damageSound != null && audioSource != null)
         {
-            audioSource.PlayOneShot(damageSound);
+            audioSource.PlayOneShot(damageSound, 0.5f);
             Debug.Log($"{type} 타입의 데미지 발생");
         }
     }
