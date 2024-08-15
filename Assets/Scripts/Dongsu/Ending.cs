@@ -46,21 +46,13 @@ public class Ending : MonoBehaviour
     void EndingPack()
     {
         dolly.gameObject.SetActive(true);
-
         handToggle.SetActive(false);
-
         dolly.Priority = 10;
-
         StartCoroutine(BlackAnim());
-
         StartCoroutine(ObjDown());
-
         CartGo();
-
         EffectShow();
-
         UiOff();
-
         SoundManager.instance.EndWaterSound();
     }
 
