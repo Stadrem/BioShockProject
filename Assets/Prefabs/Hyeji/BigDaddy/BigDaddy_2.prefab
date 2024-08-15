@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676899ea918ee6b47b9f51caedb4eb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
+  maxHP: 2
   currHP: 0
   currTime: 0
   ParitcleLight: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,

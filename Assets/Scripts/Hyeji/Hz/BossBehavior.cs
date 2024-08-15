@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -134,6 +135,8 @@ public class BossBehavior : MonoBehaviour
 
     public int angry;
 
+    private BoxCollider boxCollider;
+
 
     void Start()
     {
@@ -163,6 +166,8 @@ public class BossBehavior : MonoBehaviour
 
         // DieScript 참조
         dieScript = GetComponent<DieScript>();
+
+        boxCollider = GetComponent<BoxCollider>();
 
     }
 
@@ -244,13 +249,7 @@ public class BossBehavior : MonoBehaviour
                 break;
             case EnemyState.Damaged:
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
-                if (angry <= 5)
-                {
-                    anim.SetTrigger("Damage");
-                }
-                // 피격 증가 및 초기화
-                angry++;
-                print("앵그리확인");
+                
                 break;
             case EnemyState.Die:
                 if(isDying == true)
@@ -323,16 +322,22 @@ public class BossBehavior : MonoBehaviour
             //    break;
             case EnemyState.Damaged:
                 agent.isStopped = true;
-                anim.SetTrigger("Damage");
+                if (angry <= 5)
+                {
+                    anim.SetTrigger("Damage");
+                }
+                // 피격 증가 및 초기화
+                angry++;
+                print("앵그리확인");
                 break;
             case EnemyState.Die:
 
                 dieScript.die = true;
                 {
-                    
                     agent.isStopped = true;
                     // 2초 후에 오브젝트를 제거시킨다.
-                    StartCoroutine(RemoveAfterDelay(20f));
+                    //StartCoroutine(RemoveAfterDelay(20f));
+                    boxCollider.enabled = false;
                     anim.SetTrigger("Die");
                 }
                 break;
@@ -653,11 +658,11 @@ public class BossBehavior : MonoBehaviour
 
     }
 
-    private IEnumerator RemoveAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Destroy(gameObject);
-    }
+    //private IEnumerator RemoveAfterDelay(float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    Destroy(gameObject);
+    //}
 
     // 파티클 라이징 생성 함수 (충돌 했을 때)
     public void ParticleMake()

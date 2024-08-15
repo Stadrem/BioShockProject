@@ -24,7 +24,7 @@ public class Interaction : MonoBehaviour
 
     private void Start()
     {
-        littleSister = GameObject.Find("LittleSister").transform;
+        littleSister = gameObject.transform;
         lManager = GameObject.Find("LManger").GetComponent<Canvas>();
 
         interactionMessage.gameObject.SetActive(false);
