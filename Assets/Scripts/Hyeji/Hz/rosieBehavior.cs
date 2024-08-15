@@ -189,6 +189,7 @@ public class rosieBehavior : MonoBehaviour
                 }
                 break;
             case EnemyState.Damaged:
+                agent.isStopped = true;
                 if (angry <= 5)
                 {
                     anim.SetTrigger("DAMAGED");

@@ -37,9 +37,7 @@ public class LastLittleSister : MonoBehaviour
     Animator anim;
     // Nav Mesh Agent
     NavMeshAgent agent;
-    // 로지 행동 스크립트
-    private rosieBehavior rosie;
-
+    DieScript dieScript;
 
     // Start is called before the first frame update
     void Start()
@@ -50,8 +48,10 @@ public class LastLittleSister : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         // 애니메이션 컨트롤러
         anim = GetComponentInChildren<Animator>();
-        // 빅대디 행동 스크립트 가져오기
-        rosie = GetComponent<rosieBehavior>();
+
+
+        //
+        dieScript = bigDaddy2.GetComponent<DieScript>();
 
         // 애니메이터가 존재한다면 idle 트리거 발생
         if (anim != null)
@@ -63,11 +63,11 @@ public class LastLittleSister : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //// 빅대디가 살아있고, 죽지 않은 경우에만 회전 및 이동처리를 해야함 (변경 0812, 0813)
-        //if (bigDaddy2 != null & !isDead)
-        //{
-        //    return;
-        //}
+        if(dieScript.die == true)
+        {
+            ChangeState(SisterState.Stop);
+        }
+
 
         if(isDead)
         {
@@ -183,26 +183,25 @@ public class LastLittleSister : MonoBehaviour
             {
                 ChangeState(SisterState.Idle);
             }
-            //// 만약 빅대디랑 거리가 멀어지면 따라가기
-            //else
-            //{
-            //    // 거리가 충분히 가까워지면 Idle 상태로 전환
-            //    if (state != SisterState.Move)
-            //    {
-            //        ChangeState(SisterState.Move);
+            // 만약 빅대디랑 거리가 멀어지면 따라가기
+            else
+            {
+                // 거리가 충분히 가까워지면 Idle 상태로 전환
+                if (state != SisterState.Move)
+                {
+                    ChangeState(SisterState.Move);
 
-            //        // Idle 애니메이션 트리거 설정
-            //        if (anim != null)
-            //        {
-            //            anim.SetTrigger("Move");
-            //        }
-            //    }
-            //}
+                    // Idle 애니메이션 트리거 설정
+                    if (anim != null)
+                    {
+                        anim.SetTrigger("Move");
+                    }
+                }
+            }
         }
         // 빅대디가 사라지고 죽었다면
-        else
+        if(dieScript.die == true)
         {
-            // Stop 상태로 전환한다(울어)
             ChangeState(SisterState.Stop);
         }
 

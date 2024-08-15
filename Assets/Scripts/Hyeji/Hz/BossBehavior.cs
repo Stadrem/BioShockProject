@@ -244,13 +244,7 @@ public class BossBehavior : MonoBehaviour
                 break;
             case EnemyState.Damaged:
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
-                if (angry <= 5)
-                {
-                    anim.SetTrigger("Damage");
-                }
-                // 피격 증가 및 초기화
-                angry++;
-                print("앵그리확인");
+                
                 break;
             case EnemyState.Die:
                 if(isDying == true)
@@ -323,7 +317,13 @@ public class BossBehavior : MonoBehaviour
             //    break;
             case EnemyState.Damaged:
                 agent.isStopped = true;
-                anim.SetTrigger("Damage");
+                if (angry <= 5)
+                {
+                    anim.SetTrigger("Damage");
+                }
+                // 피격 증가 및 초기화
+                angry++;
+                print("앵그리확인");
                 break;
             case EnemyState.Die:
 
