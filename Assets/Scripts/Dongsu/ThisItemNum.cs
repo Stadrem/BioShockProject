@@ -16,6 +16,10 @@ public class ThisItemNum : MonoBehaviour
 
     private void Start()
     {
+        if(itemNum == 2)
+        {
+            itemName += "* 10";
+        }
         originName.text = itemName;
         originPrice.text = price.ToString();
         originIcon.sprite = icon;

@@ -29,7 +29,7 @@ public class UiManager : MonoBehaviour
     public string[] nameList = new string[] { "렌치", "권총 일반탄", "기관총 일반탄", "산탄총 일반탄", "이브 주사기", "달러", "응급 치료 키트" };
 
     //0번 빈칸, 1번 권총탄, 2번 기관총, 3번 샷건, 4번 마나, 5번 달러, 6번 힐
-    int[] priceList = new int[] { 0, 2, 1, 5, 40, 1, 20 };
+    int[] priceList = new int[] { 0, 2, 5, 5, 40, 1, 20 };
 
     //스토어 리스트 담는 곳
     public GameObject[] storeList = new GameObject[] { };
