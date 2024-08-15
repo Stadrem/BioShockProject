@@ -78,7 +78,7 @@ public class BossDamaged : MonoBehaviour
     public void Damaged(int damage, string type)
     {
         
-
+        /*
         // 체력이 0 이하인지 확인
         if (currHP <= 0)
         {
@@ -88,6 +88,7 @@ public class BossDamaged : MonoBehaviour
             CheckIfDead();
             return;
         }
+        */
 
         
         //if (angry < 5)
@@ -111,16 +112,13 @@ public class BossDamaged : MonoBehaviour
                 PlayDamageEffect(type);
                 StartCoroutine(DamageStep(damage, 5, type));
                 break;
-            case "Ice":
-                PlayDamageEffect(type);
-                StartCoroutine(FreezeDamageStep(3, 3.0f));
-                break;
             default:
                 PlayDamageEffect(type);
                 StartCoroutine(DamageStep(damage, 1, type));
                 break;
         }
-        CheckIfDead();
+        
+        //CheckIfDead();
     }
     // 사망 유무 판단 함수
     private void CheckIfDead()
@@ -137,31 +135,6 @@ public class BossDamaged : MonoBehaviour
             onChangeState(BossBehavior.EnemyState.Damaged);
         }
     }
-    //  동결 상태
-    IEnumerator FreezeDamageStep(int damage, float freezeDuration)
-    {
-        currHP -= damage; //동결 상태에서 데미지 처리 (값은 필요에 따라 조정)
-        print("동결 상태");
-
-        // 동결 상태 적용
-        //bossBehavior.ChangeState(BossBehavior.EnemyState.Damaged);
-        onChangeState(BossBehavior.EnemyState.Damaged);
-
-        // 이동 멈춤
-        // 애니메이션 멈춤
-
-        yield return new WaitForSeconds(freezeDuration);
-
-        // 동결 상태 해제
-        // 이동 재시작
-        // 애니메이션 시작
-
-        // 대기 상태로 전환
-        //bossBehavior.ChangeState(BossBehavior.EnemyState.Idle);
-        onChangeState(BossBehavior.EnemyState.Idle);
-
-    }
-
     // 감전 상태
     IEnumerator StunDamageStep(int damage, float stunDuration)
     {
@@ -190,27 +163,22 @@ public class BossDamaged : MonoBehaviour
     IEnumerator DamageStep(int damage, int j, string type)
     {
         //bossBehavior.ChangeState(BossBehavior.EnemyState.Damaged);
-        onChangeState(BossBehavior.EnemyState.Damaged);
-
         {
             for (int i = 0; i < j; i++)
             {
-                // 근접 공격일 경우 피해량 2배 증가
-                if(type == "Melee")
-                {
-                    currHP -= damage * 2;
-                }
-                else
-                {
-                    // 아닐 시, 데미지 감소
-                    currHP -= damage;
-                }
+                // 아닐 시, 데미지 감소
+                currHP -= damage;
+
                 if (currHP <= 0)
                 {
                     //bossBehavior.ChangeState(BossBehavior.EnemyState.Die);
                     onChangeState(BossBehavior.EnemyState.Die);
 
                     yield break;
+                }
+                else
+                {
+                    onChangeState(BossBehavior.EnemyState.Damaged);
                 }
                 yield return new WaitForSeconds(0.5f);
             }
