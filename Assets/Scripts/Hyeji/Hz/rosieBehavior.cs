@@ -61,6 +61,8 @@ public class rosieBehavior : MonoBehaviour
     // bool 값 변수
     DieScript dieScript;
 
+    BossDamaged bossDamaged;
+
     public void ChangeState(BossBehavior.EnemyState s)
     {
         EnemyState _state = (EnemyState)s;
@@ -90,7 +92,7 @@ public class rosieBehavior : MonoBehaviour
         // DieScript 참조
         dieScript = GetComponent<DieScript>();
 
-        BossDamaged bossDamaged = GetComponent<BossDamaged>();
+        bossDamaged = GetComponent<BossDamaged>();
         bossDamaged.onChangeState = ChangeState;
     }
 
@@ -124,14 +126,23 @@ public class rosieBehavior : MonoBehaviour
         switch (state)
         {
             case EnemyState.Idle:
-                Idle(distanceToPlayer);
+                if(dieScript.die == false)
+                {
+                    Idle(distanceToPlayer);
+                }
                 break;
             case EnemyState.Move:
-                Move();
+                if (dieScript.die == false)
+                {
+                    Move();
+                }
                 //anim.SetTrigger("WALK");
                 break;
             case EnemyState.Attack:
-                Attack();
+                if (dieScript.die == false)
+                {
+                    Attack();
+                }
                 break;
             case EnemyState.Damaged:
                 // Damaged 상태에서 특정 행동을 취할 수 있다.
@@ -187,9 +198,9 @@ public class rosieBehavior : MonoBehaviour
                 print("앵그리확인");
                 break;
             case EnemyState.Die:
+                anim.SetTrigger("DIE");
                 dieScript.die = true;
                 {
-                    anim.SetTrigger("DIE");
                     isDie = true;
                 }
                 
