@@ -51,6 +51,9 @@ public class FirstLittleSister : MonoBehaviour
 
     DieScript dieScript;
 
+    AudioSource audioSource;
+    public AudioClip cryingSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +64,8 @@ public class FirstLittleSister : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         // 애니메이션 컨트롤러
         anim = GetComponentInChildren<Animator>();
-
+        // Audio
+        audioSource = GetComponent<AudioSource>();
         //
         dieScript = bigDaddy.GetComponent<DieScript>();
 

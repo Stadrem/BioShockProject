@@ -75,6 +75,7 @@ MonoBehaviour:
   followSpeed: 3
   rotateSpeed: 10
   followDistance: 3
+  cryingSound: {fileID: 8300000, guid: 8a5523faa4ce60546a8bf77e357b85b3, type: 3}
 --- !u!114 &1911902778954499992
 MonoBehaviour:
   m_ObjectHideFlags: 0
