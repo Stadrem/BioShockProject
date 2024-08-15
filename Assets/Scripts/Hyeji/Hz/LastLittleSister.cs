@@ -39,8 +39,6 @@ public class LastLittleSister : MonoBehaviour
     NavMeshAgent agent;
     DieScript dieScript;
 
-    AudioSource audioSource;
-    public AudioClip cryingSound;
 
     // Start is called before the first frame update
     void Start()
@@ -52,8 +50,6 @@ public class LastLittleSister : MonoBehaviour
         // 애니메이션 컨트롤러
         anim = GetComponentInChildren<Animator>();
 
-        // Audio
-        audioSource = GetComponent<AudioSource>();
         //
         dieScript = bigDaddy2.GetComponent<DieScript>();
 
@@ -144,7 +140,6 @@ public class LastLittleSister : MonoBehaviour
                     if (anim != null)
                     {
                         anim.SetTrigger("Stop");
-                        audioSource.PlayOneShot(cryingSound);
                         print("출력확인");
                     }
                     break;

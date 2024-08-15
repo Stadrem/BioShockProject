@@ -45,13 +45,6 @@ public class Interaction : MonoBehaviour
             // L누르고 접촉했을때
             if (Input.GetKeyDown(KeyCode.L))
             {
-                //Collider sistercollider = littleSister.GetComponent<Collider>();
-                //if (sistercollider != null)
-                //{
-                //    Exit();
-                //    sistercollider.enabled = false;
-                //    //OnTriggerExit(sistercollider);
-                //}
                 Exit();
                 // 없어지면서 효과 나오게하기 (이펙트)
                 Instantiate(destroyEffect, transform.position, transform.rotation);
@@ -66,17 +59,21 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 플레이어가 다가왔을때 발동
-        if(other.gameObject.CompareTag("Player"))
+        if(dieScript.die == true)
         {
-            print("가까워졌는가?");
+            // 플레이어가 다가왔을때 발동
+            if (other.gameObject.CompareTag("Player"))
+            {
+                print("가까워졌는가?");
 
-            contact = true;
-            //lManager.gameObject.SetActive(true);
+                contact = true;
+                //lManager.gameObject.SetActive(true);
 
-            interactionMessage.gameObject.SetActive(true);
-            interactionUI.gameObject.SetActive(true);
+                interactionMessage.gameObject.SetActive(true);
+                interactionUI.gameObject.SetActive(true);
+            }
         }
+        
 
     }
 
