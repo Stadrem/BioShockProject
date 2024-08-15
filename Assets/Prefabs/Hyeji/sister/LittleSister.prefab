@@ -82,7 +82,6 @@ MonoBehaviour:
   timer: 0
   randSection: 2
   randRotate: 1
-  cryingSound: {fileID: 8300000, guid: 8a5523faa4ce60546a8bf77e357b85b3, type: 3}
 --- !u!114 &2498506900053364803
 MonoBehaviour:
   m_ObjectHideFlags: 0
