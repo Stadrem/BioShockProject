@@ -17,6 +17,7 @@ public class Ending : MonoBehaviour
     public CinemachineDollyCart cart;
     float alpha = 0;
     public CinemachineVirtualCamera dolly;
+    Color color;
 
     // Update is called once per frame
     void Update()
@@ -26,7 +27,7 @@ public class Ending : MonoBehaviour
 
     private void Start()
     {
-        
+        color = blackOut.color;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,7 +54,8 @@ public class Ending : MonoBehaviour
     {
         while (true)
         {
-            blackOut.color = blackOut.color.WithAlpha(alpha);
+            color.a = alpha;
+            blackOut.color = color;
             alpha += 0.01f;
             yield return new WaitForSeconds(0.2f);
             if (alpha >= 1) break;
