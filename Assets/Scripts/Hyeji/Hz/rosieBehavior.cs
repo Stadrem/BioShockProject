@@ -63,6 +63,8 @@ public class rosieBehavior : MonoBehaviour
 
     BossDamaged bossDamaged;
 
+    private BoxCollider boxCollider;
+
     public void ChangeState(BossBehavior.EnemyState s)
     {
         EnemyState _state = (EnemyState)s;
@@ -94,6 +96,8 @@ public class rosieBehavior : MonoBehaviour
 
         bossDamaged = GetComponent<BossDamaged>();
         bossDamaged.onChangeState = ChangeState;
+
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     void Update()
@@ -199,7 +203,9 @@ public class rosieBehavior : MonoBehaviour
                 print("앵그리확인");
                 break;
             case EnemyState.Die:
+
                 anim.SetTrigger("DIE");
+                boxCollider.enabled = false;
                 dieScript.die = true;
                 {
                     isDie = true;
