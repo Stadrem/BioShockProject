@@ -57,7 +57,7 @@ public class AnimEvent : MonoBehaviour
 
     void IsDamagedEnd()
     {
-        enemyState.damaging = false;
+        //enemyState.damaging = false;
     }
 
     void IsTurn()

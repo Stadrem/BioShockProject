@@ -20,6 +20,10 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip healSound;
 
+    public AudioClip endWaterSoundA;
+
+    public AudioClip endWaterSoundB;
+
     private void Awake()
     {
         //instance 값이 null이면
@@ -82,5 +86,11 @@ public class SoundManager : MonoBehaviour
     public void HealSound()
     {
         PlaySound(healSound, 0.5f);
+    }
+
+    public void EndWaterSound()
+    {
+        PlaySound(endWaterSoundA, 0.5f);
+        PlaySound(endWaterSoundB, 0.5f);
     }
 }

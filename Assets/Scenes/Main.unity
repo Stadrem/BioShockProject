@@ -17613,6 +17613,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5222240631340912256, guid: 061e0819923978c40a484a6db04563d1,
+        type: 3}
+      propertyPath: time
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6434005820199271405, guid: 061e0819923978c40a484a6db04563d1,
         type: 3}
       propertyPath: m_Name
@@ -30809,7 +30814,7 @@ PrefabInstance:
     - target: {fileID: 5222240631340912256, guid: 061e0819923978c40a484a6db04563d1,
         type: 3}
       propertyPath: text
-      value: "\uBC14\uB85C \uC55E\uC5D0 \uC7A0\uC218\uC815\uC774 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uAD6C\uC6D0\uD55C
+      value: "\uD1B5\uB85C \uB05D\uC5D0 \uC7A0\uC218\uC815\uC774 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uAD6C\uC6D0\uD55C
         \uB9AC\uD2C0 \uC2DC\uC2A4\uD130\uB4E4\uACFC \uD568\uAED8 \uC774\uACF3\uC744
         \uD0C8\uCD9C\uD558\uC138\uC694."
       objectReference: {fileID: 0}
@@ -36811,6 +36816,11 @@ PrefabInstance:
       value: "\uC774\uACF3\uC5D0 \uBE45\uB300\uB514\uAC00 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uAC15\uB825\uD55C
         \uC6D0\uAC70\uB9AC \uACF5\uACA9\uC744 \uD558\uB2C8 \uBCBD\uACFC \uC5C4\uD3D0\uBB3C\uC744
         \uD65C\uC6A9\uD558\uC2DC\uAE38 \uBC14\uB78D\uB2C8\uB2E4."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222240631340912256, guid: 061e0819923978c40a484a6db04563d1,
+        type: 3}
+      propertyPath: time
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6434005820199271405, guid: 061e0819923978c40a484a6db04563d1,
         type: 3}

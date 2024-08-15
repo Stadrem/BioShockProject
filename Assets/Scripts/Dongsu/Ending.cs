@@ -22,7 +22,11 @@ public class Ending : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) { EndingPack(); }
+        if (Input.GetKeyDown(KeyCode.P)) 
+        {
+            UiManager.instance.Alret("디버깅 모드 엔딩 활성화");
+            EndingPack(); 
+        }
     }
 
     private void Start()
@@ -48,6 +52,7 @@ public class Ending : MonoBehaviour
         CartGo();
         EffectShow();
         UiOff();
+        SoundManager.instance.EndWaterSound();
     }
 
     IEnumerator BlackAnim()
