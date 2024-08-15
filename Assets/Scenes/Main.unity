@@ -24500,6 +24500,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1734838531129286456, guid: ac98463d056023a45bfc2b9a9ddc154c,
+        type: 3}
+      propertyPath: maxHP
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7481578861820693319, guid: ac98463d056023a45bfc2b9a9ddc154c,
         type: 3}
       propertyPath: m_Name
@@ -48012,7 +48017,7 @@ MonoBehaviour:
   m_OverrideTileSize: 1
   m_TileSize: 312
   m_OverrideVoxelSize: 1
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.13
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 812b29a888e90ca409386fac05aee646, type: 2}
   m_BuildHeightMesh: 0
