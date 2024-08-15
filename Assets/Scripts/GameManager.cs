@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     CharacterController cc;
     ObjRotate cameraRoater;
 
+    bool notDie = false;
+
     private void Awake()
     {
         //instance 값이 null이면
@@ -102,6 +104,11 @@ public class GameManager : MonoBehaviour
         {
             Camera.main.transform.localPosition = originalCameraLocalPosition + Random.insideUnitSphere * shakeAmount;
         }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            NotDie();
+        }
     }
 
     //여러번, 고정적으로 사용할 함수 생성
@@ -109,15 +116,24 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.instance.DamagedSound();
 
-        HP -= num;
-
-        if (HP > maxHP)
+        if(notDie == false)
         {
-            HP = maxHP;
-        }
-        UiManager.instance.HPRefresh(HP);
+            HP -= num;
 
+            if (HP > maxHP)
+            {
+                HP = maxHP;
+            }
+            UiManager.instance.HPRefresh(HP);
+        }
+        
         StartCoroutine(ShakeTime(num));
+    }
+
+    void NotDie()
+    {
+        notDie = !notDie;
+        UiManager.instance.Alret("디버깅 모드 무적 : " + notDie);
     }
 
     public void CameraShake(int num)

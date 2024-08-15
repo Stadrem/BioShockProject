@@ -180,6 +180,8 @@ MonoBehaviour:
   paySound: {fileID: 8300000, guid: f6ce6289074ae0444977853c3494b27c, type: 3}
   failSound: {fileID: 8300000, guid: 6d0c6347becd17d45a0c4df2bc084c68, type: 3}
   healSound: {fileID: 8300000, guid: a872dfc3f30897142b41b7920f846558, type: 3}
+  endWaterSoundA: {fileID: 8300000, guid: 7a7c3cbc41bc91e489e5387664469281, type: 3}
+  endWaterSoundB: {fileID: 8300000, guid: a2d789736c864f04fa820852f56a1d43, type: 3}
 --- !u!82 &3822702887171445769
 AudioSource:
   m_ObjectHideFlags: 0

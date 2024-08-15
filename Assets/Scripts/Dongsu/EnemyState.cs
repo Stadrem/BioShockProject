@@ -51,7 +51,7 @@ public class EnemyState : MonoBehaviour
 
     public ParticleSystem bloodEffect;
 
-    public bool damaging = false;
+    //public bool damaging = false;
 
     public enum State
     {
@@ -89,7 +89,7 @@ public class EnemyState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.isDie == true)
+        if (GameManager.instance.isDie == true)
         {
             ChangeState(EnemyState.State.Idle);
         }
@@ -118,7 +118,6 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Damaged:
-                print("데미지");
                 break;
 
             case State.Freeze:
@@ -151,7 +150,6 @@ public class EnemyState : MonoBehaviour
                 break;
 
             case State.Damaged:
-                print("데미지");
                 DamagedState();
                 break;
 
@@ -181,19 +179,19 @@ public class EnemyState : MonoBehaviour
 
     void DamagedState()
     {
-            damaging = true;
+        //damaging = true;
 
-            dieSound.Play(0);
+        dieSound.Play(0);
 
-            bloodEffect.Play();
+        bloodEffect.Play();
 
-            WaitStop();
+        WaitStop();
 
-            anim.SetTrigger("IsDamaged");
+        anim.SetTrigger("IsDamaged");
 
-            StartCoroutine(DeleyChase());
+        StartCoroutine(DeleyChase());
 
-            AlertNearbyEnemies();
+        AlertNearbyEnemies();
     }
 
     void FreezeState()
@@ -205,11 +203,14 @@ public class EnemyState : MonoBehaviour
 
     void ChaseState()
     {
-        if(damaged.HP <= 0)
+        //죽은 상태면 추격 리턴
+        if (damaged.HP <= 0)
         {
             return;
         }
-        if(firstHit == true)
+
+        //첫 피격 시 비명 지름
+        if (firstHit == true)
         {
             anim.SetTrigger("IsFirstDetect");
             StartCoroutine(Scream());
@@ -220,6 +221,7 @@ public class EnemyState : MonoBehaviour
             anim.SetBool("IsAttack", false);
             anim.SetBool("IsWalk", true);
 
+            //네비 메쉬 활성화 되어있으면 추격
             if (na.isActiveAndEnabled)
             {
                 na.SetDestination(GameManager.instance.player.transform.position);
@@ -237,7 +239,7 @@ public class EnemyState : MonoBehaviour
 
     void AttackState()
     {
-        if(CheckRay())
+        if (CheckRay())
         {
             WaitStop();
 
@@ -340,7 +342,7 @@ public class EnemyState : MonoBehaviour
         Vector3 lookPos = GameManager.instance.player.transform.position - transform.position;
 
         // Y축 회전을 방지
-        lookPos.y = 0; 
+        lookPos.y = 0;
 
         Quaternion rotation = Quaternion.LookRotation(lookPos);
 

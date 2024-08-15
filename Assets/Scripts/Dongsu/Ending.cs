@@ -17,16 +17,21 @@ public class Ending : MonoBehaviour
     public CinemachineDollyCart cart;
     float alpha = 0;
     public CinemachineVirtualCamera dolly;
+    Color color;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) { EndingPack(); }
+        if (Input.GetKeyDown(KeyCode.P)) 
+        {
+            UiManager.instance.Alret("디버깅 모드 엔딩 활성화");
+            EndingPack(); 
+        }
     }
 
     private void Start()
     {
-        
+        color = blackOut.color;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +45,7 @@ public class Ending : MonoBehaviour
 
     void EndingPack()
     {
+        dolly.gameObject.SetActive(true);
         handToggle.SetActive(false);
         dolly.Priority = 10;
         StartCoroutine(BlackAnim());
@@ -47,13 +53,15 @@ public class Ending : MonoBehaviour
         CartGo();
         EffectShow();
         UiOff();
+        SoundManager.instance.EndWaterSound();
     }
 
     IEnumerator BlackAnim()
     {
         while (true)
         {
-            blackOut.color = blackOut.color.WithAlpha(alpha);
+            color.a = alpha;
+            blackOut.color = color;
             alpha += 0.01f;
             yield return new WaitForSeconds(0.2f);
             if (alpha >= 1) break;

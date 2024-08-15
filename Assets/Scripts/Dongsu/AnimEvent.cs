@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using static EnemyAttack;
@@ -58,7 +57,7 @@ public class AnimEvent : MonoBehaviour
 
     void IsDamagedEnd()
     {
-        enemyState.damaging = false;
+        //enemyState.damaging = false;
     }
 
     void IsTurn()
