@@ -336,6 +336,12 @@ public class UiManager : MonoBehaviour
 
     public void UseMana()
     {
+        if(currentMana == 1)
+        {
+            Alret("사용 할 필요가 없습니다.");
+            return;
+        }
+
         if (keepItems[4] > 0)
         {
             keepItems[4] -= 1;
