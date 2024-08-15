@@ -165,7 +165,7 @@ public class UiManager : MonoBehaviour
 
         dollarText.text = keepItems[5].ToString("D4");
 
-        DialoguePopUp("이 지역에 리틀 시스터가 있습니다.\r\n\r\n리틀 시스터를 구원하려면 먼저 빅 대디를 처리해야합니다.", 3.0f);
+        Alret("수중 도시 랩쳐에 오신 것을 환영합니다.");
     }
 
     // Update is called once per frame
