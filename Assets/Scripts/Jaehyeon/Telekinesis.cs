@@ -160,6 +160,15 @@ public class Telekinesis : MonoBehaviour
 
                 grabbedObject = hit.transform;
 
+                if (grabbedObject.CompareTag("Bomb"))
+                {
+                    ObjectBomb bomb = grabbedObject.GetComponent<ObjectBomb>();
+                    if (bomb != null)
+                    {
+                        bomb.ActivateFuse();
+                    }
+                }
+
                 Collider col = grabbedObject.GetComponent<Collider>();
                 col.enabled = false;
 
