@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2498506900053364803}
   - component: {fileID: 3903806201442036290}
   - component: {fileID: 8044914176682695201}
+  - component: {fileID: 3828512225685598093}
   m_Layer: 16
   m_Name: LittleSister
   m_TagString: Untagged
@@ -146,6 +147,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4471986, y: 2, z: 1.3595338}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3828512225685598093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816433102372248764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca14abbee57978245903a4fd48a6846e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  die: 0
 --- !u!1001 &7654833572989553832
 PrefabInstance:
   m_ObjectHideFlags: 0
