@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 881.5, y: -2515}
+  m_AnchoredPosition: {x: 881.5, y: -2511}
   m_SizeDelta: {x: 656.5, y: 237.7}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &625960942
@@ -182,10 +182,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 46
+    m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 87
     m_Alignment: 5
     m_AlignByGeometry: 0
@@ -193,8 +193,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1.4
-  m_Text: "\uBA54\uD0C0\uBC84\uC2A4 \uC544\uCE74\uB370\uBBF8 3\uAE30\nTeam. \uD56B\uC2DD\uC2A4\n\uC720\uB2C8\uD2F0
-    : \uAE40\uB3D9\uC218, \uACF5\uD61C\uC9C0, \uBC15\uC7AC\uD604\nTA : \uC131\uC608\uB9B0"
+  m_Text: "\uBA54\uD0C0\uBC84\uC2A4 \uC544\uCE74\uB370\uBBF8 3\uAE30\nTeam. \uD56B\uC2DD\uC2A4\n\uD300\uC7A5
+    : \uAE40\uB3D9\uC218\n\uC720\uB2C8\uD2F0 : \uAE40\uB3D9\uC218, \uACF5\uD61C\uC9C0,
+    \uBC15\uC7AC\uD604\nTA : \uC131\uC608\uB9B0"
 --- !u!222 &625960943
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1178,8 +1179,9 @@ MonoBehaviour:
     : \uAE40\uB3D9\uC218\n\n\uC2DC\uC2A4\uD15C \uAC1C\uBC1C : \uAE40\uB3D9\uC218\n\n\uD50C\uB808\uC774\uC5B4
     \uC560\uB2C8\uBA54\uC774\uC158 : \uAE40\uB3D9\uC218\n\n\uBE45 \uB300\uB514 1,2
     \uAC1C\uBC1C : \uACF5\uD61C\uC9C0\n\n\uB9AC\uD2C0 \uC2DC\uC2A4\uD130 \uAC1C\uBC1C
-    : \uACF5\uD61C\uC9C0\n\n\uBC30\uACBD \uBAA8\uB378\uB9C1 : \uC131\uC608\uB9B0\n\n\uB77C\uC774\uD305
-    : \uC131\uC608\uB9B0\n\n\uD3EC\uC2A4\uD2B8 \uD504\uB85C\uC138\uC2F1 : \uC131\uC608\uB9B0"
+    : \uACF5\uD61C\uC9C0\n\n\uB808\uBCA8 \uB514\uC790\uC778 : \uC131\uC608\uB9B0\n\n\uBC30\uACBD
+    \uBAA8\uB378\uB9C1 : \uC131\uC608\uB9B0\n\n\uB77C\uC774\uD305 : \uC131\uC608\uB9B0\n\n\uD3EC\uC2A4\uD2B8
+    \uD504\uB85C\uC138\uC2F1 : \uC131\uC608\uB9B0"
 --- !u!222 &2132240508
 CanvasRenderer:
   m_ObjectHideFlags: 0
