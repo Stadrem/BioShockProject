@@ -94,12 +94,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2f8604918b1964ebb55bda2965481d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lManager: {fileID: 0}
-  interactionUI: {fileID: 0}
-  interactionMessage: {fileID: 0}
+  lManager: {fileID: 7157055510688858551, guid: 6aca9a2f5c4c05749b3b9ae4e6ea79da,
+    type: 3}
+  interactionUI: {fileID: 4019977400402603448, guid: cd2fa40a5fbbc1c42b6856c232c653fc,
+    type: 3}
+  interactionMessage: {fileID: 7094779587743684181, guid: 21ee6b64883ffb641a9d15af73d8e059,
+    type: 3}
   destroyEffect: {fileID: 1748139164946814, guid: 4f14e37b24a0f9c41a81220f59ae87f6,
     type: 3}
-  bigDaddy: {fileID: 0}
+  bigDaddy: {fileID: 5806527828087090339, guid: 716fcc4b6079ddd4e95f6bf118fc39f7,
+    type: 3}
 --- !u!54 &3903806201442036290
 Rigidbody:
   m_ObjectHideFlags: 0
