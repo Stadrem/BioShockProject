@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1169994144611931253}
   - component: {fileID: 1734838531129286456}
-  - component: {fileID: 4746667345489146551}
   - component: {fileID: 3478439917607029100}
   - component: {fileID: 4296953027257599219}
   - component: {fileID: 4086705819118576121}
@@ -82,25 +81,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676899ea918ee6b47b9f51caedb4eb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 50
+  maxHP: 100
   currHP: 0
+  angry: 2
   currTime: 0
   ParitcleLight: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
     type: 3}
   damageSound: {fileID: 8300000, guid: 40cad915ea28bb5429e9db67304a1765, type: 3}
---- !u!114 &4746667345489146551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7481578861820693319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca14abbee57978245903a4fd48a6846e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  die: 0
 --- !u!195 &3478439917607029100
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -240,9 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  lineDuration: 0.4
-  findDistance: 7
-  attackDistance: 9
+  lineDuration: 0.2
+  findDistance: 10
+  attackDistance: 15
   attackDelayTime: 3
   currTime: 0
   attackPower: 2
@@ -255,7 +242,6 @@ MonoBehaviour:
   AttackSound: {fileID: 8300000, guid: c88bf40797e07fe45a01e8f03d53ff73, type: 3}
   damageSound: {fileID: 8300000, guid: 40cad915ea28bb5429e9db67304a1765, type: 3}
   dieSound: {fileID: 8300000, guid: ea1c54a61f6c97345b32cd74f3bddd82, type: 3}
-  angry: 0
   detectionRange: 10
 --- !u!82 &3372280645663171381
 AudioSource:
@@ -269,7 +255,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -454,7 +440,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4863041996326090993}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 289744971208809886}
   m_SourcePrefab: {fileID: 100100000, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b, type: 3}
 --- !u!4 &5273935340371939977 stripped
 Transform:
@@ -462,6 +452,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7761636521032328779}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7455628485438577434 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7761636521032328779}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &289744971208809886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455628485438577434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec509a83dfa30941bd62aee6e237a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!4 &7799221043279282592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea7789f97bc83dc4cb1d3f4c7212aa8b,

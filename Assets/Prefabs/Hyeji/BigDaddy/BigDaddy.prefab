@@ -232,7 +232,7 @@ MonoBehaviour:
   isCharging: 0
   isMoving: 0
   knockbackDistance: 5
-  knockbackTime: 1
+  knockbackTime: 0.2
   isKnockback: 0
   knockbackDirection: {x: 0, y: 0, z: 0}
   knockbackStartTime: 0
@@ -245,7 +245,6 @@ MonoBehaviour:
   rayOrigin: {fileID: 6911014074829768596}
   damageTriggerCube: {fileID: 764835754225558913}
   isDying: 0
-  angry: 0
 --- !u!114 &9053985175076835120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676899ea918ee6b47b9f51caedb4eb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 1
+  maxHP: 100
   currHP: 0
   currTime: 0
   ParitcleLight: {fileID: 8771972552311404799, guid: bbf9e36a48d6c5648a13889afab076fd,
@@ -332,7 +331,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.7
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
