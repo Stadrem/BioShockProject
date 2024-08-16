@@ -114,13 +114,19 @@ public class ShopManager : MonoBehaviour
                     return;
                 }
             }
+            if(selectItem.itemNum == 2)
+            {
+                UiManager.instance.keepItems[selectItem.itemNum] += 10;
+            }
+            else
+            {
+                UiManager.instance.keepItems[selectItem.itemNum]++;
+            }
+            SoundManager.instance.PaySound();
 
             //돈은 충분한가?
             UiManager.instance.Alret(selectItem.itemName + "를 구매했습니다.");
 
-            UiManager.instance.keepItems[selectItem.itemNum]++;
-
-            SoundManager.instance.PaySound();
 
             //달러 갱신
             UiManager.instance.keepItems[5] -= selectItem.price;
