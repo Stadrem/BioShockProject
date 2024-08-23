@@ -5,11 +5,15 @@
 [![Video Label](http://img.youtube.com/vi/H6BhE-q13IA/0.jpg)](https://youtu.be/H6BhE-q13IA)
 
 메타버스 아카데미 3기
+
 2차 프로젝트 바이오쇼크 1 모작
+
 Team. 핫식스
 
 팀장 김동수
+
 유니티 김동수, 공혜지, 박재현
+
 TA 성예린
 
 제작 기간 : 2024.07.22 ~ 2024.08.16
@@ -17,4 +21,5 @@ TA 성예린
 제작툴: Unity URP, Blender
 
 모델링 데이터: Sketchfab
+
 애니메이션 데이터: Mixamo
