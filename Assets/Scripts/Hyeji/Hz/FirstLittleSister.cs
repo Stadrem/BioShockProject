@@ -18,25 +18,9 @@ public class FirstLittleSister : MonoBehaviour
 
     // 빅대디의 Transform
     Transform bigDaddy;
-    // 추적 속도
-    public float followSpeed = 5f;
-    // 회전 속도
-    public float rotateSpeed = 10f;
+
     // 유지 거리
     public float followDistance = 3f;
-    // 무작위 반경
-    public float wanderRadius = 7f;
-    // 무작위 타이머
-    public float wanderTimer = 3f;
-    // 무작위 이동을 위한 시간 간격
-    public float timer;
-    // 무작위 이동 범위
-    public float randSection = 2f;
-    // 무작위 회전 반경
-    public float randRotate = 1f;
-
-    Vector3 randomPos;
-    private Quaternion targetRotation;
 
     // 빅대디가 죽었는지?
     bool isDead = false;
@@ -51,9 +35,6 @@ public class FirstLittleSister : MonoBehaviour
 
     DieScript dieScript;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         // 빅대디의 transform 값 가져오기
@@ -73,7 +54,6 @@ public class FirstLittleSister : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (dieScript.die == true)
@@ -136,7 +116,6 @@ public class FirstLittleSister : MonoBehaviour
         if (state != newState)
         {
             // 상태 전환 로그
-            Debug.Log($"State changing from {state} to {newState}");
             state = newState;
             switch (state)
             {
@@ -245,27 +224,6 @@ public class FirstLittleSister : MonoBehaviour
                 anim.SetTrigger("Stop");
             }
         }
-
-        //// agent가 존재하면
-        //if (agent != null)
-        //{
-        //    // 이동 멈추기
-        //    agent.isStopped = true;
-        //}
-        //// anim 존재하면
-        //if (anim != null)
-        //{
-        //    // Stop 애니메이션 작동
-        //    anim.SetTrigger("Stop");
-        //}
-
-
-        // 이동 멈추고 SadAnimation 
-        // // 가만히 그 자리에 정지한다.
-        //agent.isStopped = true;
-        //anim.SetTrigger("Stop");
-
-        // 플레이어가 가까이 가서 커서를 가져갈시 구원 버튼 나오게
 
     }
 }

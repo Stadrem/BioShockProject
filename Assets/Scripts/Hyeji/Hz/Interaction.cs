@@ -36,7 +36,6 @@ public class Interaction : MonoBehaviour
         dieScript = bigDaddy.GetComponent<DieScript>();
     }
 
-    // Start is called before the first frame update
     void Update()
     {
         // 보스가 죽었을 때
@@ -50,7 +49,6 @@ public class Interaction : MonoBehaviour
                 Instantiate(destroyEffect, transform.position, transform.rotation);
                 // 리틀 시스터 오브젝트 없애기
                 Destroy(gameObject);
-                //StartCoroutine(DestroyAfterDelay());
             }
 
         }
@@ -64,7 +62,6 @@ public class Interaction : MonoBehaviour
             // 플레이어가 다가왔을때 발동
             if (other.gameObject.CompareTag("Player"))
             {
-                print("가까워졌는가?");
 
                 contact = true;
                 //lManager.gameObject.SetActive(true);
@@ -73,8 +70,6 @@ public class Interaction : MonoBehaviour
                 interactionUI.gameObject.SetActive(true);
             }
         }
-        
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -88,10 +83,7 @@ public class Interaction : MonoBehaviour
 
     void Exit()
     {
-        print("탈출했는가?");
-
         contact = false;
-        //gameObject.SetActive(false);
 
         interactionMessage.gameObject.SetActive(false);
         interactionUI.gameObject.SetActive(false);

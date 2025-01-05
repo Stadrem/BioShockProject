@@ -17,21 +17,11 @@ public class LastLittleSister : MonoBehaviour
 
     // 빅대디의 Transform 값 가져오기
     Transform bigDaddy2;
-    // 추적 속도
-    public float followSpeed = 5f;
-    // 회전 속도
-    public float rotateSpeed = 10f;
     // 유지 거리
     public float followDistance = 3f;
 
-    Vector3 randomPos;
-    private Quaternion targetRotation;
-
     // 빅대디가 죽었는지?
     bool isDead = false;
-
-    // 현재시간
-    float currTime;
 
     // Animator
     Animator anim;
@@ -40,7 +30,6 @@ public class LastLittleSister : MonoBehaviour
     DieScript dieScript;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         // 빅대디의 transform 값 가져오기
@@ -60,7 +49,6 @@ public class LastLittleSister : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(dieScript.die == true)
@@ -118,7 +106,6 @@ public class LastLittleSister : MonoBehaviour
         if (state != newState)
         {
             // 상태 전환 로그
-            Debug.Log($"State changing from {state} to {newState}");
             state = newState;
             switch (state)
             {
@@ -140,7 +127,6 @@ public class LastLittleSister : MonoBehaviour
                     if (anim != null)
                     {
                         anim.SetTrigger("Stop");
-                        print("출력확인");
                     }
                     break;
             }

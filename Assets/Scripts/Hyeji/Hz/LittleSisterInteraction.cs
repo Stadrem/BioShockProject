@@ -9,8 +9,6 @@ public class LittleSisterInteraction : MonoBehaviour
 {
     // 빅대디의 Transform
     Transform bigDaddy;
-    // 플레이어 Transform
-    //Transform player;
     // 리틀 시스터 Transform
     Transform littleSister;
 
@@ -31,7 +29,6 @@ public class LittleSisterInteraction : MonoBehaviour
     // 오디오 소스
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
     void Start()
     {
         //player = GameObject.Find("Player").transform;
@@ -57,7 +54,6 @@ public class LittleSisterInteraction : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         // 빅대디가 죽음 상태라면

@@ -15,7 +15,6 @@ public class rosieBehavior : MonoBehaviour
         Die
     }
 
-
     // 에너미의 상태 변수
     public EnemyState state;
     // Player 의 Transform
@@ -30,7 +29,6 @@ public class rosieBehavior : MonoBehaviour
     public float lineDuration = 0.2f;
 
     // 거리 및 공격 회전 
-    public float findDistance = 10f;
     public float attackDistance = 20f;
     public float attackDelayTime = 3f;
     public float currTime;
@@ -71,7 +69,6 @@ public class rosieBehavior : MonoBehaviour
         ChangeState(_state);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         // Animator
@@ -122,8 +119,6 @@ public class rosieBehavior : MonoBehaviour
             return;
         }
 
-        
-
         // 플레이어와의 거리 계산
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
@@ -159,15 +154,13 @@ public class rosieBehavior : MonoBehaviour
 
     private void ChangeState(EnemyState newState)
     {
-
-        if (state == newState) return;  // 동일한 상태로의 전환을 막음
+        // 동일한 상태로의 전환을 막음
+        if (state == newState) return;  
 
         if (isDie)
         {
             return;
         }
-
-        Debug.Log("Changing state from " + state + " to " + newState);
 
         state = newState;
 
@@ -189,7 +182,6 @@ public class rosieBehavior : MonoBehaviour
                 if (AttackSound != null && audioSource != null)
                 {
                     audioSource.PlayOneShot(AttackSound);
-                    Debug.Log("AttackSound");
                 }
                 break;
             case EnemyState.Damaged:
@@ -200,7 +192,6 @@ public class rosieBehavior : MonoBehaviour
                 }
                 // 피격 증가 및 초기화
                 angry++;
-                print("앵그리확인");
                 break;
             case EnemyState.Die:
 
@@ -209,8 +200,7 @@ public class rosieBehavior : MonoBehaviour
                 dieScript.die = true;
                 {
                     isDie = true;
-                }
-                
+                }           
                 break;
         }
     }
@@ -219,12 +209,6 @@ public class rosieBehavior : MonoBehaviour
     public float detectionRange = 15f;
     void Idle(float distanceToPlayer)
     {
-        //// 플레이어와의 거리 계산
-        //float distanceToPlayer = Vector3.Distance(player.position, transform.position);
-
-        //Debug.Log("distanceToPlayer: " + distanceToPlayer);
-        //Debug.Log("detectionRange: " + detectionRange);
-
         // 플레이어가 인식 범위 내로 들어왔을 때 추적 시작
         if (distanceToPlayer <= detectionRange)
         {
@@ -232,7 +216,6 @@ public class rosieBehavior : MonoBehaviour
             if (IdleSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(IdleSound);
-                Debug.Log("대기상태소리임");
             }
 
             ChangeState(EnemyState.Move);
@@ -243,8 +226,6 @@ public class rosieBehavior : MonoBehaviour
     // 이동 상태 함수
     void Move()
     {
-        print("움직이니?");
-
         float distanceToPlayer = Vector3.Distance(player.position, transform.position);
 
         if (distanceToPlayer <= attackDistance)
@@ -257,31 +238,16 @@ public class rosieBehavior : MonoBehaviour
             if (!audioSource.isPlaying && MoveSound != null && audioSource != null)
             {
                 audioSource.PlayOneShot(MoveSound);
-                Debug.Log("Move 소리 재생");
             }
 
-            agent.SetDestination(player.position); // 플레이어를 쫓아감
+            agent.SetDestination(player.position);
 
             // 애니메이션 중복 트리거 방지
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("WALK"))
             {
                 anim.SetTrigger("WALK");
-                Debug.Log("WALK 애니메이션 트리거");
             }
         }
-
-        //else
-        //{
-        //    // 소리한번 내고
-        //    if (MoveSound != null && audioSource != null)
-        //    {
-        //        audioSource.PlayOneShot(MoveSound);
-        //        Debug.Log("Move");
-        //    }
-
-        //    agent.SetDestination(player.position); // 플레이어를 쫓아감
-        //    anim.SetTrigger("WALK");
-        //}
     }
 
     // 공격 상태 함수
@@ -291,7 +257,8 @@ public class rosieBehavior : MonoBehaviour
 
         if (distanceToPlayer > attackDistance)
         {
-            ChangeState(EnemyState.Move); // 공격 범위에서 벗어나면 다시 추적
+            // 공격 범위에서 벗어나면 다시 추적
+            ChangeState(EnemyState.Move); 
             return;
         }
 
@@ -308,53 +275,12 @@ public class rosieBehavior : MonoBehaviour
         {
             // NavMesh 멈추고 공격하라.
             agent.isStopped = true;
-            print("공격!");
-            // 파티클
-            //Particle();
             // 공격 수행
             AttackRay(player.position);
 
-            currTime = 0; // 공격 타이머 초기화
+            // 공격 타이머 초기화
+            currTime = 0; 
         }
-
-
-        ///// 응ㅇㅇㅇㅇ
-
-        //// 플레이어를 바라보기
-        //Vector3 directionToPlayer = player.position - transform.position;
-        //Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-        //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3f);
-
-        //// 보스와 플레이어 거리
-        //float dist = Vector3.Distance(player.transform.position, transform.position);     
-        //if(dist < attackDistance)
-        //{
-        //    currTime += Time.deltaTime;
-        //    // 공격 지연 시간이 경과했을 때
-        //    if (currTime >= attackDelayTime)
-        //    {
-        //        // NavMesh 멈추고 공격하라.
-        //        agent.isStopped = true;
-        //        print("공격!");
-
-        //        // Raycast를 이용한 공격 패턴(원거리)
-        //        AttackRay(player.transform.position);
-
-        //        // 싱글톤으로 HP 관리
-        //        GameManager.instance.Damaged(attackPower);
-
-        //        // 현재 시간을 초기화 해준다
-        //        currTime = 0;
-        //    }
-        //    else
-        //    {
-        //        // 공격 중에도 플레이어를 추적하자
-        //        if (!agent.isStopped)
-        //        {
-        //            agent.SetDestination(player.position);
-        //        }
-        //    }
-        //}
 
     }
 
@@ -389,7 +315,6 @@ public class rosieBehavior : MonoBehaviour
         GameObject bulletLight = Instantiate(bulletLightFactory);
         // 파티클 라이징의 위치를 빅대디의 위치로 한다.
         bulletLight.transform.position = firePos.transform.position;
-        print("파티클나오나");
         // 파티클 시스템 컴포넌트 가져오기
         ParticleSystem ps = bulletLight.GetComponent<ParticleSystem>();
         // 컴포넌트 있으면 실행하게 하기
@@ -408,7 +333,8 @@ public class rosieBehavior : MonoBehaviour
         lr.SetPosition(1, end);
         lr.enabled = true;
 
-        yield return new WaitForSeconds(lineDuration); // 궤적을 일정 시간 동안 표시
+        // 궤적을 일정 시간 동안 표시
+        yield return new WaitForSeconds(lineDuration); 
 
         lr.enabled = false;
     }
@@ -420,7 +346,6 @@ public class rosieBehavior : MonoBehaviour
         if (damageSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(damageSound, 0.5f);
-            Debug.Log("Damage Sound");
         }
 
         // 보스 데미지드 함수 가져오기
@@ -434,11 +359,9 @@ public class rosieBehavior : MonoBehaviour
         if (dieSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(dieSound);
-            Debug.Log("Die Sound");
         }
 
         // 임시 오브젝트 비활성화
         gameObject.SetActive(false);
-        print("죽었다");
     }
 }

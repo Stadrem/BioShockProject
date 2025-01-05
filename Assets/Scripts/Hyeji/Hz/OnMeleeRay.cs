@@ -9,7 +9,6 @@ public class OnMeleeRay : MonoBehaviour
     // 오디오 소스
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
     void Start()
     {
         // bossBehavior 스크립트 참조
