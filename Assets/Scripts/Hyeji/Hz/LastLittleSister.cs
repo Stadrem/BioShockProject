@@ -20,9 +20,6 @@ public class LastLittleSister : MonoBehaviour
     // 유지 거리
     public float followDistance = 3f;
 
-    // 빅대디가 죽었는지?
-    bool isDead = false;
-
     // Animator
     Animator anim;
     // Nav Mesh Agent
@@ -39,7 +36,7 @@ public class LastLittleSister : MonoBehaviour
         // 애니메이션 컨트롤러
         anim = GetComponentInChildren<Animator>();
 
-        //
+        // 빅대디 죽음 판정 스크립트 참조
         dieScript = bigDaddy2.GetComponent<DieScript>();
 
         // 애니메이터가 존재한다면 idle 트리거 발생
@@ -57,7 +54,7 @@ public class LastLittleSister : MonoBehaviour
         }
 
 
-        if(isDead)
+        if(dieScript.die)
         {
             // 빅대디 죽었을 때 모든 행동 중지
             ChangeState(SisterState.Stop);
@@ -77,7 +74,7 @@ public class LastLittleSister : MonoBehaviour
 
 
         // 빅대디 죽으면 추적 다 중단
-        if (bigDaddy2 != null && !isDead)
+        if (bigDaddy2 != null && !dieScript.die)
         {
             agent.SetDestination(bigDaddy2.position);
         }
@@ -136,7 +133,7 @@ public class LastLittleSister : MonoBehaviour
     // 빅대디가 살아 있을경우, 이동 반경에 따른 대기 상태
     void Idle()
     {
-        if (bigDaddy2 != null && !isDead)
+        if (bigDaddy2 != null && !dieScript.die)
         {
             // 빅대디와의 거리 계산
             float dist = Vector3.Distance(transform.position, bigDaddy2.position);
@@ -160,7 +157,7 @@ public class LastLittleSister : MonoBehaviour
     void Move()
     {
         // 빅대디가 살아있고 죽지 않았다면
-        if (bigDaddy2 != null && !isDead)
+        if (bigDaddy2 != null && !dieScript.die)
         {
             // 빅대디와의 현재 거리 계산
             float dist = Vector3.Distance(transform.position, bigDaddy2.position);
@@ -201,7 +198,7 @@ public class LastLittleSister : MonoBehaviour
         // 애니메이션 stop
 
         // 빅대디 죽었다
-        if(isDead)
+        if(dieScript.die)
         {
             // 근데 에이전트가 존재하면
             if (agent != null)
